@@ -1,0 +1,59 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="CollabJam"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://ctvi2vq3sjkb0"
+
+[audio]
+
+buses/default_bus_layout="res://assets/assets-audio/audio_bus.tres"
+
+[autoload]
+
+GlobalMethods="*res://assets/assets-scr/Autoloads/GlobalMethods.gd"
+GlobalVars="*res://assets/assets-scr/Autoloads/GlobalVars.gd"
+SignalBus="*res://assets/assets-scr/Autoloads/SignalBus.gd"
+ProjectMusicController="*res://assets/assets-scr/Autoloads/AudioControl/project_music_controller.tscn"
+AppConfig="*res://assets/assets-scr/Autoloads/app_config.gd"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://main/": "blue",
+"res://wip/": "orange"
+}
+
+[input]
+
+up={
+"deadzone": 0.2,
+"events": []
+}
+down={
+"deadzone": 0.2,
+"events": []
+}
+left={
+"deadzone": 0.2,
+"events": []
+}
+right={
+"deadzone": 0.2,
+"events": []
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
