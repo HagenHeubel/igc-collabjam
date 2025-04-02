@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://r5t485lr3p7t"]
-
-[ext_resource type="Script" uid="uid://dqocxdno8p3pu" path="res://assets/assets-scr/Autoloads/AudioControl/SCRIPTS/music_controller.gd" id="1_o2ay7"]
-
-[node name="ProjectMusicController" type="Node"]
-process_mode = 3
-script = ExtResource("1_o2ay7")
