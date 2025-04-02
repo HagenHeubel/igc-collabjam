@@ -71,7 +71,7 @@ static func factorials_from(number) -> Array[float]:
 	var result: Array[float] = []
 
 	for i in range(number + 1):
-		result.append(MathWizard.factorial(i))
+		result.append(Math.factorial(i))
 
 	return result
 

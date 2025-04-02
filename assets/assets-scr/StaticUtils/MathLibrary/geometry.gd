@@ -1,4 +1,4 @@
-class_name Geometry
+class_name GeometryWizard
 extends RefCounted # geometry_wizard.gd
 
 static func random_inside_unit_circle(position: Vector2, radius: float = 1.0) -> Vector2:
