@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhlaobu3wtdby"]
+
+[ext_resource type="Texture2D" uid="uid://uxnlslitomld" path="res://assets/assets-visual/Icons/node_2D/icon_circle.png" id="1_gt0ek"]
+[ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="2_oth3g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oth3g"]
+size = Vector2(910, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qmnt2"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oth3g"]
+radius = 105.304
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oth3g"]
+friction = 0.22
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(547, 581)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_oth3g")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(-287.915, -11.909)
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-10, -509)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_oth3g")
+
+[node name="Polygon2D2" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(277.915, -497.091)
+rotation = 3.14159
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(457, -185)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_oth3g")
+
+[node name="Polygon2D3" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(445.091, 102.915)
+rotation = -1.5708
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-466, -201)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_oth3g")
+
+[node name="Polygon2D4" type="Polygon2D" parent="StaticBody2D"]
+position = Vector2(-454.091, -488.915)
+rotation = 1.5708
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(653, 317)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_qmnt2")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D"]
+texture_filter = 1
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("1_gt0ek")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(733, 357)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CircleShape2D_qmnt2")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D2"]
+texture_filter = 1
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("1_gt0ek")
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="."]
+position = Vector2(630, 237)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
+shape = SubResource("CircleShape2D_qmnt2")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D3"]
+texture_filter = 1
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("1_gt0ek")
+
+[node name="RigidBody2D_BIG" type="RigidBody2D" parent="."]
+position = Vector2(227, 230)
+mass = 10.0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D_BIG"]
+shape = SubResource("CircleShape2D_oth3g")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D_BIG"]
+texture_filter = 1
+scale = Vector2(14, 14)
+texture = ExtResource("1_gt0ek")
+
+[node name="RigidBody2D4" type="RigidBody2D" parent="."]
+position = Vector2(471, 337)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D4"]
+shape = SubResource("CircleShape2D_qmnt2")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D4"]
+texture_filter = 1
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("1_gt0ek")
+
+[node name="Cat" parent="." instance=ExtResource("2_oth3g")]
+position = Vector2(381, 388)
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_oth3g")
+lock_rotation = true
+linear_damp = 2.5
