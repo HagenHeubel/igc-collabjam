@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CollabJam"
-run/main_scene="uid://dx6nv1611f5dj"
+run/main_scene="uid://dal58gejkw8dh"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://ddfawsjewlk8y"
 
@@ -38,6 +38,8 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/
 folder_colors={
 "res://assets/": "red",
 "res://main/": "blue",
+"res://main/GameTemplate/scenes/game_scene/": "green",
+"res://main/GameTemplate/scenes/menus/main_menu/": "green",
 "res://wip/": "orange"
 }
 
