@@ -93,8 +93,8 @@ func roll_dice(num_dice:int = 1, num_sides:int = 6, modifier:int = 0) -> int:
 func force_roll(forced_result: int, fake_count: int, fake_sides: int, real_modifier: int = 0) -> int:
 	var result: int = forced_result + real_modifier
 	print("Rolling ", fake_count, "d", fake_sides, " + ", real_modifier)
-	return result
 	print("Result: ", result, " But to be fair we cheated")
+	return result
 
 # Roll one or more dice with advantage or disadvantage (if advantage is not true rolls are disadvantaged).
 # Returns the highest (advantage) or lowest (disadvantage) value of all rolls.
