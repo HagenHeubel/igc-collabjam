@@ -28,3 +28,60 @@ static func delta_lerp_color(a: Color, b: Color, exp_decay_val: float, delta: fl
 	a.b = delta_lerp(a.b, b.b, exp_decay_val, delta)
 	a.a = delta_lerp(a.a, b.a, exp_decay_val, delta)
 	return a
+
+static func b_spline_from_points(points: Array, num_samples: int, degree: int) -> Array:
+	if points.size() < degree + 1:
+		push_error("Not enough points for the given degree!")
+		return []
+		
+	var n = points.size() - 1
+	var m = n + degree + 1  # highest index for the knot vector
+	var knot_vector = []
+	
+	# Create a uniform knot vector.
+	# For a uniform B-spline, we can simply use an increasing sequence.
+	for i in range(m + 1):
+		knot_vector.append(float(i))
+	
+	# Parameter t ranges from knot_vector[degree] to knot_vector[m - degree].
+	var t_start = knot_vector[degree]
+	var t_end = knot_vector[m - degree]
+	
+	var result = []
+	for i in range(num_samples):
+		var t = lerp(t_start, t_end, float(i) / float(num_samples - 1))
+		var pt = de_boor(points, degree, t, knot_vector)
+		result.append(pt)
+	return result
+
+static func de_boor(points: Array, degree: int, t: float, knot_vector: Array) -> Vector2:
+	var n = points.size() - 1
+	var m = knot_vector.size() - 1
+
+	# Find the knot span index k such that knot_vector[k] <= t < knot_vector[k+1].
+	# Special case: when t equals the last knot value, set k accordingly.
+	var k = degree  # default assignment in case t is at the start
+	for i in range(degree, m - degree):
+		if t >= knot_vector[i] and t < knot_vector[i + 1]:
+			k = i
+			break
+	if is_equal_approx(t, knot_vector[m - degree]):
+		k = m - degree - 1
+
+	# Initialize the de Boor points.
+	# d[j] corresponds to control point P[k-degree+j] for j = 0,...,degree.
+	var d = []
+	for j in range(degree + 1):
+		d.append(points[k - degree + j])
+	
+	# Perform the de Boor recursion.
+	for r in range(1, degree + 1):
+		for j in range(degree, r - 1, -1):
+			var i = k - degree + j
+			var denom = knot_vector[i + degree + 1 - r] - knot_vector[i]
+			var alpha = 0.0
+			if not is_equal_approx(denom, 0.0):
+				alpha = (t - knot_vector[i]) / denom
+			# Linear interpolation between d[j-1] and d[j].
+			d[j] = lerp(d[j - 1],d[j], alpha)
+	return d[degree]
