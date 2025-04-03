@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://dx6nv1611f5dj"]
+
+[ext_resource type="PackedScene" uid="uid://c3w5x38cbwl1k" path="res://wip/wip-staging/mechanics-prototype/cat.tscn" id="1_p8tyb"]
+[ext_resource type="PackedScene" uid="uid://dh0j2y350om1w" path="res://wip/wip-staging/mechanics-prototype/example_interactable_object.tscn" id="2_5vv24"]
+[ext_resource type="Script" uid="uid://cvno0jykd4wxr" path="res://wip/wip-staging/mechanics-prototype/projectile_spawner.gd" id="3_e4rgi"]
+[ext_resource type="PackedScene" uid="uid://ejpoluwgxm4k" path="res://wip/wip-staging/mechanics-prototype/projectile.tscn" id="4_vv080"]
+[ext_resource type="Texture2D" uid="uid://dvey6mcwxydmy" path="res://assets/assets-visual/Icons/color/icon_weapon.png" id="5_2f81w"]
+[ext_resource type="PackedScene" uid="uid://ulf3blf5upv1" path="res://wip/wip-staging/mechanics-prototype/breakable_object.tscn" id="6_b62do"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vv24"]
+size = Vector2(384, 40)
+
+[node name="PrototypeLevel" type="Node2D"]
+
+[node name="Cat" parent="." instance=ExtResource("1_p8tyb")]
+position = Vector2(448, 336)
+DOUBLE_JUMP_COUNT = 2
+
+[node name="Camera2D" type="Camera2D" parent="Cat"]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="DebugFloor" type="StaticBody2D" parent="Environment"]
+position = Vector2(1, 608)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="DebugFloor2" type="StaticBody2D" parent="Environment"]
+position = Vector2(384, 608)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor2"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor2"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="DebugFloor3" type="StaticBody2D" parent="Environment"]
+position = Vector2(760, 608)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor3"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor3"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="DebugFloor4" type="StaticBody2D" parent="Environment"]
+position = Vector2(1143, 608)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor4"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor4"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="DebugFloor5" type="StaticBody2D" parent="Environment"]
+position = Vector2(40, 224)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor5"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor5"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="DebugFloor6" type="StaticBody2D" parent="Environment"]
+position = Vector2(1152, 224)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/DebugFloor6"]
+offset_left = -1.0
+offset_right = 383.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DebugFloor6"]
+position = Vector2(191, 20)
+shape = SubResource("RectangleShape2D_5vv24")
+
+[node name="ExampleInteractableObject" parent="." instance=ExtResource("2_5vv24")]
+position = Vector2(872, 600)
+
+[node name="ExampleInteractableObject3" parent="." instance=ExtResource("2_5vv24")]
+position = Vector2(944, 600)
+
+[node name="ExampleInteractableObject2" parent="." instance=ExtResource("2_5vv24")]
+position = Vector2(688, 600)
+
+[node name="ProjectileSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("world_node")]
+position = Vector2(184, 560)
+script = ExtResource("3_e4rgi")
+world_node = NodePath("..")
+projectile_scene = ExtResource("4_vv080")
+lifetime = 60.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ProjectileSpawner"]
+texture_filter = 1
+texture = ExtResource("5_2f81w")
+
+[node name="BreakableObject" parent="." instance=ExtResource("6_b62do")]
+position = Vector2(656, 448)
