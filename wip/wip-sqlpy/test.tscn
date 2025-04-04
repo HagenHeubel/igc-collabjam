@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdepnecknw6xy"]
+
+[ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
+[ext_resource type="Script" uid="uid://4pgcju0iet1t" path="res://wip/wip-sqlpy/rigid_body_2d.gd" id="2_2ca42"]
+[ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://wip/wip-sqlpy/Attachments/falls_down_shelves.gd" id="3_lg24v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8emrc"]
+friction = 0.07
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8emrc"]
+size = Vector2(631, 8)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ca42"]
+rough = true
+bounce = 0.4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lg24v"]
+radius = 18.2483
+
+[node name="Test" type="Node2D"]
+
+[node name="Cat" parent="." instance=ExtResource("1_8emrc")]
+position = Vector2(439, 267)
+physics_material_override = SubResource("PhysicsMaterial_8emrc")
+gravity_scale = 2.971
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="RigidBody2D" type="StaticBody2D" parent="Floors"]
+position = Vector2(435, 303)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D2" type="StaticBody2D" parent="Floors"]
+position = Vector2(435, 351)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D2"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D3" type="StaticBody2D" parent="Floors"]
+position = Vector2(435, 398)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D3"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D4" type="StaticBody2D" parent="Floors"]
+position = Vector2(306, 635)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D4"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D5" type="StaticBody2D" parent="Floors"]
+position = Vector2(814, 637)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D5"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D6" type="StaticBody2D" parent="Floors"]
+position = Vector2(435, 457)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D6"]
+shape = SubResource("RectangleShape2D_8emrc")
+one_way_collision = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(562, 272)
+physics_material_override = SubResource("PhysicsMaterial_2ca42")
+script = ExtResource("2_2ca42")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_lg24v")
+
+[node name="Node" type="Node" parent="RigidBody2D"]
+script = ExtResource("3_lg24v")
+rotation_required = 20.0
