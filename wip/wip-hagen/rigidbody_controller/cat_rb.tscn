@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://xvme4orw3dne"]
+
+[ext_resource type="Script" uid="uid://bfkotuoyyfe4u" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.gd" id="1_nywrp"]
+[ext_resource type="Texture2D" uid="uid://bghu2u0cvlnl2" path="res://assets/assets-visual/Icons/node/icon_character.png" id="2_eryia"]
+[ext_resource type="PackedScene" uid="uid://c34la6povo1a6" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.tscn" id="3_do52s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv080"]
+size = Vector2(16.5, 16)
+
+[node name="Cat" type="RigidBody2D"]
+mass = 13.769
+gravity_scale = 8.0
+center_of_mass_mode = 1
+script = ExtResource("1_nywrp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.431373, 1, 1, 1)
+texture_filter = 1
+position = Vector2(0, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("2_eryia")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_vv080")
+
+[node name="InteractionDetector" parent="." instance=ExtResource("3_do52s")]
+position = Vector2(0, -43)
