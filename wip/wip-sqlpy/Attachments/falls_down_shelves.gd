@@ -20,10 +20,9 @@ var falling : bool = false
 
 func _ready() -> void:
 	parent = get_parent()
-	if not (parent is RigidBody2D):
-		push_error("FallsDownShelves must be a child of a RigidBody2D!")
-		return
-	# Store initial values
+	parent.contact_monitor = true
+	if parent.max_contacts_reported < 5:
+		parent.max_contacts_reported = 5
 	start_rotation = parent.global_rotation
 	start_x = parent.global_position.x
 	start_y = parent.global_position.y
