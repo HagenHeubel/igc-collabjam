@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdepnecknw6xy"]
+[gd_scene load_steps=12 format=3 uid="uid://bdepnecknw6xy"]
 
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-sqlpy/room_controller.gd" id="1_8rhle"]
-[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-sqlpy/RoomBlueprint.tscn" id="3_c7i8a"]
 [ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://wip/wip-sqlpy/Attachments/falls_down_shelves.gd" id="3_lg24v"]
+[ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/rooms/RoomLeftUp.tscn" id="4_7u8o0"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-sqlpy/CameraScript.gd" id="4_8rhle"]
+[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-sqlpy/rooms/RoomLeftRight.tscn" id="5_8rhle"]
+[ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/rooms/RoomLeftDown.tscn" id="6_dfg4j"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8emrc"]
 friction = 0.07
@@ -24,11 +26,36 @@ radius = 12.0416
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_8rhle")
 
+[node name="Tower" type="Node2D" parent="."]
+position = Vector2(-1152, 0)
+
+[node name="Floor0" type="Node2D" parent="Tower"]
+
+[node name="RoomLeftRight" parent="Tower/Floor0" node_paths=PackedStringArray("left_room") instance=ExtResource("5_8rhle")]
+position = Vector2(1152, 0)
+start_room = true
+left_room = NodePath("../RoomLeftDown")
+
+[node name="RoomLeftDown" parent="Tower/Floor0" node_paths=PackedStringArray("right_room", "down_room") instance=ExtResource("6_dfg4j")]
+right_room = NodePath("../RoomLeftRight")
+down_room = NodePath("../../Floor1/RoomLeftUp")
+
+[node name="Floor1" type="Node2D" parent="Tower"]
+position = Vector2(0, 648)
+
+[node name="RoomLeftUp" parent="Tower/Floor1" node_paths=PackedStringArray("right_room", "up_room") instance=ExtResource("4_7u8o0")]
+right_room = NodePath("../RoomLeftRight")
+up_room = NodePath("../../Floor0/RoomLeftDown")
+
+[node name="RoomLeftRight" parent="Tower/Floor1" node_paths=PackedStringArray("left_room") instance=ExtResource("5_8rhle")]
+position = Vector2(1152, 0)
+left_room = NodePath("../RoomLeftUp")
+
 [node name="Cat" parent="." instance=ExtResource("1_8emrc")]
 position = Vector2(439, 267)
-collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_8emrc")
 gravity_scale = 2.971
+continuous_cd = 2
 
 [node name="Floors" type="Node2D" parent="."]
 
@@ -81,19 +108,6 @@ shape = SubResource("CircleShape2D_lg24v")
 script = ExtResource("3_lg24v")
 rotation_required = 20.0
 
-[node name="RoomBlueprint" parent="." node_paths=PackedStringArray("previous_room", "next_room") instance=ExtResource("3_c7i8a")]
-previous_room = NodePath("../RoomBlueprint3")
-next_room = NodePath("../RoomBlueprint2")
-start_room = true
-
-[node name="RoomBlueprint2" parent="." node_paths=PackedStringArray("previous_room") instance=ExtResource("3_c7i8a")]
-position = Vector2(1152, 0)
-previous_room = NodePath("../RoomBlueprint")
-
-[node name="RoomBlueprint3" parent="." node_paths=PackedStringArray("next_room") instance=ExtResource("3_c7i8a")]
-position = Vector2(-1152, 0)
-next_room = NodePath("../RoomBlueprint")
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(572, 321)
+position = Vector2(587, 319)
 script = ExtResource("4_8rhle")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8m7pvpwpp660"]
 
-[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-sqlpy/room_blueprint.gd" id="1_dj0kg"]
-[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-sqlpy/roomDoor.gd" id="2_yi1sg"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-sqlpy/room_blueprint.gd" id="1_ja5ey"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-sqlpy/roomDoor.gd" id="2_v6htv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yioe4"]
 size = Vector2(1160, 8)
@@ -12,8 +12,8 @@ size = Vector2(8, 556)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yi1sg"]
 size = Vector2(32, 92)
 
-[node name="RoomBlueprint" type="Node2D"]
-script = ExtResource("1_dj0kg")
+[node name="RoomLeftRight" type="Node2D"]
+script = ExtResource("1_ja5ey")
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -43,21 +43,25 @@ position = Vector2(1152, 274)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
 shape = SubResource("RectangleShape2D_dj0kg")
 
-[node name="PrevRoomDoor" type="Area2D" parent="."]
-position = Vector2(-2, 598)
-script = ExtResource("2_yi1sg")
+[node name="LeftRoomDoor" type="Area2D" parent="."]
+position = Vector2(-16, 598)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("2_v6htv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PrevRoomDoor"]
-position = Vector2(-14, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftRoomDoor"]
 shape = SubResource("RectangleShape2D_yi1sg")
 debug_color = Color(0, 0.649083, 0.157916, 0.42)
 
-[node name="NextRoomDoor" type="Area2D" parent="."]
-position = Vector2(1154, 598)
-script = ExtResource("2_yi1sg")
+[node name="RightRoomDoor" type="Area2D" parent="."]
+position = Vector2(1168, 598)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("2_v6htv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextRoomDoor"]
-position = Vector2(14, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightRoomDoor"]
 shape = SubResource("RectangleShape2D_yi1sg")
 debug_color = Color(0, 0.649083, 0.157916, 0.42)
 
