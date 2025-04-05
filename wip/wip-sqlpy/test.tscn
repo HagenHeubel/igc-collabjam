@@ -230,7 +230,6 @@ shape = SubResource("CircleShape2D_lg24v")
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D"]
 script = ExtResource("8_a5hi8")
 force_required = 520
-output_debug_collision_force = true
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D"]

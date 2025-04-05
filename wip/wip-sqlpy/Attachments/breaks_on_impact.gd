@@ -31,4 +31,6 @@ func _process(delta: float) -> void:
 		if subtract_gravity:
 			collision_force += ProjectSettings.get_setting("physics/2d/default_gravity") * parent.mass * parent.gravity_scale * Vector2.UP * 0.02
 		if collision_force.length() > force_required:
+			if output_debug_collision_force:
+				print(collision_force)
 			break_triggered.emit(collision_force)
