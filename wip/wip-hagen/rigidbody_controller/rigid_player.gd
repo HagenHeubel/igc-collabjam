@@ -20,6 +20,7 @@ var is_wall_left :bool=false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalVars.player = self
 	if !visual_component:
 		push_error("No visual component assigned in player script ", self)
 	if !interaction_detect:
@@ -42,8 +43,6 @@ func _process(delta: float) -> void:
 	elif force.x > 0.1:
 		visual_component.scale.x = 4.0
 	apply_force(force*14000)
-	
-	print(linear_velocity)
 	
 	if on_floor and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP*5000.0)

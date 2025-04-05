@@ -27,6 +27,8 @@ a = Vector2(0, -4)
 b = Vector2(0, 4)
 
 [node name="Cat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "visual_component")]
+collision_layer = 4
+collision_mask = 3
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
@@ -63,15 +65,6 @@ script = ExtResource("3_nywrp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector"]
 position = Vector2(29, 16)
 shape = SubResource("CircleShape2D_8hcsg")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -193)
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_top_margin = 0.5
-drag_bottom_margin = 0.1
 
 [node name="GroundDetection" type="Area2D" parent="."]
 collision_layer = 0
