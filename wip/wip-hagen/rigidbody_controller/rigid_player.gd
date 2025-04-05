@@ -9,6 +9,7 @@ signal died()
 @export var visual_component :Node2D
 @export_group("Stats")
 @export var HEALTH_MAX: int = 9
+@export var move_force :float= 14000.0
 
 var health = HEALTH_MAX
 var respawn_position = global_position
@@ -32,18 +33,26 @@ func _process(delta: float) -> void:
 	force.x = Input.get_axis("left", "right")
 	if (on_floor_count==0):
 		force.x *= 0.5
-	if (on_wall_count>0) and (on_floor_count==0):
-		gravity_scale = default_gravity_scale * 0.2
-	else:
-		gravity_scale = default_gravity_scale
+		if (on_wall_count>0): #slow down gravity while hanging on wall
+			gravity_scale = default_gravity_scale * 0.2
+		else: #reset gravity while airborne and not on wall
+			gravity_scale = default_gravity_scale
+	else: #tune down gravity on floor (largely to avoid sliding down slopes)
+		gravity_scale = default_gravity_scale# * (1-(abs(rotation)/(PI*0.25)))
+		print(rotation)
 	
 	if force.x < -0.1:
 		visual_component.scale.x = -4.0
 	elif force.x > 0.1:
 		visual_component.scale.x = 4.0
-	apply_force(force*14000)
+	#print("force before rotation: ", force)
+	#force.y = get_gravity().y *-1
+	#print(get_gravity())
+	force.x *= move_force
+	#force = force.rotated(rotation) 
+	print("force after rotation: ", force)
+	apply_force(force)
 	
-	print(linear_velocity)
 	
 	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP*5000.0)

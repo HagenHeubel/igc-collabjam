@@ -27,12 +27,12 @@ a = Vector2(0, -4)
 b = Vector2(0, 4)
 
 [node name="Cat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "visual_component")]
-mass = 3.0
+mass = 3.1
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
-lock_rotation = true
 linear_damp = 2.8
+angular_damp = 10.0
 script = ExtResource("1_nywrp")
 interaction_detect = NodePath("InteractionDetector")
 visual_component = NodePath("Sprite2D")

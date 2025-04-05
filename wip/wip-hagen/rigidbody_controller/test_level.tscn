@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhlaobu3wtdby"]
+[gd_scene load_steps=7 format=3 uid="uid://bhlaobu3wtdby"]
 
 [ext_resource type="Texture2D" uid="uid://uxnlslitomld" path="res://assets/assets-visual/Icons/node_2D/icon_circle.png" id="1_gt0ek"]
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="2_oth3g"]
@@ -11,6 +11,9 @@ radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oth3g"]
 radius = 105.304
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oth3g"]
+bounce = 0.8
 
 [node name="TestLevel" type="Node2D"]
 
@@ -155,7 +158,7 @@ polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.54
 uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(1397, 274)
+position = Vector2(1334, 251)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
@@ -179,7 +182,7 @@ scale = Vector2(2.4375, 2.4375)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="."]
-position = Vector2(733, 357)
+position = Vector2(822, 393)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
@@ -191,7 +194,9 @@ scale = Vector2(2.4375, 2.4375)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D3" type="RigidBody2D" parent="."]
-position = Vector2(1598, 268)
+position = Vector2(1679, 248)
+disable_mode = 1
+sleeping = true
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
@@ -229,50 +234,62 @@ texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D5" type="RigidBody2D" parent="."]
 position = Vector2(1079, -14)
+mass = 1.3
+physics_material_override = SubResource("PhysicsMaterial_oth3g")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D5"]
 shape = SubResource("CircleShape2D_qmnt2")
 
 [node name="IconCircle" type="Sprite2D" parent="RigidBody2D5"]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-scale = Vector2(2.4375, 2.4375)
+scale = Vector2(3, 3)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D6" type="RigidBody2D" parent="."]
-position = Vector2(1178, -59)
+position = Vector2(1278, -34)
+mass = 1.3
+physics_material_override = SubResource("PhysicsMaterial_oth3g")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D6"]
 shape = SubResource("CircleShape2D_qmnt2")
 
 [node name="IconCircle" type="Sprite2D" parent="RigidBody2D6"]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-scale = Vector2(2.4375, 2.4375)
+scale = Vector2(3, 3)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D7" type="RigidBody2D" parent="."]
-position = Vector2(1106, -100)
+position = Vector2(973, 16)
+mass = 1.3
+physics_material_override = SubResource("PhysicsMaterial_oth3g")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D7"]
 shape = SubResource("CircleShape2D_qmnt2")
 
 [node name="IconCircle" type="Sprite2D" parent="RigidBody2D7"]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-scale = Vector2(2.4375, 2.4375)
+scale = Vector2(3, 3)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D8" type="RigidBody2D" parent="."]
-position = Vector2(1211, -127)
+position = Vector2(1196, -113)
+mass = 1.3
+physics_material_override = SubResource("PhysicsMaterial_oth3g")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D8"]
 shape = SubResource("CircleShape2D_qmnt2")
 
 [node name="IconCircle" type="Sprite2D" parent="RigidBody2D8"]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-scale = Vector2(2.4375, 2.4375)
+scale = Vector2(3, 3)
 texture = ExtResource("1_gt0ek")
 
 [node name="Cat" parent="." instance=ExtResource("2_oth3g")]
