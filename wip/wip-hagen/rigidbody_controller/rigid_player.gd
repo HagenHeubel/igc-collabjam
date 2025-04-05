@@ -14,8 +14,8 @@ var health = HEALTH_MAX
 var respawn_position = global_position
 
 var default_gravity_scale :float = self.gravity_scale
-var on_floor :bool=false
-var on_wall :bool=false
+var on_floor_count :int=false
+var on_wall_count :int=false
 var is_wall_left :bool=false
 
 # Called when the node enters the scene tree for the first time.
@@ -30,9 +30,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var force :Vector2 = Vector2.ZERO
 	force.x = Input.get_axis("left", "right")
-	if !on_floor:
+	if (on_floor_count==0):
 		force.x *= 0.5
-	if on_wall and !on_floor:
+	if (on_wall_count>0) and (on_floor_count==0):
 		gravity_scale = default_gravity_scale * 0.2
 	else:
 		gravity_scale = default_gravity_scale
@@ -45,9 +45,9 @@ func _process(delta: float) -> void:
 	
 	print(linear_velocity)
 	
-	if on_floor and Input.is_action_just_pressed("jump"):
+	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP*5000.0)
-	elif on_wall and Input.is_action_just_pressed("jump"):
+	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
 		if Input.is_action_pressed("right") and is_wall_left: #TODO should be checking for input instead
 			apply_impulse(Vector2.UP*3000.0)
 		if Input.is_action_pressed("left") and !is_wall_left: #TODO should be checking for input instead
@@ -84,18 +84,18 @@ func die() -> void:
 
 func _on_ground_detection_body_entered(body: Node2D) -> void:
 	if !(body is RigidPlayer2D):
-		on_floor = true
+		on_floor_count += 1
 func _on_ground_detection_body_exited(body: Node2D) -> void:
 	if !(body is RigidPlayer2D):
-		on_floor = false
+		on_floor_count -= 1
 
 func _on_wall_detection_body_entered(body: Node2D) -> void:
 	if !(body is RigidPlayer2D):
-		on_wall = true
+		on_wall_count += 1
 		if (global_position.x - body.global_position.x) > 0.0:
 			is_wall_left = false
 		else:
 			is_wall_left = true
 func _on_wall_detection_body_exited(body: Node2D) -> void:
 	if !(body is RigidPlayer2D):
-		on_wall = false
+		on_wall_count -= 1
