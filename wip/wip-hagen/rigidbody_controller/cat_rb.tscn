@@ -5,11 +5,7 @@
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.gd" id="3_nywrp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
-friction = 0.5
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hcsg"]
-radius = 4.5
-height = 13.0
+friction = 0.8
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hcsg"]
 radius = 35.65
@@ -26,16 +22,52 @@ b = Vector2(0, 4)
 a = Vector2(0, -4)
 b = Vector2(0, 4)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hcsg"]
+radius = 4.5
+height = 13.0
+
 [node name="Cat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "visual_component")]
 mass = 3.1
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
-linear_damp = 2.8
-angular_damp = 10.0
+linear_damp = 3.0
+angular_damp = 15.0
 script = ExtResource("1_nywrp")
-interaction_detect = NodePath("InteractionDetector")
+interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 visual_component = NodePath("Sprite2D")
+move_force = 18000.0
+
+[node name="DetectionAreas" type="Node2D" parent="."]
+
+[node name="InteractionDetector" type="Area2D" parent="DetectionAreas"]
+position = Vector2(0, -43)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("3_nywrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/InteractionDetector"]
+position = Vector2(29, 16)
+shape = SubResource("CircleShape2D_8hcsg")
+
+[node name="GroundDetection" type="Area2D" parent="DetectionAreas"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/GroundDetection"]
+position = Vector2(0, 2)
+shape = SubResource("SegmentShape2D_nywrp")
+
+[node name="WallDetection" type="Area2D" parent="DetectionAreas"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/WallDetection"]
+position = Vector2(36, -18)
+shape = SubResource("SegmentShape2D_8hcsg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DetectionAreas/WallDetection"]
+position = Vector2(-36, -18)
+shape = SubResource("SegmentShape2D_n7wpv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.431373, 1, 1, 1)
@@ -53,17 +85,6 @@ rotation = -1.57079
 scale = Vector2(4, 4)
 shape = SubResource("CapsuleShape2D_8hcsg")
 
-[node name="InteractionDetector" type="Area2D" parent="."]
-position = Vector2(0, -43)
-collision_layer = 0
-collision_mask = 8
-monitorable = false
-script = ExtResource("3_nywrp")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector"]
-position = Vector2(29, 16)
-shape = SubResource("CircleShape2D_8hcsg")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -193)
 position_smoothing_enabled = true
@@ -73,25 +94,22 @@ drag_vertical_enabled = true
 drag_top_margin = 0.5
 drag_bottom_margin = 0.1
 
-[node name="GroundDetection" type="Area2D" parent="."]
-collision_layer = 0
+[node name="GroundDetectLeft" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-35, -1)
+target_position = Vector2(0, 20)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetection"]
-position = Vector2(0, 2)
-shape = SubResource("SegmentShape2D_nywrp")
+[node name="GroundDetectMiddle" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -1)
+target_position = Vector2(0, 20)
 
-[node name="WallDetection" type="Area2D" parent="."]
-collision_layer = 0
+[node name="GroundDetectRight" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(35, -1)
+target_position = Vector2(0, 20)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetection"]
-position = Vector2(36, -18)
-shape = SubResource("SegmentShape2D_8hcsg")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallDetection"]
-position = Vector2(-36, -18)
-shape = SubResource("SegmentShape2D_n7wpv")
-
-[connection signal="body_entered" from="GroundDetection" to="." method="_on_ground_detection_body_entered"]
-[connection signal="body_exited" from="GroundDetection" to="." method="_on_ground_detection_body_exited"]
-[connection signal="body_entered" from="WallDetection" to="." method="_on_wall_detection_body_entered"]
-[connection signal="body_exited" from="WallDetection" to="." method="_on_wall_detection_body_exited"]
+[connection signal="body_entered" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_entered"]
+[connection signal="body_exited" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_exited"]
+[connection signal="body_entered" from="DetectionAreas/WallDetection" to="." method="_on_wall_detection_body_entered"]
+[connection signal="body_exited" from="DetectionAreas/WallDetection" to="." method="_on_wall_detection_body_exited"]
