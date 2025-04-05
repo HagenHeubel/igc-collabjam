@@ -29,6 +29,13 @@ static func delta_lerp_color(a: Color, b: Color, exp_decay_val: float, delta: fl
 	a.a = delta_lerp(a.a, b.a, exp_decay_val, delta)
 	return a
 
+
+static func clamp_point_to_rect(point: Vector2, rect: Rect2) -> Vector2:
+	var clamped_x = clamp(point.x, rect.position.x, rect.position.x + rect.size.x)
+	var clamped_y = clamp(point.y, rect.position.y, rect.position.y + rect.size.y)
+	return Vector2(clamped_x, clamped_y)
+
+
 static func b_spline_from_points(points: Array, num_samples: int, degree: int) -> Array:
 	if points.size() < degree + 1:
 		push_error("Not enough points for the given degree!")
