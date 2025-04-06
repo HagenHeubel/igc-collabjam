@@ -42,6 +42,18 @@ scale = Vector2(1.7109, 1.21127)
 polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
 uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
 
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-275, 28)
+rotation = 0.785397
+shape = SubResource("RectangleShape2D_oth3g")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionShape2D13"]
+position = Vector2(-287.915, -11.909)
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(1127, -132)
 shape = SubResource("RectangleShape2D_oth3g")
@@ -146,13 +158,25 @@ polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.54
 uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-466, -201)
+position = Vector2(4, -554)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_oth3g")
+metadata/_edit_group_ = true
 
-[node name="Polygon2D4" type="Polygon2D" parent="StaticBody2D"]
-position = Vector2(-454.091, -488.915)
+[node name="Polygon2D4" type="Polygon2D" parent="StaticBody2D/CollisionShape2D4"]
+position = Vector2(-287.915, -11.908)
+scale = Vector2(1.7109, 1.21127)
+polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
+uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-595, -417)
 rotation = 1.5708
+shape = SubResource("RectangleShape2D_oth3g")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D4" type="Polygon2D" parent="StaticBody2D/CollisionShape2D14"]
+position = Vector2(-287.915, -11.908)
 scale = Vector2(1.7109, 1.21127)
 polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.5465, -97.6593, 26.5)
 uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
@@ -208,7 +232,7 @@ scale = Vector2(2.4375, 2.4375)
 texture = ExtResource("1_gt0ek")
 
 [node name="RigidBody2D_BIG" type="RigidBody2D" parent="."]
-position = Vector2(227, 230)
+position = Vector2(925, 220)
 mass = 10.0
 metadata/_edit_group_ = true
 

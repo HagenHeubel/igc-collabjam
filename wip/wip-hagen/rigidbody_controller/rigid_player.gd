@@ -28,16 +28,37 @@ var on_wall_count :int=false
 var is_wall_left :bool=false
 var neutral_force :Vector2
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
+	GlobalVars.player = self
+	
+	#push errrors if exported references haven't been assigned
 	if !visual_component:
 		push_error("No visual component assigned in player script ", self)
 	if !interaction_detect:
 		push_error("No interaction detector assigned in player script ", self)
+	
+	#calculate gravity-neutralizing constant force 
 	neutral_force = Vector2(0.0,gravity*default_gravity_scale*-3.1)
+	#neutral force negated becomes gravity, necessary for later rotation
 	constant_force = neutral_force + neutral_force*-1
+	#change degrees to radians for more efficient code
 	slope_angle_max = deg_to_rad(slope_angle_max)
 
+
+func _integrate_forces(state: PhysicsDirectBodyState2D):
+	on_floor_count = 0
+	on_wall_count = 0
+	var floor_detected:bool=false
+	var wall_detected:bool=false
+	for i in range(state.get_contact_count()): 
+		if abs(state.get_contact_local_normal(i).angle_to(Vector2.UP)) <= (slope_angle_max*1.2):
+			floor_detected = true
+			on_floor_count += 1
+		else:
+			wall_detected = true
+			on_wall_count += 1
+	on_floor_count = floor_detected
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -51,7 +72,7 @@ func _physics_process(delta: float) -> void:
 		constant_force = neutral_force + neutral_force*-1
 		force.x *= 0.7
 		if (on_wall_count>0): #slow down gravity while hanging on wall
-			gravity_scale = default_gravity_scale * 0.1
+			gravity_scale = default_gravity_scale * 0.3
 		else: #reset gravity while airborne and not on wall
 			gravity_scale = default_gravity_scale
 	else: #tune down gravity on floor (largely to avoid sliding down slopes)
@@ -81,13 +102,9 @@ func _physics_process(delta: float) -> void:
 	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
 	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
-		if Input.is_action_pressed("right") and is_wall_left: #TODO should be checking for input instead
-			apply_impulse(Vector2.UP*jump_impulse_strength*0.4)
-		if Input.is_action_pressed("left") and !is_wall_left: #TODO should be checking for input instead
-			apply_impulse(Vector2.UP*jump_impulse_strength*0.4)
-	
+		apply_impulse(Vector2.UP.rotated(rotation_target)*jump_impulse_strength*0.7)
 
-
+##Reduces health and emits harmed signal
 func take_damage(amount: int) -> void:
 	if amount <= 0: 
 		printerr("You can't take negative damage")
@@ -98,7 +115,7 @@ func take_damage(amount: int) -> void:
 		die()
 	prints(self.name, health)
 
-
+##Increases health up to HEALTH_MAX and emits healed signal
 func heal(amount: int) -> void:
 	if amount <= 0:
 		printerr("You can't heal a negative amount")
@@ -108,31 +125,12 @@ func heal(amount: int) -> void:
 		health = HEALTH_MAX
 	prints(self.name, health)
 
-
+##Emits died signal, heals the player back up and resets location
 func die() -> void:
 	died.emit()
 	global_position = respawn_position
 	print("Well you should be dead, but vrood didn't get there so here have nine more lives!!")
 	heal(9)
-
-
-func _on_ground_detection_body_entered(body: Node2D) -> void:
-	if !(body is RigidPlayer2D):
-		on_floor_count += 1
-func _on_ground_detection_body_exited(body: Node2D) -> void:
-	if !(body is RigidPlayer2D):
-		on_floor_count -= 1
-
-func _on_wall_detection_body_entered(body: Node2D) -> void:
-	if !(body is RigidPlayer2D):
-		on_wall_count += 1
-		if (global_position.x - body.global_position.x) > 0.0:
-			is_wall_left = false
-		else:
-			is_wall_left = true
-func _on_wall_detection_body_exited(body: Node2D) -> void:
-	if !(body is RigidPlayer2D):
-		on_wall_count -= 1
 
 
 func check_floor():

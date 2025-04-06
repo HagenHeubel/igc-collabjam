@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://xvme4orw3dne"]
+[gd_scene load_steps=7 format=3 uid="uid://xvme4orw3dne"]
 
 [ext_resource type="Script" uid="uid://bfkotuoyyfe4u" path="res://wip/wip-hagen/rigidbody_controller/rigid_player.gd" id="1_nywrp"]
 [ext_resource type="Texture2D" uid="uid://cp0we82yaed2v" path="res://wip/wip-hagen/rigidbody_controller/Cat-2/Cat-2-Walk.png" id="2_nywrp"]
@@ -10,18 +10,6 @@ friction = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hcsg"]
 radius = 35.65
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_nywrp"]
-a = Vector2(22, 1)
-b = Vector2(-22, 1)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_8hcsg"]
-a = Vector2(0, -4)
-b = Vector2(0, 4)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_n7wpv"]
-a = Vector2(0, -4)
-b = Vector2(0, 4)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hcsg"]
 radius = 4.5
 height = 13.0
@@ -32,6 +20,8 @@ physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
 inertia = 653.5
+contact_monitor = true
+max_contacts_reported = 3
 linear_damp = 3.2
 angular_damp = 28.275
 script = ExtResource("1_nywrp")
@@ -52,24 +42,6 @@ script = ExtResource("3_nywrp")
 position = Vector2(29, 16)
 shape = SubResource("CircleShape2D_8hcsg")
 
-[node name="GroundDetection" type="Area2D" parent="DetectionAreas"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/GroundDetection"]
-position = Vector2(0, 2)
-shape = SubResource("SegmentShape2D_nywrp")
-
-[node name="WallDetection" type="Area2D" parent="DetectionAreas"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/WallDetection"]
-position = Vector2(36, -18)
-shape = SubResource("SegmentShape2D_8hcsg")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="DetectionAreas/WallDetection"]
-position = Vector2(-36, -18)
-shape = SubResource("SegmentShape2D_n7wpv")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.431373, 1, 1, 1)
 texture_filter = 1
@@ -89,7 +61,6 @@ shape = SubResource("CapsuleShape2D_8hcsg")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -193)
 position_smoothing_enabled = true
-position_smoothing_speed = 8.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_top_margin = 0.5
@@ -109,8 +80,3 @@ target_position = Vector2(0, 62.11)
 unique_name_in_owner = true
 position = Vector2(35, -1)
 target_position = Vector2(0, 62.11)
-
-[connection signal="body_entered" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_entered"]
-[connection signal="body_exited" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_exited"]
-[connection signal="body_entered" from="DetectionAreas/WallDetection" to="." method="_on_wall_detection_body_entered"]
-[connection signal="body_exited" from="DetectionAreas/WallDetection" to="." method="_on_wall_detection_body_exited"]
