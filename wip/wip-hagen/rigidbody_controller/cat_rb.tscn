@@ -30,8 +30,10 @@ angular_damp = 25.0
 script = ExtResource("1_nywrp")
 interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 visual_component = NodePath("Sprite2D")
-move_force = 9000.0
+move_force = 4500.0
+h_jump_control = 0.9
 rotation_stabilizer = 0.1
+min_jump_charge = 0.5
 
 [node name="DetectionAreas" type="Node2D" parent="."]
 

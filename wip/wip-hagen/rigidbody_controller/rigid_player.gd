@@ -14,6 +14,9 @@ signal died()
 @export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
 @export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
+@export_range(0.0,0.7) var min_jump_charge :float = 0.3 ##Charge starts at this fraction of jump force
+@export_range(0.5,3.0) var pounce_movement_boost :float = 1.5 
+
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
@@ -29,6 +32,8 @@ var on_floor_count :int=false
 var on_wall_count :int=false
 var is_wall_left :bool=false
 var neutral_force :Vector2
+var jump_charge :float=min_jump_charge
+var current_movement_boost :float=0.0
 
 
 func _ready() -> void:
@@ -75,11 +80,12 @@ func _physics_process(delta: float) -> void:
 	#changes movement and gravity depending on floor/ground detection
 	if (on_floor_count==0):
 		constant_force = neutral_force + neutral_force*-1
-		force.x *= h_jump_control #reduce movement speed while airborne
+		force.x *= 1.0 #reduce movement speed while airborne
 		if (on_wall_count>0): #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.7
 	else: #rotates gravity and tunes it down a little while on floor
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
+		current_movement_boost = max(current_movement_boost-pounce_movement_boost*delta*0.75, 0.0)
 	
 	#Rotates towards the rotation target
 	if rotation > (rotation_target+0.3):
@@ -93,16 +99,25 @@ func _physics_process(delta: float) -> void:
 	elif force.x > 0.1:
 		visual_component.scale.x = 4.0
 	
+	#jump input handling
+	if (on_floor_count>0) and Input.is_action_pressed("jump"):
+		force.x = 0.0
+		jump_charge = minf(jump_charge+0.5*delta,1.0)
+		visual_component.scale.y = 2.6
+	if (on_floor_count>0) and Input.is_action_just_released("jump"):
+		visual_component.scale.y = 4.0
+		apply_impulse(Vector2.UP.rotated(PI*0.25*force.x)*jump_impulse_strength*jump_charge)
+		current_movement_boost = pounce_movement_boost*jump_charge
+		jump_charge = min_jump_charge
+	#if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
+		#apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
+	#elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
+		#apply_impulse(Vector2.UP.rotated(rotation_target)*jump_impulse_strength*0.55)
+	
 	#applied movement speed, rotates by ground normal and moves character
-	force.x *= move_force
+	force.x *= move_force*(1.0+current_movement_boost)
 	force = force.rotated(rotation_target) 
 	apply_force(force)
-	
-	#jump input handling
-	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
-		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
-	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
-		apply_impulse(Vector2.UP.rotated(rotation_target)*jump_impulse_strength*0.55)
 
 ##Reduces health and emits harmed signal
 func take_damage(amount: int) -> void:
