@@ -36,13 +36,13 @@ radius = 12.0416
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e237u"]
 
-[sub_resource type="Gradient" id="Gradient_e237u"]
+[sub_resource type="Gradient" id="Gradient_2ijru"]
 interpolation_mode = 2
 interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rx3ky"]
-gradient = SubResource("Gradient_e237u")
+gradient = SubResource("Gradient_2ijru")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -51,7 +51,7 @@ fill_to = Vector2(0.5, 0)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.226027, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_rx3ky"]
+[sub_resource type="CurveTexture" id="CurveTexture_e1ny2"]
 texture_mode = 1
 curve = SubResource("Curve_e237u")
 
@@ -61,7 +61,7 @@ particle_flag_disable_z = true
 damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.2
-alpha_curve = SubResource("CurveTexture_rx3ky")
+alpha_curve = SubResource("CurveTexture_e1ny2")
 
 [node name="Test" type="Node2D"]
 

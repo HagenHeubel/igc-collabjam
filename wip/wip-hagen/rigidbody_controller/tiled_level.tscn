@@ -1,7 +1,60 @@
-[gd_scene load_steps=3 format=4 uid="uid://cbpu5jvu12dhu"]
+[gd_scene load_steps=20 format=4 uid="uid://cbpu5jvu12dhu"]
 
 [ext_resource type="TileSet" uid="uid://dqjgjkckb4qo0" path="res://wip/wip-hagen/rigidbody_controller/Tiles/tileset_prototyping.tres" id="1_f8ujs"]
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="2_le1pd"]
+[ext_resource type="Texture2D" uid="uid://uxnlslitomld" path="res://assets/assets-visual/Icons/node_2D/icon_circle.png" id="3_bf4h7"]
+[ext_resource type="Script" uid="uid://dircc24njwqwo" path="res://wip/wip-sqlpy/test_break_object.gd" id="4_0m2vc"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://wip/wip-sqlpy/Attachments/breaks_on_impact.gd" id="5_41u6t"]
+[ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://wip/wip-sqlpy/Attachments/falls_down_shelves.gd" id="6_ahyat"]
+[ext_resource type="Texture2D" uid="uid://mdmf0buts58i" path="res://wip/wip-hagen/rigidbody_controller/Tiles/Prototype_Tileset_16x16.png" id="7_mfgde"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4ujwd"]
+bounce = 0.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j1haa"]
+radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m2vc"]
+size = Vector2(92, 94)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41u6t"]
+size = Vector2(50, 50)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2w7jk"]
+friction = 0.8
+rough = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jg2eh"]
+radius = 16.0312
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eirfj"]
+
+[sub_resource type="Gradient" id="Gradient_e237u"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_afrp2"]
+gradient = SubResource("Gradient_e237u")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_4yuqp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.226027, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx3ky"]
+texture_mode = 1
+curve = SubResource("Curve_4yuqp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rkrn3"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.2
+alpha_curve = SubResource("CurveTexture_rx3ky")
 
 [node name="TiledLevel" type="Node2D"]
 
@@ -9,8 +62,631 @@
 texture_filter = 1
 position = Vector2(-1559, -510)
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAaAAwAAAADAAEAAAAfABAAAAACAAQAAAAgABAAAAACAAQAAAAiABEAAAACAAQAAAAkABIAAAACAAUAAAAlABIAAAACAAQAAAAlABMAAAACAAUAAAAmABMAAAACAAQAAAAmABQAAAAFAAQAAAAcAA8AAAADAAEAAAAcABAAAAADAAEAAAAbABAAAAABAAEAAAAbAA8AAAABAAEAAAAbAA0AAAADAAEAAAAbAA4AAAAFAAMAAAAdABAAAAABAAUAAAAcAA4AAAAFAAMAAAAcAA0AAAAFAAMAAAAdAA0AAAADAAEAAAAdAA4AAAADAAEAAAAdAA8AAAABAAMAAAAeAA8AAAACAAMAAAAlAA4AAAADAAMAAAAkAA4AAAACAAMAAAAkABAAAAACAAQAAAAlABAAAAACAAQAAAAmABAAAAACAAQAAAAnABAAAAADAAQAAAAnAA8AAAADAAQAAAAnAA4AAAAFAAMAAAAmAA8AAAACAAMAAAAlAA8AAAACAAQAAAAsABEAAAACAAQAAAAtABEAAAACAAQAAAAuABEAAAADAAEAAAAvABEAAAAFAAMAAAApABAAAAACAAgAAAAqABQAAAABAAUAAAAqABMAAAACAAQAAAAqABEAAAACAAQAAAAoABIAAAACAAQAAAAoABQAAAADAAUAAAAXABQAAAACAAUAAAAWABQAAAABAAUAAAAYABQAAAACAAUAAAAZABQAAAACAAUAAAAaABQAAAACAAUAAAAbABQAAAACAAUAAAAcABQAAAACAAUAAAAdABQAAAACAAUAAAAeABQAAAACAAUAAAAfABQAAAADAAUAAAAfABMAAAADAAMAAAAdABIAAAACAAMAAAAeABIAAAADAAMAAAAcABIAAAACAAMAAAAbABEAAAADAAQAAAAaABEAAAACAAMAAAAZABEAAAACAAMAAAAYABEAAAACAAMAAAAXABEAAAABAAMAAAAXABIAAAACAAQAAAAXABMAAAACAAQAAAAYABMAAAACAAQAAAAZABMAAAACAAQAAAAaABMAAAACAAQAAAAbABMAAAACAAQAAAAcABMAAAACAAQAAAAbABIAAAACAAQAAAAaABIAAAACAAQAAAAZABIAAAACAAQAAAAYABIAAAACAAQAAAAdABMAAAACAAQAAAAeABMAAAACAAQAAAAWABMAAAABAAQAAAAWABIAAAABAAMAAAATAA4AAAAFAAQAAAATAA0AAAAFAAMAAAATAA8AAAAFAAQAAAATABAAAAAFAAUAAAAXAA4AAAACAAEAAAAWAA4AAAABAAEAAAAYAA4AAAACAAEAAAAZAA4AAAADAAEAAAAYAA8AAAAFAAQAAAAYABAAAAAFAAQAAAAiABIAAAACAAUAAAAiABMAAAAFAAUAAAAhABAAAAACAAQAAAAhAA8AAAACAAQAAAAhAA4AAAABAAMAAAAiAA4AAAACAAMAAAAjAA4AAAACAAMAAAAjAA8AAAACAAQAAAAkAA8AAAACAAQAAAAnABEAAAACAAQAAAAmABIAAAACAAQAAAAlABEAAAACAAQAAAAkABEAAAACAAQAAAAiAA8AAAACAAQAAAAiABAAAAACAAQAAAAmABEAAAACAAQAAAAnABIAAAACAAQAAAApABEAAAACAAQAAAArABEAAAACAAQAAAArABAAAAABAAMAAAAsABAAAAACAAMAAAAtABAAAAACAAMAAAAtABIAAAADAAUAAAAsABIAAAACAAUAAAArABMAAAADAAQAAAArABQAAAADAAUAAAApABMAAAACAAQAAAAoABMAAAACAAQAAAAnABMAAAACAAQAAAAjABIAAAACAAUAAAAgAA8AAAACAAMAAAAfAA8AAAACAAMAAAAeABAAAAACAAQAAAAeABEAAAABAAUAAAAfABEAAAACAAUAAAAgABEAAAACAAUAAAAhABEAAAACAAUAAAAjABEAAAACAAQAAAAjABAAAAACAAQAAAAoABEAAAACAAMAAAArABIAAAACAAQAAAApABIAAAACAAQAAAAqABIAAAACAAQAAAAqAA0AAAADAAQAAAArAA0AAAABAAMAAAAqAAwAAAADAAQAAAAqAAsAAAADAAMAAAAsAA0AAAACAAMAAAAtAA0AAAACAAMAAAAuAA0AAAADAAMAAAArAA4AAAACAAUAAAAsAA4AAAACAAUAAAAtAA4AAAACAAUAAAAuAA4AAAADAAUAAAAqAA4AAAACAAUAAAApAA4AAAABAAUAAAApAA0AAAABAAQAAAApAAwAAAABAAQAAAApAAsAAAABAAMAAAAfAAsAAAACAAAAAAAeAAsAAAABAAAAAAAgAAsAAAACAAAAAAAhAAsAAAACAAAAAAAiAAsAAAADAAAAAAAkAA0AAAACAAAAAAAjAA0AAAABAAAAAAAlAA0AAAADAAAAAAAhAA0AAAAMAAEAAAAiAA0AAAANAAEAAAAfAA4AAAAMAAEAAAAgAA4AAAANAAEAAAAbAAwAAAAOAAEAAAAcAAwAAAAPAAEAAAAiAAoAAAACAAgAAAAjAAoAAAACAAgAAAAkAAoAAAACAAgAAAAjAAkAAAACAAgAAAAkAAkAAAACAAgAAAAlAAkAAAACAAgAAAAmAAkAAAACAAgAAAAkAAgAAAACAAgAAAAlAAgAAAACAAgAAAAmAAgAAAACAAgAAAAnAAgAAAACAAgAAAAqABAAAAACAAgAAAAuABAAAAACAAgAAAAvABAAAAACAAgAAAAvAA4AAAACAAkAAAAvAA0AAAACAAkAAAAvAA8AAAACAAkAAAArAAwAAAACAAkAAAAsAAwAAAACAAkAAAA=")
+tile_map_data = PackedByteArray("AAAYABIAAAACAAMAAAAZABIAAAACAAMAAAAaABIAAAACAAMAAAAbABIAAAACAAMAAAAcABIAAAACAAMAAAAdABMAAAACAAUAAAAeABMAAAACAAUAAAAfABMAAAACAAUAAAAgABMAAAACAAUAAAAhABMAAAACAAUAAAAiABMAAAACAAUAAAAjABMAAAACAAUAAAAkABMAAAACAAUAAAAlABMAAAACAAUAAAAmABMAAAACAAUAAAAnABMAAAACAAUAAAAoABMAAAACAAUAAAApABMAAAACAAUAAAApABIAAAACAAMAAAAoABIAAAACAAMAAAAnABIAAAACAAMAAAAmABIAAAACAAMAAAAlABIAAAACAAMAAAAkABIAAAACAAMAAAAjABIAAAACAAMAAAAiABIAAAACAAMAAAAhABIAAAACAAMAAAAgABIAAAACAAMAAAAfABIAAAACAAMAAAAeABIAAAACAAMAAAAdABIAAAACAAMAAAAcABMAAAACAAUAAAAbABMAAAACAAUAAAAaABMAAAACAAUAAAAZABMAAAACAAUAAAAYABMAAAACAAUAAAArABMAAAADAAUAAAArABIAAAADAAQAAAAqABMAAAACAAUAAAAqABIAAAACAAQAAAArABEAAAADAAQAAAArABAAAAADAAQAAAArAA8AAAADAAQAAAArAA4AAAADAAQAAAArAA0AAAADAAQAAAArAAwAAAADAAQAAAArAAsAAAADAAQAAAArAAoAAAADAAQAAAAqABEAAAADAAcAAAAqABAAAAADAAcAAAAqAA8AAAABAAQAAAAqAA4AAAABAAQAAAAqAA0AAAABAAQAAAAqAAwAAAABAAQAAAAqAAsAAAABAAQAAAAqAAoAAAABAAQAAAArAAkAAAADAAQAAAArAAgAAAADAAQAAAAqAAkAAAABAAcAAAAqAAgAAAABAAQAAAArAAcAAAADAAQAAAArAAYAAAADAAMAAAAqAAcAAAACAAQAAAAqAAYAAAACAAMAAAApAAcAAAACAAUAAAApAAYAAAACAAMAAAAoAAcAAAACAAUAAAAoAAYAAAACAAMAAAAnAAcAAAACAAUAAAAnAAYAAAACAAMAAAAmAAcAAAACAAUAAAAmAAYAAAACAAMAAAAlAAcAAAACAAUAAAAlAAYAAAACAAMAAAAkAAcAAAACAAUAAAAkAAYAAAACAAMAAAAjAAcAAAACAAUAAAAjAAYAAAACAAMAAAAiAAcAAAACAAUAAAAiAAYAAAACAAMAAAAhAAcAAAACAAUAAAAhAAYAAAACAAMAAAAgAAcAAAACAAUAAAAgAAYAAAACAAMAAAAfAAcAAAACAAUAAAAfAAYAAAACAAMAAAAeAAcAAAACAAUAAAAeAAYAAAACAAMAAAAdAAcAAAACAAUAAAAdAAYAAAACAAMAAAAcAAcAAAACAAUAAAAcAAYAAAACAAMAAAAbAAcAAAACAAUAAAAbAAYAAAACAAMAAAAaAAcAAAACAAUAAAAaAAYAAAACAAMAAAAZAAcAAAACAAUAAAAZAAYAAAACAAMAAAAYAAcAAAACAAUAAAAYAAYAAAACAAMAAAAXAAcAAAACAAQAAAAXAAYAAAACAAMAAAAWAAcAAAABAAQAAAAWAAYAAAABAAMAAAAXAA8AAAADAAUAAAAXAA4AAAADAAQAAAAXAA0AAAADAAQAAAAXAAwAAAADAAQAAAAXAAsAAAADAAQAAAAXAAoAAAADAAQAAAAXAAkAAAADAAcAAAAXAAgAAAADAAQAAAAWAA8AAAABAAUAAAAWAA4AAAABAAcAAAAWAA0AAAABAAQAAAAWAAwAAAABAAQAAAAWAAsAAAABAAQAAAAWAAoAAAABAAQAAAAWAAkAAAABAAQAAAAWAAgAAAABAAQAAAAXABMAAAACAAUAAAAXABIAAAACAAMAAAAXABEAAAABAAcAAAAXABAAAAABAAcAAAAWABMAAAABAAUAAAAWABIAAAABAAMAAAAYAA8AAAACAAgAAAApAA8AAAACAAgAAAAoAA8AAAACAAgAAAAZAA8AAAACAAgAAAAhAA8AAAACAAgAAAAgAA8AAAACAAgAAAAfAA8AAAACAAkAAAAiAA8AAAACAAkAAAAYAAwAAAACAAkAAAAZAAwAAAACAAgAAAAoAAwAAAACAAgAAAAcAAwAAAACAAgAAAAlAAwAAAACAAgAAAAfABAAAAACAAgAAAAiABAAAAACAAgAAAApAAwAAAACAAkAAAAYAA4AAAACAAkAAAAYAA0AAAACAAkAAAApAA4AAAACAAkAAAApAA0AAAACAAkAAAAVABMAAAADAAEAAAAUABMAAAACAAEAAAATABMAAAACAAEAAAASABMAAAACAAEAAAARABMAAAACAAEAAAAQABMAAAACAAEAAAAPABMAAAACAAEAAAAOABMAAAACAAEAAAANABMAAAACAAEAAAAMABMAAAACAAEAAAALABMAAAACAAEAAAAKABMAAAACAAEAAAAJABMAAAADAAUAAAAIABMAAAABAAUAAAAIABIAAAABAAQAAAAIABEAAAABAAQAAAAIABAAAAABAAQAAAAIAA8AAAABAAQAAAAIAA4AAAABAAQAAAAIAA0AAAAFAAQAAAAIAAwAAAAFAAQAAAAHAAwAAAAFAAUAAAAHAAsAAAABAAUAAAAHAAoAAAABAAMAAAAIAAoAAAADAAMAAAAIAAkAAAABAAEAAAAIAAsAAAADAAUAAAAJAAkAAAACAAEAAAAKAAkAAAACAAEAAAALAAkAAAACAAEAAAAMAAkAAAACAAEAAAANAAkAAAACAAEAAAAOAAkAAAACAAEAAAAPAAkAAAACAAEAAAAQAAkAAAACAAEAAAARAAkAAAACAAEAAAASAAkAAAACAAEAAAATAAkAAAACAAEAAAAUAAkAAAACAAEAAAAVAAkAAAACAAEAAAAVABIAAAADAAAAAAAUABIAAAABAAAAAAARABIAAAADAAAAAAAOABIAAAADAAAAAAALABIAAAADAAAAAAAKABIAAAABAAAAAAAJABIAAAADAAQAAAAJABEAAAADAAQAAAAJABAAAAADAAQAAAAJAA8AAAADAAQAAAAJAA4AAAADAAMAAAAKABAAAAACAAgAAAAKAA4AAAACAAgAAAAJAAwAAAADAAAAAAALAAwAAAABAAAAAAAMAAwAAAADAAAAAAAOAAwAAAADAAAAAAASAAwAAAADAAAAAAAUAA8AAAADAAAAAAAQAA0AAAADAAAAAAAMABIAAAALAAkAAAANABIAAAALAAkAAAAPABIAAAALAAkAAAAQABIAAAALAAkAAAASABIAAAALAAkAAAATABIAAAALAAkAAAA=")
 tile_set = ExtResource("1_f8ujs")
 
 [node name="Cat" parent="." instance=ExtResource("2_le1pd")]
-position = Vector2(517, 158)
+position = Vector2(32, 609)
+rotation_stabilizer = 0.0
+
+[node name="RigidBody2D5" type="RigidBody2D" parent="."]
+position = Vector2(77, 416)
+collision_layer = 8
+collision_mask = 15
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_4ujwd")
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D5"]
+shape = SubResource("CircleShape2D_j1haa")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D5"]
+modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("3_bf4h7")
+
+[node name="RigidBody2D6" type="RigidBody2D" parent="."]
+position = Vector2(1025, 400)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D6"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D6"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D12" type="RigidBody2D" parent="."]
+position = Vector2(1100, 419)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D12"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D12"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D16" type="RigidBody2D" parent="."]
+position = Vector2(1100, 367)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D16"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D16"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D17" type="RigidBody2D" parent="."]
+position = Vector2(804, 33)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D17"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D17"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D18" type="RigidBody2D" parent="."]
+position = Vector2(265, 170)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D18"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D18"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D20" type="RigidBody2D" parent="."]
+position = Vector2(-633, 607)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D20"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D20"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D21" type="RigidBody2D" parent="."]
+position = Vector2(-948, 346)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D21"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D21"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D22" type="RigidBody2D" parent="."]
+position = Vector2(-357, 226)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D22"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D22"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D24" type="RigidBody2D" parent="."]
+position = Vector2(-748, 221)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D24"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D24"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D13" type="RigidBody2D" parent="."]
+position = Vector2(588, 423)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D13"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D13"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D14" type="RigidBody2D" parent="."]
+position = Vector2(450, 422)
+collision_layer = 8
+collision_mask = 15
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D14"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D14"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D15" type="RigidBody2D" parent="."]
+position = Vector2(262, 218)
+collision_layer = 8
+collision_mask = 15
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D15"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_41u6t")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D15"]
+modulate = Color(0, 0.8125, 1, 1)
+texture_filter = 1
+scale = Vector2(1.57, 1.57)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D9" type="RigidBody2D" parent="."]
+position = Vector2(831, 144)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D9"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D9"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D19" type="RigidBody2D" parent="."]
+position = Vector2(58, 238)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D19"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D19"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D23" type="RigidBody2D" parent="."]
+position = Vector2(-525, 684)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D23"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D23"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D10" type="RigidBody2D" parent="."]
+position = Vector2(832, 239)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D10"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D10"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D11" type="RigidBody2D" parent="."]
+position = Vector2(1075, 193)
+collision_layer = 8
+collision_mask = 15
+mass = 5.0
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D11"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_0m2vc")
+
+[node name="IconCircle" type="Sprite2D" parent="RigidBody2D11"]
+modulate = Color(0.640625, 0.640625, 0.640625, 1)
+texture_filter = 1
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+frame = 147
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(452, 379)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D"]
+script = ExtResource("5_41u6t")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(650, 498)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D2"]
+script = ExtResource("5_41u6t")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D2"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D2"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="."]
+position = Vector2(514, 429)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D3"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D3"]
+script = ExtResource("5_41u6t")
+force_required = 520
+subtract_gravity = false
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D3"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D3"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D3"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+
+[node name="RigidBody2D4" type="RigidBody2D" parent="."]
+position = Vector2(589, 380)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D4"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D4"]
+script = ExtResource("5_41u6t")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D4"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D4"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D4"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+
+[node name="RigidBody2D7" type="RigidBody2D" parent="."]
+position = Vector2(9, 362)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D7"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D7"]
+script = ExtResource("5_41u6t")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D7"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D7"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D7"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
+
+[node name="RigidBody2D8" type="RigidBody2D" parent="."]
+position = Vector2(854, 36)
+collision_layer = 8
+collision_mask = 15
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_2w7jk")
+sleeping = true
+contact_monitor = true
+script = ExtResource("4_0m2vc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D8"]
+shape = SubResource("CircleShape2D_jg2eh")
+
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D8"]
+script = ExtResource("5_41u6t")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D8"]
+script = ExtResource("6_ahyat")
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D8"]
+material = SubResource("CanvasItemMaterial_eirfj")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_afrp2")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rkrn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D8"]
+texture_filter = 1
+scale = Vector2(1.11, 1.11)
+texture = ExtResource("7_mfgde")
+hframes = 16
+vframes = 11
