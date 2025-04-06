@@ -11,7 +11,9 @@ signal died()
 @export var HEALTH_MAX: int = 9
 @export var move_force :float= 14000.0
 @export var jump_impulse_strength :float=5000.0
-@export var slope_angle_max :float= 45##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
+@export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
+@export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
+@export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
@@ -45,7 +47,7 @@ func _ready() -> void:
 	#change degrees to radians for more efficient code
 	slope_angle_max = deg_to_rad(slope_angle_max)
 
-
+##Handles wall/floor detection
 func _integrate_forces(state: PhysicsDirectBodyState2D):
 	on_floor_count = 0
 	on_wall_count = 0
@@ -60,45 +62,49 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 			on_wall_count += 1
 	on_floor_count = floor_detected
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _physics_process(delta: float) -> void:
-	#check_floor()
-	
 	var force :Vector2 = Vector2.ZERO
 	force.x = Input.get_axis("left", "right")
+	
+	#sets rotation target for gravity changes and rotation stabilizer
 	var rotation_target = clampf(calculate_avg_ground_normal(),-slope_angle_max,slope_angle_max)
 	
+	gravity_scale = default_gravity_scale
+	
+	#changes movement and gravity depending on floor/ground detection
 	if (on_floor_count==0):
 		constant_force = neutral_force + neutral_force*-1
-		force.x *= 0.7
+		force.x *= h_jump_control #reduce movement speed while airborne
 		if (on_wall_count>0): #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.3
-		else: #reset gravity while airborne and not on wall
-			gravity_scale = default_gravity_scale
-	else: #tune down gravity on floor (largely to avoid sliding down slopes)
-		gravity_scale = default_gravity_scale
+	else: #rotates gravity and tunes it down a little while on floor
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
 	
-	#if rotation > 0.3:
-		#apply_torque(-100010.1)
-	#elif rotation < -0.3:
-		#apply_torque(100010.1)
-	if rotation > (rotation_target+0.3):
-		apply_torque(-50010.1)
-	elif rotation < (rotation_target-0.3):
-		apply_torque(50010.1)
+	#Rotates towards the rotation target
+	if on_floor_count>0:
+		if rotation > (rotation_target+0.1):
+			apply_torque(-5010.1*rotation_stabilizer)
+		elif rotation < (rotation_target-0.1):
+			apply_torque(5010.1*rotation_stabilizer)
+	else:
+		if rotation > (0.1):
+			apply_torque(-10010.1*rotation_stabilizer)
+		elif rotation < (-0.1):
+			apply_torque(10010.1*rotation_stabilizer)
 	
+	#Flips assigned 2D visuals
 	if force.x < -0.1:
 		visual_component.scale.x = -4.0
 	elif force.x > 0.1:
 		visual_component.scale.x = 4.0
-	#print("force before rotation: ", force)
-	#force.y = get_gravity().y *-1
-	#print(get_gravity())
+	
+	#applied movement speed, rotates by ground normal and moves character
 	force.x *= move_force
 	force = force.rotated(rotation_target) 
 	apply_force(force)
 	
+	#jump input handling
 	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
 	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
@@ -132,20 +138,15 @@ func die() -> void:
 	print("Well you should be dead, but vrood didn't get there so here have nine more lives!!")
 	heal(9)
 
-
-func check_floor():
-	if ground_detect_left.is_colliding() or ground_detect_middle.is_colliding() or ground_detect_right.is_colliding():
-		on_floor_count = 1
-	else:
-		on_floor_count = 0
-	print(on_floor_count)
-
-
+##Gets the average collision normal from all three ground raycasts
 func calculate_avg_ground_normal(weigh_side:float=0.0)->float:
 	var avg_angle:float=0.0
-	avg_angle += ground_detect_left.get_collision_normal().angle_to(Vector2.UP)*(-1)*minf(weigh_side, -1.0)
-	avg_angle += ground_detect_middle.get_collision_normal().angle_to(Vector2.UP)
-	avg_angle += ground_detect_right.get_collision_normal().angle_to(Vector2.UP)*maxf(weigh_side, 1.0)
+	if ground_detect_left.is_colliding():
+		avg_angle += ground_detect_left.get_collision_normal().angle_to(Vector2.UP)*(-1)*minf(weigh_side, -1.0)
+	if ground_detect_middle.is_colliding():
+		avg_angle += ground_detect_middle.get_collision_normal().angle_to(Vector2.UP)
+	if ground_detect_right.is_colliding():
+		avg_angle += ground_detect_right.get_collision_normal().angle_to(Vector2.UP)*maxf(weigh_side, 1.0)
 	#avg_angle -= rotation
 	avg_angle /= 3+abs(weigh_side)
 	return -avg_angle

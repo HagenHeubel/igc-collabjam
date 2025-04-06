@@ -15,15 +15,17 @@ radius = 4.5
 height = 13.0
 
 [node name="Cat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "visual_component")]
+collision_layer = 12
+collision_mask = 13
 mass = 3.1
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
-inertia = 653.5
+inertia = 400.0
 contact_monitor = true
 max_contacts_reported = 3
 linear_damp = 3.2
-angular_damp = 28.275
+angular_damp = 3.5
 script = ExtResource("1_nywrp")
 interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 visual_component = NodePath("Sprite2D")
