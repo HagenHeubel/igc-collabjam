@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="2_oth3g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oth3g"]
-size = Vector2(910, 20)
+size = Vector2(910.635, 21.18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qmnt2"]
 radius = 20.0
@@ -31,7 +31,7 @@ polygon = PackedVector2Array(-96.4903, 1.73254, 435.393, 1.73254, 434.809, 21.54
 uv = PackedVector2Array(200, -1, 396, -9, 405, 62, 194, 61)
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(283, 86)
+position = Vector2(279, 88)
 rotation = -0.507541
 shape = SubResource("RectangleShape2D_oth3g")
 metadata/_edit_group_ = true
@@ -294,3 +294,4 @@ texture = ExtResource("1_gt0ek")
 
 [node name="Cat" parent="." instance=ExtResource("2_oth3g")]
 position = Vector2(431, 235)
+constant_force = Vector2(0, -15190)

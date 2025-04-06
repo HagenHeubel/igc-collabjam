@@ -11,6 +11,7 @@ signal died()
 @export var HEALTH_MAX: int = 9
 @export var move_force :float= 14000.0
 @export var jump_impulse_strength :float=5000.0
+@export var slope_angle_max :float= 45##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
@@ -25,6 +26,7 @@ var default_gravity_scale :float = self.gravity_scale
 var on_floor_count :int=false
 var on_wall_count :int=false
 var is_wall_left :bool=false
+var neutral_force :Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,27 +34,38 @@ func _ready() -> void:
 		push_error("No visual component assigned in player script ", self)
 	if !interaction_detect:
 		push_error("No interaction detector assigned in player script ", self)
+	neutral_force = Vector2(0.0,gravity*default_gravity_scale*-3.1)
+	constant_force = neutral_force + neutral_force*-1
+	slope_angle_max = deg_to_rad(slope_angle_max)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	check_floor()
-	var rotation_target = calculate_avg_ground_normal()
+	#check_floor()
 	
 	var force :Vector2 = Vector2.ZERO
 	force.x = Input.get_axis("left", "right")
+	var rotation_target = clampf(calculate_avg_ground_normal(),-slope_angle_max,slope_angle_max)
+	
 	if (on_floor_count==0):
-		force.x *= 0.5
+		constant_force = neutral_force + neutral_force*-1
+		force.x *= 0.7
 		if (on_wall_count>0): #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.1
 		else: #reset gravity while airborne and not on wall
 			gravity_scale = default_gravity_scale
 	else: #tune down gravity on floor (largely to avoid sliding down slopes)
-		gravity_scale = default_gravity_scale# * (1-(abs(min(PI*0.5,rotation*2.))/(PI*0.5)))
-		
-		force.x *= 1 - (min(PI*0.25,rotation_target*force.x*-7.)/(PI*0.5))
-		force = force.rotated(rotation_target) 
-		print(rotation)
+		gravity_scale = default_gravity_scale
+		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
+	
+	#if rotation > 0.3:
+		#apply_torque(-100010.1)
+	#elif rotation < -0.3:
+		#apply_torque(100010.1)
+	if rotation > (rotation_target+0.3):
+		apply_torque(-50010.1)
+	elif rotation < (rotation_target-0.3):
+		apply_torque(50010.1)
 	
 	if force.x < -0.1:
 		visual_component.scale.x = -4.0
@@ -62,17 +75,17 @@ func _physics_process(delta: float) -> void:
 	#force.y = get_gravity().y *-1
 	#print(get_gravity())
 	force.x *= move_force
-	#print("force after rotation: ", force)
+	force = force.rotated(rotation_target) 
 	apply_force(force)
-	print(linear_velocity.y)
 	
 	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
-		apply_impulse(Vector2.UP*jump_impulse_strength)
+		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
 	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
 		if Input.is_action_pressed("right") and is_wall_left: #TODO should be checking for input instead
-			apply_impulse(Vector2.UP*jump_impulse_strength*0.6)
+			apply_impulse(Vector2.UP*jump_impulse_strength*0.4)
 		if Input.is_action_pressed("left") and !is_wall_left: #TODO should be checking for input instead
-			apply_impulse(Vector2.UP*jump_impulse_strength*0.6)
+			apply_impulse(Vector2.UP*jump_impulse_strength*0.4)
+	
 
 
 func take_damage(amount: int) -> void:
@@ -104,11 +117,9 @@ func die() -> void:
 
 
 func _on_ground_detection_body_entered(body: Node2D) -> void:
-	return
 	if !(body is RigidPlayer2D):
 		on_floor_count += 1
 func _on_ground_detection_body_exited(body: Node2D) -> void:
-	return
 	if !(body is RigidPlayer2D):
 		on_floor_count -= 1
 
@@ -132,10 +143,11 @@ func check_floor():
 	print(on_floor_count)
 
 
-func calculate_avg_ground_normal()->float:
+func calculate_avg_ground_normal(weigh_side:float=0.0)->float:
 	var avg_angle:float=0.0
-	avg_angle += ground_detect_left.get_collision_normal().angle_to(Vector2.UP)
+	avg_angle += ground_detect_left.get_collision_normal().angle_to(Vector2.UP)*(-1)*minf(weigh_side, -1.0)
 	avg_angle += ground_detect_middle.get_collision_normal().angle_to(Vector2.UP)
-	avg_angle += ground_detect_right.get_collision_normal().angle_to(Vector2.UP)
-	avg_angle *= 0.3334
-	return avg_angle
+	avg_angle += ground_detect_right.get_collision_normal().angle_to(Vector2.UP)*maxf(weigh_side, 1.0)
+	#avg_angle -= rotation
+	avg_angle /= 3+abs(weigh_side)
+	return -avg_angle

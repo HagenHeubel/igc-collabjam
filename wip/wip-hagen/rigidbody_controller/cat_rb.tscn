@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.gd" id="3_nywrp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
-friction = 0.8
+friction = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hcsg"]
 radius = 35.65
@@ -31,12 +31,13 @@ mass = 3.1
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
-linear_damp = 3.0
-angular_damp = 15.0
+inertia = 653.5
+linear_damp = 3.2
+angular_damp = 28.275
 script = ExtResource("1_nywrp")
 interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 visual_component = NodePath("Sprite2D")
-move_force = 18000.0
+move_force = 9000.0
 
 [node name="DetectionAreas" type="Node2D" parent="."]
 
@@ -97,17 +98,17 @@ drag_bottom_margin = 0.1
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-35, -1)
-target_position = Vector2(0, 20)
+target_position = Vector2(0, 62.11)
 
 [node name="GroundDetectMiddle" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -1)
-target_position = Vector2(0, 20)
+target_position = Vector2(0, 62.11)
 
 [node name="GroundDetectRight" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(35, -1)
-target_position = Vector2(0, 20)
+target_position = Vector2(0, 62.11)
 
 [connection signal="body_entered" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_entered"]
 [connection signal="body_exited" from="DetectionAreas/GroundDetection" to="." method="_on_ground_detection_body_exited"]
