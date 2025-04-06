@@ -1,40 +1,198 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdepnecknw6xy"]
+[gd_scene load_steps=26 format=3 uid="uid://bdepnecknw6xy"]
 
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
-[ext_resource type="Script" uid="uid://4pgcju0iet1t" path="res://wip/wip-sqlpy/rigid_body_2d.gd" id="2_2ca42"]
+[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-sqlpy/room_controller.gd" id="1_8rhle"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-sqlpy/room_blueprint.gd" id="2_cwpsk"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-sqlpy/roomDoor.gd" id="3_a5hi8"]
 [ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://wip/wip-sqlpy/Attachments/falls_down_shelves.gd" id="3_lg24v"]
+[ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/rooms/RoomLeftUp.tscn" id="4_7u8o0"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-sqlpy/CameraScript.gd" id="4_8rhle"]
+[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-sqlpy/rooms/RoomLeftRight.tscn" id="5_8rhle"]
+[ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/rooms/RoomLeftDown.tscn" id="6_dfg4j"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://wip/wip-sqlpy/Attachments/breaks_on_impact.gd" id="8_a5hi8"]
+[ext_resource type="Script" uid="uid://dircc24njwqwo" path="res://wip/wip-sqlpy/test_break_object.gd" id="8_e237u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e237u"]
+size = Vector2(2313, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx3ky"]
+size = Vector2(2314, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0kg"]
+size = Vector2(8, 556)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yi1sg"]
+size = Vector2(32, 92)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8emrc"]
 friction = 0.07
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8emrc"]
-size = Vector2(631, 8)
+size = Vector2(631, 2)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ca42"]
+friction = 0.8
 rough = true
-bounce = 0.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lg24v"]
-radius = 18.2483
+radius = 12.0416
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e237u"]
+
+[sub_resource type="Gradient" id="Gradient_e237u"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rx3ky"]
+gradient = SubResource("Gradient_e237u")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_e237u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.226027, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx3ky"]
+texture_mode = 1
+curve = SubResource("Curve_e237u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e237u"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.2
+alpha_curve = SubResource("CurveTexture_rx3ky")
 
 [node name="Test" type="Node2D"]
 
+[node name="RoomController" type="Node" parent="."]
+script = ExtResource("1_8rhle")
+
+[node name="Tower" type="Node2D" parent="."]
+position = Vector2(-1152, 0)
+
+[node name="Floor0" type="Node2D" parent="Tower"]
+
+[node name="RoomLeftRight" type="Node2D" parent="Tower/Floor0" node_paths=PackedStringArray("left_room")]
+position = Vector2(1152, 0)
+script = ExtResource("2_cwpsk")
+camera_static = false
+start_room = true
+left_room = NodePath("../RoomLeftDown")
+
+[node name="Walls" type="Node2D" parent="Tower/Floor0/RoomLeftRight"]
+
+[node name="Roof" type="StaticBody2D" parent="Tower/Floor0/RoomLeftRight/Walls"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/Walls/Roof"]
+position = Vector2(578.5, 0)
+shape = SubResource("RectangleShape2D_e237u")
+
+[node name="Floor" type="StaticBody2D" parent="Tower/Floor0/RoomLeftRight/Walls"]
+position = Vector2(576, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/Walls/Floor"]
+position = Vector2(577, 0)
+shape = SubResource("RectangleShape2D_rx3ky")
+
+[node name="LeftWall" type="StaticBody2D" parent="Tower/Floor0/RoomLeftRight/Walls"]
+position = Vector2(0, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/Walls/LeftWall"]
+position = Vector2(0, -50)
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="RightWall" type="StaticBody2D" parent="Tower/Floor0/RoomLeftRight/Walls"]
+position = Vector2(2305, 274)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/Walls/RightWall"]
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="LeftRoomDoor" type="Area2D" parent="Tower/Floor0/RoomLeftRight"]
+position = Vector2(-16, 598)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_a5hi8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/LeftRoomDoor"]
+shape = SubResource("RectangleShape2D_yi1sg")
+debug_color = Color(0, 0.649083, 0.157916, 0.42)
+
+[node name="RightRoomDoor" type="Area2D" parent="Tower/Floor0/RoomLeftRight"]
+position = Vector2(2321, 598)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_a5hi8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Floor0/RoomLeftRight/RightRoomDoor"]
+shape = SubResource("RectangleShape2D_yi1sg")
+debug_color = Color(0, 0.649083, 0.157916, 0.42)
+
+[node name="CameraTarget" type="Marker2D" parent="Tower/Floor0/RoomLeftRight"]
+position = Vector2(572, 322)
+
+[node name="CameraBounds" type="ReferenceRect" parent="Tower/Floor0/RoomLeftRight"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 572.0
+offset_top = 322.0
+offset_right = 1736.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 5.0
+
+[node name="RoomLeftDown" parent="Tower/Floor0" node_paths=PackedStringArray("right_room", "up_room", "down_room") instance=ExtResource("6_dfg4j")]
+right_room = NodePath("../RoomLeftRight")
+up_room = NodePath("../../Floor1/RoomLeftUp")
+down_room = NodePath("../../Floor1/RoomLeftUp")
+
+[node name="Floor1" type="Node2D" parent="Tower"]
+position = Vector2(0, 648)
+
+[node name="RoomLeftUp" parent="Tower/Floor1" node_paths=PackedStringArray("right_room", "up_room") instance=ExtResource("4_7u8o0")]
+right_room = NodePath("../RoomLeftRight")
+up_room = NodePath("../../Floor0/RoomLeftDown")
+
+[node name="RoomLeftRight" parent="Tower/Floor1" node_paths=PackedStringArray("left_room") instance=ExtResource("5_8rhle")]
+position = Vector2(1152, 0)
+left_room = NodePath("../RoomLeftUp")
+
 [node name="Cat" parent="." instance=ExtResource("1_8emrc")]
 position = Vector2(439, 267)
+collision_layer = 12
+collision_mask = 15
 physics_material_override = SubResource("PhysicsMaterial_8emrc")
 gravity_scale = 2.971
+continuous_cd = 2
 
 [node name="Floors" type="Node2D" parent="."]
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Floors"]
 position = Vector2(435, 303)
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D"]
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_8emrc")
-one_way_collision = true
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="Floors"]
 position = Vector2(435, 351)
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D2"]
 shape = SubResource("RectangleShape2D_8emrc")
@@ -42,27 +200,17 @@ one_way_collision = true
 
 [node name="RigidBody2D3" type="StaticBody2D" parent="Floors"]
 position = Vector2(435, 398)
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D3"]
 shape = SubResource("RectangleShape2D_8emrc")
 one_way_collision = true
 
-[node name="RigidBody2D4" type="StaticBody2D" parent="Floors"]
-position = Vector2(306, 635)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D4"]
-shape = SubResource("RectangleShape2D_8emrc")
-one_way_collision = true
-
-[node name="RigidBody2D5" type="StaticBody2D" parent="Floors"]
-position = Vector2(814, 637)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D5"]
-shape = SubResource("RectangleShape2D_8emrc")
-one_way_collision = true
-
 [node name="RigidBody2D6" type="StaticBody2D" parent="Floors"]
 position = Vector2(435, 457)
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/RigidBody2D6"]
 shape = SubResource("RectangleShape2D_8emrc")
@@ -70,12 +218,37 @@ one_way_collision = true
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(562, 272)
+collision_layer = 8
+collision_mask = 15
 physics_material_override = SubResource("PhysicsMaterial_2ca42")
-script = ExtResource("2_2ca42")
+contact_monitor = true
+script = ExtResource("8_e237u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_lg24v")
 
-[node name="Node" type="Node" parent="RigidBody2D"]
+[node name="BreaksOnImpact" type="Node" parent="RigidBody2D"]
+script = ExtResource("8_a5hi8")
+force_required = 520
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="FallsDownShelves" type="Node" parent="RigidBody2D"]
 script = ExtResource("3_lg24v")
-rotation_required = 20.0
+rotation_required = 90.0
+min_drop_height = 24.0
+metadata/_custom_type_script = "uid://c8at4g422rwiy"
+
+[node name="Particles2D" type="GPUParticles2D" parent="RigidBody2D"]
+material = SubResource("CanvasItemMaterial_e237u")
+emitting = false
+amount = 40
+texture = SubResource("GradientTexture2D_rx3ky")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_e237u")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(587, 319)
+script = ExtResource("4_8rhle")
+convergence_speed = 16.0

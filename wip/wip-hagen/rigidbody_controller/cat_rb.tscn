@@ -21,11 +21,11 @@ mass = 3.1
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
-inertia = 400.0
+inertia = 420.0
 contact_monitor = true
 max_contacts_reported = 3
 linear_damp = 3.2
-angular_damp = 3.5
+angular_damp = 4.0
 script = ExtResource("1_nywrp")
 interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 visual_component = NodePath("Sprite2D")
@@ -61,12 +61,12 @@ scale = Vector2(4, 4)
 shape = SubResource("CapsuleShape2D_8hcsg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -193)
 position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_top_margin = 0.5
-drag_bottom_margin = 0.1
+drag_vertical_offset = 0.51
+drag_top_margin = 0.4
 
 [node name="GroundDetectLeft" type="RayCast2D" parent="."]
 unique_name_in_owner = true

@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 		constant_force = neutral_force + neutral_force*-1
 		force.x *= h_jump_control #reduce movement speed while airborne
 		if (on_wall_count>0): #slow down gravity while hanging on wall
-			gravity_scale = default_gravity_scale * 0.3
+			gravity_scale = default_gravity_scale * 0.7
 	else: #rotates gravity and tunes it down a little while on floor
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
 	
@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
 	elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
-		apply_impulse(Vector2.UP.rotated(rotation_target)*jump_impulse_strength*0.7)
+		apply_impulse(Vector2.UP.rotated(rotation_target)*jump_impulse_strength*0.55)
 
 ##Reduces health and emits harmed signal
 func take_damage(amount: int) -> void:
