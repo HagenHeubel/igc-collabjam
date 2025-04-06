@@ -64,7 +64,6 @@ static func b_spline_from_points(points: Array, num_samples: int, degree: int) -
 	return result
 
 static func de_boor(points: Array, degree: int, t: float, knot_vector: Array) -> Vector2:
-	var n = points.size() - 1
 	var m = knot_vector.size() - 1
 
 	# Find the knot span index k such that knot_vector[k] <= t < knot_vector[k+1].

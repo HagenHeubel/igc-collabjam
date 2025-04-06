@@ -19,6 +19,8 @@ var down_room_door: RoomDoor
 
 
 func _ready() -> void:
+	if not camera_target:
+		camera_target = $CameraTarget
 	if start_room:
 		SignalBus.room_changed.emit(self)
 	for child in get_children(true):
@@ -32,14 +34,13 @@ func _ready() -> void:
 			left_room_door = child
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_check_room_transition()
 	if not camera_static:
 		_adjust_camera_target()
 		
 
 func _check_room_transition() -> void:
-	var player : Node2D = GlobalVars.player
 	var closest_door : RoomDoor = RoomDoor.get_closest_door_to_player()
 	if closest_door == null:
 		return
