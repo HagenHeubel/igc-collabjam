@@ -350,4 +350,3 @@ texture = ExtResource("1_gt0ek")
 
 [node name="Cat" parent="." instance=ExtResource("2_oth3g")]
 position = Vector2(431, 235)
-constant_force = Vector2(0, -15190)

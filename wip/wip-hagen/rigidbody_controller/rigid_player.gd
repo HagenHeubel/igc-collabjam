@@ -82,16 +82,10 @@ func _physics_process(delta: float) -> void:
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
 	
 	#Rotates towards the rotation target
-	if on_floor_count>0:
-		if rotation > (rotation_target+0.1):
-			apply_torque(-5010.1*rotation_stabilizer)
-		elif rotation < (rotation_target-0.1):
-			apply_torque(5010.1*rotation_stabilizer)
-	else:
-		if rotation > (0.1):
-			apply_torque(-10010.1*rotation_stabilizer)
-		elif rotation < (-0.1):
-			apply_torque(10010.1*rotation_stabilizer)
+	if rotation > (rotation_target+0.3):
+		apply_torque(-5010.1*rotation_stabilizer)
+	elif rotation < (rotation_target-0.3):
+		apply_torque(5010.1*rotation_stabilizer)
 	
 	#Flips assigned 2D visuals
 	if force.x < -0.1:
