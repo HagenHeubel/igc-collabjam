@@ -27,7 +27,7 @@ func _ready() -> void:
 	start_x = parent.global_position.x
 	start_y = parent.global_position.y
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not falling:
 		# Check for rotation condition.
 		if requires_rotation:

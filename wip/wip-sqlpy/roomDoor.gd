@@ -4,7 +4,7 @@ extends Area2D
 # Holds a list of RoomDoor instances that the player is currently overlapping.
 static var player_overlapped_room_door_list: Array = []
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Get all bodies overlapping this Area2D.
 	var overlapping_bodies : Array[Node2D] = get_overlapping_bodies()
 	var player : Node2D = GlobalVars.player

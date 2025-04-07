@@ -1,7 +1,7 @@
 class_name BreaksOnImpact
 extends Node
 
-@export_range(0.0, 4000.0, 1.0) var force_required : int = 200.0
+@export_range(0.0, 4000.0, 1.0) var force_required : int = 200
 @export var subtract_gravity : bool = true
 @export var ignore_player_collisions : bool = true
 @export var output_debug_collision_force : bool = false
@@ -17,7 +17,7 @@ func _ready() -> void:
 	if parent.max_contacts_reported < 5:
 		parent.max_contacts_reported = 5
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var colliding_bodies = parent.get_colliding_bodies()
 	if not colliding_bodies.is_empty():
 		var parent_RID : RID = parent.get_rid()
