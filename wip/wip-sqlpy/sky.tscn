@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgkcvkidmgfbm"]
+
+[ext_resource type="Texture2D" uid="uid://mee28rkaxad0" path="res://wip/wip-sqlpy/assets/SkyGradient.png" id="1_f7xqw"]
+
+[node name="Sky" type="Node2D"]
+
+[node name="Sky" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_f7xqw")

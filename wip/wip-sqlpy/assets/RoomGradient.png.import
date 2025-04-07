@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu0irnhnv33qm"
-path="res://.godot/imported/floor.png-452259d0f1441baba6c25de743b26233.ctex"
+uid="uid://catj6j61kbvrp"
+path="res://.godot/imported/RoomGradient.png-e452dd18510e507a4de71eb9922f928d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/Objects/floor.png"
-dest_files=["res://.godot/imported/floor.png-452259d0f1441baba6c25de743b26233.ctex"]
+source_file="res://wip/wip-sqlpy/assets/RoomGradient.png"
+dest_files=["res://.godot/imported/RoomGradient.png-e452dd18510e507a4de71eb9922f928d.ctex"]
 
 [params]
 

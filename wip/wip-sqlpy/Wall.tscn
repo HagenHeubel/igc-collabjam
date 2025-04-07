@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cn8w1ookx14tf"]
 
-[ext_resource type="Texture2D" uid="uid://bl143ab1ujweb" path="res://wip/wip-sqlpy/Objects/wall_thick.png" id="1_pgy3p"]
+[ext_resource type="Texture2D" uid="uid://bl143ab1ujweb" path="res://wip/wip-sqlpy/assets/wall_thick.png" id="1_pgy3p"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4mhk1"]
 polygon = PackedVector2Array(-229, -426, -245, -1733, -555, -1733, -276, -481)

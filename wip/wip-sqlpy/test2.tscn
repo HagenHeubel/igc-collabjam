@@ -1,15 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://eue3mjs0wplh"]
+[gd_scene load_steps=12 format=3 uid="uid://eue3mjs0wplh"]
 
-[ext_resource type="Texture2D" uid="uid://mee28rkaxad0" path="res://wip/wip-sqlpy/Objects/SkyGradient.png" id="1_bpnlk"]
-[ext_resource type="Texture2D" uid="uid://bumoqr6gmur31" path="res://wip/wip-sqlpy/Objects/cloud1.png" id="2_16c77"]
-[ext_resource type="Texture2D" uid="uid://catj6j61kbvrp" path="res://wip/wip-sqlpy/Objects/RoomGradient.png" id="2_bpnlk"]
-[ext_resource type="PackedScene" uid="uid://clsxahyx874ar" path="res://wip/wip-sqlpy/Objects/drawer.tscn" id="3_3coo0"]
-[ext_resource type="Texture2D" uid="uid://dnmbxn0pcfq02" path="res://wip/wip-sqlpy/Objects/cloud2.png" id="3_fjy65"]
+[ext_resource type="Texture2D" uid="uid://mee28rkaxad0" path="res://wip/wip-sqlpy/assets/SkyGradient.png" id="1_bpnlk"]
+[ext_resource type="Texture2D" uid="uid://bumoqr6gmur31" path="res://wip/wip-sqlpy/assets/cloud1.png" id="2_16c77"]
+[ext_resource type="Texture2D" uid="uid://catj6j61kbvrp" path="res://wip/wip-sqlpy/assets/RoomGradient.png" id="2_bpnlk"]
+[ext_resource type="PackedScene" uid="uid://clsxahyx874ar" path="res://wip/wip-sqlpy/assets/drawer.tscn" id="3_3coo0"]
+[ext_resource type="Texture2D" uid="uid://dnmbxn0pcfq02" path="res://wip/wip-sqlpy/assets/cloud2.png" id="3_fjy65"]
 [ext_resource type="PackedScene" uid="uid://cn8w1ookx14tf" path="res://wip/wip-sqlpy/Wall.tscn" id="4_bpnlk"]
-[ext_resource type="Texture2D" uid="uid://baubhfyqba0ve" path="res://wip/wip-sqlpy/Objects/cloud3.png" id="4_bvumi"]
+[ext_resource type="Texture2D" uid="uid://baubhfyqba0ve" path="res://wip/wip-sqlpy/assets/cloud3.png" id="4_bvumi"]
 [ext_resource type="PackedScene" uid="uid://b02if16ted1e8" path="res://wip/wip-sqlpy/FloorTile.tscn" id="5_3coo0"]
-[ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/Objects/stone_bg.png" id="6_fjy65"]
-[ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="6_hx676"]
+[ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/assets/stone_bg.png" id="6_fjy65"]
 
 [sub_resource type="Gradient" id="Gradient_3coo0"]
 interpolation_mode = 2
@@ -243,15 +242,11 @@ rotation = -0.261799
 position = Vector2(-5620.15, 925.95)
 rotation = 0.261799
 
-[node name="Cat" parent="." instance=ExtResource("6_hx676")]
-position = Vector2(-2011, -730)
-rotation = -0.261799
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.18, 0.18)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(7754, -3316)
+position = Vector2(5643, -2740)
 color = Color(0.807665, 0.994715, 0.949934, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_hx676")

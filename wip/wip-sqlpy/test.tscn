@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://bdepnecknw6xy"]
 
-[ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
+[ext_resource type="PackedScene" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-sqlpy/room_controller.gd" id="1_8rhle"]
 [ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/rooms/RoomLeftUp.tscn" id="4_7u8o0"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-sqlpy/CameraScript.gd" id="4_8rhle"]
 [ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-sqlpy/rooms/RoomLeftRight.tscn" id="5_8rhle"]
 [ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/rooms/RoomLeftDown.tscn" id="6_dfg4j"]
-[ext_resource type="PackedScene" uid="uid://clsxahyx874ar" path="res://wip/wip-sqlpy/Objects/drawer.tscn" id="11_e237u"]
+[ext_resource type="PackedScene" uid="uid://clsxahyx874ar" path="res://wip/wip-sqlpy/assets/drawer.tscn" id="11_e237u"]
 [ext_resource type="PackedScene" uid="uid://bakylihgh3gd7" path="res://wip/wip-sqlpy/rooms/RespawnRoom.tscn" id="12_rx3ky"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8emrc"]

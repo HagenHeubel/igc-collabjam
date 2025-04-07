@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://1b7tnjnxyiiy"]
+
+[ext_resource type="Script" uid="uid://bm8gjs8chueo" path="res://wip/wip-sqlpy/Objects/BreakAble.gd" id="1_70cqy"]
+[ext_resource type="Texture2D" uid="uid://cvjhsybn82nwy" path="res://wip/wip-sqlpy/assets/drawer.png" id="1_ujpk8"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://wip/wip-sqlpy/Attachments/breaks_on_impact.gd" id="2_0tgjt"]
+[ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://wip/wip-sqlpy/Attachments/break_particle.tscn" id="4_u3mee"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujpk8"]
+size = Vector2(56, 46)
+
+[sub_resource type="Gradient" id="Gradient_f4jva"]
+offsets = PackedFloat32Array(0, 0.336364)
+colors = PackedColorArray(0.239216, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1ff54"]
+gradient = SubResource("Gradient_f4jva")
+
+[sub_resource type="Gradient" id="Gradient_qx55v"]
+offsets = PackedFloat32Array(0.654545, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jgq6b"]
+gradient = SubResource("Gradient_qx55v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ntf4s"]
+lifetime_randomness = 0.79
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_jgq6b")
+color_initial_ramp = SubResource("GradientTexture1D_1ff54")
+anim_offset_max = 1.0
+
+[node name="Drawer" type="RigidBody2D" node_paths=PackedStringArray("particles_triggered_on_break", "sprite")]
+script = ExtResource("1_70cqy")
+particles_triggered_on_break = NodePath("BreakParticle")
+sprite = NodePath("Drawer")
+
+[node name="Drawer" type="Sprite2D" parent="."]
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("1_ujpk8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ujpk8")
+
+[node name="BreaksOnImpact" type="Node" parent="."]
+script = ExtResource("2_0tgjt")
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="BreakParticle" parent="." instance=ExtResource("4_u3mee")]
+modulate = Color(0.403922, 0.235294, 0.168627, 1)
+process_material = SubResource("ParticleProcessMaterial_ntf4s")
