@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn8w1ookx14tf"]
+
+[ext_resource type="Texture2D" uid="uid://bl143ab1ujweb" path="res://wip/wip-sqlpy/Objects/wall_thick.png" id="1_pgy3p"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4mhk1"]
+polygon = PackedVector2Array(-229, -426, -245, -1733, -555, -1733, -276, -481)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gtkk8"]
+polygon = PackedVector2Array(-42, 339, 0, 1734, -505, 1733)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pgy3p"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4mhk1"]
+blend_mode = 3
+
+[node name="Node2D" type="Node2D"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4mhk1")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_gtkk8")
+
+[node name="WallThick" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_pgy3p")
+texture = ExtResource("1_pgy3p")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="CanvasGroup"]
+polygon = PackedVector2Array(-252, -1737, -231, -426, -124, -394, -73, -303, -40, -117, -39, -9, -62, -2, -42, 337, -18, 1715, -621, 1709, -621, -1731)
+
+[node name="WallThick2" type="Sprite2D" parent="CanvasGroup"]
+material = SubResource("CanvasItemMaterial_4mhk1")
+texture = ExtResource("1_pgy3p")

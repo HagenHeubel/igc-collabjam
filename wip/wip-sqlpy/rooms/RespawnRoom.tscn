@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://bakylihgh3gd7"]
+[gd_scene load_steps=11 format=3 uid="uid://bakylihgh3gd7"]
 
 [ext_resource type="Script" uid="uid://bssjktm1rfek4" path="res://wip/wip-sqlpy/respawn_room.gd" id="1_eotmt"]
 [ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-sqlpy/roomDoor.gd" id="2_0yhl4"]
-[ext_resource type="Texture2D" uid="uid://c6230avlpti0j" path="res://wip/wip-sqlpy/placeholder assets/360_F_680946593_cH1Csty9XSflUDwjZkqy7qtB25aAj2YE.jpg" id="2_ge3eb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ja5ey"]
 size = Vector2(1293, 8)
@@ -31,11 +30,6 @@ size = Vector2(32, 92)
 [node name="RespawnRoom" type="Node2D"]
 script = ExtResource("1_eotmt")
 start_room = true
-
-[node name="360F680946593CH1Csty9xSflUDwjZkqy7QtB25aAj2ye" type="Sprite2D" parent="."]
-position = Vector2(650, 356)
-scale = Vector2(1.98333, 1.98333)
-texture = ExtResource("2_ge3eb")
 
 [node name="Walls" type="Node2D" parent="."]
 

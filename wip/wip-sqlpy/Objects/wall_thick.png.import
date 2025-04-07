@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6230avlpti0j"
-path="res://.godot/imported/360_F_680946593_cH1Csty9XSflUDwjZkqy7qtB25aAj2YE.jpg-47eb5ec6d90925d5350de83cf6a864ba.ctex"
+uid="uid://bl143ab1ujweb"
+path="res://.godot/imported/wall_thick.png-c2fbb633ae28d83908cfc6150ae39ebd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/placeholder assets/360_F_680946593_cH1Csty9XSflUDwjZkqy7qtB25aAj2YE.jpg"
-dest_files=["res://.godot/imported/360_F_680946593_cH1Csty9XSflUDwjZkqy7qtB25aAj2YE.jpg-47eb5ec6d90925d5350de83cf6a864ba.ctex"]
+source_file="res://wip/wip-sqlpy/Objects/wall_thick.png"
+dest_files=["res://.godot/imported/wall_thick.png-c2fbb633ae28d83908cfc6150ae39ebd.ctex"]
 
 [params]
 

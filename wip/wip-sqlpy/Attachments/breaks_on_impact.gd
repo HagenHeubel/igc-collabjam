@@ -1,7 +1,8 @@
 class_name BreaksOnImpact
 extends Node
 
-@export_range(0.0, 4000.0, 1.0) var force_required : int = 200
+@export_range(0.0, 4000.0, 1.0) var min_force_required : int = 200
+@export var total_health : float = 2000.0
 @export var subtract_gravity : bool = true
 @export var ignore_player_collisions : bool = true
 @export var output_debug_collision_force : bool = false
@@ -29,8 +30,10 @@ func _process(_delta: float) -> void:
 					return
 			collision_force += state.get_contact_impulse(i)
 		if subtract_gravity:
-			collision_force += ProjectSettings.get_setting("physics/2d/default_gravity") * parent.mass * parent.gravity_scale * Vector2.UP * 0.02
-		if collision_force.length() > force_required:
+			collision_force += ProjectSettings.get_setting("physics/2d/default_gravity") * parent.mass * parent.gravity_scale * Vector2.UP * _delta
+		if collision_force.length() > min_force_required:
+			total_health -= collision_force.length() - min_force_required
 			if output_debug_collision_force:
-				print(collision_force)
-			break_triggered.emit(collision_force)
+				prints(collision_force, "health remaining:", total_health)
+			if total_health <= 0:
+				break_triggered.emit(collision_force)
