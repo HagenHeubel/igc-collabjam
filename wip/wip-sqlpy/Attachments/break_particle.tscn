@@ -9,8 +9,8 @@ particles_anim_v_frames = 2
 particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_qx55v"]
-offsets = PackedFloat32Array(0.654545, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.654545, 1)
+colors = PackedColorArray(1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jgq6b"]
 gradient = SubResource("Gradient_qx55v")
@@ -26,8 +26,8 @@ direction = Vector3(0, -1, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 40.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.05
-scale_max = 0.05
+scale_min = 0.2
+scale_max = 0.4
 color_ramp = SubResource("GradientTexture1D_jgq6b")
 anim_offset_max = 1.0
 

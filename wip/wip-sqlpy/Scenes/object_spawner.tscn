@@ -4,13 +4,9 @@
 
 [node name="ObjectSpawner" type="Node2D"]
 script = ExtResource("1_hfx0y")
-min_spawn_angle = null
-max_spawn_angle = null
-min_spawn_velocity = null
-max_spawn_velocity = null
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 0)
+points = PackedVector2Array(0, 0, 10, 0)
 width = 2.0
 default_color = Color(1, 0, 1, 1)
 

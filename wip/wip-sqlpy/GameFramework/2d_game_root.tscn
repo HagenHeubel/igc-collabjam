@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmrxg0iuv1n2y"]
+[gd_scene load_steps=7 format=3 uid="uid://cmrxg0iuv1n2y"]
 
 [ext_resource type="PackedScene" uid="uid://bpesxd4i8wawp" path="res://wip/wip-sqlpy/player.tscn" id="1_8j1d1"]
 [ext_resource type="PackedScene" uid="uid://bgkcvkidmgfbm" path="res://wip/wip-sqlpy/sky.tscn" id="1_o8kc7"]
 [ext_resource type="PackedScene" uid="uid://c2f1lykcduy7v" path="res://wip/wip-sqlpy/Scenes/object_spawner.tscn" id="2_esula"]
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://wip/wip-sqlpy/Objects/Drawer.tscn" id="3_8vvvg"]
+[ext_resource type="PackedScene" uid="uid://coni47wtg6kh6" path="res://wip/wip-sqlpy/Scenes/projectile.tscn" id="4_c0mrm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o8kc7"]
 size = Vector2(1178, 20)
@@ -55,8 +56,8 @@ max_spawn_velocity = 1280.0
 
 [node name="ObjectSpawner2" parent="ObjectSpawner" instance=ExtResource("2_esula")]
 position = Vector2(-728, 14)
-spawn_interval = 3.7
-object_to_spawn = ExtResource("3_8vvvg")
+spawn_interval = 0.1
+object_to_spawn = ExtResource("4_c0mrm")
 min_spawn_angle = -14.0
 max_spawn_angle = 59.0
 min_spawn_velocity = 660.0
