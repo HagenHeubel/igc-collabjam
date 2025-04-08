@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fcxjl4mrgifl"
-path="res://.godot/imported/stone_bg.png-1d87dd028788f0756e29b805deafe563.ctex"
+uid="uid://bumoqr6gmur31"
+path="res://.godot/imported/cloud1.png-d5122a388e137dd395bd7422595dfd48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/Objects/stone_bg.png"
-dest_files=["res://.godot/imported/stone_bg.png-1d87dd028788f0756e29b805deafe563.ctex"]
+source_file="res://wip/wip-sqlpy/assets/cloud1.png"
+dest_files=["res://.godot/imported/cloud1.png-d5122a388e137dd395bd7422595dfd48.ctex"]
 
 [params]
 

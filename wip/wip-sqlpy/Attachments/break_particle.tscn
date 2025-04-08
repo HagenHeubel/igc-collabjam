@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://k0y2ot4d1x2e"]
+
+[ext_resource type="Texture2D" uid="uid://dwty2j3aocalk" path="res://wip/wip-sqlpy/assets/break_triangles.png" id="1_ltca4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e5ti1"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_qx55v"]
+offsets = PackedFloat32Array(0.654545, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jgq6b"]
+gradient = SubResource("Gradient_qx55v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qkiqm"]
+lifetime_randomness = 0.79
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.05
+scale_max = 0.05
+color_ramp = SubResource("GradientTexture1D_jgq6b")
+anim_offset_max = 1.0
+
+[node name="BreakParticle" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_e5ti1")
+emitting = false
+amount = 20
+texture = ExtResource("1_ltca4")
+lifetime = 0.59
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qkiqm")

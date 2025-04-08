@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvjhsybn82nwy"
-path="res://.godot/imported/drawer.png-377059ba3b3f20c9af6d483ecff44084.ctex"
+uid="uid://mee28rkaxad0"
+path="res://.godot/imported/SkyGradient.png-33893ed0522b9139db0092240cacfaa2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/Objects/drawer.png"
-dest_files=["res://.godot/imported/drawer.png-377059ba3b3f20c9af6d483ecff44084.ctex"]
+source_file="res://wip/wip-sqlpy/assets/SkyGradient.png"
+dest_files=["res://.godot/imported/SkyGradient.png-33893ed0522b9139db0092240cacfaa2.ctex"]
 
 [params]
 

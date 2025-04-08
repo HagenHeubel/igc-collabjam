@@ -5,6 +5,9 @@ extends Node
 # I'll start by putting the lerp functions in here because I will use them guaranteed
 
 
+static func get_time_sec() -> float:
+	return float(Time.get_ticks_msec()) * 0.001
+
 ## Framerate independent lerp functions 
 ## (Use this over "lerp" for things which should be stable regardless of framerate)
 

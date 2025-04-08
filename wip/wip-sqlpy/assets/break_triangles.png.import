@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://catj6j61kbvrp"
-path="res://.godot/imported/RoomGradient.png-e00ba2bfeaa6ad1ea5e348cfb613a007.ctex"
+uid="uid://dwty2j3aocalk"
+path="res://.godot/imported/break_triangles.png-abec3892235061aa97242b9a82360165.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/Objects/RoomGradient.png"
-dest_files=["res://.godot/imported/RoomGradient.png-e00ba2bfeaa6ad1ea5e348cfb613a007.ctex"]
+source_file="res://wip/wip-sqlpy/assets/break_triangles.png"
+dest_files=["res://.godot/imported/break_triangles.png-abec3892235061aa97242b9a82360165.ctex"]
 
 [params]
 

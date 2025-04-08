@@ -1,36 +1,31 @@
 [gd_scene load_steps=10 format=3 uid="uid://2qbsly55rbnb"]
 
 [ext_resource type="Script" uid="uid://cfk1w5dea01gd" path="res://wip/wip-sqlpy/cat/tail_base.gd" id="1_8jlci"]
+[ext_resource type="Texture2D" uid="uid://b4vkmgbuitko3" path="res://wip/wip-sqlpy/assets/cat-tail.png" id="2_oxnvq"]
 [ext_resource type="Script" uid="uid://bii74j5idq2dr" path="res://wip/wip-sqlpy/cat/line_2d.gd" id="2_vlccu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
-radius = 8.0
-
-[sub_resource type="Curve" id="Curve_0e48y"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.994949, 0.717172), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_epypp"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0.726667, 1)
-colors = PackedColorArray(0.140447, 0.140447, 0.140447, 1, 1, 1, 1, 1)
+radius = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0e48y"]
-radius = 8.0
-height = 48.0
+radius = 3.0
+height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_epypp"]
-radius = 8.0
-height = 40.0
+radius = 3.0
+height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0hol4"]
-radius = 8.0
-height = 32.0
+radius = 3.0
+height = 14.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q6r6c"]
-radius = 8.0
-height = 24.0
+radius = 3.0
+height = 10.0
+
+[sub_resource type="Curve" id="Curve_0e48y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.39899, 0.828283), -0.238095, -0.238095, 0, 0, Vector2(1, 0.666667), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Tail" type="Node2D"]
 script = ExtResource("1_8jlci")
@@ -50,7 +45,7 @@ node_b = NodePath("../../Tail segment")
 bias = 0.9
 
 [node name="PinJoint2D4" type="PinJoint2D" parent="StaticBody2D"]
-position = Vector2(0, -20)
+position = Vector2(0, -8)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment")
 softness = 16.0
@@ -58,95 +53,104 @@ softness = 16.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("CircleShape2D_0e48y")
 
-[node name="Line2D" type="Line2D" parent="."]
-width_curve = SubResource("Curve_0e48y")
-gradient = SubResource("Gradient_epypp")
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-script = ExtResource("2_vlccu")
-
 [node name="Tail segment" type="RigidBody2D" parent="."]
+position = Vector2(0, -8)
 collision_layer = 0
+collision_mask = 0
 mass = 0.001
 gravity_scale = -0.5
 inertia = 40.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tail segment"]
-position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_0e48y")
 
 [node name="PinJoint2D2" type="PinJoint2D" parent="Tail segment"]
-position = Vector2(0, -32)
+position = Vector2(0, -8)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment2")
 
 [node name="PinJoint2D3" type="PinJoint2D" parent="Tail segment"]
-position = Vector2(0, -48)
+position = Vector2(0, -13)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment2")
 softness = 16.0
 
 [node name="Tail segment2" type="RigidBody2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -22)
 collision_layer = 0
+collision_mask = 0
 mass = 0.002
-gravity_scale = -0.25
+gravity_scale = 0.5
 inertia = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tail segment2"]
-position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_epypp")
 
 [node name="PinJoint2D3" type="PinJoint2D" parent="Tail segment2"]
-position = Vector2(0, -32)
+position = Vector2(0, -6)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment3")
 
 [node name="PinJoint2D4" type="PinJoint2D" parent="Tail segment2"]
-position = Vector2(0, -44)
+position = Vector2(0, -10)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment3")
 softness = 16.0
 
 [node name="Tail segment3" type="RigidBody2D" parent="."]
-position = Vector2(0, -46)
+position = Vector2(0, -32)
 collision_layer = 0
+collision_mask = 0
 mass = 0.004
-gravity_scale = -0.125
+gravity_scale = -0.2
 inertia = 10.0
 
 [node name="PinJoint2D3" type="PinJoint2D" parent="Tail segment3"]
-position = Vector2(0, -26)
+position = Vector2(0, -4)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment4")
 
 [node name="PinJoint2D4" type="PinJoint2D" parent="Tail segment3"]
-position = Vector2(0, -34)
+position = Vector2(0, -6)
 node_a = NodePath("..")
 node_b = NodePath("../../Tail segment4")
 softness = 16.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tail segment3"]
-position = Vector2(0, -18)
 shape = SubResource("CapsuleShape2D_0hol4")
 
 [node name="Tail segment4" type="RigidBody2D" parent="."]
-position = Vector2(0, -62)
+position = Vector2(0, -38)
 collision_layer = 0
+collision_mask = 0
 mass = 0.008
-gravity_scale = -0.062
+gravity_scale = 0.1
 inertia = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tail segment4"]
-position = Vector2(0, -14)
 shape = SubResource("CapsuleShape2D_q6r6c")
 
 [node name="TailTip" type="Marker2D" parent="Tail segment4"]
 unique_name_in_owner = true
-position = Vector2(0, -18)
+position = Vector2(0, -2)
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 6.0
+width_curve = SubResource("Curve_0e48y")
+texture = ExtResource("2_oxnvq")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("2_vlccu")
 
 [node name="EditorHint" type="Line2D" parent="."]
-points = PackedVector2Array(0, 1, 0, -81)
-width = 6.22
-default_color = Color(1, 0, 1, 1)
+points = PackedVector2Array(0, 0, 0, -40)
+width = 5.0
+width_curve = SubResource("Curve_0e48y")
+texture = ExtResource("2_oxnvq")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

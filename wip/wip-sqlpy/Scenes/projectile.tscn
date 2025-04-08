@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://coni47wtg6kh6"]
+
+[ext_resource type="Script" uid="uid://yhkyfn1cg42g" path="res://wip/wip-sqlpy/GPUtrail2D/GPUtrail2D.gd" id="1_0j57g"]
+[ext_resource type="Shader" uid="uid://djff7gb5di741" path="res://wip/wip-sqlpy/GPUtrail2D/shaders/trail2d.gdshader" id="1_d322c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cy26b"]
+radius = 16.1245
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d322c"]
+shader = ExtResource("1_d322c")
+
+[sub_resource type="Gradient" id="Gradient_5nx8l"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7crvn"]
+gradient = SubResource("Gradient_5nx8l")
+
+[sub_resource type="Curve" id="Curve_tdjm2"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qgeua"]
+curve = SubResource("Curve_tdjm2")
+
+[node name="Projectile" type="RigidBody2D"]
+mass = 50.0
+gravity_scale = 0.02
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cy26b")
+
+[node name="GPUTrail2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_d322c")
+amount = 100
+lifetime = 59.0
+explosiveness = 1.0
+fixed_fps = 59
+process_material = SubResource("ShaderMaterial_d322c")
+script = ExtResource("1_0j57g")
+length = 59
+length_seconds = 1.0
+color_ramp = SubResource("GradientTexture1D_7crvn")
+curve = SubResource("CurveTexture_qgeua")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://yhkyfn1cg42g"

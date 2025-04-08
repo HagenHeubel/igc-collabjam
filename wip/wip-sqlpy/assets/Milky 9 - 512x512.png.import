@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl143ab1ujweb"
-path="res://.godot/imported/wall_thick.png-c2fbb633ae28d83908cfc6150ae39ebd.ctex"
+uid="uid://b8mqpxn1h7drt"
+path="res://.godot/imported/Milky 9 - 512x512.png-5dd0633a4ba28a2942e6e92549e708f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/Objects/wall_thick.png"
-dest_files=["res://.godot/imported/wall_thick.png-c2fbb633ae28d83908cfc6150ae39ebd.ctex"]
+source_file="res://wip/wip-sqlpy/assets/Milky 9 - 512x512.png"
+dest_files=["res://.godot/imported/Milky 9 - 512x512.png-5dd0633a4ba28a2942e6e92549e708f8.ctex"]
 
 [params]
 
