@@ -11,12 +11,16 @@ signal died()
 @export var HEALTH_MAX: int = 9
 @export var move_force :float= 14000.0
 @export var jump_impulse_strength :float=5000.0
-@export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
 @export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
+@export_group("Pounce Controls")
 @export_range(0.0,0.7) var min_jump_charge :float = 0.3 ##Charge starts at this fraction of jump force
+@export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
 @export_range(0.5,3.0) var pounce_movement_boost :float = 1.5 
-
+@export_range(45,180.0,5.0) var pounce_aim_speed :float = 130.0 ##Aiming speed in Degrees per Second
+@export_range(5.0,40.0,0.5) var min_pounce_angle :float = 15.0
+@export_range(5.0,90.0,0.5) var def_pounce_angle :float = 45.0
+@export_range(50.0,90.0,0.5) var max_pounce_angle :float = 85.0
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
@@ -80,12 +84,13 @@ func _physics_process(delta: float) -> void:
 	#changes movement and gravity depending on floor/ground detection
 	if (on_floor_count==0):
 		constant_force = neutral_force + neutral_force*-1
-		force.x *= 1.0 #reduce movement speed while airborne
+		force.x *= h_jump_control #reduce movement speed while airborne
 		if (on_wall_count>0): #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.7
 	else: #rotates gravity and tunes it down a little while on floor
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
 		current_movement_boost = max(current_movement_boost-pounce_movement_boost*delta*0.75, 0.0)
+		
 	
 	#Rotates towards the rotation target
 	if rotation > (rotation_target+0.3):
@@ -94,21 +99,31 @@ func _physics_process(delta: float) -> void:
 		apply_torque(5010.1*rotation_stabilizer)
 	
 	#Flips assigned 2D visuals
-	if force.x < -0.1:
-		visual_component.scale.x = -4.0
-	elif force.x > 0.1:
-		visual_component.scale.x = 4.0
 	
 	#jump input handling
 	if (on_floor_count>0) and Input.is_action_pressed("jump"):
+		if abs(visual_component.rotation_degrees) < min_pounce_angle:
+			visual_component.rotation_degrees = def_pounce_angle*-visual_component.scale.x
+		if visual_component.scale.x > 0.0:
+			visual_component.rotation_degrees = clampf(visual_component.rotation_degrees+force.x*delta*120.0,-max_pounce_angle,-min_pounce_angle)
+		else:
+			visual_component.rotation_degrees = clampf(visual_component.rotation_degrees+force.x*delta*120.0,min_pounce_angle,max_pounce_angle)
 		force.x = 0.0
-		jump_charge = minf(jump_charge+0.5*delta,1.0)
-		visual_component.scale.y = 2.6
+		jump_charge = minf(jump_charge+1.0*delta,1.0)
+		visual_component.scale.y = 1.0-jump_charge*0.3
 	if (on_floor_count>0) and Input.is_action_just_released("jump"):
-		visual_component.scale.y = 4.0
-		apply_impulse(Vector2.UP.rotated(PI*0.25*force.x)*jump_impulse_strength*jump_charge)
+		visual_component.scale.y = 1.0
+		#using the visual's scale.x to determine character direction
+		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(visual_component.rotation))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
+		visual_component.rotation = 0.0
 		current_movement_boost = pounce_movement_boost*jump_charge
 		jump_charge = min_jump_charge
+	
+	if (on_floor_count>0) and ((current_movement_boost<0.01)or(linear_velocity.y < 1.0)) and !Input.is_action_just_released("jump"): #only change sprite direction while jump isn't charging!
+		if force.x < -0.1:
+			visual_component.scale.x = -1.0
+		elif force.x > 0.1:
+			visual_component.scale.x = 1.0
 	#if (on_floor_count>0) and Input.is_action_just_pressed("jump"):
 		#apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength)
 	#elif (on_wall_count>0) and Input.is_action_just_pressed("jump"):
