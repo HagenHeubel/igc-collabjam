@@ -1,16 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdepnecknw6xy"]
+[gd_scene load_steps=7 format=3 uid="uid://bdepnecknw6xy"]
 
-[ext_resource type="PackedScene" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="1_8emrc"]
-[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-sqlpy/room_controller.gd" id="1_8rhle"]
-[ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/rooms/RoomLeftUp.tscn" id="4_7u8o0"]
-[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-sqlpy/CameraScript.gd" id="4_8rhle"]
-[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-sqlpy/rooms/RoomLeftRight.tscn" id="5_8rhle"]
-[ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/rooms/RoomLeftDown.tscn" id="6_dfg4j"]
-[ext_resource type="PackedScene" uid="uid://clsxahyx874ar" path="res://wip/wip-sqlpy/assets/drawer.tscn" id="11_e237u"]
+[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/room_controller.gd" id="1_8rhle"]
+[ext_resource type="Script" uid="uid://ceadpo52ne6jb" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/tower_root.gd" id="2_7u8o0"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/camera_script.gd" id="4_8rhle"]
+[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/TowerComponents/4_Rooms/Example.tscn" id="5_8rhle"]
+[ext_resource type="PackedScene" uid="uid://bpesxd4i8wawp" path="res://wip/wip-sqlpy/player.tscn" id="7_7u8o0"]
 [ext_resource type="PackedScene" uid="uid://bakylihgh3gd7" path="res://wip/wip-sqlpy/rooms/RespawnRoom.tscn" id="12_rx3ky"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8emrc"]
-friction = 0.07
 
 [node name="Test" type="Node2D"]
 
@@ -19,43 +14,27 @@ script = ExtResource("1_8rhle")
 
 [node name="Tower" type="Node2D" parent="."]
 position = Vector2(-1152, 0)
+script = ExtResource("2_7u8o0")
 
-[node name="RespawnRoom" parent="Tower" node_paths=PackedStringArray("right_room") instance=ExtResource("12_rx3ky")]
+[node name="RespawnRoom" parent="Tower" instance=ExtResource("12_rx3ky")]
 position = Vector2(-134, -719)
-right_room = NodePath("../Floor0/RoomLeftRight")
 
-[node name="Drawer" parent="Tower/RespawnRoom" instance=ExtResource("11_e237u")]
-position = Vector2(497, 313)
-
-[node name="Floor0" type="Node2D" parent="Tower"]
-
-[node name="RoomLeftRight" parent="Tower/Floor0" node_paths=PackedStringArray("left_room") instance=ExtResource("5_8rhle")]
+[node name="RoomLeftRight" parent="Tower" instance=ExtResource("5_8rhle")]
 position = Vector2(1153, -719)
 camera_static = false
-left_room = NodePath("../../RespawnRoom")
 
-[node name="RoomLeftDown" parent="Tower/Floor0" node_paths=PackedStringArray("up_room", "down_room") instance=ExtResource("6_dfg4j")]
-up_room = NodePath("../../Floor1/RoomLeftUp")
-down_room = NodePath("../../Floor1/RoomLeftUp")
+[node name="RoomLeftRight2" parent="Tower" instance=ExtResource("5_8rhle")]
+position = Vector2(2305, -719)
+camera_static = false
 
-[node name="Floor1" type="Node2D" parent="Tower"]
-position = Vector2(0, 648)
-
-[node name="RoomLeftUp" parent="Tower/Floor1" node_paths=PackedStringArray("right_room", "up_room") instance=ExtResource("4_7u8o0")]
-right_room = NodePath("../RoomLeftRight")
-up_room = NodePath("../../Floor0/RoomLeftDown")
-
-[node name="RoomLeftRight" parent="Tower/Floor1" node_paths=PackedStringArray("left_room") instance=ExtResource("5_8rhle")]
-position = Vector2(1152, 0)
-left_room = NodePath("../RoomLeftUp")
-
-[node name="Cat" parent="." instance=ExtResource("1_8emrc")]
-position = Vector2(-894, -219)
-collision_mask = 19
-physics_material_override = SubResource("PhysicsMaterial_8emrc")
-gravity_scale = 2.971
-continuous_cd = 2
+[node name="RoomLeftRight3" parent="Tower" instance=ExtResource("5_8rhle")]
+position = Vector2(3457, -719)
+camera_static = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.24, 0.24)
 script = ExtResource("4_8rhle")
 convergence_speed = 16.0
+
+[node name="Player" parent="." instance=ExtResource("7_7u8o0")]
+position = Vector2(-916, -239)

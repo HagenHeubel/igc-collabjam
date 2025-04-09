@@ -134,7 +134,6 @@ shape = SubResource("CircleShape2D_cy26b")
 [node name="Trail2D" type="Line2D" parent="."]
 top_level = true
 material = SubResource("ShaderMaterial_ju1dw")
-points = PackedVector2Array(0, 0)
 width_curve = SubResource("Curve_d322c")
 default_color = Color(1, 0.869326, 0.991103, 1)
 texture_mode = 2

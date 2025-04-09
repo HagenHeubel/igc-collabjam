@@ -1,7 +1,8 @@
 extends Node
 # Global Variable Bus
 
-var player
+var player : Node2D
+var player_area : Area2D
 var current_room : TowerRoom
 
 # In the player script, call `GlobalVars.set_global_player(self)`

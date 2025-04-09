@@ -6,10 +6,6 @@ extends Control
 @onready var background_color_rect: ColorRect = $BackgroundColor
 @onready var gradient: TextureRect = $Gradient
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _set_color(value : Color) -> void:
 	background_color_rect.color = value
 	background_color = value

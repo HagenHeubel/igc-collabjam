@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://f6kxdw8vp3i"]
 
-[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-sqlpy/room_blueprint.gd" id="1_3083w"]
-[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-sqlpy/roomDoor.gd" id="2_mwd40"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/tower_room.gd" id="1_3083w"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/SceneScripts/room_door_area.gd" id="2_mwd40"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3083w"]
 size = Vector2(1160, 8)
@@ -24,32 +24,34 @@ size = Vector2(32, 92)
 [node name="RoomLeftDown" type="Node2D"]
 script = ExtResource("1_3083w")
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="RoomContent" type="Node2D" parent="."]
 
-[node name="Roof" type="StaticBody2D" parent="Walls"]
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(574, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Roof"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_3083w")
 
-[node name="Floor" type="StaticBody2D" parent="Walls"]
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(576, 648)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
 position = Vector2(50, 0)
 shape = SubResource("RectangleShape2D_yioe4")
 
-[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 324)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
 shape = SubResource("RectangleShape2D_mwd40")
 
-[node name="RightWall" type="StaticBody2D" parent="Walls"]
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(1152, 274)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
 shape = SubResource("RectangleShape2D_my55v")
 
 [node name="DownRoomDoor" type="Area2D" parent="."]
