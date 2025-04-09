@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bw71awjed2yi7" path="res://wip/wip-sqlpy/character_body_2d.gd" id="1_uan3y"]
 [ext_resource type="Texture2D" uid="uid://6t0i6y7hai6u" path="res://wip/wip-sqlpy/assets/cat.png" id="1_y3pnv"]
 [ext_resource type="PackedScene" uid="uid://2qbsly55rbnb" path="res://wip/wip-sqlpy/cat/cat_tail.tscn" id="2_k73b3"]
-[ext_resource type="PackedScene" uid="uid://d1r71iy200adl" path="res://wip/wip-staging/TowerComponents/5_Others/player_area.tscn" id="3_rv82k"]
+[ext_resource type="PackedScene" uid="uid://d1r71iy200adl" path="res://wip/wip-staging/Tower/5_Others/player_area.tscn" id="3_rv82k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uan3y"]
 radius = 18.0

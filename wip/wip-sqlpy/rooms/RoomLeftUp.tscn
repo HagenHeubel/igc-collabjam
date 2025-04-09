@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://q1uhafm88t8s"]
 
-[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/tower_room.gd" id="1_p6662"]
-[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/SceneScripts/room_door_area.gd" id="2_huqo8"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_room.gd" id="1_p6662"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/Tower/1_TowerComponents/SceneScripts/room_door_area.gd" id="2_huqo8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3083w"]
 size = Vector2(1060, 8)

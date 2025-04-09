@@ -8,7 +8,10 @@ func set_target_room(new_target: TowerRoom) -> void:
 	target_room = new_target
 
 func _process(_delta: float) -> void:
-	# Update overlapped list.
+	_update_overlapped_list()
+	_check_for_transition()
+
+func _update_overlapped_list() -> void:
 	var bodies: Array = get_overlapping_bodies()
 	var player: Node2D = GlobalVars.player
 	var player_area: Area2D = GlobalVars.player_area
@@ -18,9 +21,9 @@ func _process(_delta: float) -> void:
 	else:
 		if self in overlapped_door_areas:
 			overlapped_door_areas.erase(self)
-	
+
+func _check_for_transition() -> void:
 	if get_door_area_closest_to_player() == self and target_room and (target_room != GlobalVars.current_room):
-		prints("Room transition triggered from", GlobalVars.current_room.name, "to", target_room.name)
 		SignalBus.room_changed.emit(target_room)
 
 static func get_door_area_closest_to_player() -> RoomDoorArea:

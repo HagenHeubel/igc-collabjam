@@ -15,11 +15,11 @@ func _ready() -> void:
 		SignalBus.room_changed.emit(self)
 
 func _process(_delta: float) -> void:
-	if not camera_static:
-		_adjust_camera_target()
+	_adjust_camera_target()
 
 func _adjust_camera_target() -> void:
-	camera_target.global_position = Util.clamp_point_to_rect(GlobalVars.player.global_position, camera_bounds.get_global_rect())
+	if not camera_static:
+		camera_target.global_position = Util.clamp_point_to_rect(GlobalVars.player.global_position, camera_bounds.get_global_rect())
 
 func enable() -> void:
 	room_content.show()
