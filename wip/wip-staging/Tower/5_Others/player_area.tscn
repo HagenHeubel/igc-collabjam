@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1r71iy200adl"]
 
-[ext_resource type="Script" uid="uid://dim6dpm1lqqn5" path="res://wip/wip-staging/TowerComponents/5_Others/SceneScripts/player_area.gd" id="1_h0bix"]
+[ext_resource type="Script" uid="uid://dim6dpm1lqqn5" path="res://wip/wip-staging/Tower/5_Others/SceneScripts/player_area.gd" id="1_h0bix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rv82k"]
 size = Vector2(32, 34)

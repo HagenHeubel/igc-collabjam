@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8m7pvpwpp660"]
 
-[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/tower_room.gd" id="1_1pq0f"]
-[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://wip/wip-staging/TowerComponents/2_RoomComponents/basic_room_bg.tscn" id="2_ojxui"]
-[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://wip/wip-staging/TowerComponents/2_RoomComponents/tiling_floor.tscn" id="3_1pq0f"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_room.gd" id="1_1pq0f"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://wip/wip-staging/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_ojxui"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://wip/wip-staging/Tower/2_RoomComponents/tiling_floor.tscn" id="3_1pq0f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ja5ey"]
 size = Vector2(1160, 8)

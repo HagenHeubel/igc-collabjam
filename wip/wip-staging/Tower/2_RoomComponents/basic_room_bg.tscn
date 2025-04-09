@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bigol8thv3wrl"]
 
-[ext_resource type="Script" uid="uid://bupe7owtl471q" path="res://wip/wip-staging/TowerComponents/2_RoomComponents/SceneScripts/basic_room_background.gd" id="1_y6ahq"]
+[ext_resource type="Script" uid="uid://bupe7owtl471q" path="res://wip/wip-staging/Tower/2_RoomComponents/SceneScripts/basic_room_background.gd" id="1_y6ahq"]
 [ext_resource type="Texture2D" uid="uid://dteus3q1hrhrr" path="res://wip/wip-hagen/assets/Rectangle 2.png" id="2_ca5r8"]
 
 [node name="BasicRoomBG" type="Control"]
