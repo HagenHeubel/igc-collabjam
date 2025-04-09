@@ -37,7 +37,6 @@ position = Vector2(576, 648)
 
 [node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_1pq0f")]
 points = PackedVector2Array(-576, 4, 576, 4)
-width = 23.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
 shape = SubResource("RectangleShape2D_v6htv")
