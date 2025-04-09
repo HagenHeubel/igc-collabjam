@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://no8weiy7y3vk"
-path="res://.godot/imported/floor_tile.png-486f2d7069b82339e6bf344f91cae3e1.ctex"
+uid="uid://catj6j61kbvrp"
+path="res://.godot/imported/RoomGradient.png-8be582f3d1ad7093a02238771c95d241.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wip/wip-sqlpy/assets/floor_tile.png"
-dest_files=["res://.godot/imported/floor_tile.png-486f2d7069b82339e6bf344f91cae3e1.ctex"]
+source_file="res://wip/wip-staging/TowerComponents/0_Assets/RoomGradient.png"
+dest_files=["res://.godot/imported/RoomGradient.png-8be582f3d1ad7093a02238771c95d241.ctex"]
 
 [params]
 

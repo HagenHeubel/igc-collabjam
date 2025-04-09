@@ -38,7 +38,7 @@ static func clamp_point_to_rect(point: Vector2, rect: Rect2) -> Vector2:
 	var clamped_y = clamp(point.y, rect.position.y, rect.position.y + rect.size.y)
 	return Vector2(clamped_x, clamped_y)
 
-static func manhatten_distance(point_a : Vector2, point_b : Vector2) -> float:
+static func manhattan_distance(point_a : Vector2, point_b : Vector2) -> float:
 	return abs(point_a.x - point_b.x) + abs(point_b.y - point_a.y)
 
 static func b_spline_from_points(points: Array, num_samples: int, degree: int) -> Array:

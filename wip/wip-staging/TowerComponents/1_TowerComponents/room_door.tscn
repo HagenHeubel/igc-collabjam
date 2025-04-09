@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjy2xxtnnooch"]
+
+[ext_resource type="Script" uid="uid://d2u4vro07mjr8" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/SceneScripts/room_door.gd" id="1_2pken"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/TowerComponents/1_TowerComponents/SceneScripts/room_door_area.gd" id="2_m0h2h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0h2h"]
+size = Vector2(32, 88)
+
+[node name="RoomDoor" type="Node2D"]
+z_index = 1
+script = ExtResource("1_2pken")
+
+[node name="Orange" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-16, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_m0h2h")
+
+[node name="DoorShape" type="CollisionShape2D" parent="Orange"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_m0h2h")
+debug_color = Color(0.843308, 0.380212, 1.92523e-07, 0.42)
+
+[node name="Green" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(16, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_m0h2h")
+
+[node name="DoorShape" type="CollisionShape2D" parent="Green"]
+shape = SubResource("RectangleShape2D_m0h2h")
+debug_color = Color(0, 0.641157, 0.338784, 0.42)
