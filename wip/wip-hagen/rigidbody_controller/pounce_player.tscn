@@ -35,10 +35,13 @@ move_force = 6600.0
 jump_impulse_strength = 5500.0
 slope_angle_max = 40.0
 rotation_stabilizer = 0.1
+pounce_control_type = 1
+charge_always_full = true
 min_jump_charge = 0.5
 h_jump_control = 0.5
 pounce_movement_boost = 0.5
 min_pounce_angle = 10.0
+def_pounce_angle = 40.0
 max_pounce_angle = 80.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
