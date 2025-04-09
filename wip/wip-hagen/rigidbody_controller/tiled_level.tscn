@@ -483,7 +483,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D"]
 script = ExtResource("5_41u6t")
-force_required = 520
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D"]
@@ -525,7 +524,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D2"]
 script = ExtResource("5_41u6t")
-force_required = 520
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D2"]
@@ -567,7 +565,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D3"]
 script = ExtResource("5_41u6t")
-force_required = 520
 subtract_gravity = false
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
@@ -610,7 +607,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D4"]
 script = ExtResource("5_41u6t")
-force_required = 520
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D4"]
@@ -652,7 +648,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D7"]
 script = ExtResource("5_41u6t")
-force_required = 520
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D7"]
@@ -694,7 +689,6 @@ shape = SubResource("CircleShape2D_jg2eh")
 
 [node name="BreaksOnImpact" type="Node" parent="RigidBody2D8"]
 script = ExtResource("5_41u6t")
-force_required = 520
 metadata/_custom_type_script = "uid://7suowjyr8422"
 
 [node name="FallsDownShelves" type="Node" parent="RigidBody2D8"]

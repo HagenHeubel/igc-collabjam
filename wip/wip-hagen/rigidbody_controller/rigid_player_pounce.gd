@@ -1,5 +1,5 @@
 extends RigidBody2D
-class_name RigidPlayer2D
+class_name PouncePlayer2D
 
 signal harmed()
 signal healed()
@@ -14,6 +14,16 @@ signal died()
 @export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
 @export_group("Pounce Controls")
+@export_range(0.2,4.0,0.05) var charge_time :float= 1.0 ##in seconds (until charge is full)
+##[b]Left/Right: [/b] Left and right keys control rotation[br][br]
+##[b]Up/Down: [/b] Up and down keys control rotation[br][br]
+##[b]Mouse targeting: [/b] the cat looks at the mouse position (rotation is still clamped between min and max values)[br][br]
+##[b]Mouse delta: [/b] moving the mouse up or down changes rotation. This also enables MOUSE_MODE_CAPTURED to avoid the cursor leaving the screen[br][br]
+##[b]Mouse delta XY: [/b] same as above, but moving the mouse left or right has the same effect (which axis wins out depends on which one has the higher delta)[br][br]
+##[b]Mouse Left/Right: [/b] Left and right mouse clicks control rotation[br][br]
+##[b]Charged Targeting: [/b] Rotation angles upwards automatically as charge increases. Combine with "charge_always_full" to limit the charge's impact to the rotation
+@export_enum("Left/Right", "Up/Down", "Mouse Targeting", "Mouse Delta", "Mouse Delta XY", "Mouse Left/Right", "Charged Targeting") var pounce_control_type :int=0
+@export var charge_always_full :bool = false ##If checked, pounce will always assume use maximum force
 @export_range(0.0,0.7) var min_jump_charge :float = 0.3 ##Charge starts at this fraction of jump force
 @export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
 @export_range(0.5,3.0) var pounce_movement_boost :float = 1.5 
@@ -31,6 +41,7 @@ signal died()
 var health = HEALTH_MAX
 var respawn_position = global_position
 
+var get_pounce_rotation_input :Callable
 var default_gravity_scale :float = self.gravity_scale
 var on_floor_count :int=false
 var on_wall_count :int=false
@@ -55,6 +66,26 @@ func _ready() -> void:
 	constant_force = neutral_force + neutral_force*-1
 	#change degrees to radians for more efficient code
 	slope_angle_max = deg_to_rad(slope_angle_max)
+	#make charge time a fraction that can be multiplied with delta instead of a time in seconds
+	charge_time = 1/charge_time
+	#assign callable for pounce rotation input
+	match pounce_control_type:
+		0:
+			get_pounce_rotation_input = pounce_rotation_left_right
+		1:
+			get_pounce_rotation_input = pounce_rotation_up_down
+		2:
+			get_pounce_rotation_input = pounce_rotation_mouse_targeting
+		3:
+			get_pounce_rotation_input = pounce_rotation_mouse_delta
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		4:
+			get_pounce_rotation_input = pounce_rotation_mouse_delta_xy
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		5:
+			get_pounce_rotation_input = pounce_rotation_mouse_left_right
+		6:
+			get_pounce_rotation_input = pounce_rotation_charge_targeting
 
 ##Handles wall/floor detection
 func _integrate_forces(state: PhysicsDirectBodyState2D):
@@ -104,16 +135,15 @@ func _physics_process(delta: float) -> void:
 	if (on_floor_count>0) and Input.is_action_pressed("jump"):
 		if abs(visual_component.rotation_degrees) < min_pounce_angle:
 			visual_component.rotation_degrees = def_pounce_angle*-visual_component.scale.x
-		if visual_component.scale.x > 0.0:
-			visual_component.rotation_degrees = clampf(visual_component.rotation_degrees+force.x*delta*120.0,-max_pounce_angle,-min_pounce_angle)
-		else:
-			visual_component.rotation_degrees = clampf(visual_component.rotation_degrees+force.x*delta*120.0,min_pounce_angle,max_pounce_angle)
+		visual_component.rotation_degrees = get_pounce_rotation_input.call(delta)
 		force.x = 0.0
-		jump_charge = minf(jump_charge+1.0*delta,1.0)
-		visual_component.scale.y = 1.0-jump_charge*0.3
+		jump_charge = minf(jump_charge+charge_time*delta,1.0)
+		visual_component.scale.y = 1.0-jump_charge*0.4
 	if (on_floor_count>0) and Input.is_action_just_released("jump"):
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
+		if charge_always_full:
+			jump_charge = 1.0
 		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(visual_component.rotation))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
 		visual_component.rotation = 0.0
 		current_movement_boost = pounce_movement_boost*jump_charge
@@ -174,3 +204,80 @@ func calculate_avg_ground_normal(weigh_side:float=0.0)->float:
 	#avg_angle -= rotation
 	avg_angle /= 3+abs(weigh_side)
 	return -avg_angle
+
+##Aims pounce with the left and right inputs
+func pounce_rotation_left_right(delta:float) -> float:
+	var input = Input.get_axis("left", "right") *delta *pounce_aim_speed
+	if visual_component.scale.x > 0.0:
+		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+
+##Aims pounce with the up and down inputs
+func pounce_rotation_up_down(delta:float) -> float:
+	var input = Input.get_axis("up", "down") *visual_component.scale.x *delta *pounce_aim_speed
+	if visual_component.scale.x > 0.0:
+		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+
+##Aims pounce by rotation towards the current cursor location
+func pounce_rotation_mouse_targeting(delta:float) -> float:
+	var rot_to_cursor = -get_local_mouse_position().angle_to(Vector2.RIGHT*visual_component.scale.x)
+	rot_to_cursor = lerp_angle(visual_component.rotation, rot_to_cursor, 1.0 - exp(-3.1 * delta)) #Util.delta_lerp(visual_component.rotation, rot_to_cursor, 10.1, delta)
+	rot_to_cursor = rad_to_deg(rot_to_cursor)
+	
+	if visual_component.scale.x > 0.0:
+		return clampf(rot_to_cursor,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(rot_to_cursor,min_pounce_angle,max_pounce_angle)
+
+##Aims pounce by rotating with mouse movement
+func pounce_rotation_mouse_delta(delta:float) -> float:
+	var input :float
+	input = mouse_delta.y *delta *pounce_aim_speed *0.05 *visual_component.scale.x
+	
+	if visual_component.scale.x > 0.0:
+		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+
+func pounce_rotation_mouse_delta_xy(delta:float) -> float:
+	var input :float
+	if abs(mouse_delta.y) > abs(mouse_delta.x):
+		input = mouse_delta.y *delta *pounce_aim_speed *0.05 *visual_component.scale.x
+	else:
+		input = mouse_delta.x *delta *pounce_aim_speed *0.05
+	
+	if visual_component.scale.x > 0.0:
+		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+
+##Aims pounce with the left and right mouse buttons
+func pounce_rotation_mouse_left_right(delta:float) -> float:
+	var input :float = 0.0
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		input -= 1.0
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		input += 1.0
+	input *=  delta *pounce_aim_speed
+	if visual_component.scale.x > 0.0:
+		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+	else:
+		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+
+##Aims pounce upwards with jump charge
+func pounce_rotation_charge_targeting(delta:float) -> float:
+	var input :float= (jump_charge-min_jump_charge+0.001)/(1-min_jump_charge)
+	print((1-min_jump_charge), " ::: ", (jump_charge-min_jump_charge), " :results in: ", input)
+	if visual_component.scale.x > 0.0:
+		return rad_to_deg(lerp_angle(deg_to_rad(-min_pounce_angle),deg_to_rad(-max_pounce_angle),input))
+	else:
+		return rad_to_deg(lerp_angle(deg_to_rad(min_pounce_angle),deg_to_rad(max_pounce_angle),input))
+
+var mouse_delta :Vector2=Vector2.ZERO
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		mouse_delta = event.relative
