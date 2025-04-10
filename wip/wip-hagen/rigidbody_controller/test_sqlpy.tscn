@@ -73,12 +73,11 @@ position = Vector2(-1152, 0)
 
 [node name="Floor0" type="Node2D" parent="Tower"]
 
-[node name="RoomLeftRight" type="Node2D" parent="Tower/Floor0" node_paths=PackedStringArray("left_room")]
+[node name="RoomLeftRight" type="Node2D" parent="Tower/Floor0"]
 position = Vector2(1152, 0)
 script = ExtResource("2_rorvx")
 camera_static = false
 start_room = true
-left_room = NodePath("../RoomLeftDown")
 
 [node name="Walls" type="Node2D" parent="Tower/Floor0/RoomLeftRight"]
 
@@ -151,21 +150,15 @@ size_flags_vertical = 4
 mouse_filter = 2
 border_width = 5.0
 
-[node name="RoomLeftDown" parent="Tower/Floor0" node_paths=PackedStringArray("right_room", "up_room", "down_room") instance=ExtResource("4_64g1y")]
-right_room = NodePath("../RoomLeftRight")
-up_room = NodePath("../../Floor1/RoomLeftUp")
-down_room = NodePath("../../Floor1/RoomLeftUp")
+[node name="RoomLeftDown" parent="Tower/Floor0" instance=ExtResource("4_64g1y")]
 
 [node name="Floor1" type="Node2D" parent="Tower"]
 position = Vector2(0, 648)
 
-[node name="RoomLeftUp" parent="Tower/Floor1" node_paths=PackedStringArray("right_room", "up_room") instance=ExtResource("5_wcy01")]
-right_room = NodePath("../RoomLeftRight")
-up_room = NodePath("../../Floor0/RoomLeftDown")
+[node name="RoomLeftUp" parent="Tower/Floor1" instance=ExtResource("5_wcy01")]
 
-[node name="RoomLeftRight" parent="Tower/Floor1" node_paths=PackedStringArray("left_room") instance=ExtResource("6_kmn74")]
+[node name="RoomLeftRight" parent="Tower/Floor1" instance=ExtResource("6_kmn74")]
 position = Vector2(1152, 0)
-left_room = NodePath("../RoomLeftUp")
 
 [node name="Cat" parent="." instance=ExtResource("7_p7pvg")]
 position = Vector2(439, 267)

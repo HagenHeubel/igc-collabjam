@@ -1,11 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://bo1xeylmqo7xt"]
+[gd_scene load_steps=10 format=3 uid="uid://bo1xeylmqo7xt"]
 
 [ext_resource type="Script" uid="uid://od700kj08fhl" path="res://wip/wip-hagen/rigidbody_controller/rigid_player_pounce.gd" id="1_m77i1"]
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.gd" id="2_n8e0i"]
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_p1gsp"]
+[ext_resource type="AnimationLibrary" uid="uid://duh6bv5c0yw72" path="res://wip/wip-hagen/rigidbody_controller/anim_lib_test.res" id="4_n8e0i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
 friction = 0.5
+
+[sub_resource type="Animation" id="Animation_n8e0i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/CatNotail:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, -25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p1gsp"]
+_data = {
+&"RESET": SubResource("Animation_n8e0i")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nywrp"]
 custom_solver_bias = 0.524
@@ -15,7 +36,7 @@ height = 11.75
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hcsg"]
 radius = 35.65
 
-[node name="PouncingCat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "visual_component")]
+[node name="PouncingCat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "animation_player", "visual_component")]
 collision_layer = 12
 collision_mask = 15
 mass = 3.25
@@ -30,19 +51,34 @@ linear_damp = 4.0
 angular_damp = 25.0
 script = ExtResource("1_m77i1")
 interaction_detect = NodePath("DetectionAreas/InteractionDetector")
+animation_player = NodePath("AnimationPlayer")
 visual_component = NodePath("Visuals")
 move_force = 6600.0
 jump_impulse_strength = 5500.0
 slope_angle_max = 40.0
 rotation_stabilizer = 0.1
-pounce_control_type = 1
-charge_always_full = true
+pounce_control_type = 6
 min_jump_charge = 0.5
 h_jump_control = 0.5
-pounce_movement_boost = 0.5
+landing_boost = 1.0
 min_pounce_angle = 10.0
 def_pounce_angle = 40.0
 max_pounce_angle = 80.0
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="CatNotail" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+position = Vector2(5, -25)
+rotation = 3.14159
+scale = Vector2(0.065, -0.065)
+texture = ExtResource("3_p1gsp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p1gsp"),
+&"TestLibrary": ExtResource("4_n8e0i")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -14.94)
@@ -62,14 +98,6 @@ script = ExtResource("2_n8e0i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreas/InteractionDetector"]
 position = Vector2(29, 16)
 shape = SubResource("CircleShape2D_8hcsg")
-
-[node name="Visuals" type="Node2D" parent="."]
-
-[node name="CatNotail" type="Sprite2D" parent="Visuals"]
-position = Vector2(5, -25)
-rotation = 3.14159
-scale = Vector2(0.065, -0.065)
-texture = ExtResource("3_p1gsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
