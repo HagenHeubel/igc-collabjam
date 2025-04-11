@@ -1,8 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0imcax35nyxj"]
 
 [ext_resource type="Script" uid="uid://bq3s8c5diie0y" path="res://wip/wip-sqlpy/cat/sqlpy_player_version.gd" id="1_6a55e"]
-[ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.gd" id="2_f0lh7"]
+[ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/interaction_detector.gd" id="2_f0lh7"]
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_hluit"]
+
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
 friction = 0.5

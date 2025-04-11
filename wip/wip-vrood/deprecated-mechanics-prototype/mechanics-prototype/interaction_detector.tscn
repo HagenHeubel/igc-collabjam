@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c34la6povo1a6"]
 
-[ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-staging/mechanics-prototype/interaction_detector.gd" id="1_387bu"]
+[ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/interaction_detector.gd" id="1_387bu"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2gkrw"]
 radius = 70.0

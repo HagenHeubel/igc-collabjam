@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://c33iye015byfa"]
 
-[ext_resource type="PackedScene" uid="uid://dx6nv1611f5dj" path="res://wip/wip-staging/mechanics-prototype/prototype_level.tscn" id="1_14bdr"]
+[ext_resource type="PackedScene" uid="uid://dx6nv1611f5dj" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/prototype_level.tscn" id="1_14bdr"]
 [ext_resource type="Script" uid="uid://d3ow6llevaasj" path="res://main/GameTemplate/scenes/game_scene/levels/level.gd" id="1_sx6xw"]
+
 
 [node name="PrototypeLevel" instance=ExtResource("1_14bdr")]
 script = ExtResource("1_sx6xw")

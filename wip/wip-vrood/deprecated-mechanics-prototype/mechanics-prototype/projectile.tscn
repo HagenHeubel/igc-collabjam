@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ejpoluwgxm4k"]
 
 [ext_resource type="Texture2D" uid="uid://pidxwxticykn" path="res://assets/assets-visual/Icons/node/icon_bullet.png" id="1_aqo6f"]
-[ext_resource type="Script" uid="uid://bgfp446cy7y5u" path="res://wip/wip-staging/mechanics-prototype/projectile.gd" id="1_q1b5n"]
+[ext_resource type="Script" uid="uid://bgfp446cy7y5u" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/projectile.gd" id="1_q1b5n"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1b5n"]
 size = Vector2(20, 11)
