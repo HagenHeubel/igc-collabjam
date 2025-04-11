@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
 var push_force = 80.0
+@export var mass : float = 2.0
 @onready var cat_sprite: Sprite2D = $CatSprite
 
 func _ready() -> void:
@@ -33,8 +33,8 @@ func _physics_process(delta: float) -> void:
 			cat_sprite.flip_h = true
 		else:
 			cat_sprite.flip_h = false
-	
+	push_force = velocity
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
-			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force * mass)

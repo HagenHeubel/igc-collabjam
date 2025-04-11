@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdepnecknw6xy"]
+[gd_scene load_steps=10 format=3 uid="uid://bdepnecknw6xy"]
 
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-staging/Tower/1_TowerComponents/room_controller.gd" id="1_8rhle"]
 [ext_resource type="Script" uid="uid://ceadpo52ne6jb" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_root.gd" id="2_7u8o0"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/Tower/1_TowerComponents/camera_script.gd" id="4_8rhle"]
 [ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/Tower/4_Rooms/Example.tscn" id="5_8rhle"]
+[ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://wip/wip-staging/Tower/1_TowerComponents/room_door.tscn" id="5_w1gug"]
 [ext_resource type="PackedScene" uid="uid://bpesxd4i8wawp" path="res://wip/wip-sqlpy/player.tscn" id="7_7u8o0"]
+[ext_resource type="Script" uid="uid://b1wqkt6g2je8g" path="res://wip/wip-sqlpy/Attachments/softly_pinned_object.gd" id="7_w1gug"]
 [ext_resource type="PackedScene" uid="uid://bakylihgh3gd7" path="res://wip/wip-sqlpy/rooms/RespawnRoom.tscn" id="12_rx3ky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2fyf"]
+size = Vector2(140, 89)
 
 [node name="Test" type="Node2D"]
 
@@ -31,10 +36,45 @@ camera_static = false
 position = Vector2(3457, -719)
 camera_static = false
 
+[node name="RoomDoor" parent="Tower" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("5_w1gug")]
+position = Vector2(1151, -121)
+orange_room = NodePath("../RespawnRoom")
+green_room = NodePath("../RoomLeftRight")
+
+[node name="RoomDoor2" parent="Tower" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("5_w1gug")]
+position = Vector2(2306, -122)
+orange_room = NodePath("../RoomLeftRight")
+green_room = NodePath("../RoomLeftRight2")
+
+[node name="RoomDoor3" parent="Tower" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("5_w1gug")]
+position = Vector2(3457, -121)
+orange_room = NodePath("../RoomLeftRight2")
+green_room = NodePath("../RoomLeftRight3")
+
+[node name="RoomDoor4" parent="Tower" instance=ExtResource("5_w1gug")]
+position = Vector2(4609, -122)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.24, 0.24)
 script = ExtResource("4_8rhle")
 convergence_speed = 16.0
 
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(-793, -213)
+collision_mask = 5
+mass = 10.68
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+linear_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_l2fyf")
+
+[node name="SoftPin" type="Node" parent="RigidBody2D"]
+script = ExtResource("7_w1gug")
+lock_horizontal = true
+quadratic_stiffness = 0.3
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
 [node name="Player" parent="." instance=ExtResource("7_7u8o0")]
-position = Vector2(-916, -239)
+position = Vector2(-808, -300)
