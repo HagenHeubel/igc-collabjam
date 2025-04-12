@@ -1,7 +1,8 @@
 extends RigidBody2D
 class_name FlyingBook
 
-var height :float=10.
+var height :float=50.0
+var width :float=10.0
 var target_bookshelf :MagicBookshelf
 
 # Called when the node enters the scene tree for the first time.

@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_p1gsp"]
 [ext_resource type="AnimationLibrary" uid="uid://duh6bv5c0yw72" path="res://wip/wip-hagen/rigidbody_controller/anim_lib_test.res" id="4_n8e0i"]
 
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
 friction = 0.4
 
@@ -45,6 +44,7 @@ physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 5.0
 center_of_mass_mode = 1
 inertia = 500.0
+lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 3
@@ -55,16 +55,16 @@ interaction_detect = NodePath("DetectionAreas/InteractionDetector")
 animation_player = NodePath("AnimationPlayer")
 visual_component = NodePath("Visuals")
 move_force = 6600.0
-jump_impulse_strength = 5500.0
+jump_impulse_strength = 5650.0
 slope_angle_max = 40.0
 rotation_stabilizer = 0.1
-pounce_control_type = 6
+pounce_control_type = 2
 min_jump_charge = 0.5
 h_jump_control = 0.5
 landing_boost = 1.1
-landing_boost_duration = 0.3
-min_pounce_angle = 10.0
-def_pounce_angle = 40.0
+landing_boost_duration = 0.2
+min_pounce_angle = 20.0
+def_pounce_angle = 50.0
 max_pounce_angle = 80.0
 
 [node name="Visuals" type="Node2D" parent="."]

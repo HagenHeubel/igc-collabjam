@@ -49,7 +49,7 @@ var on_wall :bool=false
 var neutral_force :Vector2
 var jump_charge :float=min_jump_charge
 var current_movement_boost :float=0.0
-
+var pounce_rotation :float=0.0
 
 func _ready() -> void:
 	GlobalVars.player = self
@@ -138,23 +138,31 @@ func _physics_process(delta: float) -> void:
 	
 	
 	#jump input handling
-	if on_floor and Input.is_action_pressed("jump"):
-		if abs(visual_component.rotation_degrees) < min_pounce_angle:
-			visual_component.rotation_degrees = def_pounce_angle*-visual_component.scale.x
-		visual_component.rotation_degrees = get_pounce_rotation_input.call(delta)
+	if on_floor and Input.is_action_pressed("pounce"):
+		if abs(pounce_rotation) < min_pounce_angle:
+			pounce_rotation = def_pounce_angle*-visual_component.scale.x
+		pounce_rotation = get_pounce_rotation_input.call(delta)
 		force.x = 0.0
 		jump_charge = minf(jump_charge+charge_time*delta,1.0)
 		visual_component.scale.y = 1.0-jump_charge*0.4
-	if on_floor and Input.is_action_just_released("jump"):
+		update_visual_to_pounce_rotation()
+	if on_floor and Input.is_action_just_released("pounce"):
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
 		if charge_always_full:
 			jump_charge = 1.0
 		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(visual_component.rotation))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
-		visual_component.rotation = 0.0
 		current_movement_boost = landing_boost*jump_charge
 		jump_charge = min_jump_charge
+		pounce_rotation = 0.0
+		update_visual_to_pounce_rotation()
 	
+	if on_floor and Input.is_action_just_pressed(&"jump") and !Input.is_action_pressed("pounce"):
+		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength*0.52)
+		jump_charge = min_jump_charge
+		pounce_rotation = 0.0
+		update_visual_to_pounce_rotation()
+		current_movement_boost = landing_boost*0.5
 	#Flips assigned 2D visuals
 	if on_floor and ((current_movement_boost<0.01)or(linear_velocity.y < 1.0)) and !Input.is_action_just_released("jump"): #only change sprite direction while jump isn't charging!
 		if force.x < -0.1:
@@ -210,22 +218,22 @@ func calculate_avg_ground_normal(weigh_side:float=0.0)->float:
 func pounce_rotation_left_right(delta:float) -> float:
 	var input = Input.get_axis("left", "right") *delta *pounce_aim_speed
 	if visual_component.scale.x > 0.0:
-		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
 	else:
-		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 ##Aims pounce with the up and down inputs
 func pounce_rotation_up_down(delta:float) -> float:
 	var input = Input.get_axis("up", "down") *visual_component.scale.x *delta *pounce_aim_speed
 	if visual_component.scale.x > 0.0:
-		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
 	else:
-		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 ##Aims pounce by rotation towards the current cursor location
 func pounce_rotation_mouse_targeting(delta:float) -> float:
 	var rot_to_cursor = -get_local_mouse_position().angle_to(Vector2.RIGHT*visual_component.scale.x)
-	rot_to_cursor = lerp_angle(visual_component.rotation, rot_to_cursor, 1.0 - exp(-3.1 * delta)) #Util.delta_lerp(visual_component.rotation, rot_to_cursor, 10.1, delta)
+	#rot_to_cursor = lerp_angle(visual_component.rotation, rot_to_cursor, 1.0 - exp(-3.1 * delta)) #Util.delta_lerp(visual_component.rotation, rot_to_cursor, 10.1, delta)
 	rot_to_cursor = rad_to_deg(rot_to_cursor)
 	
 	if visual_component.scale.x > 0.0:
@@ -239,9 +247,9 @@ func pounce_rotation_mouse_delta(delta:float) -> float:
 	input = mouse_delta.y *delta *pounce_aim_speed *0.05 *visual_component.scale.x
 	
 	if visual_component.scale.x > 0.0:
-		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
 	else:
-		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 func pounce_rotation_mouse_delta_xy(delta:float) -> float:
 	var input :float
@@ -251,9 +259,9 @@ func pounce_rotation_mouse_delta_xy(delta:float) -> float:
 		input = mouse_delta.x *delta *pounce_aim_speed *0.05
 	
 	if visual_component.scale.x > 0.0:
-		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
 	else:
-		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 ##Aims pounce with the left and right mouse buttons
 func pounce_rotation_mouse_left_right(delta:float) -> float:
@@ -264,9 +272,9 @@ func pounce_rotation_mouse_left_right(delta:float) -> float:
 		input += 1.0
 	input *=  delta *pounce_aim_speed
 	if visual_component.scale.x > 0.0:
-		return clampf(visual_component.rotation_degrees+input,-max_pounce_angle,-min_pounce_angle)
+		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
 	else:
-		return clampf(visual_component.rotation_degrees+input,min_pounce_angle,max_pounce_angle)
+		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 ##Aims pounce upwards with jump charge
 func pounce_rotation_charge_targeting(delta:float) -> float:
@@ -278,6 +286,11 @@ func pounce_rotation_charge_targeting(delta:float) -> float:
 		return rad_to_deg(lerp_angle(deg_to_rad(min_pounce_angle),deg_to_rad(max_pounce_angle),input))
 
 var mouse_delta :Vector2=Vector2.ZERO
+
+
+func update_visual_to_pounce_rotation():
+	visual_component.rotation_degrees = pounce_rotation
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
