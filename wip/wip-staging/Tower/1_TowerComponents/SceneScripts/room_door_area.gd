@@ -14,6 +14,8 @@ func _process(_delta: float) -> void:
 func _update_overlapped_list() -> void:
 	var bodies: Array = get_overlapping_bodies()
 	var player: Node2D = GlobalVars.player
+	if not player:
+		return
 	var player_area: Area2D = GlobalVars.player_area
 	if (player in bodies) or player_area.overlaps_area(self):
 		if self not in overlapped_door_areas:

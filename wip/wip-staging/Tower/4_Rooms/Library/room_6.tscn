@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnhkeei12hppk"]
+
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_room.gd" id="1_0lojd"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://wip/wip-staging/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_w4u67"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://wip/wip-staging/Tower/2_RoomComponents/tiling_floor.tscn" id="3_8qlc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_joe1g"]
+size = Vector2(1028, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6htv"]
+size = Vector2(1028, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0kg"]
+size = Vector2(8, 484)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35vji"]
+size = Vector2(8, 480)
+
+[node name="Room6" type="Node2D"]
+script = ExtResource("1_0lojd")
+
+[node name="RoomContent" type="Node2D" parent="."]
+
+[node name="BasicRoomBG" parent="RoomContent" instance=ExtResource("2_w4u67")]
+offset_left = 0.0
+offset_right = 1024.0
+offset_bottom = 576.0
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
+position = Vector2(-64, 0)
+shape = SubResource("RectangleShape2D_joe1g")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(576, 648)
+
+[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_8qlc2")]
+points = PackedVector2Array(-576, -72, 448, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+position = Vector2(-66, -72)
+shape = SubResource("RectangleShape2D_v6htv")
+
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(0, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
+position = Vector2(0, -86)
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(1152, 274)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
+position = Vector2(-128, -34)
+shape = SubResource("RectangleShape2D_35vji")
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(512, 288)
+
+[node name="CameraBounds" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 416.0
+offset_top = 224.0
+offset_right = 608.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 2.0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-staging/Tower/1_TowerComponents/room_controller.gd" id="1_8rhle"]
 [ext_resource type="Script" uid="uid://ceadpo52ne6jb" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_root.gd" id="2_7u8o0"]
-[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/Tower/1_TowerComponents/camera_script.gd" id="4_8rhle"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/Tower/1_TowerComponents/room_camera.gd" id="4_8rhle"]
 [ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/Tower/4_Rooms/Example.tscn" id="5_8rhle"]
 [ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://wip/wip-staging/Tower/1_TowerComponents/room_door.tscn" id="5_w1gug"]
 [ext_resource type="PackedScene" uid="uid://bpesxd4i8wawp" path="res://wip/wip-sqlpy/player.tscn" id="7_7u8o0"]

@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/Tower/1_TowerComponents/SceneScripts/room_door_area.gd" id="2_m0h2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0h2h"]
-size = Vector2(32, 88)
+resource_local_to_scene = true
+size = Vector2(32, 61)
 
 [node name="RoomDoor" type="Node2D"]
 z_index = 1

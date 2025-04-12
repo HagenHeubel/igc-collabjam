@@ -208,7 +208,6 @@ process_material = SubResource("ParticleProcessMaterial_21hmq")
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_8mnom")
 position = Vector2(0, 3)
-scale = Vector2(1, 1)
 emitting = false
 amount = 30
 texture = SubResource("GradientTexture2D_jpr6w")
