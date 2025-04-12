@@ -1,34 +1,111 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8fb0akslsrna"]
+[gd_scene load_steps=13 format=3 uid="uid://c8fb0akslsrna"]
 
 [ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/Tower/4_Rooms/Example.tscn" id="1_15gfy"]
-[ext_resource type="PackedScene" uid="uid://6wodc26ygaj0" path="res://wip/wip-staging/area-2d/wind_area.tscn" id="3_yygip"]
-[ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://wip/wip-staging/area-2d/anti_gravity_area_2d.tscn" id="4_glmgt"]
+[ext_resource type="PackedScene" uid="uid://6wodc26ygaj0" path="res://wip/wip-staging/modular-area-2d/wind_area.tscn" id="3_yygip"]
+[ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://wip/wip-staging/modular-area-2d/anti_gravity_area_2d.tscn" id="4_glmgt"]
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="4_yygip"]
-[ext_resource type="PackedScene" uid="uid://cvdj6lyfb5k1e" path="res://wip/wip-staging/area-2d/jump_pad_area_2d.tscn" id="5_glmgt"]
+[ext_resource type="PackedScene" uid="uid://cvdj6lyfb5k1e" path="res://wip/wip-staging/modular-area-2d/jump_pad_area_2d.tscn" id="5_glmgt"]
+[ext_resource type="PackedScene" uid="uid://c41kdnlmvunay" path="res://wip/wip-staging/modular-area-2d/popup_area_2d.tscn" id="6_ltt71"]
+[ext_resource type="FontFile" uid="uid://c6qum6sjo171i" path="res://assets/assets-visual/Fonts/CC0/DejaVuSansMono-Bront.ttf" id="7_raxi3"]
+[ext_resource type="FontFile" uid="uid://oicilb1o42yd" path="res://assets/assets-visual/Fonts/OpenFonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Regular.ttf" id="8_5gpoq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5gpoq"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0.5, 0.5)
+border_width_left = 5
+border_width_top = 30
+border_width_right = 20
+border_width_bottom = 10
+border_color = Color(0.00894061, 0.143326, 0.15322, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_rgydv"]
+font = ExtResource("7_raxi3")
+font_color = Color(1, 0.0823529, 1, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 25
+shadow_color = Color(0.617455, 0.617455, 0.617455, 0.901961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgydv"]
+bg_color = Color(0.278431, 0.454902, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fd0v0"]
+font = ExtResource("8_5gpoq")
+font_size = 64
+font_color = Color(0, 1, 1, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Room" instance=ExtResource("1_15gfy")]
 
 [node name="Cat" parent="." index="3" instance=ExtResource("4_yygip")]
 position = Vector2(184, 512)
 
-[node name="WindArea" parent="." index="4" instance=ExtResource("3_yygip")]
+[node name="❤VroodsAwesomeAreaNodes✨" type="Node2D" parent="." index="4"]
+
+[node name="WindArea" parent="❤VroodsAwesomeAreaNodes✨" index="0" instance=ExtResource("3_yygip")]
 position = Vector2(680, 520)
 
-[node name="AntiGravityArea2D" parent="." index="5" instance=ExtResource("4_glmgt")]
+[node name="AntiGravityArea2D" parent="❤VroodsAwesomeAreaNodes✨" index="1" instance=ExtResource("4_glmgt")]
 position = Vector2(952, 352)
 gravity_space_override = 1
 angular_damp_space_override = 0
 
-[node name="JumpPadArea2D" parent="." index="6" instance=ExtResource("5_glmgt")]
+[node name="JumpPadArea2D" parent="❤VroodsAwesomeAreaNodes✨" index="2" instance=ExtResource("5_glmgt")]
 position = Vector2(680, 616)
 cooldown = 5.0
 
-[node name="JumpPadArea2D2" parent="." index="7" instance=ExtResource("5_glmgt")]
+[node name="JumpPadArea2D2" parent="❤VroodsAwesomeAreaNodes✨" index="3" instance=ExtResource("5_glmgt")]
 position = Vector2(544, 504)
 
-[node name="JumpPadArea2D3" parent="." index="8" instance=ExtResource("5_glmgt")]
+[node name="JumpPadArea2D3" parent="❤VroodsAwesomeAreaNodes✨" index="4" instance=ExtResource("5_glmgt")]
 position = Vector2(56, 592)
 priority = 10
 
-[node name="JumpPadArea2D4" parent="." index="9" instance=ExtResource("5_glmgt")]
+[node name="JumpPadArea2D4" parent="❤VroodsAwesomeAreaNodes✨" index="5" instance=ExtResource("5_glmgt")]
 position = Vector2(536, 248)
+
+[node name="PopupArea2D" parent="❤VroodsAwesomeAreaNodes✨" index="6" instance=ExtResource("6_ltt71")]
+position = Vector2(960, 296)
+
+[node name="PopupArea2D4" parent="❤VroodsAwesomeAreaNodes✨" index="7" instance=ExtResource("6_ltt71")]
+position = Vector2(944, 584)
+
+[node name="PopupArea2D2" parent="❤VroodsAwesomeAreaNodes✨" index="8" instance=ExtResource("6_ltt71")]
+position = Vector2(312, 312)
+
+[node name="PanelContainer" parent="❤VroodsAwesomeAreaNodes✨/PopupArea2D2" index="0"]
+offset_left = -40.0
+offset_top = -24.0
+offset_right = 60.0
+offset_bottom = 76.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5gpoq")
+
+[node name="Label" parent="❤VroodsAwesomeAreaNodes✨/PopupArea2D2/PanelContainer/VBoxContainer" index="0"]
+text = "Select 'Editable Children' to
+Change the style box, text, and themes!!"
+label_settings = SubResource("LabelSettings_rgydv")
+
+[node name="PopupArea2D3" parent="❤VroodsAwesomeAreaNodes✨" index="9" instance=ExtResource("6_ltt71")]
+position = Vector2(-112, 600)
+
+[node name="PanelContainer" parent="❤VroodsAwesomeAreaNodes✨/PopupArea2D3" index="0"]
+offset_left = -88.0
+offset_top = 224.0
+offset_right = 12.0
+offset_bottom = 324.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rgydv")
+
+[node name="Label" parent="❤VroodsAwesomeAreaNodes✨/PopupArea2D3/PanelContainer/VBoxContainer" index="0"]
+text = "Goodbye!!"
+label_settings = SubResource("LabelSettings_fd0v0")
+
+[node name="CollisionShape2D" parent="❤VroodsAwesomeAreaNodes✨/PopupArea2D3" index="1"]
+position = Vector2(72, 16)
+
+[editable path="❤VroodsAwesomeAreaNodes✨/PopupArea2D2"]
+[editable path="❤VroodsAwesomeAreaNodes✨/PopupArea2D3"]

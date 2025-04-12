@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://drx4334urcsgb"]
 
-[ext_resource type="Script" uid="uid://bl8dilo6i555r" path="res://wip/wip-staging/area-2d/src/anti_gravity_area.gd" id="1_1gjwo"]
+[ext_resource type="Script" uid="uid://bl8dilo6i555r" path="res://wip/wip-staging/modular-area-2d/src/anti_gravity_area.gd" id="1_1gjwo"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wj7k8"]
 size = Vector2(400, 824)

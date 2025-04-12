@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cvdj6lyfb5k1e"]
 
-[ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://wip/wip-staging/area-2d/src/jump_pad_area.gd" id="1_y8ww2"]
+[ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://wip/wip-staging/modular-area-2d/src/jump_pad_area.gd" id="1_y8ww2"]
 [ext_resource type="Texture2D" uid="uid://dnwa7bkxyp4rk" path="res://assets/assets-visual/Icons/node/icon_triangle.png" id="2_8n5kr"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ltt71"]
 size = Vector2(16, 10.6667)

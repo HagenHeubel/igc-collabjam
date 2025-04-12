@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6wodc26ygaj0"]
 
-[ext_resource type="Script" uid="uid://b1v1x67pyfytf" path="res://wip/wip-staging/area-2d/src/wind_area.gd" id="1_ujebn"]
+[ext_resource type="Script" uid="uid://b1v1x67pyfytf" path="res://wip/wip-staging/modular-area-2d/src/wind_area.gd" id="1_ujebn"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15gfy"]
 size = Vector2(608, 240)
