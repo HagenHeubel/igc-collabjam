@@ -29,7 +29,6 @@ position = Vector2(1153, -719)
 camera_static = false
 
 [node name="RoomLeftRight2" parent="Tower" instance=ExtResource("5_8rhle")]
-visible = false
 position = Vector2(2305, -719)
 camera_static = false
 
