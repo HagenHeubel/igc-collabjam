@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dh0j2y350om1w"]
 
-[ext_resource type="Script" uid="uid://w5u02f1p2fdk" path="res://wip/wip-staging/mechanics-prototype/example_interactable.gd" id="1_gw6py"]
+[ext_resource type="Script" uid="uid://w5u02f1p2fdk" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/example_interactable.gd" id="1_gw6py"]
 [ext_resource type="Texture2D" uid="uid://d04iobkuuhqcx" path="res://assets/assets-visual/Icons/node/icon_chest.png" id="2_c7luy"]
-[ext_resource type="Script" uid="uid://dp104gq4wfny5" path="res://wip/wip-staging/mechanics-prototype/interactable_component.gd" id="3_trrep"]
+[ext_resource type="Script" uid="uid://dp104gq4wfny5" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/interactable_component.gd" id="3_trrep"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5wq3"]
 

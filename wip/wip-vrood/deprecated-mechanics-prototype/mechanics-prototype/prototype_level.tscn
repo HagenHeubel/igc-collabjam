@@ -1,12 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://dx6nv1611f5dj"]
 
-[ext_resource type="PackedScene" uid="uid://c3w5x38cbwl1k" path="res://wip/wip-staging/mechanics-prototype/cat.tscn" id="1_p8tyb"]
-[ext_resource type="PackedScene" uid="uid://dh0j2y350om1w" path="res://wip/wip-staging/mechanics-prototype/example_interactable_object.tscn" id="2_5vv24"]
+[ext_resource type="PackedScene" uid="uid://c3w5x38cbwl1k" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/cat.tscn" id="1_p8tyb"]
+[ext_resource type="PackedScene" uid="uid://dh0j2y350om1w" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/example_interactable_object.tscn" id="2_5vv24"]
 [ext_resource type="PackedScene" uid="uid://2qbsly55rbnb" path="res://wip/wip-sqlpy/cat/cat_tail.tscn" id="2_tltyl"]
-[ext_resource type="Script" uid="uid://cvno0jykd4wxr" path="res://wip/wip-staging/mechanics-prototype/projectile_spawner.gd" id="3_e4rgi"]
-[ext_resource type="PackedScene" uid="uid://ejpoluwgxm4k" path="res://wip/wip-staging/mechanics-prototype/projectile.tscn" id="4_vv080"]
+[ext_resource type="Script" uid="uid://cvno0jykd4wxr" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/projectile_spawner.gd" id="3_e4rgi"]
+[ext_resource type="PackedScene" uid="uid://ejpoluwgxm4k" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/projectile.tscn" id="4_vv080"]
 [ext_resource type="Texture2D" uid="uid://dvey6mcwxydmy" path="res://assets/assets-visual/Icons/color/icon_weapon.png" id="5_2f81w"]
-[ext_resource type="PackedScene" uid="uid://ulf3blf5upv1" path="res://wip/wip-staging/mechanics-prototype/breakable_object.tscn" id="6_b62do"]
+[ext_resource type="PackedScene" uid="uid://ulf3blf5upv1" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/breakable_object.tscn" id="6_b62do"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5vv24"]
 size = Vector2(384, 40)

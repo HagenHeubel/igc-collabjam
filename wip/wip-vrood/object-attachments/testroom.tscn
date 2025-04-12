@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8fb0akslsrna"]
+
+[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/Tower/4_Rooms/Example.tscn" id="1_15gfy"]
+[ext_resource type="PackedScene" uid="uid://6wodc26ygaj0" path="res://wip/wip-staging/area-2d/wind_area.tscn" id="3_yygip"]
+[ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://wip/wip-staging/area-2d/anti_gravity_area_2d.tscn" id="4_glmgt"]
+[ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/cat_rb.tscn" id="4_yygip"]
+[ext_resource type="PackedScene" uid="uid://cvdj6lyfb5k1e" path="res://wip/wip-staging/area-2d/jump_pad_area_2d.tscn" id="5_glmgt"]
+
+[node name="Room" instance=ExtResource("1_15gfy")]
+
+[node name="Cat" parent="." index="3" instance=ExtResource("4_yygip")]
+position = Vector2(184, 512)
+
+[node name="WindArea" parent="." index="4" instance=ExtResource("3_yygip")]
+position = Vector2(680, 520)
+
+[node name="AntiGravityArea2D" parent="." index="5" instance=ExtResource("4_glmgt")]
+position = Vector2(952, 352)
+gravity_space_override = 1
+angular_damp_space_override = 0
+
+[node name="JumpPadArea2D" parent="." index="6" instance=ExtResource("5_glmgt")]
+position = Vector2(680, 616)
+cooldown = 5.0
+
+[node name="JumpPadArea2D2" parent="." index="7" instance=ExtResource("5_glmgt")]
+position = Vector2(544, 504)
+
+[node name="JumpPadArea2D3" parent="." index="8" instance=ExtResource("5_glmgt")]
+position = Vector2(56, 592)
+priority = 10
+
+[node name="JumpPadArea2D4" parent="." index="9" instance=ExtResource("5_glmgt")]
+position = Vector2(536, 248)
