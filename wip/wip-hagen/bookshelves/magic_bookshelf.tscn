@@ -4,11 +4,9 @@
 
 [node name="BookshelfArea" type="Area2D" groups=["Magic Bookshelf"]]
 script = ExtResource("1_rikm8")
-book_width = null
-book_interval = null
-book_chance = null
 
 [node name="BookLeavingTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="timeout" from="BookLeavingTimer" to="." method="_on_book_leaving_timer_timeout"]
