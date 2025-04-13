@@ -17,7 +17,8 @@ radius = 105.304
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oth3g"]
 bounce = 0.8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmnt2"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt3il"]
+size = Vector2(569, 325)
 
 [node name="TestLevel" type="Node2D"]
 
@@ -356,18 +357,40 @@ texture = ExtResource("1_gt0ek")
 position = Vector2(378, 255)
 rotation_stabilizer = 3.0
 
-[node name="BookshelfArea" parent="." instance=ExtResource("3_qmnt2")]
-book_interval = 1.0
-bookshelf_shape = SubResource("RectangleShape2D_qmnt2")
+[node name="FlyingBook3" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(-120, 12)
+height = 186.0
+width = 99.0
 
-[node name="@CollisionShape2D@39721" type="CollisionShape2D" parent="BookshelfArea"]
-shape = SubResource("RectangleShape2D_qmnt2")
+[node name="FlyingBook" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(403, -158.5)
+height = 186.0
+width = 99.0
 
-[node name="BookshelfArea2" parent="." instance=ExtResource("3_qmnt2")]
-book_interval = 1.0
-bookshelf_shape = SubResource("RectangleShape2D_qmnt2")
+[node name="FlyingBook4" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(167.5, 40)
+height = 186.0
+width = 99.0
 
-[node name="_CollisionShape2D_39721" type="CollisionShape2D" parent="BookshelfArea2"]
-shape = SubResource("RectangleShape2D_qmnt2")
+[node name="FlyingBook6" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(18, 40)
+height = 186.0
+width = 99.0
 
-[node name="RigidBody2D10" parent="BookshelfArea2" instance=ExtResource("4_mt3il")]
+[node name="FlyingBook2" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(443.5, 40)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook5" parent="." instance=ExtResource("4_mt3il")]
+position = Vector2(601.5, 40)
+height = 186.0
+width = 99.0
+
+[node name="BookshelfArea" parent="." node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_qmnt2")]
+position = Vector2(143, -228)
+bookshelf_shape = SubResource("RectangleShape2D_mt3il")
+bookshelf_collision = NodePath("@CollisionShape2D@58004")
+
+[node name="@CollisionShape2D@58004" type="CollisionShape2D" parent="BookshelfArea"]
+shape = SubResource("RectangleShape2D_mt3il")

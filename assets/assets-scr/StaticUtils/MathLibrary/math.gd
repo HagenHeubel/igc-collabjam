@@ -385,3 +385,10 @@ static func generate_random_seed(seed_range: int = 10) -> String:
 		rnd_seed += char(int(randi_range(40,127)))
 
 	return(rnd_seed)
+
+##Increments through positive and negative integers. E.g. in 1, out -1; in -1, out 2; in 2 out -2; in -2 out 3; ...
+static func increment_int_alternating(input:int)->int:
+	if input > 0:
+		return input*-1
+	else:
+		return (input*-1)+1
