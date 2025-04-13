@@ -1,3 +1,4 @@
+class_name RoomCamera2D
 extends Camera2D
 
 @export_range(0.1, 30.0, 0.1) var convergence_speed : float
