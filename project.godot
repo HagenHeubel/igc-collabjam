@@ -50,6 +50,10 @@ folder_colors={
 
 "Magic Bookshelf"="Bookshelves that store and can be used as targets by flying books"
 
+[gui]
+
+theme/custom_font="uid://bwd76offfwyvc"
+
 [input]
 
 up={
