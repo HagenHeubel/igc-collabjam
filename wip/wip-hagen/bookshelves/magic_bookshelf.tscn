@@ -3,10 +3,14 @@
 [ext_resource type="Script" uid="uid://3pcq727qsxfk" path="res://wip/wip-hagen/bookshelves/bookshelf.gd" id="1_rikm8"]
 
 [node name="BookshelfArea" type="Area2D" groups=["Magic Bookshelf"]]
+collision_layer = 0
+collision_mask = 20
+monitorable = false
 script = ExtResource("1_rikm8")
 
 [node name="BookLeavingTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
-[connection signal="timeout" from="BookLeavingTimer" to="." method="_on_book_leaving_timer_timeout"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

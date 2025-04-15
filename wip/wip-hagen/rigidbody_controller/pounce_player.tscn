@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bo1xeylmqo7xt"]
+[gd_scene load_steps=11 format=3 uid="uid://bo1xeylmqo7xt"]
 
 [ext_resource type="Script" uid="uid://od700kj08fhl" path="res://wip/wip-hagen/rigidbody_controller/rigid_player_pounce.gd" id="1_m77i1"]
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/interaction_detector.gd" id="2_n8e0i"]
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_p1gsp"]
 [ext_resource type="AnimationLibrary" uid="uid://duh6bv5c0yw72" path="res://wip/wip-hagen/rigidbody_controller/anim_lib_test.res" id="4_n8e0i"]
+[ext_resource type="PackedScene" uid="uid://d1r71iy200adl" path="res://wip/wip-staging/Tower/5_Others/player_area.tscn" id="5_p1gsp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
 friction = 0.4
@@ -112,9 +113,13 @@ position = Vector2(29, -4)
 target_position = Vector2(0, 62.11)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_vertical_offset = 0.51
 drag_top_margin = 0.4
+
+[node name="PlayerArea" parent="." instance=ExtResource("5_p1gsp")]
+position = Vector2(0, -30)

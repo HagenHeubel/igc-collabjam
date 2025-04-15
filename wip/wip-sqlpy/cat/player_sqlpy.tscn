@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0imcax35nyxj"]
+[gd_scene load_steps=6 format=3 uid="uid://c0imcax35nyxj"]
 
-[ext_resource type="Script" uid="uid://bq3s8c5diie0y" path="res://wip/wip-sqlpy/cat/sqlpy_player_version.gd" id="1_6a55e"]
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://wip/wip-vrood/deprecated-mechanics-prototype/mechanics-prototype/interaction_detector.gd" id="2_f0lh7"]
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_hluit"]
-
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nywrp"]
 friction = 0.5
@@ -29,22 +27,6 @@ contact_monitor = true
 max_contacts_reported = 3
 linear_damp = 4.0
 angular_damp = 25.0
-script = ExtResource("1_6a55e")
-HEALTH_MAX = null
-move_force = null
-jump_impulse_strength = null
-slope_angle_max = null
-rotation_stabilizer = null
-charge_time = null
-pounce_control_type = null
-charge_always_full = null
-min_jump_charge = null
-h_jump_control = null
-pounce_movement_boost = null
-pounce_aim_speed = null
-min_pounce_angle = null
-def_pounce_angle = null
-max_pounce_angle = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -14.94)

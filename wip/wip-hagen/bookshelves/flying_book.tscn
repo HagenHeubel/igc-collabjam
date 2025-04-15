@@ -1,17 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://buwkpi3qxfqgv"]
+[gd_scene load_steps=5 format=3 uid="uid://buwkpi3qxfqgv"]
 
 [ext_resource type="Script" uid="uid://elvy8f645dd4" path="res://wip/wip-hagen/bookshelves/flying_book.gd" id="1_3f3gw"]
 [ext_resource type="Texture2D" uid="uid://b2o2xy2q4rkpv" path="res://wip/wip-hagen/assets/IMG_book_002.png" id="1_c55ca"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3f3gw"]
+friction = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3f3gw"]
 size = Vector2(99, 186)
 
 [node name="FlyingBook" type="RigidBody2D"]
+collision_layer = 16
+collision_mask = 21
+physics_material_override = SubResource("PhysicsMaterial_3f3gw")
+gravity_scale = 0.0
+linear_damp = 0.5
 script = ExtResource("1_3f3gw")
+speed = 450.0
 
 [node name="ImgBook002" type="Sprite2D" parent="."]
 texture = ExtResource("1_c55ca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_3f3gw")
