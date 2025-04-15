@@ -1,7 +1,7 @@
 class_name RoomCamera2D
 extends Camera2D
 
-@export_range(0.1, 30.0, 0.1) var convergence_speed : float
+@export_range(0.1, 30.0, 0.1) var convergence_speed : float = 20.0
 
 func _process(delta: float) -> void:
 	var current_room : TowerRoom = GlobalVars.current_room

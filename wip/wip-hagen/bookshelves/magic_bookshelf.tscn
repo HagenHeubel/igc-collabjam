@@ -7,8 +7,6 @@ collision_layer = 0
 collision_mask = 20
 monitorable = false
 script = ExtResource("1_rikm8")
-leaving_interval = null
-leaving_chance = null
 
 [node name="BookLeavingTimer" type="Timer" parent="."]
 autostart = true
