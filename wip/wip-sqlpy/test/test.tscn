@@ -79,3 +79,7 @@ metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
 
 [node name="Player" parent="." instance=ExtResource("7_7u8o0")]
 position = Vector2(-808, -300)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+position = Vector2(-85, -214)
+color = Color(0, 0, 0, 1)

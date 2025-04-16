@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cgm5smelon8b1"]
+[gd_scene load_steps=20 format=3 uid="uid://cgm5smelon8b1"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_vs3if"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_my6h8"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://coyb8k1psdmwg" path="res://main/Objects/Prefabs/Furniture/bookshelf.tscn" id="6_060hk"]
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="7_ex6rk"]
 [ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="9_wgnyr"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="10_xs4wy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
 size = Vector2(768, 8)
@@ -181,6 +183,18 @@ scale = Vector2(1, 0.5)
 [node name="Bookshelf3" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
 position = Vector2(351, 1106)
 scale = Vector2(1, 0.25)
+
+[node name="LightOccluders" type="Node2D" parent="RoomContent"]
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 480, 0, 0, 768, 0, 768, 1152, 0, 1152)
+width = 16.0
+texture = ExtResource("9_wgnyr")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("10_xs4wy")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)

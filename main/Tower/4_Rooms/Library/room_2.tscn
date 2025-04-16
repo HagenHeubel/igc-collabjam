@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0c3xikghws43"]
+[gd_scene load_steps=24 format=3 uid="uid://c0c3xikghws43"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_joe1g"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_gusue"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dl87dkv1fmbss" path="res://main/Objects/Prefabs/Books/FragileBookD.tscn" id="10_svmqv"]
 [ext_resource type="PackedScene" uid="uid://cd7e1renevki5" path="res://main/Objects/Prefabs/Bottles/BottleOrange.tscn" id="11_svmqv"]
 [ext_resource type="PackedScene" uid="uid://moihii3nxxih" path="res://main/Objects/Prefabs/Bottles/BottlePurple.tscn" id="13_jsl44"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="14_mgn1b"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="15_l0d17"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joe1g"]
 size = Vector2(1028, 8)
@@ -561,6 +563,28 @@ points = PackedVector2Array(-65, -72, 448, -72)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor2"]
 position = Vector2(192, -72)
 shape = SubResource("RectangleShape2D_v6htv")
+
+[node name="LightOccluders" type="Node2D" parent="RoomContent"]
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 480, 0, 0, 1024, 0, 1024, 480)
+width = 16.0
+texture = ExtResource("14_mgn1b")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("15_l0d17")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 576, 1024, 576)
+width = 16.0
+texture = ExtResource("14_mgn1b")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("15_l0d17")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)

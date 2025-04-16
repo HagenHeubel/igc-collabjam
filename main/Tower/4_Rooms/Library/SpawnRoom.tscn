@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cyardrbnaeudv"]
+[gd_scene load_steps=28 format=3 uid="uid://cyardrbnaeudv"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_35vji"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_etik3"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://bbnpkcjiufdhe" path="res://main/Objects/Prefabs/Books/FragileBookE.tscn" id="8_jt6r1"]
 [ext_resource type="PackedScene" uid="uid://c0lhn33m08wkx" path="res://main/Objects/Prefabs/Furniture/bed.tscn" id="15_jt88f"]
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="17_v6ub7"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="19_uqtnj"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="20_7sxsf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtnj"]
 size = Vector2(813.5, 11)
@@ -340,6 +342,26 @@ position = Vector2(1152, 274)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
 position = Vector2(-128, -34)
 shape = SubResource("RectangleShape2D_35vji")
+
+[node name="LightOccluders" type="Node2D" parent="RoomContent"]
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+points = PackedVector2Array(0, 576, 1024, 576)
+width = 16.0
+texture = ExtResource("19_uqtnj")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("20_7sxsf")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+points = PackedVector2Array(1024, 480, 1024, 0, 0, 0)
+width = 16.0
+texture = ExtResource("19_uqtnj")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("20_7sxsf")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(491, 334)
