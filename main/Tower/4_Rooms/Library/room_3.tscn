@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="7_ex6rk"]
 [ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="9_wgnyr"]
-[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="10_xs4wy"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="10_xs4wy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
 size = Vector2(768, 8)

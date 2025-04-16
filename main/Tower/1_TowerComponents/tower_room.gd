@@ -12,6 +12,7 @@ var adjacent_rooms: Array = []
 func _ready() -> void:
 	SignalBus.register_room.emit(self)
 	if start_room:
+		await SignalBus.tower_ready
 		SignalBus.room_changed.emit(self)
 
 func _process(_delta: float) -> void:

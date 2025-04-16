@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://c0lhn33m08wkx" path="res://main/Objects/Prefabs/Furniture/bed.tscn" id="15_jt88f"]
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="17_v6ub7"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="19_uqtnj"]
-[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="20_7sxsf"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="20_7sxsf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtnj"]
 size = Vector2(813.5, 11)
@@ -347,7 +347,7 @@ shape = SubResource("RectangleShape2D_35vji")
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(0, 576, 1024, 576)
+points = PackedVector2Array(0, 576, 0, 576, 1024, 576, 1024, 576)
 width = 16.0
 texture = ExtResource("19_uqtnj")
 texture_mode = 2

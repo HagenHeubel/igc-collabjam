@@ -237,9 +237,15 @@ color = Color(0, 0, 0, 1)
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
 position = Vector2(479, 221)
-zoom = Vector2(0.95, 0.95)
+zoom = Vector2(0.785, 0.785)
 script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
+
+[node name="ColorRect" type="ColorRect" parent="GameSpace/RoomCamera2D"]
+offset_left = -803.0
+offset_top = -446.0
+offset_right = 746.0
+offset_bottom = 542.0
 
 [node name="Floor1" type="Node2D" parent="GameSpace"]
 
@@ -346,7 +352,7 @@ script = ExtResource("13_spedq")
 convergence_speed = 10.0
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(830, 79)
+position = Vector2(816, 480)
 gravity_scale = 4.0
 move_force = 7200.0
 jump_impulse_strength = 8000.0

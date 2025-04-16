@@ -3,6 +3,8 @@ extends Node
 
 var player : Node2D
 var player_area : Area2D
+var player_light : PointLight2D
+var camera : Camera2D
 var current_room : TowerRoom
 
 # In the player script, call `GlobalVars.set_global_player(self)`

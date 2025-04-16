@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_6ygob"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_m6o72"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="4_30ybf"]
-[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="5_sy44v"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="5_sy44v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3b14"]
 size = Vector2(726, 8)
@@ -82,7 +82,7 @@ shape = SubResource("RectangleShape2D_lp5fh")
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(192, 0, 912, 0)
+points = PackedVector2Array(192, 0, 192, 0, 912, 0, 912, 0)
 width = 16.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2
@@ -102,7 +102,7 @@ metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="TowerRoomSeparator3" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(2048, 576, 2048, 1056)
+points = PackedVector2Array(2048, 576, 2048, 576, 2048, 1056, 2048, 1056)
 width = 16.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2

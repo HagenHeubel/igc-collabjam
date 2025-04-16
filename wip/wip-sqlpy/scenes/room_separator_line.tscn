@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsddbs2rtu0bv"]
 
-[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://room_separator_line.gd" id="1_4vhn1"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="1_4vhn1"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gn753"]
 closed = false
