@@ -327,8 +327,6 @@ position = Vector2(4768, -2208)
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
 position = Vector2(830, 79)
 gravity_scale = 4.0
-move_force = 7200.0
-jump_impulse_strength = 8000.0
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")

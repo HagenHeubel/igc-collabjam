@@ -4,10 +4,14 @@ class_name FlyingBook
 #@export var use_sprite_for_size :bool= false ##[b]FALSE: [/b]Collision is used for setting height and width variables[br][b]TRUE:  [/b]Uses sprite instead
 #@export var sprite :Node2D
 @export var speed :float= 4000.0
+@export var target_bookshelf_after :float= 5.0
 @export var height :float=0.0
 @export var width :float=0.0
 var target_bookshelf :MagicBookshelf
 var previous_bookshelf :MagicBookshelf
+
+
+
 var default_collision_layer:int=0
 var default_collision_mask:int=0
 
@@ -24,7 +28,7 @@ func _ready() -> void:
 			height = node.shape.size.y
 			print(height," | ",width)
 		else:
-			node.scale = scale
+			node.scale *= scale
 	scale.x = 1.0
 	scale.y = 1.0
 	default_collision_layer = collision_layer
@@ -37,6 +41,8 @@ func _process(delta: float) -> void:
 		var direction :Vector2= target_bookshelf.position-position
 		direction = direction.normalized()
 		apply_force(direction*speed)
+	else:
+		pass #pick random point in valid range
 
 
 func enter_bookshelf(shelf:MagicBookshelf):

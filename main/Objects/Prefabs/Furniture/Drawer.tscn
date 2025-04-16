@@ -40,6 +40,8 @@ color_initial_ramp = SubResource("GradientTexture1D_1ff54")
 anim_offset_max = 1.0
 
 [node name="Drawer" type="RigidBody2D" node_paths=PackedStringArray("particles_triggered_on_break", "sprite")]
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_70cqy")
 particles_triggered_on_break = NodePath("BreakParticle")
 sprite = NodePath("Drawer")

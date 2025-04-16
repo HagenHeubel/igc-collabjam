@@ -6,11 +6,10 @@ class_name MagicBookshelf
 #TODO If the books have collision, a book should check if something is in the way when it tries to slide out.
 #TODO If something is in the way we can choose a toggle for either to just wait for X seconds and try again or immediately try another book (until all books have been tried at which point we break the loop, we don't want infinite while loops)
 #TODO The animations are controllable
-#TODO You can pause it
 #TODO somewhere to insert either an animation or other code between choosing a book and it starting to move (so we can create the effect of it sliding out/in)
 #DONE Only one book sliding at a time
 #TODO Some options of different methods of choosing which book to slide also where to slide it
-#TODO Books should be able to have different sizes (on the same shelf)
+#DONE Books should be able to have different sizes (on the same shelf)
 #DONE Customizable timing between a book completing it's shuffle and the next one starting
 
 @export var book_width :float=10.0 ##Maximum width per book in pixels - used to determine amount of book slots
