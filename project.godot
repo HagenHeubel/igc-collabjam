@@ -119,3 +119,6 @@ copy_path="res://main/GameTemplate"
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/shadow_atlas/size=4096
+2d/sdf/oversize=0
+2d/sdf/scale=2

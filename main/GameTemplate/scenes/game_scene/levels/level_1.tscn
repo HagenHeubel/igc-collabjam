@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=20 format=3 uid="uid://dwonll6lvlecc"]
 
 [ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
 [ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+[ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://main/GameTemplate/scenes/game_scene/levels/player_light.gd" id="13_spedq"]
 
 [sub_resource type="Curve2D" id="Curve2D_oy4ic"]
 _data = {
@@ -335,19 +336,21 @@ green_room = NodePath("../Room8")
 [node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
 position = Vector2(4768, -2208)
 
+[node name="PlayerLight" type="PointLight2D" parent="GameSpace"]
+position = Vector2(830, 62)
+range_layer_max = 1
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_bweyl")
+texture_scale = 20.0
+script = ExtResource("13_spedq")
+convergence_speed = 10.0
+
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
 position = Vector2(830, 79)
 gravity_scale = 4.0
 move_force = 7200.0
 jump_impulse_strength = 8000.0
 metadata/_edit_group_ = true
-
-[node name="PlayerLight" type="PointLight2D" parent="GameSpace/PouncingCat"]
-position = Vector2(0, -17)
-range_layer_max = 1
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_bweyl")
-texture_scale = 20.0
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")

@@ -346,6 +346,7 @@ shape = SubResource("RectangleShape2D_35vji")
 [node name="LightOccluders" type="Node2D" parent="RoomContent"]
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
 points = PackedVector2Array(0, 576, 1024, 576)
 width = 16.0
 texture = ExtResource("19_uqtnj")
@@ -355,6 +356,7 @@ script = ExtResource("20_7sxsf")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
 points = PackedVector2Array(1024, 480, 1024, 0, 0, 0)
 width = 16.0
 texture = ExtResource("19_uqtnj")
