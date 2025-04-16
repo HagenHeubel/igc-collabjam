@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://bbnpkcjiufdhe"]
+
+[ext_resource type="Script" uid="uid://cnhydjbn870on" path="res://main/Objects/Prefabs/scripts/physical_book.gd" id="1_6yint"]
+[ext_resource type="Texture2D" uid="uid://dpgcddkrnlxc0" path="res://assets/assets-visual/mado/book/spines/bigspine5.png" id="2_cn0q4"]
+[ext_resource type="Texture2D" uid="uid://ceh1arf4yotw7" path="res://assets/assets-visual/mado/book/spine-accent/bigspine5gold.png" id="3_aa1u8"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="4_6aii8"]
+[ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://main/Objects/Components/rigidbody-attachments/break_particle.tscn" id="5_5j26x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yint"]
+size = Vector2(11, 42)
+
+[sub_resource type="Gradient" id="Gradient_uylvc"]
+offsets = PackedFloat32Array(0, 0.336364)
+colors = PackedColorArray(0.239216, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1ff54"]
+gradient = SubResource("Gradient_uylvc")
+
+[sub_resource type="Gradient" id="Gradient_xf1nj"]
+offsets = PackedFloat32Array(0.654545, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jgq6b"]
+gradient = SubResource("Gradient_xf1nj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1xs4f"]
+lifetime_randomness = 0.79
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.2
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_jgq6b")
+color_initial_ramp = SubResource("GradientTexture1D_1ff54")
+anim_offset_max = 1.0
+
+[node name="Book" type="RigidBody2D" node_paths=PackedStringArray("particles_triggered_on_break", "sprite")]
+collision_layer = 21
+collision_mask = 21
+script = ExtResource("1_6yint")
+health = 5
+particles_triggered_on_break = NodePath("BreakParticle")
+sprite = NodePath("Book")
+
+[node name="Book" type="Sprite2D" parent="."]
+position = Vector2(-18.04, -2.04)
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("2_cn0q4")
+
+[node name="Accent" type="Sprite2D" parent="."]
+position = Vector2(-18.04, -2.04)
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("3_aa1u8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_6yint")
+
+[node name="BreaksOnImpact" type="Node" parent="."]
+script = ExtResource("4_6aii8")
+metadata/_custom_type_script = "uid://7suowjyr8422"
+
+[node name="BreakParticle" parent="." instance=ExtResource("5_5j26x")]
+modulate = Color(0.403922, 0.235294, 0.168627, 1)
+process_material = SubResource("ParticleProcessMaterial_1xs4f")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2f1lykcduy7v"]
+
+[ext_resource type="Script" uid="uid://bxdvffc03wvg0" path="res://main/Objects/Prefabs/scripts/object_spawner.gd" id="1_hfx0y"]
+
+[node name="ObjectSpawner" type="Node2D"]
+script = ExtResource("1_hfx0y")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 10, 0)
+width = 2.0
+default_color = Color(1, 0, 1, 1)
+
+[node name="SpawnTimer" type="Timer" parent="."]

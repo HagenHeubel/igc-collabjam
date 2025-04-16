@@ -1,18 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=17 format=3 uid="uid://dwonll6lvlecc"]
 
-[ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://wip/wip-staging/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
+[ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
-[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-staging/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
-[ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
-[ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://wip/wip-staging/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
-[ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
-[ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_3.tscn" id="4_ycf0s"]
-[ext_resource type="PackedScene" uid="uid://drw8y0xxcdmp4" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_4.tscn" id="5_a3n7g"]
-[ext_resource type="PackedScene" uid="uid://begat8ftpwgos" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_5.tscn" id="6_ycf0s"]
-[ext_resource type="PackedScene" uid="uid://bu82bli8lgbe7" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_7.tscn" id="7_e8j3a"]
-[ext_resource type="PackedScene" uid="uid://dms40h77dtcrd" path="res://wip/wip-staging/Tower/4_Rooms/Library/room_8.tscn" id="8_o6nlw"]
-[ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://wip/wip-staging/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
-[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
+[ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://main/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
+[ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://main/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
+[ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://main/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
+[ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="4_ycf0s"]
+[ext_resource type="PackedScene" uid="uid://drw8y0xxcdmp4" path="res://main/Tower/4_Rooms/Library/room_4.tscn" id="5_a3n7g"]
+[ext_resource type="PackedScene" uid="uid://begat8ftpwgos" path="res://main/Tower/4_Rooms/Library/room_5.tscn" id="6_ycf0s"]
+[ext_resource type="PackedScene" uid="uid://bu82bli8lgbe7" path="res://main/Tower/4_Rooms/Library/room_7.tscn" id="7_e8j3a"]
+[ext_resource type="PackedScene" uid="uid://dms40h77dtcrd" path="res://main/Tower/4_Rooms/Library/room_8.tscn" id="8_o6nlw"]
+[ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
+[ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
 
 [sub_resource type="Curve2D" id="Curve2D_oy4ic"]
 _data = {
@@ -28,9 +29,27 @@ script = ExtResource("1_iay74")
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 layer = 5
+follow_viewport_enabled = true
 
 [node name="Overlays" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
+follow_viewport_enabled = true
+
+[node name="FullRectUI" type="Control" parent="Overlays"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Overlays/FullRectUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 20.0
 
 [node name="LayoutFloor1" type="Node2D" parent="Overlays"]
 
@@ -202,10 +221,18 @@ pounce"
 label_settings = SubResource("LabelSettings_8ehof")
 
 [node name="GameSpace" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
+position = Vector2(479, 221)
+zoom = Vector2(0.95, 0.95)
+script = ExtResource("12_vl8m1")
+metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="Floor1" type="Node2D" parent="GameSpace"]
 
 [node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
+rotation = -0.00249588
 start_room = true
 
 [node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
@@ -223,6 +250,7 @@ green_room = NodePath("../Room3")
 
 [node name="Room3" parent="GameSpace/Floor1" instance=ExtResource("4_ycf0s")]
 position = Vector2(2048, -576)
+camera_static = false
 
 [node name="RoomDoor3" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(2048, -48)
@@ -231,6 +259,7 @@ green_room = NodePath("../Room3")
 
 [node name="Room4" parent="GameSpace/Floor1" instance=ExtResource("5_a3n7g")]
 position = Vector2(0, -1152)
+camera_static = false
 
 [node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(112, -1152)
@@ -295,11 +324,12 @@ green_room = NodePath("../Room8")
 [node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
 position = Vector2(4768, -2208)
 
+[node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
+position = Vector2(830, 79)
+gravity_scale = 4.0
+move_force = 7200.0
+jump_impulse_strength = 8000.0
+
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
 metadata/_custom_type_script = "uid://fi5jmhmr360j"
-
-[node name="RoomCamera2D" type="Camera2D" parent="."]
-position = Vector2(528, 272)
-script = ExtResource("12_vl8m1")
-metadata/_custom_type_script = "uid://craf068s6fswb"

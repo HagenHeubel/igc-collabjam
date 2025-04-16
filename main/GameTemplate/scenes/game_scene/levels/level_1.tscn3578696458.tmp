@@ -1,0 +1,310 @@
+[gd_scene load_steps=17 format=3 uid="uid://dwonll6lvlecc"]
+
+[ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
+[ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
+[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
+[ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://main/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
+[ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://main/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
+[ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://main/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
+[ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="4_ycf0s"]
+[ext_resource type="PackedScene" uid="uid://drw8y0xxcdmp4" path="res://main/Tower/4_Rooms/Library/room_4.tscn" id="5_a3n7g"]
+[ext_resource type="PackedScene" uid="uid://begat8ftpwgos" path="res://main/Tower/4_Rooms/Library/room_5.tscn" id="6_ycf0s"]
+[ext_resource type="PackedScene" uid="uid://bu82bli8lgbe7" path="res://main/Tower/4_Rooms/Library/room_7.tscn" id="7_e8j3a"]
+[ext_resource type="PackedScene" uid="uid://dms40h77dtcrd" path="res://main/Tower/4_Rooms/Library/room_8.tscn" id="8_o6nlw"]
+[ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
+[ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+
+[sub_resource type="Curve2D" id="Curve2D_oy4ic"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 215, 403, 0, 0, 0, 0, 1115, 432, 0, 0, 0, 0, 2349, 441, 0, 0, 0, 0, 2324, -284, 0, 0, 0, 0, 449, -207, 0, 0, 0, 0, 400, -1399, 0, 0, 0, 0, 796, -1631, 0, 0, 0, 0, 284, -1649, 0, 0, 0, 0, 339, -2118, 0, 0, 0, 0, 680, -2122, 0, 0, 0, 0, 683, -1781, 0, 0, 0, 0, 1452, -2205, 0, 0, 0, 0, 1834, -1951, 0, 0, 0, 0, 1342, -1904, 0, 0, 0, 0, 1599, -1298, 0, 0, 0, 0, 918, -1282, 0, 0, 0, 0, 937, -802, 0, 0, 0, 0, 3607, -834, 0, 0, 0, 0, 3631, 389, 0, 0, 0, 0, 5320, 429, 0, 0, 0, 0, 5308, -540, 0, 0, 0, 0, 4837, -529, 0, 0, 0, 0, 4829, 41, 0, 0, 0, 0, 4164, 53, 0, 0, 0, 0, 4157, -946, 0, 0, 0, 0, 5388, -967, 0, 0, 0, 0, 5456, -2009, 0, 0, 0, 0, 6304, -2056, 0, 0, 0, 0, 6335, 315, 0, 0, 0, 0, 6924, 302, 0, 0, 0, 0, 6920, 986)
+}
+point_count = 31
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ehof"]
+font_size = 100
+
+[node name="Tower_F1" type="Node"]
+script = ExtResource("1_iay74")
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Overlays" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="LayoutFloor1" type="Node2D" parent="Overlays"]
+
+[node name="ColorRect" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_right = 1024.0
+offset_bottom = 576.0
+color = Color(0, 1, 1, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 2048.0
+offset_top = -1440.0
+offset_right = 3296.0
+offset_bottom = -576.0
+color = Color(0.654232, 0.654232, 0.654232, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 6656.0
+offset_right = 7360.0
+offset_bottom = 1152.0
+color = Color(0.779549, 0.392451, 0.573456, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 1024.0
+offset_right = 2048.0
+offset_bottom = 576.0
+color = Color(0.567217, 0.267639, 0.596532, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_top = -1152.0
+offset_right = 2048.0
+color = Color(0.28633, 0.567228, 0.63807, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_top = -2464.0
+offset_right = 2048.0
+offset_bottom = -1152.0
+color = Color(0.720174, 0.46721, 0.92196, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 3296.0
+offset_top = -1152.0
+offset_right = 5120.0
+offset_bottom = 576.0
+color = Color(0.924288, 0.942038, 0.598757, 1)
+
+[node name="ColorRect10" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 4632.0
+offset_top = -2301.0
+offset_right = 5120.0
+offset_bottom = -1839.0
+color = Color(0.924288, 0.942038, 0.598757, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 5120.0
+offset_top = -2304.0
+offset_right = 6656.0
+offset_bottom = 576.0
+color = Color(0.462745, 0.741176, 0.741176, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Overlays/LayoutFloor1"]
+offset_left = 2048.0
+offset_top = -576.0
+offset_right = 2816.0
+offset_bottom = 576.0
+color = Color(1, 0.631373, 0.337255, 1)
+
+[node name="Path2D" type="Path2D" parent="Overlays/LayoutFloor1"]
+curve = SubResource("Curve2D_oy4ic")
+
+[node name="Label" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 5424.0
+offset_top = -1384.0
+offset_right = 7229.0
+offset_bottom = -827.0
+text = "Huge Book Case room with 
+books shuffling around on each floor.
+Travel up one book case, 
+then down the other"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label9" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 4706.0
+offset_top = -2301.0
+offset_right = 6511.0
+offset_bottom = -1744.0
+text = "Broom
+closet
+secret"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label2" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 6351.0
+offset_top = 728.0
+offset_right = 7705.0
+offset_bottom = 894.0
+text = "Staircase down to next floor"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label3" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 341.0
+offset_top = -1937.0
+offset_right = 1756.0
+offset_bottom = -1660.0
+text = "The ladder library. 
+Main room using ladder push"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label4" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 844.0
+offset_top = -919.0
+offset_right = 1883.0
+offset_bottom = -753.0
+text = "First flying large book"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label10" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 207.0
+offset_top = -388.0
+offset_right = 1771.0
+offset_bottom = -222.0
+text = "Basic stuff, some ladder pushing"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label11" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 2320.0
+offset_top = -1244.0
+offset_right = 2983.0
+offset_bottom = -1078.0
+text = "Planetarium"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label5" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 3327.0
+offset_top = -1043.0
+offset_right = 6232.0
+offset_bottom = -486.0
+text = "Floating orb room, multi layer library. 
+Cathedral inspired. Upper half has
+big flying books that get used for platforming when entering
+second time from the right"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label6" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 106.0
+offset_top = 106.0
+offset_right = 1939.0
+offset_bottom = 523.0
+text = "Spawn room"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label7" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 1132.0
+offset_top = 71.0
+offset_right = 2965.0
+offset_bottom = 488.0
+text = "Tutorial room,
+does not require
+pounce"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="Label8" type="Label" parent="Overlays/LayoutFloor1"]
+offset_left = 2117.0
+offset_top = -277.0
+offset_right = 3950.0
+offset_bottom = 140.0
+text = "Tutorial room,
+requires
+pounce"
+label_settings = SubResource("LabelSettings_8ehof")
+
+[node name="GameSpace" type="CanvasLayer" parent="."]
+
+[node name="Floor1" type="Node2D" parent="GameSpace"]
+
+[node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
+start_room = true
+
+[node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(1024, 528)
+orange_room = NodePath("../RespawnRoom")
+green_room = NodePath("../Room2")
+
+[node name="Room2" parent="GameSpace/Floor1" instance=ExtResource("2_afea3")]
+position = Vector2(1024, 0)
+
+[node name="RoomDoor2" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(2048, 528)
+orange_room = NodePath("../Room2")
+green_room = NodePath("../Room3")
+
+[node name="Room3" parent="GameSpace/Floor1" instance=ExtResource("4_ycf0s")]
+position = Vector2(2048, -576)
+
+[node name="RoomDoor3" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(2048, -48)
+orange_room = NodePath("../Room4")
+green_room = NodePath("../Room3")
+
+[node name="Room4" parent="GameSpace/Floor1" instance=ExtResource("5_a3n7g")]
+position = Vector2(0, -1152)
+
+[node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(112, -1152)
+door_size = 194.0
+door_direction = 1
+orange_room = NodePath("../Room5")
+green_room = NodePath("../Room4")
+
+[node name="RoomDoor5" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(1024, -1152)
+door_size = 226.0
+door_direction = 1
+orange_room = NodePath("../Room5")
+green_room = NodePath("../Room4")
+
+[node name="Room5" parent="GameSpace/Floor1" instance=ExtResource("6_ycf0s")]
+position = Vector2(0, -2304)
+
+[node name="RoomDoor6" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(2048, -624)
+orange_room = NodePath("../Room4")
+green_room = NodePath("../Room6")
+
+[node name="Room6" parent="GameSpace/Floor1" instance=ExtResource("3_68jfx")]
+position = Vector2(2048, -1152)
+
+[node name="RoomDoor7" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(3072, -624)
+orange_room = NodePath("../Room6")
+green_room = NodePath("../Room7")
+
+[node name="Room7" parent="GameSpace/Floor1" instance=ExtResource("7_e8j3a")]
+position = Vector2(3072, -1152)
+
+[node name="RoomDoor8" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(5120, 528)
+door_size = 109.0
+orange_room = NodePath("../Room7")
+green_room = NodePath("../Room8")
+
+[node name="RoomDoor9" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(5120, -368)
+door_size = 109.0
+orange_room = NodePath("../Room7")
+green_room = NodePath("../Room8")
+
+[node name="RoomDoor10" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(5120, -1104)
+door_size = 109.0
+orange_room = NodePath("../Room7")
+green_room = NodePath("../Room8")
+
+[node name="Room8" parent="GameSpace/Floor1" instance=ExtResource("8_o6nlw")]
+position = Vector2(5120, -2016)
+
+[node name="RoomDoor11" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(5120, -1968)
+door_size = 109.0
+orange_room = NodePath("../BroomCloset")
+green_room = NodePath("../Room8")
+
+[node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
+position = Vector2(4768, -2208)
+
+[node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
+position = Vector2(402, 282)
+
+[node name="RoomController" type="Node" parent="."]
+script = ExtResource("1_v0jcj")
+metadata/_custom_type_script = "uid://fi5jmhmr360j"
+
+[node name="RoomCamera2D" type="Camera2D" parent="."]
+position = Vector2(528, 272)
+script = ExtResource("12_vl8m1")
+metadata/_custom_type_script = "uid://craf068s6fswb"

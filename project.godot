@@ -37,13 +37,17 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/
 
 folder_colors={
 "res://assets/": "red",
-"res://main/": "blue",
-"res://main/GameTemplate/scenes/game_scene/": "green",
+"res://main/": "yellow",
+"res://main/GameTemplate/": "green",
+"res://main/GameTemplate/scenes/game_scene/": "red",
 "res://main/GameTemplate/scenes/menus/main_menu/": "green",
+"res://main/Objects/Components/modular-area-2d/": "blue",
+"res://main/Player/": "blue",
+"res://main/Tower/": "yellow",
 "res://wip/": "orange",
-"res://wip/wip-staging/Tower/": "yellow",
-"res://wip/wip-staging/modular-area-2d/": "blue",
-"res://wip/wip-staging/rigidbody-attachments/": "green"
+"res://wip/wip-hagen/": "teal",
+"res://wip/wip-sqlpy/": "yellow",
+"res://wip/wip-vrood/": "blue"
 }
 
 [global_group]
@@ -112,5 +116,6 @@ copy_path="res://main/GameTemplate"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

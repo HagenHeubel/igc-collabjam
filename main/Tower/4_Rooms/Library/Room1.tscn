@@ -1,0 +1,153 @@
+[gd_scene load_steps=15 format=3 uid="uid://ese2742e3gwo"]
+
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_tia81"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_5oxj4"]
+[ext_resource type="PackedScene" uid="uid://bgkcvkidmgfbm" path="res://main/Tower/sky.tscn" id="3_4kmhu"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_emg8s"]
+[ext_resource type="Texture2D" uid="uid://bumoqr6gmur31" path="res://wip/wip-sqlpy/assets/cloud1.png" id="4_jkl54"]
+[ext_resource type="Script" uid="uid://b3fwwd2ijmjn2" path="res://assets/assets-scr/Components/PhysicsVFX/hover_effect_vfx.gd" id="5_5tfeg"]
+[ext_resource type="Texture2D" uid="uid://dd6gg8jysv7rh" path="res://wip/wip-hagen/assets/IMG_wall_thin_001 2.png" id="6_d3w8p"]
+[ext_resource type="Texture2D" uid="uid://yp3cm1qngvvb" path="res://wip/wip-hagen/assets/IMG_wall_thin_001 3.png" id="7_8qade"]
+[ext_resource type="Texture2D" uid="uid://df40g755hxae7" path="res://wip/wip-hagen/assets/IMG_back_stone_001.png" id="8_pq4nu"]
+[ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/assets/stone_bg.png" id="9_dhcc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja5ey"]
+size = Vector2(1028, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6htv"]
+size = Vector2(1028, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0kg"]
+size = Vector2(8, 580)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35vji"]
+size = Vector2(8, 480)
+
+[node name="SpawnRoom" type="Node2D"]
+script = ExtResource("1_tia81")
+
+[node name="RoomContent" type="Node2D" parent="."]
+
+[node name="BasicRoomBG" parent="RoomContent" instance=ExtResource("2_5oxj4")]
+offset_left = 0.0
+offset_right = 1024.0
+offset_bottom = 576.0
+
+[node name="Sky" parent="RoomContent/BasicRoomBG" instance=ExtResource("3_4kmhu")]
+show_behind_parent = true
+position = Vector2(-367, -154)
+scale = Vector2(1.5, 1.5)
+
+[node name="Cloud" type="Sprite2D" parent="RoomContent/BasicRoomBG/Sky"]
+position = Vector2(176.667, 534.667)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_jkl54")
+
+[node name="Cloud2" type="Sprite2D" parent="RoomContent/BasicRoomBG/Sky"]
+position = Vector2(956.667, 486)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_jkl54")
+
+[node name="HoverEffectVFX" type="Node2D" parent="RoomContent/BasicRoomBG/Sky" node_paths=PackedStringArray("hover_effect_target_node")]
+script = ExtResource("5_5tfeg")
+hover_effect_delay = 0.5
+hover_effect_intensity = 0.25
+hover_effect_target_node = NodePath("..")
+metadata/_custom_type_script = "uid://b3fwwd2ijmjn2"
+
+[node name="ImgWallThin0012" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+z_index = 2
+position = Vector2(1001, 92)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_d3w8p")
+
+[node name="ImgWallThin0015" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+z_index = 2
+position = Vector2(-29, 112)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_d3w8p")
+
+[node name="ImgWallThin0013" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+z_index = 2
+position = Vector2(995, 94)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_8qade")
+
+[node name="ImgWallThin0014" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+z_index = 2
+position = Vector2(-21, 111)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_8qade")
+
+[node name="ImgBackStone001" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(846, 188)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_pq4nu")
+
+[node name="ImgBackStone002" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(133, 516)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_pq4nu")
+
+[node name="ImgBackStone003" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(851, 498)
+scale = Vector2(-0.25, 0.25)
+texture = ExtResource("8_pq4nu")
+
+[node name="StoneBg" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(101, 87)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("9_dhcc2")
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
+position = Vector2(-64, 0)
+shape = SubResource("RectangleShape2D_ja5ey")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(576, 648)
+
+[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_emg8s")]
+points = PackedVector2Array(-576, -72, 448, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+position = Vector2(-66, -72)
+shape = SubResource("RectangleShape2D_v6htv")
+
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(0, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(1152, 274)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
+position = Vector2(-128, -34)
+shape = SubResource("RectangleShape2D_35vji")
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(512, 288)
+
+[node name="CameraBounds" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 416.0
+offset_top = 224.0
+offset_right = 608.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 2.0

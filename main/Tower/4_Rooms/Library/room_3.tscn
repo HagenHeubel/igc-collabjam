@@ -1,0 +1,203 @@
+[gd_scene load_steps=18 format=3 uid="uid://cgm5smelon8b1"]
+
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_vs3if"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_my6h8"]
+[ext_resource type="Texture2D" uid="uid://df40g755hxae7" path="res://wip/wip-hagen/assets/IMG_back_stone_001.png" id="3_eyyro"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_wylhf"]
+[ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/assets/stone_bg.png" id="4_060hk"]
+[ext_resource type="PackedScene" uid="uid://coyb8k1psdmwg" path="res://main/Objects/Prefabs/Furniture/bookshelf.tscn" id="6_060hk"]
+[ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="7_ex6rk"]
+[ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
+size = Vector2(768, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyyro"]
+size = Vector2(764, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3n7g"]
+size = Vector2(8, 484)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6nlw"]
+size = Vector2(8, 1144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jt88f"]
+size = Vector2(31, 22)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yrfq6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pbwb"]
+size = Vector2(38, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycf0s"]
+size = Vector2(542, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_060hk"]
+size = Vector2(442, 7)
+
+[node name="Room3" type="Node2D"]
+script = ExtResource("1_vs3if")
+
+[node name="RoomContent" type="Node2D" parent="."]
+
+[node name="BasicRoomBG" parent="RoomContent" instance=ExtResource("2_my6h8")]
+offset_left = 0.0
+offset_right = 768.0
+offset_bottom = 1152.0
+
+[node name="ImgBackStone001" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(358, 399)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_eyyro")
+
+[node name="ImgBackStone002" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(552, 605)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_eyyro")
+
+[node name="ImgBackStone003" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(172, 1048)
+scale = Vector2(-0.25, 0.25)
+texture = ExtResource("3_eyyro")
+
+[node name="StoneBg" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(590, 1026)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_060hk")
+
+[node name="StoneBg2" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(168, 125)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_060hk")
+flip_h = true
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
+position = Vector2(-190, 0)
+shape = SubResource("RectangleShape2D_68jfx")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(576, 648)
+
+[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-576, 504, 192, 504)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+position = Vector2(-193, 504)
+shape = SubResource("RectangleShape2D_eyyro")
+
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(0, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
+position = Vector2(0, -86)
+shape = SubResource("RectangleShape2D_a3n7g")
+
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(1152, 274)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
+position = Vector2(-384, 306)
+shape = SubResource("RectangleShape2D_o6nlw")
+
+[node name="Objects" type="Node2D" parent="RoomContent"]
+
+[node name="Drawer" parent="RoomContent/Objects" instance=ExtResource("7_ex6rk")]
+position = Vector2(234, 1122)
+
+[node name="Drawer2" parent="RoomContent/Objects" instance=ExtResource("7_ex6rk")]
+position = Vector2(568, 964)
+
+[node name="JumpPad" type="StaticBody2D" parent="RoomContent/Objects"]
+position = Vector2(649, 788)
+collision_layer = 20
+collision_mask = 21
+
+[node name="JumpPadArea2D" type="Area2D" parent="RoomContent/Objects/JumpPad"]
+collision_layer = 20
+collision_mask = 20
+script = ExtResource("8_7rv3m")
+rb_force = 4000.0
+metadata/_custom_type_script = "uid://b6m0ytr3r5tde"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Objects/JumpPad/JumpPadArea2D"]
+position = Vector2(73, 4)
+shape = SubResource("RectangleShape2D_jt88f")
+
+[node name="Sprite2D" type="Sprite2D" parent="RoomContent/Objects/JumpPad"]
+position = Vector2(72, 20)
+scale = Vector2(38, 38)
+texture = SubResource("PlaceholderTexture2D_yrfq6")
+
+[node name="Label" type="Label" parent="RoomContent/Objects/JumpPad"]
+offset_left = -95.0
+offset_top = -82.0
+offset_right = 221.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+text = "This is like a spring, 
+or something magic
+its currently at an
+outrageous number"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Objects/JumpPad"]
+position = Vector2(72, 20)
+shape = SubResource("RectangleShape2D_2pbwb")
+
+[node name="Environment" type="Node2D" parent="RoomContent"]
+
+[node name="Floor2" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(351, 71)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor2" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-352, 504, 192, 504)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor2"]
+position = Vector2(-79, 504)
+shape = SubResource("RectangleShape2D_ycf0s")
+
+[node name="Floor3" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(251, -30)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor3" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-250, 504, 192, 504)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor3"]
+position = Vector2(-29, 503.5)
+shape = SubResource("RectangleShape2D_060hk")
+
+[node name="Bookshelf" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(679, 985)
+
+[node name="Bookshelf2" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(515, 1066)
+scale = Vector2(1, 0.5)
+
+[node name="Bookshelf3" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(351, 1106)
+scale = Vector2(1, 0.25)
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(512, 288)
+
+[node name="CameraBounds" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 770.0
+offset_bottom = 1151.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 2.0

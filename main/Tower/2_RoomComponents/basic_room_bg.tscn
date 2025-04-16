@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bigol8thv3wrl"]
+
+[ext_resource type="Script" uid="uid://bupe7owtl471q" path="res://main/Tower/2_RoomComponents/SceneScripts/basic_room_background.gd" id="1_y6ahq"]
+[ext_resource type="Texture2D" uid="uid://dteus3q1hrhrr" path="res://wip/wip-hagen/assets/Rectangle 2.png" id="2_ca5r8"]
+
+[node name="BasicRoomBG" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y6ahq")
+metadata/_edit_group_ = true
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.753609, 0.643651, 0.607568, 1)
+
+[node name="Gradient" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ca5r8")

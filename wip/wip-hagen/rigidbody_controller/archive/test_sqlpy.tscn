@@ -1,16 +1,17 @@
 [gd_scene load_steps=25 format=3 uid="uid://duni03212p586"]
 
-[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://wip/wip-staging/Tower/1_TowerComponents/room_controller.gd" id="1_1kg8h"]
-[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://wip/wip-staging/Tower/1_TowerComponents/tower_room.gd" id="2_rorvx"]
-[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://wip/wip-staging/Tower/1_TowerComponents/SceneScripts/room_door_area.gd" id="3_4vcn0"]
-[ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/rooms/RoomLeftDown.tscn" id="4_64g1y"]
-[ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/rooms/RoomLeftUp.tscn" id="5_wcy01"]
-[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://wip/wip-staging/Tower/4_Rooms/Example.tscn" id="6_kmn74"]
+[ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_1kg8h"]
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="2_rorvx"]
+[ext_resource type="Script" uid="uid://bocdn4qwskfkd" path="res://main/Tower/1_TowerComponents/SceneScripts/room_door_area.gd" id="3_4vcn0"]
+[ext_resource type="PackedScene" uid="uid://f6kxdw8vp3i" path="res://wip/wip-sqlpy/GameFramework/rooms/RoomLeftDown.tscn" id="4_64g1y"]
+[ext_resource type="PackedScene" uid="uid://q1uhafm88t8s" path="res://wip/wip-sqlpy/GameFramework/rooms/RoomLeftUp.tscn" id="5_wcy01"]
+[ext_resource type="PackedScene" uid="uid://b8m7pvpwpp660" path="res://main/Tower/4_Rooms/Example.tscn" id="6_kmn74"]
 [ext_resource type="PackedScene" uid="uid://xvme4orw3dne" path="res://wip/wip-hagen/rigidbody_controller/archive/cat_rb.tscn" id="7_p7pvg"]
-[ext_resource type="Script" uid="uid://dircc24njwqwo" path="res://wip/wip-sqlpy/test_break_object.gd" id="8_orfng"]
-[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://wip/wip-sqlpy/Attachments/breaks_on_impact.gd" id="9_u1fic"]
-[ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://wip/wip-staging/rigidbody-attachments/falls_down_shelves.gd" id="10_7pios"]
-[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://wip/wip-staging/Tower/1_TowerComponents/room_camera.gd" id="11_a3yeq"]
+[ext_resource type="Script" uid="uid://dircc24njwqwo" path="res://wip/wip-sqlpy/test/test_break_object.gd" id="8_orfng"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="9_u1fic"]
+[ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://main/Objects/Components/rigidbody-attachments/falls_down_shelves.gd" id="10_7pios"]
+[ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="11_a3yeq"]
+
 
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e237u"]

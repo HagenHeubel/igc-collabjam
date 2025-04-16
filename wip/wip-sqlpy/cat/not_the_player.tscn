@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpesxd4i8wawp"]
+
+[ext_resource type="Script" uid="uid://bw71awjed2yi7" path="res://wip/wip-sqlpy/cat/character_body_2d.gd" id="1_uan3y"]
+[ext_resource type="Texture2D" uid="uid://6t0i6y7hai6u" path="res://wip/wip-sqlpy/assets/cat.png" id="1_y3pnv"]
+[ext_resource type="PackedScene" uid="uid://2qbsly55rbnb" path="res://main/Player/Components/Tail/cat_tail.tscn" id="2_k73b3"]
+[ext_resource type="PackedScene" uid="uid://d1r71iy200adl" path="res://main/Tower/5_Others/player_area.tscn" id="3_rv82k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uan3y"]
+radius = 18.0
+height = 42.0
+
+[node name="Player" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 4
+collision_mask = 23
+platform_on_leave = 2
+script = ExtResource("1_uan3y")
+mass = 40.0
+
+[node name="CatSprite" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.0652667, 0.0652667)
+texture = ExtResource("1_y3pnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-1, 12)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_uan3y")
+
+[node name="PlayerArea" parent="CharacterBody2D" instance=ExtResource("3_rv82k")]
+
+[node name="Tail" parent="." node_paths=PackedStringArray("attached_to_node") instance=ExtResource("2_k73b3")]
+position = Vector2(15, -1)
+attached_to_node = NodePath("../CharacterBody2D")
+tail_rotation = 100.5

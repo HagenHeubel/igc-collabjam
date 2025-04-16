@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://clsxahyx874ar"]
 
 [ext_resource type="Texture2D" uid="uid://cvjhsybn82nwy" path="res://wip/wip-sqlpy/assets/drawer.png" id="1_y0bv4"]
-[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://wip/wip-sqlpy/Attachments/breaks_on_impact.gd" id="2_7ng31"]
+[ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="2_7ng31"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ng31"]
 size = Vector2(862.002, 712.504)

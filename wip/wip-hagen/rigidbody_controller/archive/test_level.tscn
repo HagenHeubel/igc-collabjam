@@ -1,7 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhlaobu3wtdby"]
 
 [ext_resource type="Texture2D" uid="uid://uxnlslitomld" path="res://assets/assets-visual/Icons/node_2D/icon_circle.png" id="1_ied4a"]
-[ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://wip/wip-hagen/rigidbody_controller/pounce_player.tscn" id="2_6ynkg"]
+[ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="2_6ynkg"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oth3g"]
 size = Vector2(910.635, 21.18)
