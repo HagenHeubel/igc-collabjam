@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnh2ueqjuw3nx"]
+
+[ext_resource type="PackedScene" uid="uid://dwonll6lvlecc" path="res://main/GameTemplate/scenes/game_scene/levels/level_1.tscn" id="1_b5r0e"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Tower_F1" parent="." instance=ExtResource("1_b5r0e")]
+
+[editable path="Tower_F1"]
+[editable path="Tower_F1/GameSpace/Floor1/RespawnRoom"]

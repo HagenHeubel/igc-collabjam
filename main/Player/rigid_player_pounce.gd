@@ -10,8 +10,8 @@ signal died()
 @export var visual_component :Node2D
 @export_group("Stats")
 @export var HEALTH_MAX: int = 9
-@export var move_force :float= 14000.0
-@export var jump_impulse_strength :float=5000.0
+@export var move_force :float= 6600.0
+@export var jump_impulse_strength :float=5700.0
 @export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
 @export_group("Pounce Controls")
@@ -105,7 +105,7 @@ func _physics_process(delta: float) -> void:
 	
 	## Allows for Esc key to release cursor
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	elif Input.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	#declare force and set movement direction
@@ -129,7 +129,10 @@ func _physics_process(delta: float) -> void:
 	#changes movement and gravity depending on floor/ground detection
 	if !on_floor:
 		constant_force = neutral_force + neutral_force*-1
-		force.x *= h_jump_control #reduce movement speed while airborne
+		if linear_velocity.y > 0.0: #falling
+			force.x *= h_jump_control #reduce movement speed while airborne
+		else: #jumping
+			force.x *= h_jump_control*0.8
 		if on_wall: #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.7
 	else: #rotates gravity and tunes it down a little while on floor
@@ -296,8 +299,3 @@ var mouse_delta :Vector2=Vector2.ZERO
 
 func update_visual_to_pounce_rotation():
 	visual_component.rotation_degrees = pounce_rotation
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		mouse_delta = event.relative

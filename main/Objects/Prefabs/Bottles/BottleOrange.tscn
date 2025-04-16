@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cd7e1renevki5"]
+[gd_scene load_steps=13 format=3 uid="uid://cd7e1renevki5"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://1obrx5hgy0hs" path="res://main/Objects/Prefabs/Bottles/PhysMat_Bottles.tres" id="1_pe1hv"]
 [ext_resource type="Script" uid="uid://r8oyu83x8yen" path="res://main/Objects/Prefabs/scripts/bottle.gd" id="1_s2mj7"]
-[ext_resource type="Texture2D" uid="uid://bqpuvpuwdq1c" path="res://assets/assets-visual/mado/bottle/bottle3full.png" id="2_s2mj7"]
-[ext_resource type="Texture2D" uid="uid://cw7nc7jsg7as6" path="res://assets/assets-visual/mado/bottle/bottle3empty.png" id="3_pe1hv"]
+[ext_resource type="Texture2D" uid="uid://cl685wt1eeqst" path="res://assets/assets-visual/mado/bottle/bottle3full.png" id="2_s2mj7"]
+[ext_resource type="Texture2D" uid="uid://citxe7g6jxhhf" path="res://assets/assets-visual/mado/bottle/bottle3empty.png" id="3_pe1hv"]
 [ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="4_dgndl"]
 [ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://main/Objects/Components/rigidbody-attachments/break_particle.tscn" id="5_xosvd"]
 
@@ -44,7 +45,8 @@ anim_offset_max = 1.0
 [node name="BottleOrange" type="RigidBody2D" node_paths=PackedStringArray("particles_triggered_on_break", "sprite")]
 collision_layer = 21
 collision_mask = 21
-mass = 0.25
+mass = 0.35
+physics_material_override = ExtResource("1_pe1hv")
 script = ExtResource("1_s2mj7")
 particles_triggered_on_break = NodePath("BreakParticle")
 sprite = NodePath("Full")
