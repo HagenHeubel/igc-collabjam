@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dl87dkv1fmbss"]
 
 [ext_resource type="Script" uid="uid://cnhydjbn870on" path="res://main/Objects/Prefabs/scripts/physical_book.gd" id="1_q87yo"]
-[ext_resource type="Texture2D" uid="uid://dq28tde78hb63" path="res://assets/assets-visual/mado/book/spines/bigspine4.png" id="2_dkwhc"]
-[ext_resource type="Texture2D" uid="uid://dwf5q4a83fa38" path="res://assets/assets-visual/mado/book/spine-accent/bigspine4gold.png" id="3_7v5kd"]
+[ext_resource type="Texture2D" uid="uid://df664i4pcdcjp" path="res://assets/assets-visual/mado/book/spines/bigspine4.png" id="2_dkwhc"]
+[ext_resource type="Texture2D" uid="uid://drv8nbybi8l54" path="res://assets/assets-visual/mado/book/spine-accent/bigspine4gold.png" id="3_7v5kd"]
 [ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="4_u3wj1"]
 [ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://main/Objects/Components/rigidbody-attachments/break_particle.tscn" id="5_7qltv"]
 
@@ -43,7 +43,6 @@ anim_offset_max = 1.0
 [node name="Book" type="RigidBody2D" node_paths=PackedStringArray("particles_triggered_on_break", "sprite")]
 collision_layer = 21
 collision_mask = 21
-mass = 0.5
 script = ExtResource("1_q87yo")
 health = 5
 particles_triggered_on_break = NodePath("BreakParticle")

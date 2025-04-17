@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://cmwm1tyiimb44" path="res://main/Objects/Components/rigidbody-attachments/deal_damage.gd" id="1_lhqrx"]
 [ext_resource type="PhysicsMaterial" uid="uid://1obrx5hgy0hs" path="res://main/Objects/Prefabs/Bottles/PhysMat_Bottles.tres" id="1_xwysh"]
 [ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="2_btsan"]
-[ext_resource type="Texture2D" uid="uid://dngptb6ollud4" path="res://assets/assets-visual/mado/bottle/bottle1full.png" id="2_f3bgm"]
+[ext_resource type="Texture2D" uid="uid://co35f6h47sq2u" path="res://assets/assets-visual/mado/bottle/bottle1full.png" id="2_f3bgm"]
 [ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://main/Objects/Components/rigidbody-attachments/break_particle.tscn" id="3_f3bgm"]
-[ext_resource type="Texture2D" uid="uid://oetllw3w2gep" path="res://assets/assets-visual/mado/bottle/bottle1empty.png" id="3_hxp5p"]
+[ext_resource type="Texture2D" uid="uid://crq1h245abjeh" path="res://assets/assets-visual/mado/bottle/bottle1empty.png" id="3_hxp5p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uj1f2"]
 size = Vector2(26, 27)

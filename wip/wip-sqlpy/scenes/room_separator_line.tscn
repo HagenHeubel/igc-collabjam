@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsddbs2rtu0bv"]
+[gd_scene load_steps=4 format=3 uid="uid://bsddbs2rtu0bv"]
 
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="1_4vhn1"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="1_gn753"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gn753"]
 closed = false
 
 [node name="Line2D" type="Line2D"]
+z_index = 1
+width = 16.0
+texture = ExtResource("1_gn753")
+texture_mode = 2
+joint_mode = 2
 script = ExtResource("1_4vhn1")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_gn753")
+sdf_collision = false

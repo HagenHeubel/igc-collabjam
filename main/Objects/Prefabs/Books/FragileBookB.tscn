@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://75nb3qmcw66o"]
 
 [ext_resource type="Script" uid="uid://cnhydjbn870on" path="res://main/Objects/Prefabs/scripts/physical_book.gd" id="1_xris0"]
-[ext_resource type="Texture2D" uid="uid://cjfhj3iy0a2o2" path="res://assets/assets-visual/mado/book/spines/bigspine2.png" id="2_vpbhs"]
-[ext_resource type="Texture2D" uid="uid://nt5uhbvssxg0" path="res://assets/assets-visual/mado/book/spine-accent/bigspine2gold.png" id="3_qucw3"]
+[ext_resource type="Texture2D" uid="uid://cfln4deyy8fqj" path="res://assets/assets-visual/mado/book/spines/bigspine2.png" id="2_vpbhs"]
+[ext_resource type="Texture2D" uid="uid://lacearcvdh7k" path="res://assets/assets-visual/mado/book/spine-accent/bigspine2gold.png" id="3_qucw3"]
 [ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="4_7yhyg"]
 [ext_resource type="PackedScene" uid="uid://k0y2ot4d1x2e" path="res://main/Objects/Components/rigidbody-attachments/break_particle.tscn" id="5_d0p4e"]
 

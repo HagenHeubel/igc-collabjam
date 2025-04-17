@@ -233,7 +233,6 @@ metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
 rotation = -0.00249588
-start_room = true
 
 [node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(1024, 528)
@@ -259,9 +258,10 @@ green_room = NodePath("../Room3")
 
 [node name="Room4" parent="GameSpace/Floor1" instance=ExtResource("5_a3n7g")]
 position = Vector2(0, -1152)
-camera_static = false
+start_room = true
 
 [node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+process_priority = 1
 position = Vector2(112, -1152)
 door_size = 194.0
 door_direction = 1
@@ -325,7 +325,7 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(830, 79)
+position = Vector2(491, -34)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
