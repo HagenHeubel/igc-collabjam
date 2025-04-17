@@ -40,7 +40,9 @@ func _set_occluder_points() -> void:
 		var last_point = project_point_onto_viewport(pt1, GlobalVars.player_light.global_position) - global_position
 		set_point_position(0, first_point)
 		set_point_position(get_point_count() - 1, last_point)
-		light_occluder_2d.occluder.polygon = points
+		var pts : PackedVector2Array = points.duplicate()
+		pts = pts.slice(1, pts.size() - 1)
+		light_occluder_2d.occluder.polygon = pts
 
 func _add_extra_points() -> void:
 	add_point(points[0], 0)
@@ -53,6 +55,7 @@ func _set_light_occluder_settings() -> void:
 		light_occluder_2d.occluder = OccluderPolygon2D.new()
 	light_occluder_2d.occluder.closed = false
 	light_occluder_2d.sdf_collision = false
+	light_occluder_2d.occluder_light_mask = (1 + 2 + 4 + 8 + 16 + 32 + 64 + 128 + 256)
 
 func _set_line_settings() -> void:
 	z_index = 1
@@ -93,4 +96,4 @@ func project_point_onto_viewport(point: Vector2, origin: Vector2) -> Vector2:
 			if dist < min_dist:
 				min_dist = dist
 				closest_point = inter
-	return closest_point + dir / zoom
+	return closest_point + dir / zoom * 100.0
