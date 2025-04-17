@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
 [ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://main/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
+[ext_resource type="Script" uid="uid://pve7jvtpwy2i" path="res://wip/wip-sqlpy/los_world.gd" id="2_odec8"]
 [ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://main/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
 [ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://main/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
 [ext_resource type="PackedScene" uid="uid://lb1xgx5lsfmv" path="res://wip/wip-sqlpy/scenes/torch.tscn" id="4_spedq"]
@@ -17,22 +18,13 @@
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
 [ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://wip/wip-sqlpy/player_light.gd" id="16_odec8"]
 
-[sub_resource type="Gradient" id="Gradient_spedq"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.402597, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.486768, 0.486768, 0.486768, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bu1nh"]
-gradient = SubResource("Gradient_spedq")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odec8"]
+blend_mode = 3
 
 [sub_resource type="Gradient" id="Gradient_bu1nh"]
 interpolation_mode = 2
 interpolation_color_space = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_odec8"]
 gradient = SubResource("Gradient_bu1nh")
@@ -48,6 +40,49 @@ script = ExtResource("1_iay74")
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 layer = 5
 follow_viewport_enabled = true
+
+[node name="LineOfSightOverlay" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="LineOfSightOverlay"]
+material = SubResource("CanvasItemMaterial_odec8")
+offset_right = 40.0
+offset_bottom = 40.0
+focus_mode = 0
+mouse_filter = 2
+
+[node name="LOSWorld" type="SubViewport" parent="LineOfSightOverlay/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+positional_shadow_atlas_size = 4096
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+script = ExtResource("2_odec8")
+
+[node name="RoomCamera2D" type="Camera2D" parent="LineOfSightOverlay/SubViewportContainer/LOSWorld"]
+script = ExtResource("12_vl8m1")
+is_in_other_world = true
+metadata/_custom_type_script = "uid://craf068s6fswb"
+
+[node name="ColorRect" type="ColorRect" parent="LineOfSightOverlay/SubViewportContainer/LOSWorld/RoomCamera2D"]
+offset_left = -1278.0
+offset_top = -790.0
+offset_right = 1317.0
+offset_bottom = 792.0
+
+[node name="PlayerLight" type="PointLight2D" parent="LineOfSightOverlay/SubViewportContainer/LOSWorld"]
+position = Vector2(702, 304)
+range_layer_max = 2
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_odec8")
+texture_scale = 20.0
+script = ExtResource("16_odec8")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="LineOfSightOverlay/SubViewportContainer/LOSWorld"]
+light_mask = 0
+visibility_layer = 0
+color = Color(0, 0, 0, 1)
 
 [node name="GameSpace" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -148,33 +183,27 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="Lighting" type="Node2D" parent="GameSpace"]
-visible = false
-
-[node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(1544, 381)
-scale = Vector2(1, 1)
-color = Color(1, 0.79, 0.8915, 1)
-range_layer_max = 1
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_bu1nh")
-texture_scale = 10.52
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
 visibility_layer = 0
-color = Color(0, 0, 0, 1)
+color = Color(0.215902, 0.215902, 0.215902, 1)
 
-[node name="PlayerLight" type="PointLight2D" parent="GameSpace/Lighting"]
-position = Vector2(702, 304)
-range_layer_max = 1
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_odec8")
-texture_scale = 20.0
-script = ExtResource("16_odec8")
+[node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(546, 352)
+color = Color(1, 0.903758, 0.856763, 1)
+
+[node name="Torch2" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(203, 372)
+
+[node name="Torch3" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(924, 384)
+
+[node name="Torch4" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(1283, 246)
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
 position = Vector2(479, 221)
-zoom = Vector2(0.95, 0.95)
 script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 

@@ -2,8 +2,7 @@ shader_type canvas_item;
 render_mode blend_mul;
 
 void fragment() {
-	COLOR = COLOR;
-	
+	COLOR = COLOR;	
 }
 
 void light() {

@@ -7,26 +7,37 @@ var added_extra_points : bool = false
 const TOWER_ROOM_SEPARATOR_TEXTURE = preload("res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres")
 
 func _ready() -> void:
+	print(get_child_count())
+	SignalBus.tower_ready.connect(_on_tower_ready)
 	var child : LightOccluder2D
+	var children : Array[Node] = get_children()
+	for c in children:
+		c.queue_free()
 	if get_child_count() == 0:
 		child = LightOccluder2D.new()
-		add_child(child, false, Node.INTERNAL_MODE_FRONT)
+		add_child(child, false)
 	else:
 		child = get_child(0)
 	light_occluder_2d = child
-	
 	_set_light_occluder_settings()
 	_set_line_settings()
 	_set_occluder_points()
 
+func _on_tower_ready() -> void:
+	var dupe : LightOccluder2D = light_occluder_2d.duplicate()
+	dupe.global_transform = light_occluder_2d.global_transform
+	GlobalVars.line_of_sight_world.add_child(dupe)
+
 func _process(_delta: float) -> void:
-	_set_occluder_points()
+	if is_node_ready():
+		_set_occluder_points()
 
 func _set_occluder_points() -> void:
 	if Engine.is_editor_hint():
-		if get_point_count() > 2:
-			light_occluder_2d.occluder.polygon = points
-			return
+		if light_occluder_2d:
+			if get_point_count() > 2:
+				light_occluder_2d.occluder.polygon = points
+		return
 	if not added_extra_points:
 		_add_extra_points()
 		added_extra_points = true
@@ -48,8 +59,6 @@ func _add_extra_points() -> void:
 	add_point(points[0], 0)
 	add_point(points[get_point_count() - 1])
 
-
-
 func _set_light_occluder_settings() -> void:
 	if light_occluder_2d.occluder == null:
 		light_occluder_2d.occluder = OccluderPolygon2D.new()
@@ -63,6 +72,9 @@ func _set_line_settings() -> void:
 	texture = TOWER_ROOM_SEPARATOR_TEXTURE
 	texture_mode = Line2D.LINE_TEXTURE_STRETCH
 	joint_mode = Line2D.LINE_JOINT_ROUND
+
+
+
 
 func project_point_onto_viewport(point: Vector2, origin: Vector2) -> Vector2:
 	var dir: Vector2 = origin.direction_to(point)

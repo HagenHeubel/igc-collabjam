@@ -1,10 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://lb1xgx5lsfmv"]
+[gd_scene load_steps=27 format=3 uid="uid://lb1xgx5lsfmv"]
 
 [ext_resource type="Shader" uid="uid://dwte24ky6i2yb" path="res://wip/wip-sqlpy/scenes/torch_smoke.gdshader" id="1_esyxi"]
+[ext_resource type="Script" uid="uid://darve5oqoj256" path="res://wip/wip-sqlpy/scenes/torch.gd" id="1_u0uvh"]
 
 [sub_resource type="Gradient" id="Gradient_c0axd"]
 interpolation_mode = 2
 interpolation_color_space = 2
+offsets = PackedFloat32Array(0.0909091, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_esyxi"]
@@ -77,9 +79,16 @@ colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0.266667, 0.231373, 0.117647, 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5sl3v"]
 blend_mode = 1
 
+[sub_resource type="Gradient" id="Gradient_u0uvh"]
+interpolation_color_space = 2
+colors = PackedColorArray(0.648701, 4.30289e-05, 0.508382, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k40df"]
+gradient = SubResource("Gradient_u0uvh")
+
 [sub_resource type="Gradient" id="Gradient_cda2s"]
-offsets = PackedFloat32Array(0, 0.163636, 0.336364, 0.463636, 0.609091, 0.772727, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 0.871667, 0.45, 1, 1, 0.690667, 0.42, 1, 1, 0.552, 0.44, 1, 0.37, 0.12728, 0.0666, 1, 0.11, 0.03784, 0.0198, 0)
+offsets = PackedFloat32Array(0, 0.145455, 0.3, 0.472727, 0.772727, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.996118, 0.816599, 3.85046e-07, 1, 0.999999, 0.623674, 0.260387, 1, 0.94321, 0.245373, 4.94784e-05, 1, 0.428526, 0.0884463, 0.101554, 1, 0.11, 0.03784, 0.0198, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0ilmr"]
 gradient = SubResource("Gradient_cda2s")
@@ -105,10 +114,15 @@ damping_max = 50.0
 scale_min = 0.3
 scale_curve = SubResource("CurveTexture_q3yql")
 color_ramp = SubResource("GradientTexture1D_0ilmr")
+color_initial_ramp = SubResource("GradientTexture1D_k40df")
 
-[node name="PointLight2D" type="PointLight2D"]
-scale = Vector2(2, 2)
+[node name="Torch" type="PointLight2D"]
+color = Color(1, 0.649682, 0.788802, 1)
+range_layer_max = 2
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_esyxi")
+texture_scale = 6.0
+script = ExtResource("1_u0uvh")
 
 [node name="Alpha" type="GPUParticles2D" parent="."]
 material = SubResource("ShaderMaterial_u0uvh")
@@ -117,13 +131,14 @@ texture = SubResource("GradientTexture2D_u0uvh")
 process_material = SubResource("ParticleProcessMaterial_bgant")
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 48)
+points = PackedVector2Array(0, 0, 0, 16)
+width = 5.0
 width_curve = SubResource("Curve_c0axd")
 gradient = SubResource("Gradient_m60tx")
 texture_mode = 2
 
 [node name="Add" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_5sl3v")
-amount = 20
+amount = 40
 texture = SubResource("GradientTexture2D_u0uvh")
 process_material = SubResource("ParticleProcessMaterial_ckfr6")

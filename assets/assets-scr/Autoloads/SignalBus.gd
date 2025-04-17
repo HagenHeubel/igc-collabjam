@@ -6,6 +6,7 @@ extends Node
 signal room_changed(Node2D)
 signal register_room(TowerRoom)
 signal tower_ready # Emitted after all nodes in the tower have been initialized
+signal prev_camera_position_updated(Vector2) # For offsetting camera movement one frame in order to sync overlay
 
 # Manage player
 signal player_died
