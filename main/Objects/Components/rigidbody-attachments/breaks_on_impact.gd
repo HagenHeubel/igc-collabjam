@@ -26,8 +26,9 @@ func _process(_delta: float) -> void:
 		var collision_force = Vector2.ZERO
 		for i in range(state.get_contact_count()):
 			if ignore_player_collisions:
-				if state.get_contact_collider(i) == GlobalVars.player.get_rid():
-					return
+				if GlobalVars.player:
+					if state.get_contact_collider(i) == GlobalVars.player.get_rid():
+						return
 			collision_force += state.get_contact_impulse(i)
 		if subtract_gravity:
 			collision_force += ProjectSettings.get_setting("physics/2d/default_gravity") * parent.mass * parent.gravity_scale * Vector2.UP * _delta
