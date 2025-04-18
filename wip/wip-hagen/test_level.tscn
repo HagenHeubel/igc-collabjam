@@ -1,10 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnh2ueqjuw3nx"]
+[gd_scene load_steps=3 format=3 uid="uid://cnh2ueqjuw3nx"]
 
 [ext_resource type="PackedScene" uid="uid://dwonll6lvlecc" path="res://main/GameTemplate/scenes/game_scene/levels/level_1.tscn" id="1_b5r0e"]
+[ext_resource type="PackedScene" uid="uid://b3b7i0ka1bs82" path="res://wip/wip-hagen/library_ladder.tscn" id="2_wk0no"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Tower_F1" parent="." instance=ExtResource("1_b5r0e")]
+
+[node name="CameraTarget" parent="Tower_F1/GameSpace/Floor1/RespawnRoom" index="1"]
+position = Vector2(1103.81, -258.006)
+
+[node name="CameraBounds" parent="Tower_F1/GameSpace/Floor1/RespawnRoom" index="2"]
+offset_left = 1007.81
+offset_top = -322.006
+offset_right = 1199.81
+offset_bottom = -194.006
+
+[node name="LibraryLadder" parent="Tower_F1/GameSpace" index="3" node_paths=PackedStringArray("rungs", "ladder_mid_parts", "rail_mid_parts") instance=ExtResource("2_wk0no")]
+position = Vector2(1252, -4)
+scale = Vector2(0.33, 0.33)
+rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3"), NodePath("LadderBody/LadderRung4"), NodePath("LadderBody/LadderRung5"), NodePath("LadderBody/LadderRung6")]
+ladder_mid_parts = [NodePath("RemoteTransform2D/LadderMiddle"), NodePath("RemoteTransform2D/LadderMiddle2"), NodePath("RemoteTransform2D/LadderMiddle3")]
+rail_mid_parts = [NodePath("RailContainer/RailMiddle"), NodePath("RailContainer/LadderMiddle2"), NodePath("RailContainer/LadderMiddle3"), NodePath("RailContainer/LadderMiddle4"), NodePath("RailContainer/LadderMiddle5")]
+height_factor = 3.991
+handle_position = 0.137
+rail_length_factor = 5.0
+
+[node name="PouncingCat" parent="Tower_F1/GameSpace" index="4"]
+position = Vector2(801, -323)
 
 [editable path="Tower_F1"]
 [editable path="Tower_F1/GameSpace/Floor1/RespawnRoom"]
