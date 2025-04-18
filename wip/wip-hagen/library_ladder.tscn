@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3b7i0ka1bs82"]
+
+[ext_resource type="Texture2D" uid="uid://vjyt7bqvdca1" path="res://wip/wip-hagen/assets/cat_game_ladder.png" id="1_vxcgp"]
+[ext_resource type="Script" uid="uid://y1177kb10q04" path="res://wip/wip-hagen/library_ladder.gd" id="1_w6fh0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6fh0"]
+size = Vector2(34.235, 81.68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vyj7"]
+size = Vector2(173.12, 13.28)
+
+[node name="LibraryLadder" type="Node2D" node_paths=PackedStringArray("handle", "rungs", "ladder_mid_parts", "ladder_top", "ladder_bottom", "rail_mid_parts", "rail_left", "rail_right")]
+script = ExtResource("1_w6fh0")
+spritesheet = ExtResource("1_vxcgp")
+handle = NodePath("LadderBody/Handle")
+rungs = [NodePath("LadderBody/LadderRung")]
+ladder_mid_parts = [NodePath("LadderMiddle")]
+ladder_top = NodePath("LadderTop")
+ladder_bottom = NodePath("LadderBottom")
+rail_mid_parts = [NodePath("RailMiddle")]
+rail_left = NodePath("RailLeft")
+rail_right = NodePath("RailRight")
+handle_position = 0.619
+
+[node name="LadderBody" type="CharacterBody2D" parent="."]
+
+[node name="Handle" type="CollisionShape2D" parent="LadderBody"]
+position = Vector2(-128, 33.536)
+shape = SubResource("RectangleShape2D_w6fh0")
+
+[node name="HandleSprite" type="Sprite2D" parent="LadderBody/Handle"]
+texture_filter = 6
+position = Vector2(-16, -8)
+texture = ExtResource("1_vxcgp")
+hframes = 4
+vframes = 4
+frame = 5
+
+[node name="LadderRung" type="CollisionShape2D" parent="LadderBody"]
+position = Vector2(0, 164.42)
+shape = SubResource("RectangleShape2D_4vyj7")
+one_way_collision = true
+
+[node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung"]
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("1_vxcgp")
+hframes = 2
+vframes = 4
+
+[node name="RailLeft" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(-128, -32)
+texture = ExtResource("1_vxcgp")
+region_enabled = true
+region_rect = Rect2(0, 384, 128, 128)
+
+[node name="RailMiddle" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, -32)
+texture = ExtResource("1_vxcgp")
+region_enabled = true
+region_rect = Rect2(128, 384, 128, 128)
+
+[node name="RailRight" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(128, -32)
+texture = ExtResource("1_vxcgp")
+region_enabled = true
+region_rect = Rect2(256, 384, 128, 128)
+
+[node name="LadderMiddle" type="Sprite2D" parent="."]
+texture_filter = 6
+position = Vector2(0, 64)
+texture = ExtResource("1_vxcgp")
+hframes = 2
+vframes = 4
+frame = 3
+
+[node name="LadderTop" type="Sprite2D" parent="."]
+texture_filter = 6
+position = Vector2(0, -64)
+texture = ExtResource("1_vxcgp")
+hframes = 2
+vframes = 4
+frame = 1
+
+[node name="LadderBottom" type="Sprite2D" parent="."]
+texture_filter = 6
+position = Vector2(0, 192)
+texture = ExtResource("1_vxcgp")
+hframes = 2
+vframes = 4
+frame = 5
