@@ -12,6 +12,10 @@ class_name LibraryLadder
 @export var rail_mid_parts :Array[Node2D]
 @export var rail_left :Node2D
 @export var rail_right :Node2D
+@export_category("Movement Properties")
+@export_range(0.0,1.0,0.05) var resistance :float= 0.5
+@export_range(0.0,20.0,0.5) var rail_friction :float= 5.0
+@export_range(500.0,1500.0,10.0) var max_speed :float= 1000
 @export_category("Ladder Construction")
 @export_range(1.0,10.0) var height_factor :float=1.0 :
 	get: 
@@ -37,12 +41,13 @@ class_name LibraryLadder
 	set(value):
 		bottom_margin = value
 		update_ladder_rungs()
-@export var grow_upwards :bool=true:
-	get: 
-		return grow_upwards
-	set(value):
-		grow_upwards = value
-		update_ladder_size()
+#@export var grow_upwards :bool=true:
+	#get: 
+		#return grow_upwards
+	#set(value):
+		#grow_upwards = value
+		#update_ladder_size()
+@export var manual_step_placement :bool= false ##Turns off step-placement function. To edit the steps yourself, enable "editable children" (please don't delete the original LadderRung node though)
 @export_range(0.0,1.0) var handle_position :float=0.2 :
 	get: 
 		return handle_position
@@ -61,7 +66,7 @@ class_name LibraryLadder
 		return ladder_position
 	set(value):
 		ladder_position = value
-		handle.get_parent().position.x = lerpf(rail_left.position.x,rail_right.position.x,ladder_position)
+		handle.get_parent().position.x = lerpf(rail_left.position.x+110,rail_right.position.x-110,ladder_position)
 		ladder_bottom.get_parent().position.x = lerpf(rail_left.position.x+110,rail_right.position.x-110,ladder_position)
 
 
@@ -114,10 +119,11 @@ func update_ladder_size():
 	
 	rail_left.get_parent().position.y = ladder_top.position.y+32
 	update_ladder_rungs()
+	update_handle_position()
 
 
 func update_ladder_rungs():
-	if rungs.is_empty():
+	if rungs.is_empty() or manual_step_placement:
 		return
 	rungs[0].position.y = -bottom_margin#/rung_density
 	

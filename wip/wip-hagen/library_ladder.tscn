@@ -5,23 +5,24 @@
 [ext_resource type="Script" uid="uid://c257hp288hwc4" path="res://wip/wip-hagen/ladder_body.gd" id="3_4vyj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6fh0"]
+custom_solver_bias = 1.0
 size = Vector2(34.235, 81.68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vyj7"]
 size = Vector2(173.12, 13.28)
 
 [node name="LibraryLadder" type="Node2D" node_paths=PackedStringArray("handle", "rungs", "ladder_mid_parts", "ladder_top", "ladder_bottom", "rail_mid_parts", "rail_left", "rail_right")]
+scale = Vector2(0.35, 0.35)
 script = ExtResource("1_w6fh0")
 spritesheet = ExtResource("1_vxcgp")
 handle = NodePath("LadderBody/Handle")
 rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3")]
-ladder_mid_parts = [NodePath("RemoteTransform2D/LadderMiddle")]
-ladder_top = NodePath("RemoteTransform2D/LadderTop")
-ladder_bottom = NodePath("RemoteTransform2D/LadderBottom")
+ladder_mid_parts = [NodePath("LadderSides/LadderMiddle")]
+ladder_top = NodePath("LadderSides/LadderTop")
+ladder_bottom = NodePath("LadderSides/LadderBottom")
 rail_mid_parts = [NodePath("RailContainer/RailMiddle"), NodePath("RailContainer/LadderMiddle2"), NodePath("RailContainer/LadderMiddle3"), NodePath("RailContainer/LadderMiddle4")]
 rail_left = NodePath("RailContainer/RailLeft")
 rail_right = NodePath("RailContainer/RailRight")
-handle_position = 0.487
 rail_length_factor = 4.0
 
 [node name="RailContainer" type="Node2D" parent="."]
@@ -75,7 +76,7 @@ collision_mask = 0
 script = ExtResource("3_4vyj7")
 
 [node name="Handle" type="CollisionShape2D" parent="LadderBody"]
-position = Vector2(-128, -188.672)
+position = Vector2(-128, -115.2)
 shape = SubResource("RectangleShape2D_w6fh0")
 
 [node name="HandleSprite" type="Sprite2D" parent="LadderBody/Handle"]
@@ -90,6 +91,7 @@ frame = 5
 position = Vector2(0, -96)
 shape = SubResource("RectangleShape2D_4vyj7")
 one_way_collision = true
+one_way_collision_margin = 128.0
 
 [node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung"]
 show_behind_parent = true
@@ -103,6 +105,7 @@ vframes = 4
 position = Vector2(0, -192)
 shape = SubResource("RectangleShape2D_4vyj7")
 one_way_collision = true
+one_way_collision_margin = 128.0
 
 [node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung2"]
 show_behind_parent = true
@@ -116,6 +119,7 @@ vframes = 4
 position = Vector2(0, -288)
 shape = SubResource("RectangleShape2D_4vyj7")
 one_way_collision = true
+one_way_collision_margin = 128.0
 
 [node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung3"]
 show_behind_parent = true
@@ -125,10 +129,10 @@ texture = ExtResource("1_vxcgp")
 hframes = 2
 vframes = 4
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-remote_path = NodePath("../LadderBody")
+[node name="LadderSides" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="LadderTop" type="Sprite2D" parent="RemoteTransform2D"]
+[node name="LadderTop" type="Sprite2D" parent="LadderSides"]
 texture_filter = 6
 position = Vector2(0, -320)
 texture = ExtResource("1_vxcgp")
@@ -136,7 +140,7 @@ region_enabled = true
 region_rect = Rect2(256, 0, 256, 128)
 region_filter_clip_enabled = true
 
-[node name="LadderMiddle" type="Sprite2D" parent="RemoteTransform2D"]
+[node name="LadderMiddle" type="Sprite2D" parent="LadderSides"]
 texture_filter = 6
 position = Vector2(0, -192)
 texture = ExtResource("1_vxcgp")
@@ -144,7 +148,7 @@ region_enabled = true
 region_rect = Rect2(256, 128, 256, 128)
 region_filter_clip_enabled = true
 
-[node name="LadderBottom" type="Sprite2D" parent="RemoteTransform2D"]
+[node name="LadderBottom" type="Sprite2D" parent="LadderSides"]
 texture_filter = 6
 position = Vector2(0, -64)
 texture = ExtResource("1_vxcgp")
