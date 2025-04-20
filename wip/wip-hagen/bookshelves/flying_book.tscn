@@ -17,9 +17,6 @@ gravity_scale = 0.0
 linear_damp = 0.5
 script = ExtResource("1_3f3gw")
 speed = 450.0
-target_bookshelf_after = null
-height = null
-width = null
 
 [node name="ImgBook002" type="Sprite2D" parent="."]
 texture = ExtResource("1_c55ca")

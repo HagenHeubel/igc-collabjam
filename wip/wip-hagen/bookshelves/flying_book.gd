@@ -4,17 +4,19 @@ class_name FlyingBook
 #@export var use_sprite_for_size :bool= false ##[b]FALSE: [/b]Collision is used for setting height and width variables[br][b]TRUE:  [/b]Uses sprite instead
 #@export var sprite :Node2D
 @export var speed :float= 4000.0
-@export var target_bookshelf_after :float= 5.0
+@export var target_bookshelf_after :float= 20.0
 @export var height :float=0.0
 @export var width :float=0.0
 var target_bookshelf :MagicBookshelf
+var target_location :Vector2=Vector2.ZERO
 var previous_bookshelf :MagicBookshelf
 
-
-
+var room :TowerRoom
+var has_been_flying_for:float=0.0
 var default_collision_layer:int=0
 var default_collision_mask:int=0
 
+var can_continue:=true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,15 +36,26 @@ func _ready() -> void:
 	default_collision_layer = collision_layer
 	default_collision_mask = collision_mask
 	find_bookshelf.call_deferred()
+	find_random_spot.call_deferred()
+	
+	room = get_room_node(get_parent())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if target_bookshelf:
-		var direction :Vector2= target_bookshelf.position-position
+		has_been_flying_for += delta
+		if has_been_flying_for >= target_bookshelf_after:
+			target_location = target_bookshelf.global_position
+			can_continue = true
+		else:
+			can_continue = false
+			if global_position.distance_squared_to(target_location)<900.0:
+				find_random_spot()
+		var direction :Vector2= target_location - global_position
 		direction = direction.normalized()
 		apply_force(direction*speed)
-	else:
-		pass #pick random point in valid range
+		
+		
 
 
 func enter_bookshelf(shelf:MagicBookshelf):
@@ -60,6 +73,7 @@ func leave_bookshelf(shelf:MagicBookshelf):
 	reparent(shelf.get_parent())
 	freeze = false
 	previous_bookshelf = shelf
+	has_been_flying_for = 0.0
 	find_bookshelf()
 
 
@@ -78,6 +92,17 @@ func find_bookshelf():
 		find_bookshelf()
 
 
+func find_random_spot():
+	target_location = room.camera_target.global_position
+	target_location.x += randf_range(-300.,300.)
+	target_location.y += randf_range(-150.,150.)
+
+
+func get_room_node(parent:Node2D)->TowerRoom:
+	if parent is TowerRoom:
+		return parent
+	else:
+		return get_room_node(parent.get_parent())
 
 
 func calculate_size():

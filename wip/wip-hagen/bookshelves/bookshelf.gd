@@ -192,6 +192,8 @@ func set_book_size(book:FlyingBook):
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is FlyingBook:
+		if !body.can_continue:
+			return
 		if body.target_bookshelf != self:
 			return
 		if !can_store_book(body):
