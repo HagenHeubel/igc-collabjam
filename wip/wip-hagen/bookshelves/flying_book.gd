@@ -3,10 +3,13 @@ class_name FlyingBook
 
 #@export var use_sprite_for_size :bool= false ##[b]FALSE: [/b]Collision is used for setting height and width variables[br][b]TRUE:  [/b]Uses sprite instead
 #@export var sprite :Node2D
-@export var speed :float= 4000.0
+@export var speed :float= 400.0
 @export var target_bookshelf_after :float= 20.0
 @export var height :float=0.0
 @export var width :float=0.0
+
+@onready var ray_cast: RayCast2D = $RayCast2D
+
 var target_bookshelf :MagicBookshelf
 var target_location :Vector2=Vector2.ZERO
 var previous_bookshelf :MagicBookshelf
@@ -36,7 +39,7 @@ func _ready() -> void:
 	default_collision_layer = collision_layer
 	default_collision_mask = collision_mask
 	find_bookshelf.call_deferred()
-	find_random_spot.call_deferred()
+	target_location = global_position
 	
 	room = get_room_node(get_parent())
 
@@ -49,11 +52,17 @@ func _process(delta: float) -> void:
 			can_continue = true
 		else:
 			can_continue = false
-			if global_position.distance_squared_to(target_location)<900.0:
+			if global_position.distance_squared_to(target_location)<3600.0:
 				find_random_spot()
-		var direction :Vector2= target_location - global_position
-		direction = direction.normalized()
-		apply_force(direction*speed)
+		
+		var direction :Vector2= global_position.direction_to(target_location)
+		if global_position.distance_squared_to(GlobalVars.player.global_position)<30000.0:
+			if global_position.distance_squared_to(GlobalVars.player.global_position)<18000.0:
+				direction -= global_position.direction_to(GlobalVars.player.global_position)
+			direction -= global_position.direction_to(GlobalVars.player.global_position)
+			direction = direction.normalized()
+		
+		apply_force(direction*speed*mass)
 		
 		
 
@@ -94,8 +103,19 @@ func find_bookshelf():
 
 func find_random_spot():
 	target_location = room.camera_target.global_position
-	target_location.x += randf_range(-300.,300.)
+	target_location.x += randf_range(-400.,400.)
 	target_location.y += randf_range(-150.,150.)
+	
+	print("current target position: ", target_location)
+	ray_cast.global_position = global_position
+	ray_cast.target_position = ray_cast.to_local(target_location)*1.2
+	ray_cast.force_raycast_update()
+	print(ray_cast.get_collider())
+	if ray_cast.is_colliding():
+		print(ray_cast.get_collision_point())
+		target_location = ray_cast.get_collision_point().lerp(global_position,0.4)
+		print("target after raycast: ", target_location)
+		
 
 
 func get_room_node(parent:Node2D)->TowerRoom:

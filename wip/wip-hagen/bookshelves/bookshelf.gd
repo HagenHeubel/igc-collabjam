@@ -192,10 +192,13 @@ func set_book_size(book:FlyingBook):
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is FlyingBook:
-		if !body.can_continue:
-			return
 		if body.target_bookshelf != self:
 			return
+		if !body.can_continue:
+			await get_tree().create_timer(1.0).timeout
+			for b in get_overlapping_bodies():
+				if b == body:
+					_on_body_entered(body)
 		if !can_store_book(body):
 			body.find_bookshelf()
 			return
