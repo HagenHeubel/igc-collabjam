@@ -1,0 +1,139 @@
+[gd_scene load_steps=23 format=3 uid="uid://cyf37je1wgklf"]
+
+[ext_resource type="Script" uid="uid://oy87tvs1rv8p" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book.gd" id="1_l4cdb"]
+[ext_resource type="Texture2D" uid="uid://c53dry1i7kwe6" path="res://assets/assets-visual/controverse/IMG_book_001.png" id="2_gtvb6"]
+[ext_resource type="Shader" uid="uid://tnu8rqetnrhs" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book.gdshader" id="3_gtvb6"]
+[ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book_desaturate.gdshader" id="4_ey5df"]
+[ext_resource type="Shader" uid="uid://cgbixsy2p4fkn" path="res://wip/wip-sqlpy/LargeBookshelf/book_dust.gdshader" id="5_4m88e"]
+[ext_resource type="Texture2D" uid="uid://c8fpwtp81s5ue" path="res://wip/wip-sqlpy/assets/Grainy 3 - 512x512.png" id="6_4m88e"]
+
+[sub_resource type="Gradient" id="Gradient_l4cdb"]
+colors = PackedColorArray(0.517288, 0.512523, 0.58582, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gtvb6"]
+gradient = SubResource("Gradient_l4cdb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey5df"]
+shader = ExtResource("3_gtvb6")
+shader_parameter/flip = true
+
+[sub_resource type="Gradient" id="Gradient_ey5df"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(0.499098, 0.499098, 0.499098, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7y41m"]
+gradient = SubResource("Gradient_ey5df")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtvb6"]
+shader = ExtResource("3_gtvb6")
+shader_parameter/flip = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4cdb"]
+resource_local_to_scene = true
+size = Vector2(110, 257)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7y41m"]
+resource_local_to_scene = true
+shader = ExtResource("4_ey5df")
+shader_parameter/desaturation = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1olfy"]
+shader = ExtResource("5_4m88e")
+shader_parameter/tex = ExtResource("6_4m88e")
+
+[sub_resource type="Gradient" id="Gradient_7y41m"]
+colors = PackedColorArray(0.712129, 0.712129, 0.712129, 1, 0.303233, 0.303233, 0.303233, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4m88e"]
+gradient = SubResource("Gradient_7y41m")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_4m88e"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0342466, 0.575758), -3.17638, -3.17638, 0, 0, Vector2(0.226027, 0.141414), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0258729, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_1olfy"]
+curve = SubResource("Curve_4m88e")
+
+[sub_resource type="Curve" id="Curve_wpfjl"]
+_data = [Vector2(0, 0), 0.0, 3.04167, 0, 0, Vector2(0.246575, 0.757576), 0.983165, 0.983165, 0, 0, Vector2(0.863014, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2ycyj"]
+curve = SubResource("Curve_wpfjl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ey5df"]
+lifetime_randomness = 0.56
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 112.5, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_2ycyj")
+alpha_curve = SubResource("CurveTexture_1olfy")
+
+[node name="ShuffleBook" type="AnimatableBody2D"]
+modulate = Color(0.517288, 0.512523, 0.58582, 1)
+collision_layer = 0
+script = ExtResource("1_l4cdb")
+texture = ExtResource("2_gtvb6")
+has_collision = true
+slide_gradient = SubResource("GradientTexture1D_gtvb6")
+hitbox_top = 15.0
+
+[node name="LeftTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ey5df")
+offset_right = 110.0
+offset_bottom = 257.0
+rotation = 3.14159
+scale = Vector2(1e-05, 1)
+texture = SubResource("GradientTexture1D_7y41m")
+expand_mode = 1
+
+[node name="RightTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_gtvb6")
+offset_left = 110.0
+offset_top = -257.0
+offset_right = 220.0
+scale = Vector2(1e-05, 1)
+texture = SubResource("GradientTexture1D_7y41m")
+expand_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(55, -128.5)
+shape = SubResource("RectangleShape2D_l4cdb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7y41m")
+position = Vector2(55, -136)
+texture = ExtResource("2_gtvb6")
+
+[node name="GPUParticles1" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_1olfy")
+position = Vector2(0, -128.5)
+emitting = false
+amount = 200
+texture = SubResource("GradientTexture2D_4m88e")
+lifetime = 4.0
+one_shot = true
+explosiveness = 0.93
+randomness = 0.6
+process_material = SubResource("ParticleProcessMaterial_ey5df")
+
+[node name="GPUParticles2" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_1olfy")
+position = Vector2(110, -128.5)
+emitting = false
+amount = 200
+texture = SubResource("GradientTexture2D_4m88e")
+lifetime = 4.0
+one_shot = true
+explosiveness = 0.93
+randomness = 0.6
+process_material = SubResource("ParticleProcessMaterial_ey5df")

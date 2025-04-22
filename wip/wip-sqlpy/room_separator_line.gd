@@ -7,8 +7,8 @@ var added_extra_points : bool = false
 const TOWER_ROOM_SEPARATOR_TEXTURE = preload("res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres")
 
 func _ready() -> void:
-	print(get_child_count())
-	SignalBus.tower_ready.connect(_on_tower_ready)
+	if not Engine.is_editor_hint():
+		SignalBus.tower_ready.connect(_on_tower_ready)
 	var child : LightOccluder2D
 	var children : Array[Node] = get_children()
 	for c in children:
