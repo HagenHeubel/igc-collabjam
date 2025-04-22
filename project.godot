@@ -23,6 +23,7 @@ buses/default_bus_layout="res://assets/assets-audio/audio_bus.tres"
 
 GlobalMethods="*res://assets/assets-scr/Autoloads/GlobalMethods.gd"
 GlobalVars="*res://assets/assets-scr/Autoloads/GlobalVars.gd"
+GlobalSFX="*res://wip/wip-staging/GlobalSFX.tscn"
 SignalBus="*res://assets/assets-scr/Autoloads/SignalBus.gd"
 AppConfig="*res://addons/maaacks_game_template/base/scenes/autoloads/app_config.tscn"
 SceneLoader="*res://addons/maaacks_game_template/base/scenes/autoloads/scene_loader.tscn"
