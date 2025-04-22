@@ -9,6 +9,8 @@ extends Node2D
 @export var WANDER_DISTANCE: float = 400.0 # in pixels
 @export var MAX_LEFT: float
 @export var MAX_RIGHT: float
+@export_range(-1,1,2) var DIRECTION_TO_EXIT: int = 1 ## -1 for left, 1 for right
+
 var is_alert: bool = false
 var start_pos: Vector2
 var target_pos: Vector2 
@@ -74,5 +76,5 @@ func choose_new_wander_target():
 func run_away(delta: float):
 	# TODO: setup handling going towards exists
 	# HACK: we can just leave as is, and let the rat hide itself
-	move_dir = 1
-	global_position.x += move_dir * RUN_SPEED * delta
+	
+	global_position.x += DIRECTION_TO_EXIT * RUN_SPEED * delta
