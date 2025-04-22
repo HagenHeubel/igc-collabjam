@@ -1,11 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://h0ijtsdh2k3m"]
+[gd_scene load_steps=4 format=3 uid="uid://h0ijtsdh2k3m"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_game_template/base/scenes/loading_screen/loading_screen.tscn" id="1_yf60q"]
-[ext_resource type="Script" path="res://main/GameTemplate/scenes/loading_screen/loading_screen.gd" id="2_hq4fg"]
+[ext_resource type="PackedScene" uid="uid://cd0jbh4metflb" path="res://addons/maaacks_game_template/base/scenes/loading_screen/loading_screen.tscn" id="1_yf60q"]
+[ext_resource type="Script" uid="uid://dbjiws14p4vir" path="res://main/GameTemplate/scenes/loading_screen/loading_screen.gd" id="2_hq4fg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf60q"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 8
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 8
 
 [node name="LevelLoadingScreen" instance=ExtResource("1_yf60q")]
 script = ExtResource("2_hq4fg")
-_in_progress = "Loading Level..."
-_in_progress_waiting = "Still Loading Level..."
-_in_progress_still_waiting = "Still Loading Level... (%d seconds)"
+state_change_delay = 5.0
+_in_progress = "Assembling Tower..."
+_in_progress_waiting = "Brewing Potions..."
+_in_progress_still_waiting = "Pondering Orbs... (%d seconds)"
 _complete = "Loading Level Complete!"
+
+[node name="BackgroundColor" parent="Control" index="1"]
+visible = true
+color = Color(1, 1, 1, 0.67451)
+
+[node name="ProgressLabel" parent="Control/VBoxContainer" index="0"]
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+
+[node name="ProgressBar" parent="Control/VBoxContainer" index="1"]
+theme_override_styles/background = SubResource("StyleBoxFlat_yf60q")
+
+[node name="ErrorMessage" parent="Control" index="4"]
+initial_position = 1
+size = Vector2i(190, 74)
+
+[node name="StalledMessage" parent="Control" index="5"]
+size = Vector2i(200, 74)
