@@ -1,10 +1,148 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnh2ueqjuw3nx"]
+[gd_scene load_steps=6 format=3 uid="uid://cnh2ueqjuw3nx"]
 
 [ext_resource type="PackedScene" uid="uid://dwonll6lvlecc" path="res://main/GameTemplate/scenes/game_scene/levels/level_1.tscn" id="1_b5r0e"]
+[ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="2_em575"]
+[ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="2_epip4"]
+[ext_resource type="PackedScene" uid="uid://b3b7i0ka1bs82" path="res://wip/wip-hagen/library_ladder.tscn" id="2_wk0no"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epip4"]
+size = Vector2(207.29, 124.368)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Tower_F1" parent="." instance=ExtResource("1_b5r0e")]
+
+[node name="CameraBounds" parent="Tower_F1/GameSpace/Floor1/RespawnRoom" index="2"]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="FlyingBook2" parent="Tower_F1/GameSpace/Floor1/Room3" index="3" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(521, 307)
+scale = Vector2(0.33, 0.33)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook" parent="Tower_F1/GameSpace/Floor1/Room3" index="4" instance=ExtResource("2_epip4")]
+position = Vector2(424, 202)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook3" parent="Tower_F1/GameSpace/Floor1/Room3" index="5" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(411, 386)
+scale = Vector2(0.33, 0.33)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook4" parent="Tower_F1/GameSpace/Floor1/Room3" index="6" instance=ExtResource("2_epip4")]
+position = Vector2(314, 281)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook5" parent="Tower_F1/GameSpace/Floor1/Room3" index="7" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(515, 154)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook6" parent="Tower_F1/GameSpace/Floor1/Room3" index="8" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(484, 343)
+scale = Vector2(0.33, 0.33)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook7" parent="Tower_F1/GameSpace/Floor1/Room3" index="9" instance=ExtResource("2_epip4")]
+position = Vector2(387, 238)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook8" parent="Tower_F1/GameSpace/Floor1/Room3" index="10" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(374, 422)
+scale = Vector2(0.33, 0.33)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook9" parent="Tower_F1/GameSpace/Floor1/Room3" index="11" instance=ExtResource("2_epip4")]
+position = Vector2(277, 317)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook10" parent="Tower_F1/GameSpace/Floor1/Room3" index="12" instance=ExtResource("2_epip4")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(478, 190)
+scale = Vector2(0.22, 0.22)
+target_bookshelf_after = 20.0
+height = 186.0
+width = 99.0
+
+[node name="BookshelfArea" parent="Tower_F1/GameSpace/Floor1/Room3" index="13" instance=ExtResource("2_em575")]
+position = Vector2(151, 357)
+leaving_interval = 0.5
+leaving_chance = 0.4
+bookshelf_shape = SubResource("RectangleShape2D_epip4")
+
+[node name="_CollisionShape2D_130183" parent="Tower_F1/GameSpace/Floor1/Room3/BookshelfArea" index="1"]
+shape = SubResource("RectangleShape2D_epip4")
+
+[node name="BookshelfArea2" parent="Tower_F1/GameSpace/Floor1/Room3" index="14" instance=ExtResource("2_em575")]
+position = Vector2(643, 408)
+leaving_interval = 0.5
+leaving_chance = 0.4
+bookshelf_shape = SubResource("RectangleShape2D_epip4")
+
+[node name="_CollisionShape2D_130184" type="CollisionShape2D" parent="Tower_F1/GameSpace/Floor1/Room3/BookshelfArea2"]
+position = Vector2(-492, -51)
+shape = SubResource("RectangleShape2D_epip4")
+
+[node name="BookshelfArea3" parent="Tower_F1/GameSpace/Floor1/Room3" index="15" instance=ExtResource("2_em575")]
+position = Vector2(338, 97)
+leaving_interval = 0.5
+leaving_chance = 0.4
+bookshelf_shape = SubResource("RectangleShape2D_epip4")
+
+[node name="_CollisionShape2D_130185" type="CollisionShape2D" parent="Tower_F1/GameSpace/Floor1/Room3/BookshelfArea3"]
+position = Vector2(-187, 260)
+shape = SubResource("RectangleShape2D_epip4")
+
+[node name="LibraryLadder" parent="Tower_F1/GameSpace/Lighting" index="5" node_paths=PackedStringArray("rungs", "ladder_mid_parts", "rail_mid_parts") instance=ExtResource("2_wk0no")]
+position = Vector2(603, 340)
+rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3"), NodePath("LadderBody/LadderRung4"), NodePath("LadderBody/LadderRung5"), NodePath("LadderBody/LadderRung6"), NodePath("LadderBody/LadderRung7")]
+ladder_mid_parts = [NodePath("LadderSides/LadderMiddle"), NodePath("LadderSides/LadderMiddle2"), NodePath("LadderSides/LadderMiddle3"), NodePath("LadderSides/LadderMiddle4")]
+rail_mid_parts = [NodePath("RailContainer/RailMiddle"), NodePath("RailContainer/LadderMiddle2"), NodePath("RailContainer/LadderMiddle3"), NodePath("RailContainer/LadderMiddle4"), NodePath("RailContainer/LadderMiddle5"), NodePath("RailContainer/LadderMiddle6"), NodePath("RailContainer/LadderMiddle7"), NodePath("RailContainer/LadderMiddle8"), NodePath("RailContainer/LadderMiddle9"), NodePath("RailContainer/LadderMiddle10"), NodePath("RailContainer/LadderMiddle11"), NodePath("RailContainer/LadderMiddle12"), NodePath("RailContainer/LadderMiddle13"), NodePath("RailContainer/LadderMiddle14"), NodePath("RailContainer/LadderMiddle15")]
+resistance = 0.8
+height_factor = 4.27
+handle_position = 0.049
+rail_length_factor = 15.0
+ladder_position = 0.04
+
+[node name="PouncingCat" parent="Tower_F1/GameSpace" index="3"]
+position = Vector2(453, 484)
 
 [editable path="Tower_F1"]
 [editable path="Tower_F1/GameSpace/Floor1/RespawnRoom"]

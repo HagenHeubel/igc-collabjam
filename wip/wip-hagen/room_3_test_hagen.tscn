@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=3 uid="uid://cw1inkqxqt0cn"]
+
+[ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="1_r8q6h"]
+[ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="2_fcn28"]
+[ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="3_pemih"]
+[ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="4_lx2gp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8q6h"]
+size = Vector2(788.775, 25.43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcn28"]
+size = Vector2(48.79, 484.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pemih"]
+size = Vector2(28.74, 1144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ynueo"]
+size = Vector2(216.61, 53.61)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Room3" parent="." instance=ExtResource("1_r8q6h")]
+position = Vector2(6, 7)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room3/RoomContent/Walls/Roof" index="1"]
+position = Vector2(-190, 0)
+shape = SubResource("RectangleShape2D_r8q6h")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room3/RoomContent/Walls/LeftWall" index="1"]
+position = Vector2(0, -86)
+shape = SubResource("RectangleShape2D_fcn28")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room3/RoomContent/Walls/RightWall" index="1"]
+position = Vector2(-384, 306)
+shape = SubResource("RectangleShape2D_pemih")
+
+[node name="PouncingCat" parent="Room3" instance=ExtResource("2_fcn28")]
+position = Vector2(90, 443)
+
+[node name="Camera2D" type="Camera2D" parent="Room3/PouncingCat"]
+
+[node name="BookshelfArea" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
+position = Vector2(176, 280)
+bookshelf_shape = SubResource("RectangleShape2D_ynueo")
+bookshelf_collision = NodePath("@CollisionShape2D@51144")
+
+[node name="@CollisionShape2D@51144" type="CollisionShape2D" parent="Room3/BookshelfArea"]
+shape = SubResource("RectangleShape2D_ynueo")
+
+[node name="BookshelfArea2" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
+position = Vector2(473, 88)
+bookshelf_shape = SubResource("RectangleShape2D_ynueo")
+bookshelf_collision = NodePath("_CollisionShape2D_51144")
+
+[node name="_CollisionShape2D_51144" type="CollisionShape2D" parent="Room3/BookshelfArea2"]
+shape = SubResource("RectangleShape2D_ynueo")
+
+[node name="BookshelfArea3" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
+position = Vector2(624, 383)
+bookshelf_shape = SubResource("RectangleShape2D_ynueo")
+bookshelf_collision = NodePath("_CollisionShape2D_51144")
+
+[node name="_CollisionShape2D_51144" type="CollisionShape2D" parent="Room3/BookshelfArea3"]
+shape = SubResource("RectangleShape2D_ynueo")
+
+[node name="FlyingBook" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(405, 307)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 8.0
+
+[node name="FlyingBook2" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(434, 195)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 8.0
+
+[node name="FlyingBook3" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(401, 372)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 8.0
+
+[node name="FlyingBook4" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(465, 308)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 8.0
+
+[node name="FlyingBook5" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(484, 244)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 8.0
+
+[node name="FlyingBook6" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(333, 209)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[node name="FlyingBook7" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(368, 263)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[node name="FlyingBook8" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(404, 240)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[node name="FlyingBook9" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(438, 267)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[node name="FlyingBook10" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(432, 336)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[node name="FlyingBook11" parent="Room3" instance=ExtResource("4_lx2gp")]
+position = Vector2(360, 339)
+scale = Vector2(0.25, 0.25)
+collision_layer = 20
+mass = 10.0
+target_bookshelf_after = 5.0
+
+[editable path="Room3"]

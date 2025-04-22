@@ -16,13 +16,16 @@ physics_material_override = SubResource("PhysicsMaterial_3f3gw")
 gravity_scale = 0.0
 linear_damp = 0.5
 script = ExtResource("1_3f3gw")
-speed = 450.0
-target_bookshelf_after = null
-height = null
-width = null
+speed = 300.0
 
 [node name="ImgBook002" type="Sprite2D" parent="."]
 texture = ExtResource("1_c55ca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3f3gw")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+top_level = true
+target_position = Vector2(-8.07, 39.12)
+collision_mask = 7
+collide_with_areas = true
