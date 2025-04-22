@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cgm5smelon8b1"]
+[gd_scene load_steps=21 format=3 uid="uid://cgm5smelon8b1"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_vs3if"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_my6h8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="9_wgnyr"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="10_xs4wy"]
+[ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="11_xs4wy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
 size = Vector2(768, 8)
@@ -195,6 +196,9 @@ texture_mode = 2
 joint_mode = 2
 script = ExtResource("10_xs4wy")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="Rat" parent="RoomContent" instance=ExtResource("11_xs4wy")]
+position = Vector2(-7, 1140)
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)

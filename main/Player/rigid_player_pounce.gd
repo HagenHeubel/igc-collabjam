@@ -53,7 +53,7 @@ var pounce_rotation :float=0.0
 
 func _ready() -> void:
 	GlobalVars.player = self
-	
+	self.add_to_group("Player")
 	#push errrors if exported references haven't been assigned
 	if !visual_component:
 		push_error("No visual component assigned in player script ", self)

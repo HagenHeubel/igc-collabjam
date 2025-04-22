@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://fpshnwrqhnrp"]
+
+[ext_resource type="Script" uid="uid://frl3wmew3xfs" path="res://wip/wip-staging/rat.gd" id="1_bebyo"]
+[ext_resource type="Texture2D" uid="uid://dbpaljknvmnmu" path="res://assets/assets-visual/Icons/node/icon_skull.png" id="1_tawli"]
+[ext_resource type="Texture2D" uid="uid://b5wg81fmqiaoj" path="res://assets/assets-visual/Icons/node/icon_event.png" id="2_bebyo"]
+[ext_resource type="Script" uid="uid://cymusi1v1ua4i" path="res://assets/assets-scr/Components/Spawner/ScreenExitDespawner/screen_exit_despawner.gd" id="4_01np7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf63r"]
+size = Vector2(12, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_01np7"]
+size = Vector2(320, 316)
+
+[node name="Rat" type="Node2D"]
+script = ExtResource("1_bebyo")
+WANDER_DISTANCE = 5000.0
+MAX_LEFT = 10.0
+MAX_RIGHT = 1e+08
+
+[node name="CaptureRange" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureRange"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_kf63r")
+
+[node name="AlertRange" type="Area2D" parent="."]
+position = Vector2(0, -10)
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertRange"]
+position = Vector2(0, -148)
+shape = SubResource("RectangleShape2D_01np7")
+debug_color = Color(0.383941, 0.155324, 0.202733, 0.211765)
+
+[node name="RatSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_tawli")
+
+[node name="AlertIcon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -58)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_bebyo")
+
+[node name="ScreenExitDespawner" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(11.3, 7.6)
+script = ExtResource("4_01np7")
+metadata/_custom_type_script = "uid://cymusi1v1ua4i"
