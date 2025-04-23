@@ -155,6 +155,7 @@ green_room = NodePath("../Room7")
 
 [node name="Room7" parent="GameSpace/Floor1" instance=ExtResource("7_e8j3a")]
 position = Vector2(3072, -1152)
+camera_static = false
 
 [node name="RoomDoor8" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, 528)
@@ -176,6 +177,7 @@ green_room = NodePath("../Room8")
 
 [node name="Room8" parent="GameSpace/Floor1" instance=ExtResource("8_o6nlw")]
 position = Vector2(5120, -2016)
+camera_static = false
 
 [node name="RoomDoor11" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, -1968)
@@ -187,6 +189,7 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="Lighting" type="Node2D" parent="GameSpace"]
+visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
@@ -228,7 +231,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(702, 304)
+position = Vector2(3033, -621)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
