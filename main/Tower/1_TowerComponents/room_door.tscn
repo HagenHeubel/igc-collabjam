@@ -5,7 +5,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0h2h"]
 resource_local_to_scene = true
-size = Vector2(32, 96)
+size = Vector2(253, 32)
 
 [node name="RoomDoor" type="Node2D"]
 z_index = 1
@@ -30,6 +30,7 @@ collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_m0h2h")
 
-[node name="DoorShape" type="CollisionShape2D" parent="Green"]
+[node name="DoorShape2" type="CollisionShape2D" parent="Green"]
+unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_m0h2h")
 debug_color = Color(0, 0.641157, 0.338784, 0.42)

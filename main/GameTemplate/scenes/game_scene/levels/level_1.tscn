@@ -90,19 +90,21 @@ follow_viewport_enabled = true
 [node name="Floor1" type="Node2D" parent="GameSpace"]
 
 [node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
-rotation = -0.00249588
 start_room = true
 
 [node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(1024, 528)
+door_direction = 1
 orange_room = NodePath("../RespawnRoom")
 green_room = NodePath("../Room2")
 
 [node name="Room2" parent="GameSpace/Floor1" instance=ExtResource("2_afea3")]
+visible = false
 position = Vector2(1024, 0)
 
 [node name="RoomDoor2" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(2048, 528)
+door_direction = 1
 orange_room = NodePath("../Room2")
 green_room = NodePath("../Room3")
 
@@ -112,6 +114,7 @@ camera_static = false
 
 [node name="RoomDoor3" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(2048, -48)
+door_direction = 1
 orange_room = NodePath("../Room4")
 green_room = NodePath("../Room3")
 
@@ -120,16 +123,16 @@ position = Vector2(0, -1152)
 
 [node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 process_priority = 1
-position = Vector2(112, -1152)
-door_size = 194.0
-door_direction = 1
+position = Vector2(101, -1151)
+door_size = 208.0
+door_direction = 2
 orange_room = NodePath("../Room5")
 green_room = NodePath("../Room4")
 
 [node name="RoomDoor5" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(1024, -1152)
-door_size = 226.0
-door_direction = 1
+door_size = 253.0
+door_direction = 2
 orange_room = NodePath("../Room5")
 green_room = NodePath("../Room4")
 
@@ -138,6 +141,7 @@ position = Vector2(0, -2304)
 
 [node name="RoomDoor6" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(2048, -624)
+door_direction = 1
 orange_room = NodePath("../Room4")
 green_room = NodePath("../Room6")
 
@@ -146,6 +150,7 @@ position = Vector2(2048, -1152)
 
 [node name="RoomDoor7" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(3072, -624)
+door_direction = 1
 orange_room = NodePath("../Room6")
 green_room = NodePath("../Room7")
 
@@ -154,19 +159,19 @@ position = Vector2(3072, -1152)
 
 [node name="RoomDoor8" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, 528)
-door_size = 109.0
+door_direction = 1
 orange_room = NodePath("../Room7")
 green_room = NodePath("../Room8")
 
 [node name="RoomDoor9" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, -368)
-door_size = 109.0
+door_direction = 1
 orange_room = NodePath("../Room7")
 green_room = NodePath("../Room8")
 
 [node name="RoomDoor10" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, -1104)
-door_size = 109.0
+door_direction = 1
 orange_room = NodePath("../Room7")
 green_room = NodePath("../Room8")
 
@@ -175,7 +180,7 @@ position = Vector2(5120, -2016)
 
 [node name="RoomDoor11" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, -1968)
-door_size = 109.0
+door_direction = 1
 orange_room = NodePath("../BroomCloset")
 green_room = NodePath("../Room8")
 
@@ -214,4 +219,5 @@ gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
+print_room_transitions_to_console = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"

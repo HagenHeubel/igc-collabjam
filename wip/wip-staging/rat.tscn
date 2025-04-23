@@ -12,10 +12,12 @@ size = Vector2(12, 14)
 size = Vector2(320, 316)
 
 [node name="Rat" type="Node2D"]
+z_index = 4096
 script = ExtResource("1_bebyo")
+WANDER_SPEED = 20.0
 WANDER_DISTANCE = 5000.0
-MAX_LEFT = 10.0
-MAX_RIGHT = 1e+08
+MAX_LEFT = 100.0
+MAX_RIGHT = 100.0
 
 [node name="CaptureRange" type="Area2D" parent="."]
 collision_layer = 4
