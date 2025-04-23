@@ -157,6 +157,7 @@ width = 32.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("5_sy44v")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
@@ -167,6 +168,7 @@ width = 32.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("5_sy44v")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
@@ -177,6 +179,7 @@ width = 32.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("5_sy44v")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
@@ -187,6 +190,7 @@ width = 32.0
 texture = ExtResource("4_30ybf")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("5_sy44v")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 

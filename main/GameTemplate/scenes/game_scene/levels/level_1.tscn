@@ -187,7 +187,6 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="Lighting" type="Node2D" parent="GameSpace"]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
@@ -198,6 +197,10 @@ color = Color(0.215902, 0.215902, 0.215902, 1)
 position = Vector2(546, 352)
 color = Color(1, 0.903758, 0.856763, 1)
 
+[node name="Torch9" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2509, -405)
+color = Color(1, 0.903758, 0.856763, 1)
+
 [node name="Torch2" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(203, 372)
 
@@ -206,6 +209,18 @@ position = Vector2(924, 384)
 
 [node name="Torch4" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1283, 246)
+
+[node name="Torch5" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2677, -129)
+
+[node name="Torch6" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2585, 166)
+
+[node name="Torch7" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2291, 449)
+
+[node name="Torch8" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2273, -168)
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
 position = Vector2(479, 221)
