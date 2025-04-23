@@ -16,6 +16,7 @@ signal died()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
 @export_group("Pounce Controls")
 @export_range(0.0,0.4) var coyote_time = 0.15
+@export_range(0.0,0.4) var jump_buffer_duration = 0.2
 @export_range(0.2,4.0,0.05) var charge_time :float= 1.0 ##in seconds (until charge is full)
 ##[b]Left/Right: [/b] Left and right keys control rotation[br][br]
 ##[b]Up/Down: [/b] Up and down keys control rotation[br][br]
@@ -40,6 +41,8 @@ signal died()
 @onready var ground_detect_right: RayCast2D = %GroundDetectRight
 
 var coyote_timer :float=0.0
+var jump_buffer_timer :float=0.0
+var jump_buffer_active :bool=false
 var health = HEALTH_MAX
 var respawn_position = global_position
 
@@ -116,6 +119,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 
 func _physics_process(delta: float) -> void:
 	
+	if Input.is_action_just_pressed(&"jump"):
+		jump_buffer_active = true
+		jump_buffer_timer = 0.0
+	if jump_buffer_active:
+		jump_buffer_timer += delta
+		if jump_buffer_timer > jump_buffer_duration:
+			jump_buffer_active = false
+	
 	## Allows for Esc key to release cursor
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -184,7 +195,7 @@ func _physics_process(delta: float) -> void:
 		pounce_rotation = 0.0
 		update_visual_to_pounce_rotation()
 	
-	if (coyote_timer < coyote_time) and Input.is_action_just_pressed(&"jump") and !Input.is_action_pressed("pounce"):
+	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
 		coyote_timer += 100000.0
 		if !on_floor:
 			var newvec= -linear_velocity*mass*1.1
@@ -196,7 +207,7 @@ func _physics_process(delta: float) -> void:
 		update_visual_to_pounce_rotation()
 		current_movement_boost = landing_boost*0.5
 	#Flips assigned 2D visuals
-	if on_floor and ((current_movement_boost<0.01)or(linear_velocity.y < 1.0)) and !Input.is_action_just_released("jump"): #only change sprite direction while jump isn't charging!
+	if ((current_movement_boost<0.01)or(linear_velocity.y > -100.0))and !Input.is_action_just_released(&"pounce"): #only change sprite direction while jump isn't charging!
 		if force.x < -0.1:
 			visual_component.scale.x = -1.0
 		elif force.x > 0.1:
