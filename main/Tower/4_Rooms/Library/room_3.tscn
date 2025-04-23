@@ -10,7 +10,11 @@
 [ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="9_wgnyr"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="10_xs4wy"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="11_xs4wy"]
+=======
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="11_xs4wy"]
+>>>>>>> Stashed changes
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
 size = Vector2(768, 8)
@@ -73,6 +77,18 @@ position = Vector2(168, 125)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_060hk")
 flip_h = true
+
+[node name="TilingWall" parent="RoomContent" instance=ExtResource("11_xs4wy")]
+position = Vector2(0, 1040)
+points = PackedVector2Array(0, 16, 0, -464)
+
+[node name="TilingWall2" parent="RoomContent" instance=ExtResource("11_xs4wy")]
+position = Vector2(16, 464)
+points = PackedVector2Array(-16, 16, -16, -464)
+
+[node name="TilingWall3" parent="RoomContent" instance=ExtResource("11_xs4wy")]
+position = Vector2(768, 1120)
+points = PackedVector2Array(0, 32, 0, -1120)
 
 [node name="Walls" type="Node2D" parent="RoomContent"]
 
@@ -190,7 +206,17 @@ scale = Vector2(1, 0.25)
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
 points = PackedVector2Array(0, 480, 0, 0, 768, 0, 768, 1152, 0, 1152)
-width = 16.0
+width = 32.0
+texture = ExtResource("9_wgnyr")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("10_xs4wy")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 1040, 0, 576)
+width = 32.0
 texture = ExtResource("9_wgnyr")
 texture_mode = 2
 joint_mode = 2

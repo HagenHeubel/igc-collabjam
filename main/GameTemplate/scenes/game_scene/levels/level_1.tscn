@@ -183,6 +183,7 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="Lighting" type="Node2D" parent="GameSpace"]
+visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0

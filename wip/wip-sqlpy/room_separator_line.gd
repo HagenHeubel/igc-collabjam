@@ -68,7 +68,7 @@ func _set_light_occluder_settings() -> void:
 
 func _set_line_settings() -> void:
 	z_index = 1
-	width = 16
+	width = 32
 	texture = TOWER_ROOM_SEPARATOR_TEXTURE
 	texture_mode = Line2D.LINE_TEXTURE_STRETCH
 	joint_mode = Line2D.LINE_JOINT_ROUND

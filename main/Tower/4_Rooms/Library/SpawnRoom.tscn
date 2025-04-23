@@ -20,7 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="17_v6ub7"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="19_uqtnj"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="20_7sxsf"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="21_7sxsf"]
+=======
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="21_7sxsf"]
+>>>>>>> Stashed changes
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtnj"]
 size = Vector2(813.5, 11)
@@ -102,6 +106,14 @@ texture = ExtResource("3_3gpp8")
 position = Vector2(152, 100)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_jt6r1")
+
+[node name="TilingWall" parent="RoomContent" instance=ExtResource("21_7sxsf")]
+position = Vector2(0, 544)
+points = PackedVector2Array(0, 128, 0, -592)
+
+[node name="TilingWall2" parent="RoomContent" instance=ExtResource("21_7sxsf")]
+position = Vector2(1024, 480)
+points = PackedVector2Array(0, 0, 0, -480)
 
 [node name="Objects" type="Node2D" parent="RoomContent"]
 z_index = 1
@@ -349,7 +361,7 @@ shape = SubResource("RectangleShape2D_35vji")
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
 points = PackedVector2Array(0, 576, 0, 576, 1024, 576, 1024, 576)
-width = 16.0
+width = 32.0
 texture = ExtResource("19_uqtnj")
 texture_mode = 2
 joint_mode = 2
@@ -358,8 +370,8 @@ metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(1024, 480, 1024, 0, 0, 0)
-width = 16.0
+points = PackedVector2Array(1024, 464, 1024, 0, 0, 0)
+width = 32.0
 texture = ExtResource("19_uqtnj")
 texture_mode = 2
 joint_mode = 2
