@@ -99,7 +99,6 @@ orange_room = NodePath("../RespawnRoom")
 green_room = NodePath("../Room2")
 
 [node name="Room2" parent="GameSpace/Floor1" instance=ExtResource("2_afea3")]
-visible = false
 position = Vector2(1024, 0)
 
 [node name="RoomDoor2" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
