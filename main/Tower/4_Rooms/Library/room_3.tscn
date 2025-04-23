@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cgm5smelon8b1"]
+[gd_scene load_steps=28 format=3 uid="uid://cgm5smelon8b1"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_vs3if"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_my6h8"]
@@ -14,6 +14,18 @@
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="9_wgnyr"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="10_xs4wy"]
 [ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="11_xs4wy"]
+[ext_resource type="PackedScene" uid="uid://moihii3nxxih" path="res://main/Objects/Prefabs/Bottles/BottlePurple.tscn" id="15_kdbrr"]
+[ext_resource type="PackedScene" uid="uid://cd7e1renevki5" path="res://main/Objects/Prefabs/Bottles/BottleOrange.tscn" id="16_j440c"]
+[ext_resource type="PackedScene" uid="uid://dyiks1ny8kut0" path="res://main/Objects/Prefabs/Bottles/BottleLightBlue.tscn" id="17_2o28e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycf0s"]
+size = Vector2(336, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_060hk"]
+size = Vector2(221, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs4wy"]
+size = Vector2(48, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt88f"]
 size = Vector2(31, 22)
@@ -22,15 +34,6 @@ size = Vector2(31, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pbwb"]
 size = Vector2(38, 38)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycf0s"]
-size = Vector2(367, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_060hk"]
-size = Vector2(221, 7)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs4wy"]
-size = Vector2(96, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
 size = Vector2(768, 8)
@@ -80,6 +83,49 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_060hk")
 flip_h = true
 
+[node name="Environment" type="Node2D" parent="RoomContent"]
+
+[node name="Floor2" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(351, 71)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor2" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-127, 505, 209, 505)
+width = 25.235
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor2"]
+position = Vector2(41, 504)
+shape = SubResource("RectangleShape2D_ycf0s")
+
+[node name="Floor3" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(251, -30)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor3" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-250, 504, -29, 504)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor3"]
+position = Vector2(-139.5, 503.5)
+shape = SubResource("RectangleShape2D_060hk")
+
+[node name="Floor4" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(351, 71)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor4" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-351, 505, -303, 505)
+width = 25.235
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor4"]
+position = Vector2(-327, 504)
+shape = SubResource("RectangleShape2D_xs4wy")
+
+[node name="Bookshelf" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(678, 979)
+
+[node name="Bookshelf2" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(462, 405)
+
+[node name="Bookshelf3" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
+position = Vector2(103, 304)
+
 [node name="Objects" type="Node2D" parent="RoomContent"]
 
 [node name="LibraryLadder" parent="RoomContent/Objects" node_paths=PackedStringArray("rungs", "ladder_mid_parts", "rail_mid_parts") instance=ExtResource("5_xs4wy")]
@@ -103,7 +149,7 @@ handle_position = 1.0
 rail_length_factor = 1.0
 
 [node name="JumpPad" type="StaticBody2D" parent="RoomContent/Objects"]
-position = Vector2(490, 526)
+position = Vector2(489, 528)
 collision_layer = 20
 collision_mask = 21
 
@@ -163,46 +209,8 @@ color = Color(0, 0.254902, 0, 1)
 position = Vector2(150, 938)
 color = Color(0, 0.254902, 0, 1)
 
-[node name="Environment" type="Node2D" parent="RoomContent"]
-
-[node name="Floor2" type="StaticBody2D" parent="RoomContent/Environment"]
-position = Vector2(351, 71)
-
-[node name="TilingFloor" parent="RoomContent/Environment/Floor2" instance=ExtResource("3_wylhf")]
-points = PackedVector2Array(-175, 505, 193, 505)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor2"]
-position = Vector2(8.5, 504)
-shape = SubResource("RectangleShape2D_ycf0s")
-
-[node name="Floor3" type="StaticBody2D" parent="RoomContent/Environment"]
-position = Vector2(251, -30)
-
-[node name="TilingFloor" parent="RoomContent/Environment/Floor3" instance=ExtResource("3_wylhf")]
-points = PackedVector2Array(-250, 504, -29, 504)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor3"]
-position = Vector2(-139.5, 503.5)
-shape = SubResource("RectangleShape2D_060hk")
-
-[node name="Floor4" type="StaticBody2D" parent="RoomContent/Environment"]
-position = Vector2(351, 71)
-
-[node name="TilingFloor" parent="RoomContent/Environment/Floor4" instance=ExtResource("3_wylhf")]
-points = PackedVector2Array(-351, 505, -255, 505)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor4"]
-position = Vector2(-303, 504)
-shape = SubResource("RectangleShape2D_xs4wy")
-
-[node name="Bookshelf" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(678, 979)
-
-[node name="Bookshelf2" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(462, 405)
-
-[node name="Bookshelf3" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(103, 304)
+[node name="Book7" parent="RoomContent/Objects" instance=ExtResource("7_gcao6")]
+position = Vector2(34, 123)
 
 [node name="Walls" type="Node2D" parent="RoomContent"]
 
@@ -272,6 +280,18 @@ joint_mode = 2
 sharp_limit = 200.0
 script = ExtResource("10_xs4wy")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="Book" parent="RoomContent" instance=ExtResource("9_dhg67")]
+position = Vector2(45, 121)
+
+[node name="BottlePurple" parent="RoomContent" instance=ExtResource("15_kdbrr")]
+position = Vector2(64, 142)
+
+[node name="BottleOrange" parent="RoomContent" instance=ExtResource("16_j440c")]
+position = Vector2(85, 141)
+
+[node name="BottleLightBlue" parent="RoomContent" instance=ExtResource("17_2o28e")]
+position = Vector2(111, 143)
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)
