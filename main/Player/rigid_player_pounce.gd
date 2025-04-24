@@ -15,6 +15,8 @@ signal died()
 @export_range(30.0,60.0,1.0) var slope_angle_max :float= 45.0 ##How far the char's rotation can adjust to slopes[br]In degrees, but will be converted into rads inside of _ready()
 @export_range(0.0,3.0,0.1) var rotation_stabilizer :float= 1.0 ##How much angualar force should be applied to correct the current rotation
 @export_group("Pounce Controls")
+@export_range(0.0,0.4) var coyote_time = 0.15
+@export_range(0.0,0.4) var jump_buffer_duration = 0.2
 @export_range(0.2,4.0,0.05) var charge_time :float= 1.0 ##in seconds (until charge is full)
 ##[b]Left/Right: [/b] Left and right keys control rotation[br][br]
 ##[b]Up/Down: [/b] Up and down keys control rotation[br][br]
@@ -38,7 +40,9 @@ signal died()
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
 @onready var ground_detect_right: RayCast2D = %GroundDetectRight
 
-
+var coyote_timer :float=0.0
+var jump_buffer_timer :float=0.0
+var jump_buffer_active :bool=false
 var health = HEALTH_MAX
 var respawn_position = global_position
 
@@ -115,6 +119,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 
 func _physics_process(delta: float) -> void:
 	
+	if Input.is_action_just_pressed(&"jump"):
+		jump_buffer_active = true
+		jump_buffer_timer = 0.0
+	if jump_buffer_active:
+		jump_buffer_timer += delta
+		if jump_buffer_timer > jump_buffer_duration:
+			jump_buffer_active = false
+	
 	## Allows for Esc key to release cursor
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -140,6 +152,8 @@ func _physics_process(delta: float) -> void:
 	
 	#changes movement and gravity depending on floor/ground detection
 	if !on_floor:
+		coyote_timer += delta
+		
 		constant_force = neutral_force + neutral_force*-1
 		if linear_velocity.y > 0.0: #falling
 			force.x *= h_jump_control #reduce movement speed while airborne
@@ -148,6 +162,8 @@ func _physics_process(delta: float) -> void:
 		if on_wall: #slow down gravity while hanging on wall
 			gravity_scale = default_gravity_scale * 0.7
 	else: #rotates gravity and tunes it down a little while on floor
+		coyote_timer *= 0.001
+		
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
 		current_movement_boost = max(current_movement_boost-landing_boost*landing_boost_duration*delta, 0.0)
 	
@@ -168,6 +184,7 @@ func _physics_process(delta: float) -> void:
 		visual_component.scale.y = 1.0-jump_charge*0.4
 		update_visual_to_pounce_rotation()
 	if on_floor and Input.is_action_just_released("pounce"):
+		coyote_timer += 100000.0
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
 		if charge_always_full:
@@ -178,14 +195,19 @@ func _physics_process(delta: float) -> void:
 		pounce_rotation = 0.0
 		update_visual_to_pounce_rotation()
 	
-	if on_floor and Input.is_action_just_pressed(&"jump") and !Input.is_action_pressed("pounce"):
+	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
+		coyote_timer += 100000.0
+		if !on_floor:
+			var newvec= -linear_velocity*mass*1.1
+			newvec.x=0.0
+			apply_impulse(newvec)
 		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength*0.52)
 		jump_charge = min_jump_charge
 		pounce_rotation = 0.0
 		update_visual_to_pounce_rotation()
 		current_movement_boost = landing_boost*0.5
 	#Flips assigned 2D visuals
-	if on_floor and ((current_movement_boost<0.01)or(linear_velocity.y < 1.0)) and !Input.is_action_just_released("jump"): #only change sprite direction while jump isn't charging!
+	if ((current_movement_boost<0.01)or(linear_velocity.y > -100.0))and !Input.is_action_just_released(&"pounce"): #only change sprite direction while jump isn't charging!
 		if force.x < -0.1:
 			visual_component.scale.x = -1.0
 		elif force.x > 0.1:
@@ -256,6 +278,13 @@ func pounce_rotation_mouse_targeting(delta:float) -> float:
 	var rot_to_cursor = -get_local_mouse_position().angle_to(Vector2.RIGHT*visual_component.scale.x)
 	#rot_to_cursor = lerp_angle(visual_component.rotation, rot_to_cursor, 1.0 - exp(-3.1 * delta)) #Util.delta_lerp(visual_component.rotation, rot_to_cursor, 10.1, delta)
 	rot_to_cursor = rad_to_deg(rot_to_cursor)
+	
+	var joypad_vector :Vector2=Input.get_vector(&"aim_left",&"aim_right",&"aim_up",&"aim_down")
+	if !joypad_vector.is_zero_approx():
+		if visual_component.scale.x > 0.0:
+			rot_to_cursor =  -rad_to_deg(joypad_vector.angle_to(Vector2.RIGHT))
+		else:
+			rot_to_cursor =  -rad_to_deg(joypad_vector.angle_to(Vector2.LEFT))
 	
 	if visual_component.scale.x > 0.0:
 		return clampf(rot_to_cursor,-max_pounce_angle,-min_pounce_angle)
