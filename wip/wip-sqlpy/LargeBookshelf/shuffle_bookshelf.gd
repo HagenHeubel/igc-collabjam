@@ -1,9 +1,10 @@
+class_name ShuffleBookshelf
 extends Node2D
 
-@export_group("Time Between Shuffles", "shuffle")
-@export_range(0.0, 20.0, 0.1) var shuffle_min : float = 0.0
-@export_range(0.0, 20.0, 0.1) var shuffle_max : float = 0.0
-
+@export_group("Shuffle Parameters", "shuffle")
+@export_range(0.0, 20.0, 0.1) var shuffle_wait_min : float = 0.0
+@export_range(0.0, 20.0, 0.1) var shuffle_wait_max : float = 0.0
+@export_enum("Random", "<-", "->") var shuffle_type : String = "Random"
 var books_in_shelf : Array[ShuffleBook] = []
 var slot_positions : Array[float] = []
 var is_book_moving : bool = false
@@ -22,13 +23,33 @@ func attempt_shuffle_start() -> void:
 		var book_nr : int = -1
 		var slot_nr : int = -1
 		while book_nr == slot_nr:
-			book_nr = randi_range(0, books_in_shelf.size() - 1)
-			slot_nr = randi_range(0, books_in_shelf.size() - 1)
+			var shuffle : Vector2i = get_shuffle_target()
+			book_nr = shuffle.x
+			slot_nr = shuffle.y
 			if book_nr == last_slot_slotted:
 				book_nr = slot_nr
 		last_slot_slotted = slot_nr
 		move_book_to_slot(book_nr, slot_nr)
 		is_book_moving = true
+
+func get_shuffle_target() -> Vector2i:
+	var res : Vector2i = Vector2i.ZERO
+	match shuffle_type:
+		"<-":
+			# Random book that's not in first slot
+			# Random slot before chosen book
+			res.x = randi_range(1, books_in_shelf.size() - 1)
+			res.y = randi_range(0, res.x - 1)
+		"->":
+			# Random book that's not last slot
+			# Random slot after chosen book
+			res.x = randi_range(0, books_in_shelf.size() - 2)
+			res.y = randi_range(res.x + 1, books_in_shelf.size() - 1)
+		"_":
+			# Random book and random slot
+			res.x = randi_range(0, books_in_shelf.size() - 1)
+			res.y = randi_range(0, books_in_shelf.size() - 1)
+	return res
 
 func move_book_to_slot(book_nr : int, slot : int) -> void:
 	var move_book : ShuffleBook = books_in_shelf.pop_at(book_nr)
@@ -54,7 +75,7 @@ func move_book_to_slot(book_nr : int, slot : int) -> void:
 
 func start_book_shuffle_timer() -> void:
 	is_book_moving = false
-	var time : float = randf_range(shuffle_min, shuffle_max)
+	var time : float = randf_range(shuffle_wait_min, shuffle_wait_max)
 	await get_tree().create_timer(time).timeout
 	attempt_shuffle_start()
 	

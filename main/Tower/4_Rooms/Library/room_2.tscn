@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0c3xikghws43"]
+[gd_scene load_steps=26 format=3 uid="uid://c0c3xikghws43"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_joe1g"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_gusue"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_pe5ot"]
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="5_l0d17"]
 [ext_resource type="PackedScene" uid="uid://c41kdnlmvunay" path="res://main/Objects/Components/modular-area-2d/popup_area_2d.tscn" id="6_4me7j"]
 [ext_resource type="PackedScene" uid="uid://uiqwodilkq5y" path="res://main/Objects/Prefabs/Books/FragileBookA.tscn" id="7_c7l7h"]
 [ext_resource type="PackedScene" uid="uid://75nb3qmcw66o" path="res://main/Objects/Prefabs/Books/FragileBookB.tscn" id="8_7t2as"]
@@ -15,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://moihii3nxxih" path="res://main/Objects/Prefabs/Bottles/BottlePurple.tscn" id="13_jsl44"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="14_mgn1b"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="15_l0d17"]
+[ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="17_d2i7j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joe1g"]
 size = Vector2(1028, 8)
@@ -97,12 +99,20 @@ shape = SubResource("RectangleShape2D_sglnv")
 [node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 324)
 
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall" instance=ExtResource("5_l0d17")]
+position = Vector2(0, 140)
+points = PackedVector2Array(0, 16, 0, -464)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
 position = Vector2(0, -86)
 shape = SubResource("RectangleShape2D_dj0kg")
 
 [node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(1152, 274)
+
+[node name="TilingWall2" parent="RoomContent/Walls/RightWall" instance=ExtResource("5_l0d17")]
+position = Vector2(-128, 206)
+points = PackedVector2Array(0, 0, 0, -480)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
 position = Vector2(-128, -34)
@@ -568,21 +578,23 @@ shape = SubResource("RectangleShape2D_v6htv")
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(0, 480, 0, 0, 1024, 0, 1024, 480)
-width = 16.0
+points = PackedVector2Array(0, 464, 0, 0, 1024, 0, 1024, 464)
+width = 32.0
 texture = ExtResource("14_mgn1b")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("15_l0d17")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
 z_index = 1
-points = PackedVector2Array(0, 576, 0, 576, 1024, 576, 1024, 576)
-width = 16.0
+points = PackedVector2Array(0, 576, 1024, 576)
+width = 32.0
 texture = ExtResource("14_mgn1b")
 texture_mode = 2
 joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("15_l0d17")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
@@ -605,6 +617,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 border_width = 2.0
+
+[node name="Rat" parent="." instance=ExtResource("17_d2i7j")]
+position = Vector2(752, 560)
 
 [editable path="RoomContent/Objects/TextPopUp"]
 [editable path="RoomContent/Objects/Books/BigBook"]

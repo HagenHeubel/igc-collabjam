@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_w4u67"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_8qlc2"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joe1g"]
 size = Vector2(1028, 8)
 

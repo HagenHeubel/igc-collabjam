@@ -21,7 +21,7 @@ func _on_room_changed(target_room: TowerRoom) -> void:
 		print("Target room not found")
 		return
 	if target_room != GlobalVars.current_room:
-		if print_room_transitions_to_console:
+		if print_room_transitions_to_console and GlobalVars.current_room:
 			prints("Room transition triggered from", GlobalVars.current_room.name, "to", target_room.name)
 		GlobalVars.current_room = target_room
 		_update_room_status()
