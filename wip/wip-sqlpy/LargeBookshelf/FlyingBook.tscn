@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs4cafl72i2sy"]
+
+[ext_resource type="Script" uid="uid://bwdl4naq3w1i0" path="res://wip/wip-sqlpy/LargeBookshelf/flying_book.gd" id="1_6dj41"]
+[ext_resource type="Texture2D" uid="uid://cvmog48unjd55" path="res://assets/assets-visual/mado/book/spines/bigspine5.png" id="2_6dj41"]
+[ext_resource type="Script" uid="uid://xufxypwvbtml" path="res://wip/wip-sqlpy/LargeBookshelf/animatable_body_2d.gd" id="2_xxge1"]
+
+[sub_resource type="Curve2D" id="Curve2D_tm5um"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 256, 0)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dj41"]
+size = Vector2(224, 64)
+
+[node name="FlyingBook" type="Path2D"]
+curve = SubResource("Curve2D_tm5um")
+script = ExtResource("1_6dj41")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(15.5384, 0)
+progress = 15.57
+
+[node name="Book" type="AnimatableBody2D" parent="."]
+script = ExtResource("2_xxge1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Book"]
+position = Vector2(-4.54747e-13, 96)
+rotation = -1.5708
+scale = Vector2(0.355, 0.355)
+texture = ExtResource("2_6dj41")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book"]
+shape = SubResource("RectangleShape2D_6dj41")

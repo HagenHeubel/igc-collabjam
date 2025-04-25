@@ -110,19 +110,23 @@ metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
 
 [node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor1/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(1, -3)
+collision_layer = 0
 
 [node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor1/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(112, -3)
+collision_layer = 0
 texture = ExtResource("6_w255u")
 hitbox_top = 18.0
 
 [node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor1/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(220, -2)
+collision_layer = 0
 texture = ExtResource("7_6kch7")
 hitbox_top = 12.0
 
 [node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor1/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(330, -6)
+collision_layer = 0
 texture = ExtResource("8_tn64n")
 
 [node name="Floor2" type="Node2D" parent="RoomContent/GiantBookshelf1"]
@@ -152,19 +156,23 @@ metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
 
 [node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(1, -3)
+collision_layer = 0
 
 [node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(112, -3)
+collision_layer = 0
 texture = ExtResource("6_w255u")
 hitbox_top = 18.0
 
 [node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(220, -2)
+collision_layer = 0
 texture = ExtResource("7_6kch7")
 hitbox_top = 12.0
 
 [node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(330, -6)
+collision_layer = 0
 texture = ExtResource("8_tn64n")
 
 [node name="LibraryLadder" parent="RoomContent/GiantBookshelf1/Floor2" node_paths=PackedStringArray("rungs", "ladder_mid_parts", "rail_mid_parts") instance=ExtResource("9_6kch7")]

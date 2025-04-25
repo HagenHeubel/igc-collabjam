@@ -90,7 +90,6 @@ follow_viewport_enabled = true
 [node name="Floor1" type="Node2D" parent="GameSpace"]
 
 [node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
-start_room = true
 
 [node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(1024, 528)
@@ -119,6 +118,7 @@ green_room = NodePath("../Room3")
 
 [node name="Room4" parent="GameSpace/Floor1" instance=ExtResource("5_a3n7g")]
 position = Vector2(0, -1152)
+start_room = true
 
 [node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 process_priority = 1
@@ -189,7 +189,6 @@ green_room = NodePath("../Room8")
 position = Vector2(4768, -2208)
 
 [node name="Lighting" type="Node2D" parent="GameSpace"]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
@@ -211,7 +210,20 @@ position = Vector2(203, 372)
 position = Vector2(924, 384)
 
 [node name="Torch4" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(1283, 246)
+position = Vector2(1120, -928)
+texture_scale = 12.31
+
+[node name="Torch12" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(144, -1040)
+texture_scale = 12.31
+
+[node name="Torch10" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(2096, -688)
+texture_scale = 12.31
+
+[node name="Torch11" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(1520, -656)
+texture_scale = 12.31
 
 [node name="Torch5" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(2677, -129)
@@ -231,7 +243,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(3033, -621)
+position = Vector2(1104, -96)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
