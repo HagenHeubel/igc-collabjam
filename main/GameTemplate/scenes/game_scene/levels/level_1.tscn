@@ -99,6 +99,7 @@ green_room = NodePath("../Room2")
 
 [node name="Room2" parent="GameSpace/Floor1" instance=ExtResource("2_afea3")]
 position = Vector2(1024, 0)
+start_room = true
 
 [node name="RoomDoor2" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(2048, 528)
@@ -118,7 +119,6 @@ green_room = NodePath("../Room3")
 
 [node name="Room4" parent="GameSpace/Floor1" instance=ExtResource("5_a3n7g")]
 position = Vector2(0, -1152)
-start_room = true
 
 [node name="RoomDoor4" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 process_priority = 1
@@ -199,6 +199,22 @@ color = Color(0.215902, 0.215902, 0.215902, 1)
 position = Vector2(546, 352)
 color = Color(1, 0.903758, 0.856763, 1)
 
+[node name="Torch13" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(1344, -112)
+color = Color(1, 0.903758, 0.856763, 1)
+
+[node name="Torch16" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(1232, -352)
+color = Color(1, 0.903758, 0.856763, 1)
+
+[node name="Torch14" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(1920, -144)
+color = Color(1, 0.903758, 0.856763, 1)
+
+[node name="Torch15" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
+position = Vector2(704, -160)
+color = Color(1, 0.903758, 0.856763, 1)
+
 [node name="Torch9" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(2509, -405)
 color = Color(1, 0.903758, 0.856763, 1)
@@ -243,7 +259,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(1104, -96)
+position = Vector2(1920, 448)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://begat8ftpwgos"]
+[gd_scene load_steps=12 format=3 uid="uid://begat8ftpwgos"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_gc2lb"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_uxsu4"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_exvn4"]
 [ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://main/Objects/Components/modular-area-2d/anti_gravity_area_2d.tscn" id="3_jbaj6"]
+[ext_resource type="PackedScene" uid="uid://bfaq0p0fvuqe2" path="res://wip/wip-sqlpy/scenes/one_way_shelf.tscn" id="5_57xyr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57xyr"]
 size = Vector2(186, 994)
@@ -115,5 +116,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 border_width = 2.0
+
+[node name="OneWayShelf" parent="." instance=ExtResource("5_57xyr")]
+position = Vector2(48, 1152)
+
+[node name="OneWayShelf2" parent="." instance=ExtResource("5_57xyr")]
+position = Vector2(144, 1152)
 
 [editable path="RoomContent/Environment/AntiGravityArea2D"]

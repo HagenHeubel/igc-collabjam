@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfaq0p0fvuqe2"]
+
+[ext_resource type="Texture2D" uid="uid://b53xj66t7hdfn" path="res://assets/assets-visual/controverse/IMG_shelf_001.png" id="1_hue48"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkqdf"]
+size = Vector2(96, 7)
+
+[node name="OneWayShelf" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="ImgShelf001" type="Sprite2D" parent="."]
+position = Vector2(0, 7.27586)
+scale = Vector2(0.118227, 0.118227)
+texture = ExtResource("1_hue48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.77586)
+shape = SubResource("RectangleShape2D_nkqdf")
+one_way_collision = true

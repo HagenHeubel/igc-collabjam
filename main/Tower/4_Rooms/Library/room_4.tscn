@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://drw8y0xxcdmp4"]
+[gd_scene load_steps=27 format=3 uid="uid://drw8y0xxcdmp4"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_vh6et"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_6ygob"]
@@ -7,15 +7,10 @@
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="5_sy44v"]
 [ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://main/Objects/Components/modular-area-2d/anti_gravity_area_2d.tscn" id="6_sy44v"]
 [ext_resource type="PackedScene" uid="uid://6wodc26ygaj0" path="res://main/Objects/Components/modular-area-2d/wind_area.tscn" id="7_ooq5r"]
+[ext_resource type="PackedScene" uid="uid://c0sis54fqek53" path="res://wip/wip-sqlpy/scenes/solid_book_case.tscn" id="8_7tm46"]
 [ext_resource type="PackedScene" uid="uid://dl87dkv1fmbss" path="res://main/Objects/Prefabs/Books/FragileBookD.tscn" id="8_y8q07"]
 [ext_resource type="PackedScene" uid="uid://75nb3qmcw66o" path="res://main/Objects/Prefabs/Books/FragileBookB.tscn" id="9_y8q07"]
 [ext_resource type="PackedScene" uid="uid://bs4cafl72i2sy" path="res://wip/wip-sqlpy/LargeBookshelf/FlyingBook.tscn" id="10_33ovb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3b14"]
-size = Vector2(726, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwr2d"]
-size = Vector2(911, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wwx8"]
 size = Vector2(2057, 8)
@@ -25,6 +20,12 @@ size = Vector2(259.5, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sy44v"]
 size = Vector2(591, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3b14"]
+size = Vector2(726, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwr2d"]
+size = Vector2(911, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nw6df"]
 size = Vector2(8, 1155)
@@ -75,72 +76,74 @@ offset_left = 0.0
 offset_right = 2048.0
 offset_bottom = 1154.0
 
-[node name="Walls" type="Node2D" parent="RoomContent"]
+[node name="Floors" type="Node2D" parent="RoomContent"]
 
-[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
-position = Vector2(574, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
-position = Vector2(-25, 3)
-shape = SubResource("RectangleShape2D_r3b14")
-
-[node name="Roof2" type="StaticBody2D" parent="RoomContent/Walls"]
-position = Vector2(1707, -1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof2"]
-position = Vector2(-117.5, 3)
-shape = SubResource("RectangleShape2D_qwr2d")
-
-[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Floors"]
 position = Vector2(574, 1223)
 
-[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_m6o72")]
+[node name="TilingFloor" parent="RoomContent/Floors/Floor" instance=ExtResource("3_m6o72")]
 points = PackedVector2Array(-576, -72, 1474, -72)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Floor"]
 position = Vector2(450.5, -72)
 shape = SubResource("RectangleShape2D_0wwx8")
 
-[node name="Floor2" type="StaticBody2D" parent="RoomContent/Walls"]
+[node name="Floor2" type="StaticBody2D" parent="RoomContent/Floors"]
 position = Vector2(1600, 657)
 
-[node name="TilingFloor" parent="RoomContent/Walls/Floor2" instance=ExtResource("3_m6o72")]
+[node name="TilingFloor" parent="RoomContent/Floors/Floor2" instance=ExtResource("3_m6o72")]
 points = PackedVector2Array(-704, -369, -448, -369)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Floor2"]
 position = Vector2(-577.75, -369)
 shape = SubResource("RectangleShape2D_30ybf")
 
-[node name="Floor4" type="StaticBody2D" parent="RoomContent/Walls"]
+[node name="Floor4" type="StaticBody2D" parent="RoomContent/Floors"]
 position = Vector2(715, 657)
 
-[node name="TilingFloor" parent="RoomContent/Walls/Floor4" instance=ExtResource("3_m6o72")]
+[node name="TilingFloor" parent="RoomContent/Floors/Floor4" instance=ExtResource("3_m6o72")]
 points = PackedVector2Array(-576, -72, 197, -65)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Floor4"]
 position = Vector2(-190.5, -72)
 shape = SubResource("RectangleShape2D_30ybf")
 
-[node name="Floor5" type="StaticBody2D" parent="RoomContent/Walls"]
+[node name="Floor5" type="StaticBody2D" parent="RoomContent/Floors"]
 position = Vector2(176, 247)
 
-[node name="TilingFloor" parent="RoomContent/Walls/Floor5" instance=ExtResource("3_m6o72")]
+[node name="TilingFloor" parent="RoomContent/Floors/Floor5" instance=ExtResource("3_m6o72")]
 points = PackedVector2Array(-576, -72, 453, -72)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Floor5"]
 position = Vector2(-64.5, -72)
 shape = SubResource("RectangleShape2D_30ybf")
 
-[node name="Floor3" type="StaticBody2D" parent="RoomContent/Walls"]
+[node name="Floor3" type="StaticBody2D" parent="RoomContent/Floors"]
 position = Vector2(827, 1)
 rotation = 1.5708
 
-[node name="TilingFloor" parent="RoomContent/Walls/Floor3" instance=ExtResource("3_m6o72")]
+[node name="TilingFloor" parent="RoomContent/Floors/Floor3" instance=ExtResource("3_m6o72")]
 points = PackedVector2Array(-5, -72, 592, -72)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Floor3"]
 position = Vector2(293.5, -72)
 shape = SubResource("RectangleShape2D_sy44v")
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Floors"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Roof"]
+position = Vector2(-25, 3)
+shape = SubResource("RectangleShape2D_r3b14")
+
+[node name="Roof2" type="StaticBody2D" parent="RoomContent/Floors"]
+position = Vector2(1707, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Floors/Roof2"]
+position = Vector2(-117.5, 3)
+shape = SubResource("RectangleShape2D_qwr2d")
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
 
 [node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 288)
@@ -281,6 +284,36 @@ position = Vector2(-187, 86.5)
 shape = SubResource("RectangleShape2D_a621s")
 
 [node name="Objects" type="Node2D" parent="RoomContent"]
+
+[node name="SolidBookCase5" parent="RoomContent/Objects" instance=ExtResource("8_7tm46")]
+offset_left = 768.0
+offset_top = 1040.0
+offset_right = 1200.0
+offset_bottom = 1152.0
+
+[node name="SolidBookCase" parent="RoomContent/Objects" instance=ExtResource("8_7tm46")]
+offset_left = 1616.0
+offset_top = 1040.0
+offset_right = 1792.0
+offset_bottom = 1152.0
+
+[node name="SolidBookCase2" parent="RoomContent/Objects" instance=ExtResource("8_7tm46")]
+offset_left = 1200.0
+offset_top = 880.0
+offset_right = 1280.0
+offset_bottom = 1152.0
+
+[node name="SolidBookCase3" parent="RoomContent/Objects" instance=ExtResource("8_7tm46")]
+offset_left = 1392.0
+offset_top = 1040.0
+offset_right = 1456.0
+offset_bottom = 1152.0
+
+[node name="SolidBookCase6" parent="RoomContent/Objects" instance=ExtResource("8_7tm46")]
+offset_left = 1456.0
+offset_top = 960.0
+offset_right = 1616.0
+offset_bottom = 1152.0
 
 [node name="Book" parent="RoomContent/Objects" instance=ExtResource("8_y8q07")]
 position = Vector2(33, 956)

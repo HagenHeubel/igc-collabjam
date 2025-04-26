@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0sis54fqek53"]
+
+[ext_resource type="Texture2D" uid="uid://b62vqebngtnwh" path="res://assets/assets-visual/controverse/shelf_outline.png" id="1_7ditr"]
+[ext_resource type="Script" uid="uid://c2vfj5p03tk3v" path="res://wip/wip-sqlpy/scenes/book_case_outline.gd" id="2_tc1bq"]
+[ext_resource type="Script" uid="uid://dh1gajt67sdlk" path="res://wip/wip-sqlpy/scenes/solid_shelf_shelves.gd" id="3_4cuju"]
+[ext_resource type="Script" uid="uid://bp4f8dy8ju5ip" path="res://wip/wip-sqlpy/scenes/solid_bookcase_collision_shape_2d.gd" id="3_tc1bq"]
+[ext_resource type="Script" uid="uid://cbs1nvsmrwgie" path="res://wip/wip-sqlpy/scenes/floor_buffer.gd" id="5_0a2lg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ditr"]
+resource_local_to_scene = true
+size = Vector2(208, 228)
+
+[node name="SolidBookCase" type="Control"]
+custom_minimum_size = Vector2(58, 36)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -944.0
+offset_bottom = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(104, 114)
+shape = SubResource("RectangleShape2D_7ditr")
+script = ExtResource("3_tc1bq")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 1506.0
+offset_bottom = 1615.85
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("1_7ditr")
+region_rect = Rect2(0, 0, 1378.67, 1145.34)
+patch_margin_left = 230
+patch_margin_top = 200
+patch_margin_right = 285
+patch_margin_bottom = 224
+script = ExtResource("2_tc1bq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 23
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 31
+alignment = 2
+script = ExtResource("3_4cuju")
+
+[node name="Buffer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("5_0a2lg")

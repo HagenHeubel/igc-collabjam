@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_wylhf"]
 [ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/assets/stone_bg.png" id="4_060hk"]
 [ext_resource type="PackedScene" uid="uid://b3b7i0ka1bs82" path="res://wip/wip-hagen/library_ladder.tscn" id="5_xs4wy"]
-[ext_resource type="PackedScene" uid="uid://coyb8k1psdmwg" path="res://main/Objects/Prefabs/Furniture/bookshelf.tscn" id="6_060hk"]
+[ext_resource type="PackedScene" uid="uid://c0sis54fqek53" path="res://wip/wip-sqlpy/scenes/solid_book_case.tscn" id="6_j440c"]
 [ext_resource type="PackedScene" uid="uid://uiqwodilkq5y" path="res://main/Objects/Prefabs/Books/FragileBookA.tscn" id="7_gcao6"]
 [ext_resource type="Script" uid="uid://b6m0ytr3r5tde" path="res://main/Objects/Components/modular-area-2d/src/jump_pad_area.gd" id="8_7rv3m"]
 [ext_resource type="PackedScene" uid="uid://75nb3qmcw66o" path="res://main/Objects/Prefabs/Books/FragileBookB.tscn" id="8_iktfb"]
@@ -17,6 +17,12 @@
 [ext_resource type="PackedScene" uid="uid://moihii3nxxih" path="res://main/Objects/Prefabs/Bottles/BottlePurple.tscn" id="15_kdbrr"]
 [ext_resource type="PackedScene" uid="uid://cd7e1renevki5" path="res://main/Objects/Prefabs/Bottles/BottleOrange.tscn" id="16_j440c"]
 [ext_resource type="PackedScene" uid="uid://dyiks1ny8kut0" path="res://main/Objects/Prefabs/Bottles/BottleLightBlue.tscn" id="17_2o28e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
+size = Vector2(768, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyyro"]
+size = Vector2(764, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycf0s"]
 size = Vector2(336, 8)
@@ -34,12 +40,6 @@ size = Vector2(31, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pbwb"]
 size = Vector2(38, 38)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
-size = Vector2(768, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyyro"]
-size = Vector2(764, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3n7g"]
 size = Vector2(8, 484)
@@ -85,6 +85,23 @@ flip_h = true
 
 [node name="Environment" type="Node2D" parent="RoomContent"]
 
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Roof"]
+position = Vector2(-190, 0)
+shape = SubResource("RectangleShape2D_68jfx")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(576, 648)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor" instance=ExtResource("3_wylhf")]
+points = PackedVector2Array(-576, 504, 192, 504)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor"]
+position = Vector2(-193, 504)
+shape = SubResource("RectangleShape2D_eyyro")
+
 [node name="Floor2" type="StaticBody2D" parent="RoomContent/Environment"]
 position = Vector2(351, 71)
 
@@ -117,14 +134,29 @@ width = 25.235
 position = Vector2(-327, 504)
 shape = SubResource("RectangleShape2D_xs4wy")
 
-[node name="Bookshelf" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(678, 979)
+[node name="SolidBookCase2" parent="RoomContent/Environment" instance=ExtResource("6_j440c")]
+offset_left = 480.0
+offset_top = 880.0
+offset_right = 576.0
+offset_bottom = 1152.0
 
-[node name="Bookshelf2" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(462, 405)
+[node name="SolidBookCase4" parent="RoomContent/Environment" instance=ExtResource("6_j440c")]
+offset_left = 16.0
+offset_top = 144.0
+offset_right = 128.0
+offset_bottom = 470.0
 
-[node name="Bookshelf3" parent="RoomContent/Environment" instance=ExtResource("6_060hk")]
-position = Vector2(103, 304)
+[node name="SolidBookCase" parent="RoomContent/Environment" instance=ExtResource("6_j440c")]
+offset_left = 576.0
+offset_top = 832.0
+offset_right = 754.0
+offset_bottom = 1152.0
+
+[node name="SolidBookCase3" parent="RoomContent/Environment" instance=ExtResource("6_j440c")]
+offset_left = 352.0
+offset_top = 208.0
+offset_right = 544.0
+offset_bottom = 576.0
 
 [node name="Objects" type="Node2D" parent="RoomContent"]
 
@@ -213,23 +245,6 @@ color = Color(0, 0.254902, 0, 1)
 position = Vector2(34, 123)
 
 [node name="Walls" type="Node2D" parent="RoomContent"]
-
-[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
-position = Vector2(574, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
-position = Vector2(-190, 0)
-shape = SubResource("RectangleShape2D_68jfx")
-
-[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
-position = Vector2(576, 648)
-
-[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_wylhf")]
-points = PackedVector2Array(-576, 504, 192, 504)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
-position = Vector2(-193, 504)
-shape = SubResource("RectangleShape2D_eyyro")
 
 [node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 324)
