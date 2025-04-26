@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://defhrfrxgslml"]
+
+[ext_resource type="Script" uid="uid://cit43trn8j0og" path="res://wip/wip-hagen/static_ladder.gd" id="1_jfl5b"]
+[ext_resource type="Texture2D" uid="uid://vjyt7bqvdca1" path="res://wip/wip-hagen/assets/cat_game_ladder.png" id="2_smnqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vyj7"]
+size = Vector2(173.12, 13.28)
+
+[node name="Ladder" type="Node2D" node_paths=PackedStringArray("rungs", "ladder_mid_parts", "ladder_top", "ladder_bottom")]
+scale = Vector2(0.35, 0.35)
+script = ExtResource("1_jfl5b")
+spritesheet = ExtResource("2_smnqa")
+rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3")]
+ladder_mid_parts = [NodePath("LadderSides/LadderMiddle"), NodePath("LadderSides/LadderMiddle2")]
+ladder_top = NodePath("LadderSides/LadderTop")
+ladder_bottom = NodePath("")
+height_factor = 2.051
+top_margin = 140.0
+bottom_margin = 160.0
+
+[node name="LadderBody" type="StaticBody2D" parent="."]
+position = Vector2(0, 68.5714)
+collision_layer = 21
+collision_mask = 0
+
+[node name="LadderRung" type="CollisionShape2D" parent="LadderBody"]
+position = Vector2(0, -160)
+shape = SubResource("RectangleShape2D_4vyj7")
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("2_smnqa")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung2" type="CollisionShape2D" parent="LadderBody"]
+position = Vector2(0, -256)
+shape = SubResource("RectangleShape2D_4vyj7")
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung2"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("2_smnqa")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung3" type="CollisionShape2D" parent="LadderBody"]
+position = Vector2(0, -352)
+shape = SubResource("RectangleShape2D_4vyj7")
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" type="Sprite2D" parent="LadderBody/LadderRung3"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("2_smnqa")
+hframes = 2
+vframes = 4
+
+[node name="LadderSides" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 68.5714)
+
+[node name="LadderTop" type="Sprite2D" parent="LadderSides"]
+texture_filter = 6
+position = Vector2(0, -454.528)
+texture = ExtResource("2_smnqa")
+region_enabled = true
+region_rect = Rect2(256, 0, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="LadderMiddle" type="Sprite2D" parent="LadderSides"]
+texture_filter = 6
+position = Vector2(0, -193.632)
+scale = Vector2(1, 1.0255)
+texture = ExtResource("2_smnqa")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="LadderBottom" type="Sprite2D" parent="LadderSides"]
+texture_filter = 6
+position = Vector2(0, -68.5714)
+scale = Vector2(1, -1)
+texture = ExtResource("2_smnqa")
+region_enabled = true
+region_rect = Rect2(256, 0, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="LadderMiddle2" type="Sprite2D" parent="LadderSides"]
+texture_filter = 6
+position = Vector2(0, -324.896)
+scale = Vector2(1, 1.0255)
+texture = ExtResource("2_smnqa")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 128)
+region_filter_clip_enabled = true

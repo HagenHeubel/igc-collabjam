@@ -37,8 +37,8 @@ func _physics_process(delta: float) -> void:
 		_set_rotation(delta)
 
 func _set_relative_position(delta : float) -> void:
-	if attached_to_node.velocity.x != 0:
-		last_facing_direction = sign(attached_to_node.velocity.x) * Vector2.LEFT
+	if attached_to_node.linear_velocity.x != 0:
+		last_facing_direction = sign(attached_to_node.linear_velocity.x) * Vector2.LEFT
 	relative_target_position = Util.delta_lerp_vec2(relative_target_position, start_position * last_facing_direction, 20, delta)
 	static_body_2d.global_position = attached_to_node.global_position + relative_target_position
 
@@ -46,9 +46,9 @@ func _set_rotation(delta : float) -> void:
 	if change_rotation_with_velocity:
 		final_rotation = Util.delta_lerp(final_rotation,
 			tail_rotation * sign(last_facing_direction.x) + 
-			remap(attached_to_node.velocity.x, -400, 400, -45, 45),
+			remap(attached_to_node.linear_velocity.x, -400, 400, -45, 45),
 			10.0,
-			delta * abs(attached_to_node.velocity.x) * 0.005 + 0.001)
+			delta * abs(attached_to_node.linear_velocity.x) * 0.005 + 0.001)
 	static_body_2d.rotation = attached_to_node.rotation + deg_to_rad(final_rotation + 
 		sin(Util.get_time_sec() * Math.E) * 3.0 + 
 		sin(Util.get_time_sec() * Math.GoldenRatio) * 2.0 + 

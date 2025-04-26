@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cw1inkqxqt0cn"]
+[gd_scene load_steps=10 format=3 uid="uid://cw1inkqxqt0cn"]
 
 [ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="1_r8q6h"]
 [ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="2_fcn28"]
 [ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="3_pemih"]
 [ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="4_lx2gp"]
+[ext_resource type="PackedScene" uid="uid://cfwsv8sl6t2vh" path="res://wip/wip-hagen/skeleton_test.tscn" id="5_fcn28"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8q6h"]
 size = Vector2(788.775, 25.43)
@@ -33,11 +34,6 @@ shape = SubResource("RectangleShape2D_fcn28")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Room3/RoomContent/Walls/RightWall" index="1"]
 position = Vector2(-384, 306)
 shape = SubResource("RectangleShape2D_pemih")
-
-[node name="PouncingCat" parent="Room3" instance=ExtResource("2_fcn28")]
-position = Vector2(90, 443)
-
-[node name="Camera2D" type="Camera2D" parent="Room3/PouncingCat"]
 
 [node name="BookshelfArea" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
 position = Vector2(176, 280)
@@ -139,5 +135,16 @@ scale = Vector2(0.25, 0.25)
 collision_layer = 20
 mass = 10.0
 target_bookshelf_after = 5.0
+
+[node name="PouncingCat2" parent="Room3" instance=ExtResource("2_fcn28")]
+position = Vector2(315, 918)
+
+[node name="Camera2D" type="Camera2D" parent="Room3/PouncingCat2"]
+position = Vector2(-41, 95)
+zoom = Vector2(1.49, 1.49)
+
+[node name="SkeletonTest" parent="." instance=ExtResource("5_fcn28")]
+position = Vector2(282, 540)
+scale = Vector2(0.0802641, 0.0802641)
 
 [editable path="Room3"]
