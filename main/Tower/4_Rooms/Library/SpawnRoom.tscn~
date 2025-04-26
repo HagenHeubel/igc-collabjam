@@ -1,0 +1,403 @@
+[gd_scene load_steps=29 format=3 uid="uid://cyardrbnaeudv"]
+
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_35vji"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_etik3"]
+[ext_resource type="Texture2D" uid="uid://df40g755hxae7" path="res://wip/wip-hagen/assets/IMG_back_stone_001.png" id="3_3gpp8"]
+[ext_resource type="PackedScene" uid="uid://bgkcvkidmgfbm" path="res://main/Tower/sky.tscn" id="3_uqtnj"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_x6dn3"]
+[ext_resource type="Texture2D" uid="uid://bumoqr6gmur31" path="res://wip/wip-sqlpy/assets/cloud1.png" id="4_7sxsf"]
+[ext_resource type="PackedScene" uid="uid://uiqwodilkq5y" path="res://main/Objects/Prefabs/Books/FragileBookA.tscn" id="4_k8k36"]
+[ext_resource type="Script" uid="uid://b3fwwd2ijmjn2" path="res://assets/assets-scr/Components/PhysicsVFX/hover_effect_vfx.gd" id="5_0dwts"]
+[ext_resource type="PackedScene" uid="uid://bw2e80wni25pm" path="res://main/Objects/Prefabs/Bottles/BottleBlue.tscn" id="5_k8k36"]
+[ext_resource type="PackedScene" uid="uid://75nb3qmcw66o" path="res://main/Objects/Prefabs/Books/FragileBookB.tscn" id="5_oru6x"]
+[ext_resource type="Texture2D" uid="uid://fcxjl4mrgifl" path="res://wip/wip-sqlpy/assets/stone_bg.png" id="6_jt6r1"]
+[ext_resource type="PackedScene" uid="uid://byfr2br4uebam" path="res://main/Objects/Prefabs/Books/FragileBookC.tscn" id="6_o4v2q"]
+[ext_resource type="PackedScene" uid="uid://dl87dkv1fmbss" path="res://main/Objects/Prefabs/Books/FragileBookD.tscn" id="7_3gpp8"]
+[ext_resource type="PackedScene" uid="uid://cd7e1renevki5" path="res://main/Objects/Prefabs/Bottles/BottleOrange.tscn" id="7_o4v2q"]
+[ext_resource type="PackedScene" uid="uid://moihii3nxxih" path="res://main/Objects/Prefabs/Bottles/BottlePurple.tscn" id="8_3gpp8"]
+[ext_resource type="PackedScene" uid="uid://bbnpkcjiufdhe" path="res://main/Objects/Prefabs/Books/FragileBookE.tscn" id="8_jt6r1"]
+[ext_resource type="PackedScene" uid="uid://c0lhn33m08wkx" path="res://main/Objects/Prefabs/Furniture/bed.tscn" id="15_jt88f"]
+[ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="17_v6ub7"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="19_uqtnj"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="20_7sxsf"]
+<<<<<<< Updated upstream
+[ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="21_7sxsf"]
+=======
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="21_7sxsf"]
+>>>>>>> Stashed changes
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtnj"]
+size = Vector2(813.5, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7sxsf"]
+size = Vector2(897.5, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0dwts"]
+size = Vector2(933, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja5ey"]
+size = Vector2(1028, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6htv"]
+size = Vector2(1023, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0kg"]
+size = Vector2(8, 580)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35vji"]
+size = Vector2(8, 480)
+
+[node name="SpawnRoom" type="Node2D"]
+script = ExtResource("1_35vji")
+
+[node name="RoomContent" type="Node2D" parent="."]
+
+[node name="BasicRoomBG" parent="RoomContent" instance=ExtResource("2_etik3")]
+offset_left = 0.0
+offset_right = 1024.0
+offset_bottom = 576.0
+metadata/_edit_lock_ = true
+
+[node name="Sky" parent="RoomContent/BasicRoomBG" instance=ExtResource("3_uqtnj")]
+visible = false
+show_behind_parent = true
+position = Vector2(1506, -77)
+
+[node name="ColorRect" type="ColorRect" parent="RoomContent/BasicRoomBG/Sky"]
+offset_left = 236.0
+offset_top = -7.0
+offset_right = 887.0
+offset_bottom = 178.0
+color = Color(0.0657366, 0.0421156, 0.0726127, 1)
+
+[node name="Cloud" type="Sprite2D" parent="RoomContent/BasicRoomBG/Sky"]
+position = Vector2(176.667, 534.667)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_7sxsf")
+
+[node name="Cloud2" type="Sprite2D" parent="RoomContent/BasicRoomBG/Sky"]
+position = Vector2(956.667, 486)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_7sxsf")
+
+[node name="HoverEffectVFX" type="Node2D" parent="RoomContent/BasicRoomBG/Sky" node_paths=PackedStringArray("hover_effect_target_node")]
+script = ExtResource("5_0dwts")
+hover_effect_delay = 0.5
+hover_effect_intensity = 0.25
+hover_effect_target_node = NodePath("..")
+metadata/_custom_type_script = "uid://b3fwwd2ijmjn2"
+
+[node name="ImgBackStone001" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(846, 188)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_3gpp8")
+
+[node name="ImgBackStone002" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(232, 485)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_3gpp8")
+
+[node name="ImgBackStone003" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(851, 498)
+scale = Vector2(-0.25, 0.25)
+texture = ExtResource("3_3gpp8")
+
+[node name="StoneBg" type="Sprite2D" parent="RoomContent/BasicRoomBG"]
+position = Vector2(152, 100)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_jt6r1")
+
+[node name="TilingWall" parent="RoomContent" instance=ExtResource("21_7sxsf")]
+position = Vector2(0, 544)
+points = PackedVector2Array(0, 128, 0, -592)
+
+[node name="TilingWall2" parent="RoomContent" instance=ExtResource("21_7sxsf")]
+position = Vector2(1024, 480)
+points = PackedVector2Array(0, 0, 0, -480)
+
+[node name="Objects" type="Node2D" parent="RoomContent"]
+z_index = 1
+
+[node name="Drawer" parent="RoomContent/Objects" instance=ExtResource("17_v6ub7")]
+position = Vector2(304, 546)
+
+[node name="Books" type="Node2D" parent="RoomContent/Objects"]
+
+[node name="Book22" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(487, 224)
+rotation = -1.55567
+color = Color(1, 0.935685, 0.924635, 1)
+
+[node name="Book23" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(465, 196)
+rotation = -0.566961
+color = Color(0.203643, 0.741412, 0.495889, 1)
+
+[node name="Book24" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(385, 222)
+rotation = 1.59759
+
+[node name="Book25" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(433, 221)
+rotation = 1.59952
+
+[node name="Book26" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(299, 519)
+rotation = -1.54643
+color = Color(0.664581, 0.383767, 0.227509, 1)
+
+[node name="Book27" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(638, 206)
+rotation = -0.566961
+color = Color(1, 0, 0, 1)
+
+[node name="Book28" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(658, 204)
+rotation = -0.566961
+color = Color(0.203643, 0.741412, 0.495889, 1)
+
+[node name="Book29" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(611, 203)
+rotation = -0.566961
+
+[node name="Book30" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(622, 207)
+rotation = -0.566961
+color = Color(0, 0.741176, 0, 1)
+
+[node name="Book" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(135, 89)
+rotation = 1.60674
+color = Color(0.664581, 0.383767, 0.227509, 1)
+
+[node name="Book2" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(167, 68)
+color = Color(1, 0, 0, 1)
+
+[node name="Book3" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(32, 215)
+rotation = -1.59288
+color = Color(0.203643, 0.741412, 0.495889, 1)
+
+[node name="Book4" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(138, 82)
+rotation = -1.496
+
+[node name="Book5" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(137, 71)
+rotation = -1.56142
+
+[node name="Book6" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(603, 74)
+rotation = -0.774728
+color = Color(0, 0.311789, 0.289395, 1)
+
+[node name="Book7" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(565, 76)
+rotation = -0.774728
+color = Color(0.350981, 0.559568, 0.716272, 1)
+
+[node name="Book8" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(585, 74)
+rotation = -0.774728
+color = Color(0.203643, 0.741412, 0.495889, 1)
+
+[node name="Book9" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(138, 61)
+rotation = -1.5581
+
+[node name="Book10" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(549, 77)
+rotation = -0.774728
+
+[node name="Book11" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(688, 74)
+rotation = -0.774728
+color = Color(0.664581, 0.383767, 0.227509, 1)
+
+[node name="Book12" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(650, 76)
+rotation = -0.774728
+color = Color(1, 0, 0, 1)
+
+[node name="Book13" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(670, 74)
+rotation = -0.774728
+color = Color(0.203643, 0.741412, 0.495889, 1)
+
+[node name="Book14" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(623, 73)
+rotation = -0.774728
+
+[node name="Book15" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(634, 77)
+rotation = -0.774728
+
+[node name="Book16" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(176, 200)
+color = Color(0.664581, 0.383767, 0.227509, 1)
+
+[node name="Book17" parent="RoomContent/Objects/Books" instance=ExtResource("5_oru6x")]
+position = Vector2(138, 202)
+color = Color(1, 0, 0, 1)
+
+[node name="Book18" parent="RoomContent/Objects/Books" instance=ExtResource("6_o4v2q")]
+position = Vector2(158, 200)
+color = Color(0.497322, 0.675287, 0.654825, 1)
+
+[node name="Book19" parent="RoomContent/Objects/Books" instance=ExtResource("7_3gpp8")]
+position = Vector2(111, 199)
+
+[node name="Book20" parent="RoomContent/Objects/Books" instance=ExtResource("8_jt6r1")]
+position = Vector2(122, 203)
+
+[node name="Book21" parent="RoomContent/Objects/Books" instance=ExtResource("4_k8k36")]
+position = Vector2(891, 297)
+rotation = 0.280337
+collision_layer = 17
+color = Color(0.664581, 0.383767, 0.227509, 1)
+
+[node name="Bottles" type="Node2D" parent="RoomContent/Objects"]
+scale = Vector2(1.25, 1.25)
+
+[node name="BottlePurple" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
+position = Vector2(207.2, 73.6)
+
+[node name="BottlePurple2" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
+position = Vector2(136.8, 263.2)
+
+[node name="BottleBlue" parent="RoomContent/Objects/Bottles" instance=ExtResource("5_k8k36")]
+position = Vector2(162.4, 263.2)
+
+[node name="BottlePurple3" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
+position = Vector2(559.2, 178.4)
+
+[node name="BottleBlue2" parent="RoomContent/Objects/Bottles" instance=ExtResource("5_k8k36")]
+position = Vector2(231.2, 412.8)
+
+[node name="BottlePurple4" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
+position = Vector2(184.8, 261.6)
+
+[node name="BottleOrange" parent="RoomContent/Objects/Bottles" instance=ExtResource("7_o4v2q")]
+position = Vector2(307.2, 249.6)
+rotation = -1.7914
+
+[node name="Bed" parent="RoomContent/Objects" instance=ExtResource("15_jt88f")]
+position = Vector2(68, 510)
+scale = Vector2(1, 1.5)
+
+[node name="Environment" type="Node2D" parent="RoomContent"]
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(374, 309)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor" instance=ExtResource("3_x6dn3")]
+points = PackedVector2Array(-368, -72, 448, -75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor"]
+position = Vector2(38.75, -73.5)
+shape = SubResource("RectangleShape2D_uqtnj")
+
+[node name="Floor3" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(714, 405)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor3" instance=ExtResource("3_x6dn3")]
+points = PackedVector2Array(-576, -72, 314, -71)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor3"]
+position = Vector2(-128.75, -72)
+shape = SubResource("RectangleShape2D_7sxsf")
+
+[node name="Floor2" type="StaticBody2D" parent="RoomContent/Environment"]
+position = Vector2(662, 178)
+
+[node name="TilingFloor" parent="RoomContent/Environment/Floor2" instance=ExtResource("3_x6dn3")]
+points = PackedVector2Array(-576, -72, 360, -73)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Environment/Floor2"]
+position = Vector2(-113.5, -72)
+shape = SubResource("RectangleShape2D_0dwts")
+
+[node name="TilingFloor2" parent="RoomContent/Environment" instance=ExtResource("3_x6dn3")]
+position = Vector2(1429, 550)
+points = PackedVector2Array()
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(574, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
+position = Vector2(-64, 0)
+shape = SubResource("RectangleShape2D_ja5ey")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(576, 648)
+
+[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_x6dn3")]
+position = Vector2(6, 3)
+points = PackedVector2Array(-577, -73, 322.372, -72, 448, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+position = Vector2(-66, -72)
+shape = SubResource("RectangleShape2D_v6htv")
+
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(0, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(1152, 274)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
+position = Vector2(-128, -34)
+shape = SubResource("RectangleShape2D_35vji")
+
+[node name="LightOccluders" type="Node2D" parent="RoomContent"]
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 576, 0, 576, 1024, 576, 1024, 576)
+width = 32.0
+texture = ExtResource("19_uqtnj")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("20_7sxsf")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(1024, 464, 1024, 0, 0, 0)
+width = 32.0
+texture = ExtResource("19_uqtnj")
+texture_mode = 2
+joint_mode = 2
+script = ExtResource("20_7sxsf")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="Rat" parent="RoomContent" instance=ExtResource("21_7sxsf")]
+position = Vector2(385, 567)
+WANDER_SPEED = 150.0
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(491, 334)
+
+[node name="CameraBounds" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 395.0
+offset_top = 270.0
+offset_right = 587.0
+offset_bottom = 398.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 2.0
