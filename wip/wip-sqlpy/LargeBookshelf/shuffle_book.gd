@@ -27,6 +27,7 @@ var tex_height : float
 var unslot_time : float = 2.5
 var position_pause : float = 1.0
 var default_collision : int
+var default_mask : int
 var target_position : float
 var is_sliding : bool = false
 var is_reslotting : bool = false
@@ -36,6 +37,15 @@ var SPRITE_DISPLACEMENT : float = 3.0
 signal unslotted
 signal arrived_at_target
 signal reslotted
+
+
+func _ready() -> void:
+	default_collision = collision_layer
+	default_mask = collision_mask
+	particle_material = gpu_particles_1.process_material
+	gpu_particles_2.process_material = gpu_particles_1.process_material
+	_setup_book()
+	unslot_progress(0)
 
 func slide_to_target_position(speed : float) -> bool:
 	if speed < 0.001:
@@ -66,29 +76,42 @@ func reslot() -> void:
 	tween.tween_callback(reslotted.emit)
 	tween.tween_property(self, "is_reslotting", false, 0)
 
+func has_player_collision() -> bool:
+	# HACK approximate using global X position and book width
+	var player : Node2D
+	const PLAYER_WIDTH : float = 24
+	if GlobalVars.player:
+		player = GlobalVars.player
+	else:
+		return false
+	if abs(player.global_position.x - collision_shape_2d.global_position.x) < collision_shape_2d.shape.size.x / 2.0 + PLAYER_WIDTH:
+		return true
+	return false
+		
+	
+
 func unslot_progress(percent : float) -> void:
 	sprite_2d.position.y = -tex_height/2 + hitbox_bottom - percent * SPRITE_DISPLACEMENT
-	if has_collision:
-		if percent < 0.01:
-			if is_reslotting:
-				gpu_particles_1.emitting = true
-				gpu_particles_2.emitting = true
-			collision_layer = 0
+	if not Engine.is_editor_hint():
+		if has_collision:
+			if percent < 0.01:
+				if is_reslotting:
+					gpu_particles_1.emitting = true
+					gpu_particles_2.emitting = true
+				collision_layer = 0
+				collision_mask  = 0
+				collision_shape_2d.debug_color = Color("0099b36b")
+			else:
+				collision_layer = default_collision
+				collision_mask  = default_mask
+				collision_shape_2d.debug_color = Color("d05b836b")
 		else:
-			collision_layer = default_collision
+			collision_layer = 0
 	modulate = slide_gradient.gradient.sample(percent)
 	var desaturation : float = remap(percent, 0.0, 1.0, 0.3, 0.0)
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("desaturation", desaturation)
 	left_texture.scale.x = percent * 0.4
 	right_texture.scale.x = percent * 0.4
-
-
-func _ready() -> void:
-	default_collision = collision_layer
-	particle_material = gpu_particles_1.process_material
-	gpu_particles_2.process_material = gpu_particles_1.process_material
-	_setup_book()
-	unslot_progress(0)
 
 func _process(_delta: float) -> void:
 	_engine_process()

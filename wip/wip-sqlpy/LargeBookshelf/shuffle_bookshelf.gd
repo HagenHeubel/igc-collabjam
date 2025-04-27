@@ -1,6 +1,7 @@
 class_name ShuffleBookshelf
 extends Node2D
 
+@export var check_for_player_collision : bool = false
 @export_group("Shuffle Parameters", "shuffle")
 @export_range(0.0, 20.0, 0.1) var shuffle_wait_min : float = 0.0
 @export_range(0.0, 20.0, 0.1) var shuffle_wait_max : float = 0.0
@@ -9,6 +10,7 @@ var books_in_shelf : Array[ShuffleBook] = []
 var slot_positions : Array[float] = []
 var is_book_moving : bool = false
 var last_slot_slotted : int = -1
+var book_overlapped_player : bool = false
 signal start_shuffle
 
 func _ready() -> void:
@@ -19,19 +21,28 @@ func _ready() -> void:
 	attempt_shuffle_start()
 
 func attempt_shuffle_start() -> void:
+	book_overlapped_player = false
 	if not is_book_moving:
 		var book_nr : int = -1
 		var slot_nr : int = -1
+		var count : int = 0
 		while book_nr == slot_nr:
 			var shuffle : Vector2i = get_shuffle_target()
 			book_nr = shuffle.x
 			slot_nr = shuffle.y
 			if book_nr == last_slot_slotted:
 				book_nr = slot_nr
+			if check_for_player_collision:
+				if books_in_shelf[book_nr].has_player_collision():
+					count += 1
+					book_nr = slot_nr
+		
 		last_slot_slotted = slot_nr
 		move_book_to_slot(book_nr, slot_nr)
 		is_book_moving = true
 
+
+	
 func get_shuffle_target() -> Vector2i:
 	var res : Vector2i = Vector2i.ZERO
 	match shuffle_type:
@@ -89,7 +100,6 @@ func _recalculate_slot_positions() -> void:
 func _init_child_books() -> void:
 	for child in get_children():
 		if child is ShuffleBook:
-			print(child)
 			books_in_shelf.append(child)
 	books_in_shelf.sort_custom(_sort_position)
 

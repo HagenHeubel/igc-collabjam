@@ -32,6 +32,15 @@ static func delta_lerp_color(a: Color, b: Color, exp_decay_val: float, delta: fl
 	a.a = delta_lerp(a.a, b.a, exp_decay_val, delta)
 	return a
 
+static func get_rect_points(rect : Rect2, counter_clockwise : bool = false) -> PackedVector2Array:
+	var res : PackedVector2Array = []
+	res.append(rect.position)
+	res.append(rect.position + rect.size * Vector2.RIGHT)
+	res.append(rect.position + rect.size)
+	res.append(rect.position + rect.size * Vector2.DOWN)
+	if counter_clockwise:
+		res.reverse()
+	return res
 
 static func clamp_point_to_rect(point: Vector2, rect: Rect2) -> Vector2:
 	var clamped_x = clamp(point.x, rect.position.x, rect.position.x + rect.size.x)
