@@ -137,12 +137,12 @@ func _physics_process(delta: float) -> void:
 	force.x = Input.get_axis("left", "right")
 	
 	#play animation
-	if !is_zero_approx(force.x):
-		if !animation_player.is_playing():
-			animation_player.play(&"TestLibrary/anim_walk_test")
+	if is_zero_approx(force.x):
+		if animation_player.current_animation != &"idle":
+			animation_player.play(&"idle",0.2,0.5)
 	else:
-		if animation_player.is_playing():
-			animation_player.play(&"RESET")
+		if animation_player.current_animation != &"walking":
+			animation_player.play(&"walking", 0.25,1.55)
 	
 	#sets rotation target for gravity changes and rotation stabilizer
 	var rotation_target = clampf(calculate_avg_ground_normal(force.x*-10),-slope_angle_max,slope_angle_max)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c52i2bd34wgfg"]
+[gd_scene load_steps=6 format=3 uid="uid://c52i2bd34wgfg"]
 
 [ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="1_1mm71"]
 [ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="2_s48kl"]
+[ext_resource type="PackedScene" uid="uid://defhrfrxgslml" path="res://wip/wip-hagen/static_ladder.tscn" id="3_s48kl"]
+[ext_resource type="PackedScene" uid="uid://cfwsv8sl6t2vh" path="res://wip/wip-hagen/skeleton_test.tscn" id="4_bdskd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdskd"]
 size = Vector2(416.58, 214.735)
@@ -218,3 +220,13 @@ shape = SubResource("RectangleShape2D_bdskd")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(582, 317)
 zoom = Vector2(0.405, 0.405)
+
+[node name="LibraryLadder" parent="." node_paths=PackedStringArray("rungs") instance=ExtResource("3_s48kl")]
+position = Vector2(-840, 509)
+rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3"), NodePath("LadderBody/LadderRung4")]
+height_factor = 2.691
+bottom_margin = 160.705
+
+[node name="SkeletonTest" parent="." instance=ExtResource("4_bdskd")]
+position = Vector2(109, 93)
+scale = Vector2(0.224606, 0.224606)
