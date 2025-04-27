@@ -1,16 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0sis54fqek53"]
+[gd_scene load_steps=12 format=3 uid="uid://c0sis54fqek53"]
 
+[ext_resource type="Script" uid="uid://gyrmu7qio5re" path="res://wip/wip-sqlpy/scenes/solid_book_case.gd" id="1_0a2lg"]
 [ext_resource type="Texture2D" uid="uid://b62vqebngtnwh" path="res://assets/assets-visual/controverse/shelf_outline.png" id="1_7ditr"]
+[ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="1_l2mns"]
 [ext_resource type="Script" uid="uid://c2vfj5p03tk3v" path="res://wip/wip-sqlpy/scenes/book_case_outline.gd" id="2_tc1bq"]
 [ext_resource type="Script" uid="uid://dh1gajt67sdlk" path="res://wip/wip-sqlpy/scenes/solid_shelf_shelves.gd" id="3_4cuju"]
+[ext_resource type="Script" uid="uid://cuc6o42jykwy7" path="res://wip/wip-sqlpy/scenes/rectangle_light_occluder.gd" id="3_pd14b"]
 [ext_resource type="Script" uid="uid://bp4f8dy8ju5ip" path="res://wip/wip-sqlpy/scenes/solid_bookcase_collision_shape_2d.gd" id="3_tc1bq"]
 [ext_resource type="Script" uid="uid://cbs1nvsmrwgie" path="res://wip/wip-sqlpy/scenes/floor_buffer.gd" id="5_0a2lg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pd14b"]
+resource_local_to_scene = true
+shader = ExtResource("1_l2mns")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pd14b"]
+resource_local_to_scene = true
+cull_mode = 2
+polygon = PackedVector2Array(-104, -114, 104, -114, 104, 114, -104, 114)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ditr"]
 resource_local_to_scene = true
 size = Vector2(208, 228)
 
 [node name="SolidBookCase" type="Control"]
+material = SubResource("ShaderMaterial_pd14b")
 custom_minimum_size = Vector2(58, 36)
 layout_mode = 3
 anchors_preset = 15
@@ -20,16 +34,28 @@ offset_right = -944.0
 offset_bottom = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0a2lg")
+background_modulate = Color(0.603782, 0.57381, 0.686072, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_mask = 0
+use_parent_material = true
+collision_mask = 4
+
+[node name="LightOccluderRect" type="LightOccluder2D" parent="StaticBody2D" node_paths=PackedStringArray("rect_collision_shape")]
+position = Vector2(104, 114)
+occluder = SubResource("OccluderPolygon2D_pd14b")
+script = ExtResource("3_pd14b")
+rect_collision_shape = NodePath("../CollisionShape2D")
+metadata/_custom_type_script = "uid://cuc6o42jykwy7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+use_parent_material = true
 position = Vector2(104, 114)
 shape = SubResource("RectangleShape2D_7ditr")
 script = ExtResource("3_tc1bq")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+use_parent_material = true
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -49,6 +75,7 @@ patch_margin_bottom = 224
 script = ExtResource("2_tc1bq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,11 +88,13 @@ theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 23
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_override_constants/separation = 31
 alignment = 2
 script = ExtResource("3_4cuju")
 
 [node name="Buffer" type="Control" parent="MarginContainer/VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 script = ExtResource("5_0a2lg")

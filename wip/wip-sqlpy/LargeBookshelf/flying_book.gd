@@ -1,7 +1,17 @@
 @tool
 extends Path2D
 
-@export_range(0, 100, 1.0) var speed : float = 80
+@export_range(0, 100, 0.01) var speed : float = 80:
+	set(val):
+		speed = val
+		length = curve.get_baked_length()
+		time = length / speed
+@export var time : float:
+	set(val):
+		time = val
+		length = curve.get_baked_length()
+		if 1.0 - speed / (length / time) > 0.01:
+			speed = length / time
 @export_range(0, 1, 0.01) var start_percent : float = 0.0
 @export var spawn_moving_backwards : bool = false
 @export var pause_at_ends : float = 1.0
@@ -10,6 +20,7 @@ extends Path2D
 @onready var book: AnimatableBody2D = $Book
 
 enum {FORWARD, AT_END, BACKWARD, AT_BEGINNING}
+var length : float
 var current_movement : int = FORWARD
 var moving : bool = false
 

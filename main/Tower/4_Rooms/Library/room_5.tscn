@@ -118,9 +118,7 @@ mouse_filter = 2
 border_width = 2.0
 
 [node name="OneWayShelf" parent="." instance=ExtResource("5_57xyr")]
-position = Vector2(48, 1152)
-
-[node name="OneWayShelf2" parent="." instance=ExtResource("5_57xyr")]
-position = Vector2(144, 1152)
+position = Vector2(96, 1152)
+width = 189.0
 
 [editable path="RoomContent/Environment/AntiGravityArea2D"]

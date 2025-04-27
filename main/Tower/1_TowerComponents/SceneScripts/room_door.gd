@@ -7,10 +7,10 @@ extends Node2D
 	set(val):
 		door_direction = val
 		if is_node_ready():
-			set_door_direction(door_direction)
+			set_door_direction()
 		else:
 			await ready
-			set_door_direction(door_direction)
+			set_door_direction()
 @export var orange_room: TowerRoom
 @export var green_room: TowerRoom
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 	var shape : RectangleShape2D = RectangleShape2D.new()
 	door_collision_shape.shape = shape
 	door_collision_shape_2.shape = shape
-	set_door_direction(door_direction)
+	set_door_direction()
 	set_door_size(door_size)
 	if Engine.is_editor_hint():
 		return
@@ -37,15 +37,15 @@ func _ready() -> void:
 	orange_room.adjacent_rooms.append(green_room)
 
 func set_door_size(size: float) -> void:
+	door_size = size
 	if door_direction == 1:
 		door_collision_shape.shape.size.y = door_size
 		door_collision_shape.shape.size.x = 32
 	elif door_direction == 2:
 		door_collision_shape.shape.size.x = door_size
 		door_collision_shape.shape.size.y = 32
-	door_size = size
 
-func set_door_direction(type : int) -> void:
+func set_door_direction() -> void:
 	if door_direction == 2:
 		orange_area.position = Vector2(0, -16)
 		green_area.position  = Vector2(0,  16)

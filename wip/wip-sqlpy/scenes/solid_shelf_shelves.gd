@@ -4,7 +4,7 @@ extends VBoxContainer
 @onready var margin_container: MarginContainer = $".."
 @onready var buffer: Control = $Buffer
 const SHELF_FLOOR = preload("res://wip/wip-sqlpy/scenes/shelf_floor.tscn")
-const MIN_FLOOR_SPACE : float = 60
+const MIN_FLOOR_SPACE : float = 40
 const FLOOR_HEIGHT : float = 12.0
 var floors : Array[Node] = []
 
@@ -15,6 +15,8 @@ func _ready() -> void:
 	floors.erase(buffer)
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	create_shelf()
 
 func create_shelf() -> void:

@@ -119,6 +119,7 @@ color_initial_ramp = SubResource("GradientTexture1D_k40df")
 [node name="Torch" type="PointLight2D"]
 color = Color(1, 0.649682, 0.788802, 1)
 range_layer_max = 2
+range_item_cull_mask = 1023
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_esyxi")
 texture_scale = 6.0
