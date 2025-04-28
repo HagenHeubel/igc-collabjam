@@ -44,8 +44,8 @@ signal died()
 @onready var look_at_container: Node2D = %LookAtContainer
 @onready var skeleton: Skeleton2D = %Skeleton2D
 
-
-var coyote_timer :float=0.0
+var getting_stuck_timer:float = 0.0
+var coyote_timer:float = 0.0
 var jump_buffer_timer :float=0.0
 var jump_buffer_active :bool=false
 var health = HEALTH_MAX
@@ -119,6 +119,16 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	if has_jumped:
 		on_floor = false
 		has_jumped = false
+	if (!on_floor) and (abs(linear_velocity.y+linear_velocity.x)<20.0):
+		getting_stuck_timer += get_physics_process_delta_time()
+		if getting_stuck_timer > 0.2:
+			push_warning("Player has been stuck for over a second. Overwriting \"on_floor\" as true!")
+			on_floor = true
+			if getting_stuck_timer > 10.0:
+				push_warning("Player has been stuck for over ten seconds and will be manually moved upwards!")
+				position.y -= 100.0
+	else:
+		getting_stuck_timer = 0.0
 	set_previous_velocity.call_deferred()
 
 
@@ -146,10 +156,10 @@ func _physics_process(delta: float) -> void:
 	if on_floor and (jump_charge <= min_jump_charge):
 		if is_zero_approx(force.x):
 			if animation_player.current_animation != &"idle":
-				animation_player.play(&"idle",0.2,0.2)
+				animation_player.play(&"idle",0.15,0.2)
 		else:
 			if animation_player.current_animation != &"walking":
-				animation_player.play(&"walking", 0.25,1.55)
+				animation_player.play(&"walking", 0.2,1.55)
 	
 	#sets rotation target for gravity changes and rotation stabilizer
 	rotation_target = clampf(calculate_avg_ground_normal(force.x*-10),-slope_angle_max,slope_angle_max)
@@ -185,7 +195,6 @@ func _physics_process(delta: float) -> void:
 		if animation_player.current_animation != &"pounce_charging":
 			animation_player.play(&"pounce_charging",1.0/charge_time,1.0)
 			skeleton_modification_stack.strength = 1.0
-		if abs(pounce_rotation) < min_pounce_angle:
 			pounce_rotation = def_pounce_angle*-visual_component.scale.x
 		pounce_rotation = get_pounce_rotation_input.call(delta)
 		force.x = 0.0
@@ -196,7 +205,7 @@ func _physics_process(delta: float) -> void:
 		skeleton.execute_modifications(delta,0)
 	if on_floor and Input.is_action_just_released("pounce"):
 		skeleton_modification_stack.strength = 0.0
-		animation_player.play(&"jumping",0.05)
+		animation_player.play(&"pounce_leaping",0.0, 1.5)
 		coyote_timer += 100000.0
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
@@ -205,9 +214,14 @@ func _physics_process(delta: float) -> void:
 		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(deg_to_rad(pounce_rotation)))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
 		current_movement_boost = landing_boost*jump_charge
 		jump_charge = min_jump_charge
-		pounce_rotation = 0.0
-		#update_visual_to_pounce_rotation()
+		update_visual_to_pounce_rotation()
+		pounce_rotation = deg_to_rad(pounce_rotation)
 		has_jumped = true
+	
+	#visual_component.rotation *= 0.85
+	#if on_floor: visual_component.rotation *= 0.85
+	visual_component.rotation = lerp_angle(0.0, pounce_rotation, clampf((2.0*linear_velocity.y)/-jump_impulse_strength,0.0,1.0))
+	
 	
 	handle_jump_input()
 	
@@ -324,7 +338,6 @@ func pounce_rotation_mouse_targeting(delta:float) -> float:
 ##Aims pounce upwards with jump charge
 func pounce_rotation_charge_targeting(delta:float) -> float:
 	var input :float= (jump_charge-min_jump_charge+0.001)/(1-min_jump_charge)
-	print((1-min_jump_charge), " ::: ", (jump_charge-min_jump_charge), " :results in: ", input)
 	if visual_component.scale.x > 0.0:
 		return rad_to_deg(lerp_angle(deg_to_rad(-min_pounce_angle),deg_to_rad(-max_pounce_angle),input))
 	else:

@@ -1,13 +1,12 @@
-[gd_scene load_steps=26 format=4 uid="uid://cbpu5jvu12dhu"]
+[gd_scene load_steps=25 format=4 uid="uid://cbpu5jvu12dhu"]
 
 [ext_resource type="Texture2D" uid="uid://dx82vyje077i3" path="res://wip/wip-hagen/assets/IMG_cloud_001.png" id="1_eirfj"]
-[ext_resource type="TileSet" uid="uid://dqjgjkckb4qo0" path="res://wip/wip-hagen/rigidbody_controller/Tiles/tileset_prototyping.tres" id="1_f8ujs"]
+[ext_resource type="TileSet" uid="uid://dqjgjkckb4qo0" path="res://wip/wip-hagen/rigidbody_controller/tiles/tileset_prototyping.tres" id="1_f8ujs"]
 [ext_resource type="Texture2D" uid="uid://uxnlslitomld" path="res://assets/assets-visual/Icons/node_2D/icon_circle.png" id="3_bf4h7"]
 [ext_resource type="Script" uid="uid://dircc24njwqwo" path="res://wip/wip-sqlpy/test/test_break_object.gd" id="4_0m2vc"]
 [ext_resource type="Texture2D" uid="uid://jlsm78dmnvw2" path="res://wip/wip-hagen/assets/IMG_cabinet_001.png" id="5_2w7jk"]
 [ext_resource type="Script" uid="uid://7suowjyr8422" path="res://main/Objects/Components/rigidbody-attachments/breaks_on_impact.gd" id="5_41u6t"]
 [ext_resource type="Script" uid="uid://c8at4g422rwiy" path="res://main/Objects/Components/rigidbody-attachments/falls_down_shelves.gd" id="6_ahyat"]
-[ext_resource type="Texture2D" uid="uid://mdmf0buts58i" path="res://wip/wip-hagen/rigidbody_controller/Tiles/Prototype_Tileset_16x16.png" id="7_mfgde"]
 [ext_resource type="Texture2D" uid="uid://jkeldnlsy6a2" path="res://wip/wip-hagen/assets/IMG_floor_001.png" id="9_jg2eh"]
 [ext_resource type="Texture2D" uid="uid://6bp5uddqkm03" path="res://wip/wip-hagen/assets/IMG_shelf_001.png" id="10_eirfj"]
 [ext_resource type="Texture2D" uid="uid://dd6gg8jysv7rh" path="res://wip/wip-hagen/assets/IMG_wall_thin_001 2.png" id="11_afrp2"]
@@ -136,7 +135,6 @@ modulate = Color(0.640625, 0.640625, 0.640625, 1)
 texture_filter = 1
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -156,7 +154,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -176,7 +173,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -196,7 +192,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -216,7 +211,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -236,7 +230,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -256,7 +249,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -276,7 +268,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -296,7 +287,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -316,7 +306,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -335,7 +324,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -355,7 +343,6 @@ shape = SubResource("RectangleShape2D_41u6t")
 modulate = Color(0, 0.8125, 1, 1)
 texture_filter = 1
 scale = Vector2(1.57, 1.57)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -377,7 +364,6 @@ modulate = Color(0.640625, 0.640625, 0.640625, 1)
 texture_filter = 1
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -399,7 +385,6 @@ modulate = Color(0.640625, 0.640625, 0.640625, 1)
 texture_filter = 1
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -440,7 +425,6 @@ modulate = Color(0.640625, 0.640625, 0.640625, 1)
 texture_filter = 1
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -462,7 +446,6 @@ modulate = Color(0.640625, 0.640625, 0.640625, 1)
 texture_filter = 1
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 frame = 147
@@ -504,7 +487,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
@@ -545,7 +527,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
@@ -587,7 +568,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D3"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
@@ -628,7 +608,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D4"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
@@ -669,7 +648,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D7"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
@@ -710,7 +688,6 @@ process_material = SubResource("ParticleProcessMaterial_rkrn3")
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D8"]
 texture_filter = 1
 scale = Vector2(1.11, 1.11)
-texture = ExtResource("7_mfgde")
 hframes = 16
 vframes = 11
 
