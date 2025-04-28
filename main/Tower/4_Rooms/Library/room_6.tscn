@@ -118,6 +118,8 @@ radius = 128.0
 metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="RoomContent/Objects/GlassSphereOrb"]
+color = Color(0.369, 0.9, 0.69645, 1)
+energy = 1.2
 range_layer_max = 2
 shadow_enabled = true
 texture = ExtResource("4_qsbws")
