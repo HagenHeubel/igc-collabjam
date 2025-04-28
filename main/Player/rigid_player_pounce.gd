@@ -39,6 +39,11 @@ signal died()
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
 @onready var ground_detect_right: RayCast2D = %GroundDetectRight
+@onready var tail: CatTail = %TailLine2D
+@onready var tail_bone: Node2D = %TailBone
+@onready var look_at_container: Node2D = %LookAtContainer
+@onready var skeleton: Skeleton2D = %Skeleton2D
+
 
 var coyote_timer :float=0.0
 var jump_buffer_timer :float=0.0
@@ -51,9 +56,12 @@ var default_gravity_scale :float = self.gravity_scale
 var on_floor :bool=false
 var on_wall :bool=false
 var neutral_force :Vector2
-var jump_charge :float=min_jump_charge
+var jump_charge :float=0.0
 var current_movement_boost :float=0.0
 var pounce_rotation :float=0.0
+var rotation_target :float=0.0
+var has_jumped :bool=false
+var skeleton_modification_stack : SkeletonModificationStack2D
 
 func _ready() -> void:
 	GlobalVars.player = self
@@ -66,6 +74,7 @@ func _ready() -> void:
 	if !animation_player:
 		push_error("No animation player assigned in player script ", self)
 	
+	skeleton_modification_stack = skeleton.get_modification_stack()
 	#calculate gravity-neutralizing constant force 
 	neutral_force = Vector2(0.0,gravity*default_gravity_scale*-3.1)
 	#neutral force negated becomes gravity, necessary for later rotation
@@ -74,6 +83,7 @@ func _ready() -> void:
 	slope_angle_max = deg_to_rad(slope_angle_max)
 	#convert values from seconds to fractions
 	charge_time = 1/charge_time
+	jump_charge = min_jump_charge
 	landing_boost_duration = 1/landing_boost_duration
 	#assign callable for pounce rotation input
 	match pounce_control_type:
@@ -83,14 +93,6 @@ func _ready() -> void:
 			get_pounce_rotation_input = pounce_rotation_up_down
 		2:
 			get_pounce_rotation_input = pounce_rotation_mouse_targeting
-		3:
-			get_pounce_rotation_input = pounce_rotation_mouse_delta
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		4:
-			get_pounce_rotation_input = pounce_rotation_mouse_delta_xy
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		5:
-			get_pounce_rotation_input = pounce_rotation_mouse_left_right
 		6:
 			get_pounce_rotation_input = pounce_rotation_charge_targeting
 
@@ -114,10 +116,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 				if abs(state.get_contact_local_normal(i).angle_to(previous_velocity))>(PI*0.5):
 					if abs(previous_velocity.x) > 100:
 						collision_object.velocity.x = clampf(previous_velocity.x*mass*(1-collision_object.resistance),-collision_object.max_speed,collision_object.max_speed)
+	if has_jumped:
+		on_floor = false
+		has_jumped = false
 	set_previous_velocity.call_deferred()
 
 
 func _physics_process(delta: float) -> void:
+	update_tail()
 	
 	if Input.is_action_just_pressed(&"jump"):
 		jump_buffer_active = true
@@ -127,25 +133,26 @@ func _physics_process(delta: float) -> void:
 		if jump_buffer_timer > jump_buffer_duration:
 			jump_buffer_active = false
 	
-	## Allows for Esc key to release cursor
+	# Allows for Esc key to release cursor
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	elif Input.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	#declare force and set movement direction
+	# declare force and set movement direction
 	var force :Vector2 = Vector2.ZERO
 	force.x = Input.get_axis("left", "right")
 	
-	#play animation
-	if is_zero_approx(force.x):
-		if animation_player.current_animation != &"idle":
-			animation_player.play(&"idle",0.2,0.5)
-	else:
-		if animation_player.current_animation != &"walking":
-			animation_player.play(&"walking", 0.25,1.55)
+	# play walking and idle animation when on ground and not charging pounce
+	if on_floor and (jump_charge <= min_jump_charge):
+		if is_zero_approx(force.x):
+			if animation_player.current_animation != &"idle":
+				animation_player.play(&"idle",0.2,0.2)
+		else:
+			if animation_player.current_animation != &"walking":
+				animation_player.play(&"walking", 0.25,1.55)
 	
 	#sets rotation target for gravity changes and rotation stabilizer
-	var rotation_target = clampf(calculate_avg_ground_normal(force.x*-10),-slope_angle_max,slope_angle_max)
+	rotation_target = clampf(calculate_avg_ground_normal(force.x*-10),-slope_angle_max,slope_angle_max)
 	
 	#reset gravity
 	gravity_scale = default_gravity_scale
@@ -173,39 +180,37 @@ func _physics_process(delta: float) -> void:
 	elif rotation < (rotation_target-0.1):
 		apply_torque(5010.1*rotation_stabilizer)
 	
-	
-	#jump input handling
+	#pounce input handling
 	if on_floor and Input.is_action_pressed("pounce"):
+		if animation_player.current_animation != &"pounce_charging":
+			animation_player.play(&"pounce_charging",1.0/charge_time,1.0)
+			skeleton_modification_stack.strength = 1.0
 		if abs(pounce_rotation) < min_pounce_angle:
 			pounce_rotation = def_pounce_angle*-visual_component.scale.x
 		pounce_rotation = get_pounce_rotation_input.call(delta)
 		force.x = 0.0
 		jump_charge = minf(jump_charge+charge_time*delta,1.0)
-		visual_component.scale.y = 1.0-jump_charge*0.4
-		update_visual_to_pounce_rotation()
+		#visual_component.scale.y = 1.0-jump_charge*0.4
+		#update_visual_to_pounce_rotation()
+		look_at_container.rotation_degrees = pounce_rotation*visual_component.scale.x
+		skeleton.execute_modifications(delta,0)
 	if on_floor and Input.is_action_just_released("pounce"):
+		skeleton_modification_stack.strength = 0.0
+		animation_player.play(&"jumping",0.05)
 		coyote_timer += 100000.0
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
 		if charge_always_full:
 			jump_charge = 1.0
-		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(visual_component.rotation))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
+		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(deg_to_rad(pounce_rotation)))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
 		current_movement_boost = landing_boost*jump_charge
 		jump_charge = min_jump_charge
 		pounce_rotation = 0.0
-		update_visual_to_pounce_rotation()
+		#update_visual_to_pounce_rotation()
+		has_jumped = true
 	
-	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
-		coyote_timer += 100000.0
-		if !on_floor:
-			var newvec= -linear_velocity*mass*1.1
-			newvec.x=0.0
-			apply_impulse(newvec)
-		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength*0.52)
-		jump_charge = min_jump_charge
-		pounce_rotation = 0.0
-		update_visual_to_pounce_rotation()
-		current_movement_boost = landing_boost*0.5
+	handle_jump_input()
+	
 	#Flips assigned 2D visuals
 	if ((current_movement_boost<0.01)or(linear_velocity.y > -100.0))and !Input.is_action_just_released(&"pounce"): #only change sprite direction while jump isn't charging!
 		if force.x < -0.1:
@@ -217,6 +222,31 @@ func _physics_process(delta: float) -> void:
 	force.x *= move_force*(1.0+current_movement_boost)
 	force = force.rotated(rotation_target) 
 	apply_force(force)
+
+##Performs jump if coyote timer is low enough and a jump input has been buffered, as long as player isn't currently charging a pounce
+func handle_jump_input():
+	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
+		animation_player.play(&"jumping",0.05)
+		on_floor = false
+		coyote_timer += 100000.0
+		if !on_floor:
+			var newvec= -linear_velocity*mass*1.1
+			newvec.x=0.0
+			apply_impulse(newvec)
+		apply_impulse(Vector2.UP.rotated(rotation_target*0.4)*jump_impulse_strength*0.52)
+		jump_charge = min_jump_charge
+		pounce_rotation = 0.0
+		update_visual_to_pounce_rotation()
+		current_movement_boost = landing_boost*0.5
+		has_jumped = true
+
+##Adjusts tail rotation to match the rotation of the tail bone
+func update_tail():
+	tail.start_position = tail_bone.global_position-global_position
+	if visual_component.scale.x > 0.01:
+		tail.final_rotation = -tail_bone.rotation_degrees#tail.default_rotation - tail_bone.rotation_degrees
+	else:
+		tail.final_rotation = tail_bone.rotation_degrees#tail.default_rotation + tail_bone.rotation_degrees
 
 ##Reduces health and emits harmed signal
 func take_damage(amount: int) -> void:
@@ -290,25 +320,6 @@ func pounce_rotation_mouse_targeting(delta:float) -> float:
 		return clampf(rot_to_cursor,-max_pounce_angle,-min_pounce_angle)
 	else:
 		return clampf(rot_to_cursor,min_pounce_angle,max_pounce_angle)
-
-##Aims pounce by rotating with mouse movement
-func pounce_rotation_mouse_delta(delta:float) -> float:
-	return 0.0
-func pounce_rotation_mouse_delta_xy(delta:float) -> float:
-	return 0.0
-
-##Aims pounce with the left and right mouse buttons
-func pounce_rotation_mouse_left_right(delta:float) -> float:
-	var input :float = 0.0
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		input -= 1.0
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		input += 1.0
-	input *=  delta *pounce_aim_speed
-	if visual_component.scale.x > 0.0:
-		return clampf(pounce_rotation+input,-max_pounce_angle,-min_pounce_angle)
-	else:
-		return clampf(pounce_rotation+input,min_pounce_angle,max_pounce_angle)
 
 ##Aims pounce upwards with jump charge
 func pounce_rotation_charge_targeting(delta:float) -> float:
