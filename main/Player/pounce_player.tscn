@@ -35,7 +35,7 @@ collision_layer = 12
 collision_mask = 15
 mass = 3.25
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
-gravity_scale = 5.0
+gravity_scale = 4.5
 center_of_mass_mode = 1
 inertia = 500.0
 lock_rotation = true
@@ -62,10 +62,11 @@ max_pounce_angle = 80.0
 
 [node name="TailLine2D" parent="." node_paths=PackedStringArray("attached_to_node") instance=ExtResource("4_75erd")]
 unique_name_in_owner = true
-position = Vector2(-15, -29)
+position = Vector2(-11, -30)
 attached_to_node = NodePath("..")
-position_lerp_exp = 24.7
-tail_rotation = -37.0
+change_rotation_with_velocity = false
+position_lerp_exp = 100.0
+tail_rotation = -81.5
 
 [node name="Visuals" type="Node2D" parent="."]
 
@@ -146,7 +147,7 @@ modification_stack = SubResource("SkeletonModificationStack2D_75erd")
 
 [node name="Root" type="Bone2D" parent="Visuals/Skeleton2D"]
 position = Vector2(9, -4)
-scale = Vector2(0.999958, 0.999958)
+scale = Vector2(0.999937, 0.999937)
 rest = Transform2D(1, 0, 0, 1, 9, -4)
 auto_calculate_length_and_angle = false
 length = 218.124
@@ -161,7 +162,7 @@ bone_angle = 0.0
 
 [node name="Head" type="Bone2D" parent="Visuals/Skeleton2D/Root/Neck"]
 position = Vector2(-81, -131)
-scale = Vector2(0.999894, 0.999894)
+scale = Vector2(0.999959, 0.999959)
 rest = Transform2D(0.999982, 0, 0, 0.999982, -81, -131)
 auto_calculate_length_and_angle = false
 length = 139.718
@@ -178,7 +179,7 @@ region_rect = Rect2(0, -1, 346, 346)
 
 [node name="BodyFront" type="Bone2D" parent="Visuals/Skeleton2D/Root"]
 position = Vector2(1, 1)
-scale = Vector2(0.999833, 0.999833)
+scale = Vector2(0.999832, 0.999832)
 rest = Transform2D(1, 0, 0, 1, 1, 1)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -186,7 +187,7 @@ bone_angle = 0.0
 
 [node name="LegFrontLeftTop" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront"]
 position = Vector2(0, 3)
-scale = Vector2(0.999833, 0.999833)
+scale = Vector2(0.999831, 0.999831)
 rest = Transform2D(1, 0, 0, 1, 0, 3)
 auto_calculate_length_and_angle = false
 length = 186.454
@@ -194,7 +195,7 @@ bone_angle = 111.815
 
 [node name="LegFrontLeftBottom" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/LegFrontLeftTop"]
 position = Vector2(47, 210)
-scale = Vector2(0.999836, 0.999836)
+scale = Vector2(0.999835, 0.999835)
 rest = Transform2D(1, 0, 0, 1, 47, 210)
 auto_calculate_length_and_angle = false
 length = 186.454
@@ -202,7 +203,7 @@ bone_angle = 111.815
 
 [node name="FootFrontLeft" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/LegFrontLeftTop/LegFrontLeftBottom"]
 position = Vector2(-38, 167)
-scale = Vector2(0.999836, 0.999836)
+scale = Vector2(0.999835, 0.999835)
 rest = Transform2D(1, 0, 0, 1, -38, 167)
 auto_calculate_length_and_angle = false
 length = 54.035
@@ -210,12 +211,12 @@ bone_angle = 180.0
 
 [node name="LegBackLeftTop" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront"]
 position = Vector2(-33, 10)
-scale = Vector2(0.999843, 0.999843)
+scale = Vector2(0.99984, 0.99984)
 rest = Transform2D(1, 0, 0, 1, -33, 10)
 
 [node name="LegBackLeftBottom" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/LegBackLeftTop"]
 position = Vector2(18, 210)
-scale = Vector2(0.999841, 0.999841)
+scale = Vector2(0.999839, 0.999839)
 rest = Transform2D(1, 0, 0, 1, 18, 210)
 auto_calculate_length_and_angle = false
 length = 186.454
@@ -223,7 +224,7 @@ bone_angle = 111.815
 
 [node name="FootBackLeft" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/LegBackLeftTop/LegBackLeftBottom"]
 position = Vector2(-48, 154)
-scale = Vector2(0.999842, 0.999842)
+scale = Vector2(0.999839, 0.999839)
 rest = Transform2D(1, 0, 0, 1, -48, 154)
 auto_calculate_length_and_angle = false
 length = 54.035
@@ -231,7 +232,7 @@ bone_angle = 180.0
 
 [node name="BodyBack" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront"]
 position = Vector2(213, 17)
-scale = Vector2(0.999836, 0.999836)
+scale = Vector2(0.999837, 0.999837)
 rest = Transform2D(1, 0, 0, 1, 213, 17)
 auto_calculate_length_and_angle = false
 length = 200.202
@@ -263,8 +264,8 @@ bone_angle = 180.0
 
 [node name="TailBone" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/BodyBack/LegFrontRightTop"]
 unique_name_in_owner = true
-position = Vector2(33.3666, -54.8775)
-scale = Vector2(0.999985, 0.999985)
+position = Vector2(-53.6766, -112.752)
+scale = Vector2(0.999972, 0.999972)
 rest = Transform2D(1, 0, 0, 1, 33.3666, -54.8775)
 auto_calculate_length_and_angle = false
 length = 78.816
@@ -280,7 +281,7 @@ bone_angle = 90.2755
 
 [node name="LegBackRightBottom" type="Bone2D" parent="Visuals/Skeleton2D/Root/BodyFront/BodyBack/LegBackRightTop"]
 position = Vector2(-27, 173)
-scale = Vector2(0.999851, 0.999851)
+scale = Vector2(0.99985, 0.99985)
 rest = Transform2D(1, 0, 0, 1, -27, 173)
 auto_calculate_length_and_angle = false
 length = 186.64

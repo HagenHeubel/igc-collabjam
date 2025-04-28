@@ -146,7 +146,7 @@ func _physics_process(delta: float) -> void:
 	if on_floor and (jump_charge <= min_jump_charge):
 		if is_zero_approx(force.x):
 			if animation_player.current_animation != &"idle":
-				animation_player.play(&"idle",0.2,0.5)
+				animation_player.play(&"idle",0.2,0.2)
 		else:
 			if animation_player.current_animation != &"walking":
 				animation_player.play(&"walking", 0.25,1.55)
@@ -243,10 +243,10 @@ func handle_jump_input():
 ##Adjusts tail rotation to match the rotation of the tail bone
 func update_tail():
 	tail.start_position = tail_bone.global_position-global_position
-	if on_floor and Input.is_action_pressed("pounce"):
-		tail.tail_rotation = tail.default_rotation - tail_bone.rotation_degrees
+	if visual_component.scale.x > 0.01:
+		tail.final_rotation = -tail_bone.rotation_degrees#tail.default_rotation - tail_bone.rotation_degrees
 	else:
-		tail.tail_rotation = tail.default_rotation + tail_bone.rotation_degrees
+		tail.final_rotation = tail_bone.rotation_degrees#tail.default_rotation + tail_bone.rotation_degrees
 
 ##Reduces health and emits harmed signal
 func take_damage(amount: int) -> void:
