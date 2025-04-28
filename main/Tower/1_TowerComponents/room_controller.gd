@@ -1,6 +1,7 @@
 class_name RoomController
 extends Node
 
+@export var enable_and_disable_rooms : bool = false
 @export var print_room_transitions_to_console : bool = false
 
 var rooms: Array = []
@@ -28,10 +29,11 @@ func _on_room_changed(target_room: TowerRoom) -> void:
 
 func _update_room_status() -> void:
 	var active_rooms: Array = _get_active_rooms(GlobalVars.current_room)
-	for room in rooms:
-		room.disable()
-	for room in active_rooms:
-		room.enable()
+	if enable_and_disable_rooms:
+		for room in rooms:
+			room.disable()
+		for room in active_rooms:
+			room.enable()
 
 func _get_active_rooms(target_room: TowerRoom) -> Array:
 	var active_rooms: Array = [target_room]

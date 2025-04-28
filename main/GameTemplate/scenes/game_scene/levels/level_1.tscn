@@ -229,10 +229,6 @@ texture_scale = 12.31
 position = Vector2(144, -1040)
 texture_scale = 12.31
 
-[node name="Torch10" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(2096, -688)
-texture_scale = 12.31
-
 [node name="Torch11" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1520, -656)
 range_item_cull_mask = 3
@@ -273,10 +269,9 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(992, 540)
+position = Vector2(2087, -608)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
-print_room_transitions_to_console = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"

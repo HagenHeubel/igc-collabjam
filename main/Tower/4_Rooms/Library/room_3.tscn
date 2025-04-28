@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cd7e1renevki5" path="res://main/Objects/Prefabs/Bottles/BottleOrange.tscn" id="16_j440c"]
 [ext_resource type="PackedScene" uid="uid://dyiks1ny8kut0" path="res://main/Objects/Prefabs/Bottles/BottleLightBlue.tscn" id="17_2o28e"]
 
-[sub_resource type="Shader" id="Shader_2o28e"]
+[sub_resource type="Shader" id="Shader_kdbrr"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -663,10 +663,10 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i0vif"]
 resource_local_to_scene = true
-shader = SubResource("Shader_2o28e")
+shader = SubResource("Shader_kdbrr")
 shader_parameter/desaturation = 0.5
 
-[sub_resource type="Shader" id="Shader_kdbrr"]
+[sub_resource type="Shader" id="Shader_j440c"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -1311,7 +1311,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j440c"]
 resource_local_to_scene = true
-shader = SubResource("Shader_kdbrr")
+shader = SubResource("Shader_j440c")
 shader_parameter/desaturation = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68jfx"]
@@ -1329,7 +1329,7 @@ size = Vector2(221, 7)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xs4wy"]
 size = Vector2(48, 8)
 
-[sub_resource type="Shader" id="Shader_rb8fx"]
+[sub_resource type="Shader" id="Shader_2o28e"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -1974,10 +1974,10 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2uc0t"]
 resource_local_to_scene = true
-shader = SubResource("Shader_rb8fx")
+shader = SubResource("Shader_2o28e")
 shader_parameter/desaturation = 0.0
 
-[sub_resource type="Shader" id="Shader_2qryc"]
+[sub_resource type="Shader" id="Shader_i0vif"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -2622,10 +2622,10 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bvrmd"]
 resource_local_to_scene = true
-shader = SubResource("Shader_2qryc")
+shader = SubResource("Shader_i0vif")
 shader_parameter/desaturation = 0.0
 
-[sub_resource type="Shader" id="Shader_qujyg"]
+[sub_resource type="Shader" id="Shader_rb8fx"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -3270,10 +3270,10 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abskt"]
 resource_local_to_scene = true
-shader = SubResource("Shader_qujyg")
+shader = SubResource("Shader_rb8fx")
 shader_parameter/desaturation = 0.0
 
-[sub_resource type="Shader" id="Shader_hvuaq"]
+[sub_resource type="Shader" id="Shader_2uc0t"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -3918,7 +3918,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wxvvv"]
 resource_local_to_scene = true
-shader = SubResource("Shader_hvuaq")
+shader = SubResource("Shader_2uc0t")
 shader_parameter/desaturation = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt88f"]
