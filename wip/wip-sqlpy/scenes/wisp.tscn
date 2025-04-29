@@ -1,0 +1,100 @@
+[gd_scene load_steps=19 format=3 uid="uid://c7iapunvbyeuu"]
+
+[ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="1_teyfh"]
+[ext_resource type="Script" uid="uid://t18kwrwga5cl" path="res://wip/wip-sqlpy/scenes/wisp.gd" id="2_gkqi7"]
+[ext_resource type="Script" uid="uid://b1wqkt6g2je8g" path="res://main/Objects/Components/rigidbody-attachments/softly_pinned_object.gd" id="3_3ycw0"]
+
+[sub_resource type="Gradient" id="Gradient_gkqi7"]
+offsets = PackedFloat32Array(0, 0.246753, 0.493506, 0.733766, 1)
+colors = PackedColorArray(0.514872, 0.812244, 0.846476, 1, 0.39658, 0.751991, 0.852467, 1, 0.531009, 0.652126, 0.948924, 1, 0.75169, 0.501913, 0.903491, 1, 0.942989, 0.406411, 0.717393, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ycw0"]
+gradient = SubResource("Gradient_gkqi7")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gkqi7"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_teyfh"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gkqi7"]
+gradient = SubResource("Gradient_teyfh")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_3ycw0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.486301, 0.494949), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pcmdp"]
+curve = SubResource("Curve_3ycw0")
+
+[sub_resource type="Gradient" id="Gradient_nmnun"]
+offsets = PackedFloat32Array(0, 0.163636, 0.490909, 0.790909, 1)
+colors = PackedColorArray(0.23, 1, 0.910167, 1, 0.750741, 0.889759, 0.963864, 1, 0.8245, 0.851175, 0.97, 1, 0.806905, 0.781007, 0.974286, 1, 0.766667, 0.5, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pt4r2"]
+gradient = SubResource("Gradient_nmnun")
+
+[sub_resource type="Gradient" id="Gradient_kajhq"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.23, 0.550833, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wwkfd"]
+gradient = SubResource("Gradient_kajhq")
+
+[sub_resource type="Curve" id="Curve_p8mhn"]
+_data = [Vector2(0, 0.40404), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.606061), 0.0, 0.0, 0, 0, Vector2(2e-05, 0.646465), 0.0, 0.0, 0, 0, Vector2(0.506849, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.646465), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_mxrym"]
+curve = SubResource("Curve_p8mhn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ikptn"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(8, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_mxrym")
+color_ramp = SubResource("GradientTexture1D_wwkfd")
+color_initial_ramp = SubResource("GradientTexture1D_pt4r2")
+alpha_curve = SubResource("CurveTexture_pcmdp")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkqi7"]
+radius = 64.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 8
+gravity_scale = 0.0
+
+[node name="Wisp" type="PointLight2D" parent="."]
+range_layer_max = 2
+texture = ExtResource("1_teyfh")
+texture_scale = 6.0
+script = ExtResource("2_gkqi7")
+color_range = SubResource("GradientTexture1D_3ycw0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Wisp"]
+material = SubResource("CanvasItemMaterial_gkqi7")
+texture = SubResource("GradientTexture2D_gkqi7")
+process_material = SubResource("ParticleProcessMaterial_ikptn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gkqi7")
+
+[node name="SoftPin" type="Node" parent="."]
+script = ExtResource("3_3ycw0")
+damp_override = 20.0
+linear_stiffness = 10.0
+quadratic_stiffness = 1.0
+soft_nax_distance = 300.0
+hard_max_distance = 200.0
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"

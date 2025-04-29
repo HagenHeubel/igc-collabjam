@@ -14,7 +14,7 @@ func _ready() -> void:
 	floors = get_children()
 	floors.erase(buffer)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	create_shelf()

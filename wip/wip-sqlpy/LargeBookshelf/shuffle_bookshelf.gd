@@ -25,7 +25,6 @@ func attempt_shuffle_start() -> void:
 	if not is_book_moving:
 		var book_nr : int = -1
 		var slot_nr : int = -1
-		var count : int = 0
 		while book_nr == slot_nr:
 			var shuffle : Vector2i = get_shuffle_target()
 			book_nr = shuffle.x
@@ -34,7 +33,6 @@ func attempt_shuffle_start() -> void:
 				book_nr = slot_nr
 			if check_for_player_collision:
 				if books_in_shelf[book_nr].has_player_collision():
-					count += 1
 					book_nr = slot_nr
 		
 		last_slot_slotted = slot_nr
