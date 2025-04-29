@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjv6qqgag7f2w"]
+
+[ext_resource type="Texture2D" uid="uid://b6wudeqjousjr" path="res://assets/assets-visual/other/brownwoodenplanks.png" id="1_5rup1"]
+[ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="1_mwk2d"]
+[ext_resource type="Script" uid="uid://b1h8r7boqq6ld" path="res://large_bookshelf_outline.gd" id="2_mwk2d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sp638"]
+resource_local_to_scene = true
+shader = ExtResource("1_mwk2d")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+
+[node name="LargeBookshelf" type="Line2D"]
+texture_filter = 5
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sp638")
+points = PackedVector2Array(0, 0, 133, 0)
+width = 32.0
+texture = ExtResource("1_5rup1")
+texture_mode = 2
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_filter = 5
+points = PackedVector2Array(-6.99382e-07, 16, 6.99382e-07, -16, 133, -16, 133, 16)
+closed = true
+width = 2.0
+default_color = Color(0.366829, 0.215678, 0.150919, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("2_mwk2d")

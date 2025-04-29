@@ -27,6 +27,7 @@ script = ExtResource("1_6dj41")
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 
 [node name="Book" type="AnimatableBody2D" parent="."]
+collision_layer = 9
 script = ExtResource("2_xxge1")
 
 [node name="LightOccluderRect" type="LightOccluder2D" parent="Book" node_paths=PackedStringArray("rect_collision_shape")]

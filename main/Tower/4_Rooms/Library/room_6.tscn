@@ -28,31 +28,37 @@ size = Vector2(8, 480)
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gf24w"]
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2ynm"]
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q5m7o"]
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xf8ui"]
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ub5a4"]
 resource_local_to_scene = true
 shader = ExtResource("7_qsbws")
 shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [node name="Room6" type="Node2D"]
 script = ExtResource("1_0lojd")

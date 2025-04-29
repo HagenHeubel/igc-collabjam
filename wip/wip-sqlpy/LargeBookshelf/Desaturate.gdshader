@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform float desaturation : hint_range(0.0, 1.0, 0.001) = 0.0;
+uniform vec3 modulate_color : source_color = vec3(1.0);
 
 const float M_PI = 3.1415926535897932384626433832795;
 
@@ -636,5 +637,5 @@ vec3 srgb_to_okhsv(vec3 rgb)
 void fragment() {
 	vec3 OK_col = srgb_to_okhsv(COLOR.rgb);
 	OK_col.g = OK_col.g * (1.0 - desaturation);
-	COLOR.rgb = okhsv_to_srgb(OK_col);
+	COLOR.rgb = okhsv_to_srgb(OK_col) * modulate_color;
 }
