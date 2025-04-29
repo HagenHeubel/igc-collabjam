@@ -106,15 +106,15 @@ func find_random_spot():
 	target_location.x += randf_range(-400.,400.)
 	target_location.y += randf_range(-150.,150.)
 	
-	print("current target position: ", target_location)
+	#print("current target position: ", target_location)
 	ray_cast.global_position = global_position
 	ray_cast.target_position = ray_cast.to_local(target_location)*1.2
 	ray_cast.force_raycast_update()
-	print(ray_cast.get_collider())
+	#print(ray_cast.get_collider())
 	if ray_cast.is_colliding():
-		print(ray_cast.get_collision_point())
+		#print(ray_cast.get_collision_point())
 		target_location = ray_cast.get_collision_point().lerp(global_position,0.4)
-		print("target after raycast: ", target_location)
+		#print("target after raycast: ", target_location)
 		
 
 
