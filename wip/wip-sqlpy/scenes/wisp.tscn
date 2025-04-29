@@ -1,8 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7iapunvbyeuu"]
+[gd_scene load_steps=30 format=3 uid="uid://c7iapunvbyeuu"]
 
 [ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="1_teyfh"]
 [ext_resource type="Script" uid="uid://t18kwrwga5cl" path="res://wip/wip-sqlpy/scenes/wisp.gd" id="2_gkqi7"]
 [ext_resource type="Script" uid="uid://b1wqkt6g2je8g" path="res://main/Objects/Components/rigidbody-attachments/softly_pinned_object.gd" id="3_3ycw0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkqi7"]
+radius = 96.0
 
 [sub_resource type="Gradient" id="Gradient_gkqi7"]
 offsets = PackedFloat32Array(0, 0.246753, 0.493506, 0.733766, 1)
@@ -28,7 +31,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [sub_resource type="Curve" id="Curve_3ycw0"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.486301, 0.494949), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.333333), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_pcmdp"]
@@ -67,13 +70,85 @@ color_ramp = SubResource("GradientTexture1D_wwkfd")
 color_initial_ramp = SubResource("GradientTexture1D_pt4r2")
 alpha_curve = SubResource("CurveTexture_pcmdp")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gkqi7"]
-radius = 64.0
+[sub_resource type="Gradient" id="Gradient_3ycw0"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.0649351, 0.701299)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pcmdp"]
+gradient = SubResource("Gradient_3ycw0")
+width = 32
+height = 32
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.481651, 0)
+
+[sub_resource type="Curve" id="Curve_nmnun"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.260274, 0.515151), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pt4r2"]
+curve = SubResource("Curve_nmnun")
+
+[sub_resource type="Gradient" id="Gradient_wwkfd"]
+offsets = PackedFloat32Array(0, 0.290909, 0.6, 1)
+colors = PackedColorArray(0.23, 1, 0.910167, 1, 0.32144, 0.581902, 1, 1, 0.746352, 0.1547, 0.91, 1, 0.99, 0.2574, 0.5016, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p8mhn"]
+gradient = SubResource("Gradient_wwkfd")
+
+[sub_resource type="Gradient" id="Gradient_mxrym"]
+offsets = PackedFloat32Array(0, 0.636364, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.828828, 0.363637, 0.600288, 1, 0.731015, 9.62615e-07, 0.371881, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ikptn"]
+gradient = SubResource("Gradient_mxrym")
+
+[sub_resource type="Curve" id="Curve_yeyfg"]
+_data = [Vector2(0, 0.40404), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.606061), 0.0, 0.0, 0, 0, Vector2(2e-05, 0.646465), 0.0, 0.0, 0, 0, Vector2(0.506849, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.646465), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_nso45"]
+curve = SubResource("Curve_yeyfg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_431yb"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(16, 16, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -45.0
+angle_max = -45.0
+inherit_velocity_ratio = 0.5
+spread = 180.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 20, 0)
+damping_min = 0.5
+damping_max = 0.5
+scale_min = 0.2
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_nso45")
+color_ramp = SubResource("GradientTexture1D_ikptn")
+color_initial_ramp = SubResource("GradientTexture1D_p8mhn")
+alpha_curve = SubResource("CurveTexture_pt4r2")
+turbulence_enabled = true
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 3.034
+turbulence_noise_speed_random = 0.0
+turbulence_influence_min = 0.3
+turbulence_influence_max = 0.3
+turbulence_initial_displacement_min = 1.49012e-06
+turbulence_initial_displacement_max = 1.49012e-06
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 0
 collision_mask = 8
 gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_gkqi7")
 
 [node name="Wisp" type="PointLight2D" parent="."]
 range_layer_max = 2
@@ -84,11 +159,16 @@ color_range = SubResource("GradientTexture1D_3ycw0")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Wisp"]
 material = SubResource("CanvasItemMaterial_gkqi7")
+amount = 12
 texture = SubResource("GradientTexture2D_gkqi7")
 process_material = SubResource("ParticleProcessMaterial_ikptn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gkqi7")
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Wisp"]
+material = SubResource("CanvasItemMaterial_gkqi7")
+amount = 24
+texture = SubResource("GradientTexture2D_pcmdp")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_431yb")
 
 [node name="SoftPin" type="Node" parent="."]
 script = ExtResource("3_3ycw0")

@@ -4087,9 +4087,6 @@ width = 128.0
 position = Vector2(448, 1584)
 width = 384.0
 
-[node name="OneWayShelf11" parent="RoomContent/Environment" instance=ExtResource("5_03des")]
-position = Vector2(880, 1792)
-
 [node name="SolidBookCase4" parent="RoomContent/Environment" instance=ExtResource("6_03des")]
 material = SubResource("ShaderMaterial_sagjk")
 offset_left = 384.0
@@ -4097,9 +4094,6 @@ offset_top = 768.0
 offset_right = 512.0
 offset_bottom = 1584.0
 background_modulate = Color(0.395631, 0.36694, 0.470911, 1)
-
-[node name="OneWayShelf12" parent="RoomContent/Environment" instance=ExtResource("5_03des")]
-position = Vector2(944, 1776)
 
 [node name="SolidBookCase5" parent="RoomContent/Environment" instance=ExtResource("6_03des")]
 material = SubResource("ShaderMaterial_37hfl")
