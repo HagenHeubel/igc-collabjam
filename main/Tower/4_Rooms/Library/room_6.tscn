@@ -1,8 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnhkeei12hppk"]
+[gd_scene load_steps=22 format=3 uid="uid://cnhkeei12hppk"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_0lojd"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_w4u67"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_8qlc2"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="3_gf24w"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="3_gl5ad"]
+[ext_resource type="PackedScene" uid="uid://s334k0of48kr" path="res://wip/wip-sqlpy/scenes/glass_sphere_orb.tscn" id="4_d52jx"]
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="4_g2ynm"]
+[ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="4_qsbws"]
+[ext_resource type="Script" uid="uid://b1wqkt6g2je8g" path="res://main/Objects/Components/rigidbody-attachments/softly_pinned_object.gd" id="5_lucgh"]
+[ext_resource type="PackedScene" uid="uid://c0sis54fqek53" path="res://wip/wip-sqlpy/scenes/solid_book_case.tscn" id="6_ys6ax"]
+[ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="7_qsbws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joe1g"]
 size = Vector2(1028, 8)
@@ -15,6 +23,36 @@ size = Vector2(8, 484)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35vji"]
 size = Vector2(8, 480)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5ad"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gf24w"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2ynm"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5m7o"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf8ui"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub5a4"]
+resource_local_to_scene = true
+shader = ExtResource("7_qsbws")
+shader_parameter/desaturation = 0.0
 
 [node name="Room6" type="Node2D"]
 script = ExtResource("1_0lojd")
@@ -35,6 +73,10 @@ position = Vector2(574, 0)
 position = Vector2(-64, 0)
 shape = SubResource("RectangleShape2D_joe1g")
 
+[node name="TilingFloor" parent="RoomContent/Walls/Roof" instance=ExtResource("3_8qlc2")]
+position = Vector2(-574, 0)
+points = PackedVector2Array(0, 0, 1024, 0)
+
 [node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(576, 648)
 
@@ -52,12 +94,163 @@ position = Vector2(0, 324)
 position = Vector2(0, -86)
 shape = SubResource("RectangleShape2D_dj0kg")
 
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall" instance=ExtResource("4_g2ynm")]
+position = Vector2(0, 92)
+points = PackedVector2Array(0, 64, 0, -416)
+
 [node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(1152, 274)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
 position = Vector2(-128, -34)
 shape = SubResource("RectangleShape2D_35vji")
+
+[node name="TilingWall2" parent="RoomContent/Walls/RightWall" instance=ExtResource("4_g2ynm")]
+position = Vector2(-128, 206)
+points = PackedVector2Array(0, 0, 0, -480)
+
+[node name="Objects" type="Node2D" parent="RoomContent"]
+
+[node name="GlassSphereOrb" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(512, 240)
+gravity_scale = 0.0
+radius = 128.0
+metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="RoomContent/Objects/GlassSphereOrb"]
+color = Color(0.369, 0.9, 0.69645, 1)
+energy = 1.2
+range_layer_max = 2
+shadow_enabled = true
+texture = ExtResource("4_qsbws")
+texture_scale = 20.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb"]
+script = ExtResource("5_lucgh")
+horizontal_stiffness = 0.8
+vertical_stiffness = 0.8
+damp_override = 2.0
+linear_stiffness = 200.0
+soft_nax_distance = 100.0
+hard_max_distance = 200.0
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb3" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(752, 224)
+radius = 48.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb3"]
+script = ExtResource("5_lucgh")
+horizontal_stiffness = 0.8
+vertical_stiffness = 0.8
+linear_stiffness = 200.0
+soft_nax_distance = 100.0
+hard_max_distance = 200.0
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb4" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(272, 256)
+radius = 21.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb4"]
+script = ExtResource("5_lucgh")
+damp_override = 1.0
+soft_nax_distance = 20.0
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb5" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(784, 112)
+radius = 21.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb5"]
+script = ExtResource("5_lucgh")
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb6" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(912, 192)
+radius = 32.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb6"]
+script = ExtResource("5_lucgh")
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb7" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(864, 320)
+radius = 24.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb7"]
+script = ExtResource("5_lucgh")
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="GlassSphereOrb2" parent="RoomContent/Objects" instance=ExtResource("4_d52jx")]
+position = Vector2(176, 304)
+mass = 0.2
+radius = 32.0
+
+[node name="SoftPin" type="Node" parent="RoomContent/Objects/GlassSphereOrb2"]
+script = ExtResource("5_lucgh")
+linear_stiffness = 500.0
+metadata/_custom_type_script = "uid://b1wqkt6g2je8g"
+
+[node name="SolidBookCase" parent="RoomContent/Objects" instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_gl5ad")
+offset_left = 160.0
+offset_top = 448.0
+offset_right = 256.0
+offset_bottom = 576.0
+
+[node name="SolidBookCase2" parent="RoomContent/Objects" instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_gf24w")
+offset_left = 256.0
+offset_top = 400.0
+offset_right = 368.0
+offset_bottom = 576.0
+
+[node name="SolidBookCase3" parent="RoomContent/Objects" instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_g2ynm")
+offset_left = 368.0
+offset_top = 480.0
+offset_right = 464.0
+offset_bottom = 576.0
+
+[node name="SolidBookCase4" parent="RoomContent/Objects" instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_q5m7o")
+offset_left = 464.0
+offset_top = 528.0
+offset_right = 544.0
+offset_bottom = 576.0
+
+[node name="SolidBookCase5" parent="RoomContent/Objects" instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_xf8ui")
+offset_left = 544.0
+offset_top = 448.0
+offset_right = 800.0
+offset_bottom = 576.0
+
+[node name="LightOccluders" type="Node2D" parent="RoomContent"]
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+position = Vector2(574, 0)
+points = PackedVector2Array(-574, 480, -574, 0, 450, 0, 450, 480)
+width = 32.0
+texture = ExtResource("3_gf24w")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("3_gl5ad")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/LightOccluders"]
+z_index = 1
+points = PackedVector2Array(0, 576, 1024, 576)
+width = 32.0
+texture = ExtResource("3_gf24w")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("3_gl5ad")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)
@@ -78,3 +271,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 border_width = 2.0
+
+[node name="SolidBookCase" parent="." instance=ExtResource("6_ys6ax")]
+material = SubResource("ShaderMaterial_ub5a4")
+offset_left = 672.0
+offset_top = 368.0
+offset_right = 773.0
+offset_bottom = 448.0

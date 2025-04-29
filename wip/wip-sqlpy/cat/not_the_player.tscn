@@ -29,7 +29,6 @@ shape = SubResource("CapsuleShape2D_uan3y")
 
 [node name="PlayerArea" parent="CharacterBody2D" instance=ExtResource("3_rv82k")]
 
-[node name="Tail" parent="." node_paths=PackedStringArray("attached_to_node") instance=ExtResource("2_k73b3")]
+[node name="Tail" parent="." instance=ExtResource("2_k73b3")]
 position = Vector2(15, -1)
-attached_to_node = NodePath("../CharacterBody2D")
 tail_rotation = 100.5

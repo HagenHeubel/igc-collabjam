@@ -90,6 +90,7 @@ follow_viewport_enabled = true
 [node name="Floor1" type="Node2D" parent="GameSpace"]
 
 [node name="RespawnRoom" parent="GameSpace/Floor1" instance=ExtResource("1_8ehof")]
+start_room = true
 
 [node name="RoomDoor" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(1024, 528)
@@ -145,7 +146,6 @@ green_room = NodePath("../Room6")
 
 [node name="Room6" parent="GameSpace/Floor1" instance=ExtResource("3_68jfx")]
 position = Vector2(2048, -1152)
-start_room = true
 
 [node name="RoomDoor7" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(3072, -624)
@@ -229,10 +229,6 @@ texture_scale = 12.31
 position = Vector2(144, -1040)
 texture_scale = 12.31
 
-[node name="Torch10" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(2096, -688)
-texture_scale = 12.31
-
 [node name="Torch11" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1520, -656)
 range_item_cull_mask = 3
@@ -273,10 +269,9 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(992, 540)
+position = Vector2(896, 64)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
-print_room_transitions_to_console = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"

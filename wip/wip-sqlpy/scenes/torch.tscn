@@ -1,19 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://lb1xgx5lsfmv"]
+[gd_scene load_steps=26 format=3 uid="uid://lb1xgx5lsfmv"]
 
 [ext_resource type="Shader" uid="uid://dwte24ky6i2yb" path="res://wip/wip-sqlpy/scenes/torch_smoke.gdshader" id="1_esyxi"]
+[ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="1_k40df"]
 [ext_resource type="Script" uid="uid://darve5oqoj256" path="res://wip/wip-sqlpy/scenes/torch.gd" id="1_u0uvh"]
-
-[sub_resource type="Gradient" id="Gradient_c0axd"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0.0909091, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_esyxi"]
-gradient = SubResource("Gradient_c0axd")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_esyxi"]
 frequency = 0.0018
@@ -121,7 +110,7 @@ color = Color(1, 0.649682, 0.788802, 1)
 range_layer_max = 2
 range_item_cull_mask = 1023
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_esyxi")
+texture = ExtResource("1_k40df")
 texture_scale = 6.0
 script = ExtResource("1_u0uvh")
 

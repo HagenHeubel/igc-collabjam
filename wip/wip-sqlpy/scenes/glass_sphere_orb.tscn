@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://s334k0of48kr"]
+
+[ext_resource type="Script" uid="uid://c1m7sfcqqt31w" path="res://wip/wip-sqlpy/scenes/glass_sphere_orb.gd" id="1_bignt"]
+[ext_resource type="Texture2D" uid="uid://dvygcf4vsavw2" path="res://assets/assets-visual/other/glass_sphere.png" id="1_ttmu0"]
+[ext_resource type="Texture2D" uid="uid://b53hu5uboh0wq" path="res://assets/assets-visual/other/glowCircle.png" id="2_bignt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gfek1"]
+resource_local_to_scene = true
+radius = 16.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8urvd"]
+blend_mode = 1
+
+[node name="GlassSphereOrb" type="RigidBody2D"]
+collision_layer = 9
+collision_mask = 5
+script = ExtResource("1_bignt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gfek1")
+
+[node name="GlassSphere" type="Sprite2D" parent="."]
+scale = Vector2(0.0603774, 0.0603774)
+texture = ExtResource("1_ttmu0")
+
+[node name="GlowCircle" type="Sprite2D" parent="."]
+modulate = Color(0.348796, 0.28816, 0.317442, 1)
+material = SubResource("CanvasItemMaterial_8urvd")
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("2_bignt")
