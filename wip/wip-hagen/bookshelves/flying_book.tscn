@@ -19,12 +19,14 @@ script = ExtResource("1_3f3gw")
 speed = 300.0
 
 [node name="ImgBook002" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_c55ca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3f3gw")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+unique_name_in_owner = true
 top_level = true
 target_position = Vector2(-8.07, 39.12)
 collision_mask = 7

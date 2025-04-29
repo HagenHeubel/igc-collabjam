@@ -30,7 +30,7 @@ signal died()
 @export_range(0.0,0.7) var min_jump_charge :float = 0.3 ##Charge starts at this fraction of jump force
 @export_range(0.1,0.9,0.05) var h_jump_control :float= 0.7 ##Multiplied with movement speed while airborne
 @export_range(0.1,3.0) var landing_boost :float = 0.75 ##Factor that will be added on top of the character's speed upon landing a jump
-@export_range(0.1,4.0) var landing_boost_duration :float = 0.5 ##Duration in seconds of the character's speed boost upon landing
+@export_range(0.1,4.0) var landing_boost_duration :float = 0.1 ##Duration in seconds of the character's speed boost upon landing
 @export_range(45,180.0,5.0) var pounce_aim_speed :float = 130.0 ##Aiming speed in Degrees per Second
 @export_range(5.0,40.0,0.5) var min_pounce_angle :float = 15.0
 @export_range(5.0,90.0,0.5) var def_pounce_angle :float = 45.0
@@ -62,6 +62,7 @@ var pounce_rotation :float=0.0
 var rotation_target :float=0.0
 var has_jumped :bool=false
 var skeleton_modification_stack : SkeletonModificationStack2D
+var default_friction:float = 0.4
 
 func _ready() -> void:
 	GlobalVars.player = self
@@ -74,6 +75,7 @@ func _ready() -> void:
 	if !animation_player:
 		push_error("No animation player assigned in player script ", self)
 	
+	default_friction = physics_material_override.friction
 	skeleton_modification_stack = skeleton.get_modification_stack()
 	#calculate gravity-neutralizing constant force 
 	neutral_force = Vector2(0.0,gravity*default_gravity_scale*-3.1)
@@ -154,12 +156,22 @@ func _physics_process(delta: float) -> void:
 	
 	# play walking and idle animation when on ground and not charging pounce
 	if on_floor and (jump_charge <= min_jump_charge):
+		if (coyote_timer > coyote_time):
+			GlobalSFX.play_cat_sfx(GlobalSFX.cat_fall)
+			coyote_timer = coyote_time*0.1
 		if is_zero_approx(force.x):
 			if animation_player.current_animation != &"idle":
 				animation_player.play(&"idle",0.15,0.2)
 		else:
 			if animation_player.current_animation != &"walking":
 				animation_player.play(&"walking", 0.2,1.55)
+	if (!on_floor):
+		var play_falling:bool = animation_player.current_animation != &"falling"
+		if(linear_velocity.y < 10.0):
+			play_falling = play_falling and (animation_player.current_animation != &"pounce_leaping")
+			play_falling = play_falling and (animation_player.current_animation != &"jumping")
+		if play_falling:
+			animation_player.play(&"falling", 0.2,1.55)
 	
 	#sets rotation target for gravity changes and rotation stabilizer
 	rotation_target = clampf(calculate_avg_ground_normal(force.x*-10),-slope_angle_max,slope_angle_max)
@@ -182,7 +194,9 @@ func _physics_process(delta: float) -> void:
 		coyote_timer *= 0.001
 		
 		constant_force = 0.4*(-neutral_force).rotated(rotation_target) + neutral_force 
-		current_movement_boost = max(current_movement_boost-landing_boost*landing_boost_duration*delta, 0.0)
+		current_movement_boost = maxf(current_movement_boost-landing_boost*landing_boost_duration*delta*4.0, 0.0)
+		physics_material_override.friction += landing_boost_duration*delta*default_friction
+		physics_material_override.friction = minf(physics_material_override.friction, default_friction)
 	
 	#Rotates towards the rotation target
 	if rotation > (rotation_target+0.1):
@@ -206,6 +220,7 @@ func _physics_process(delta: float) -> void:
 	if on_floor and Input.is_action_just_released("pounce"):
 		skeleton_modification_stack.strength = 0.0
 		animation_player.play(&"pounce_leaping",0.0, 1.5)
+		GlobalSFX.play_cat_sfx(GlobalSFX.cat_jump,0.5,0.7,7.0)
 		coyote_timer += 100000.0
 		visual_component.scale.y = 1.0
 		#using the visual's scale.x to determine character direction
@@ -213,6 +228,7 @@ func _physics_process(delta: float) -> void:
 			jump_charge = 1.0
 		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(deg_to_rad(pounce_rotation)))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
 		current_movement_boost = landing_boost*jump_charge
+		physics_material_override.friction = 0.1
 		jump_charge = min_jump_charge
 		update_visual_to_pounce_rotation()
 		pounce_rotation = deg_to_rad(pounce_rotation)
@@ -220,7 +236,7 @@ func _physics_process(delta: float) -> void:
 	
 	#visual_component.rotation *= 0.85
 	#if on_floor: visual_component.rotation *= 0.85
-	visual_component.rotation = lerp_angle(0.0, pounce_rotation, clampf((2.0*linear_velocity.y)/-jump_impulse_strength,0.0,1.0))
+	visual_component.rotation = lerp_angle(0.0, pounce_rotation, clampf((2.5*linear_velocity.y)/-jump_impulse_strength,0.0,1.0))
 	
 	
 	handle_jump_input()
@@ -240,7 +256,8 @@ func _physics_process(delta: float) -> void:
 ##Performs jump if coyote timer is low enough and a jump input has been buffered, as long as player isn't currently charging a pounce
 func handle_jump_input():
 	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
-		animation_player.play(&"jumping",0.05)
+		animation_player.play(&"jumping",0.0,1.0)
+		GlobalSFX.play_cat_sfx(GlobalSFX.cat_jump)
 		on_floor = false
 		coyote_timer += 100000.0
 		if !on_floor:
@@ -268,6 +285,7 @@ func take_damage(amount: int) -> void:
 		printerr("You can't take negative damage")
 	health -= amount
 	harmed.emit()
+	GlobalSFX.play_cat_sfx(GlobalSFX.cat_meow)
 	if health <= 0:
 		health = 0
 		die()
@@ -351,3 +369,7 @@ func update_visual_to_pounce_rotation():
 
 func set_previous_velocity():
 	previous_velocity=linear_velocity
+
+
+func play_walk_sfx():
+	GlobalSFX.play_cat_sfx(GlobalSFX.cat_walk,0.7,1.1,10.0)
