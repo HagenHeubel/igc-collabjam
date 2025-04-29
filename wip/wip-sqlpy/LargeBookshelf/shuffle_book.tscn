@@ -16,7 +16,7 @@ gradient = SubResource("Gradient_l4cdb")
 [sub_resource type="Gradient" id="Gradient_ey5df"]
 interpolation_mode = 2
 interpolation_color_space = 2
-colors = PackedColorArray(0.404511, 0.404511, 0.404511, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.218625, 0.180535, 0.168962, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_7y41m"]
 gradient = SubResource("Gradient_ey5df")
@@ -39,6 +39,7 @@ size = Vector2(110, 257)
 resource_local_to_scene = true
 shader = ExtResource("4_ey5df")
 shader_parameter/desaturation = 0.3
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1olfy"]
 shader = ExtResource("5_4m88e")
@@ -71,7 +72,7 @@ curve = SubResource("Curve_wpfjl")
 lifetime_randomness = 0.56
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(1, 128.5, 1)
+emission_box_extents = Vector3(1, 112.5, 1)
 angle_min = 1.07288e-05
 angle_max = 360.0
 gravity = Vector3(0, 0, 0)

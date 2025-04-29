@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bafqfmwo5rtxw"]
+
+[ext_resource type="Texture2D" uid="uid://jgjx3n0hko8s" path="res://wip/wip-hagen/assets/IMG_item_001.png" id="1_d2fje"]
+[ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="2_84vcl"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_84vcl"]
+cull_mode = 1
+polygon = PackedVector2Array(-32, 0, -37, 18, -31, 30, 0, 37, 31, 30, 37, 15, 33, 3, 28, 0, 25, -7, 25, 26, -29, 26, -23, -8)
+
+[node name="Cauldron" type="Node2D"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_84vcl")
+
+[node name="ImgItem001" type="Sprite2D" parent="."]
+scale = Vector2(0.241883, 0.241883)
+texture = ExtResource("1_d2fje")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 25)
+color = Color(0.155991, 0.493748, 0.289389, 1)
+shadow_enabled = true
+texture = ExtResource("2_84vcl")
+texture_scale = 2.8

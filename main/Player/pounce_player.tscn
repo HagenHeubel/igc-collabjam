@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://od700kj08fhl" path="res://main/Player/rigid_player_pounce.gd" id="1_m77i1"]
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://main/Player/Components/interaction_detector.gd" id="2_n8e0i"]
-[ext_resource type="Texture2D" uid="uid://dmwa82rjvvolp" path="res://assets/assets-visual/controverse/cat_pieces.png" id="3_bulb1"]
+[ext_resource type="Texture2D" uid="uid://dwk2ppphua61i" path="res://assets/assets-visual/controverse/cat_pieces.png" id="3_bulb1"]
 [ext_resource type="Texture2D" uid="uid://d1rl7w4qihymx" path="res://wip/wip-hagen/assets/cat_notail.png" id="3_p1gsp"]
 [ext_resource type="PackedScene" uid="uid://2qbsly55rbnb" path="res://main/Player/Components/Tail/cat_tail.tscn" id="4_75erd"]
 [ext_resource type="AnimationLibrary" uid="uid://c10mgmpxvgyny" path="res://wip/wip-hagen/animations/cat_animation_library.res" id="4_bulb1"]
