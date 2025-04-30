@@ -3689,14 +3689,12 @@ border_width = 2.0
 [node name="FlyingBook" parent="." instance=ExtResource("10_33ovb")]
 position = Vector2(1664, 592)
 curve = SubResource("Curve2D_7tm46")
-update = null
 speed = 26.99
 time = 14.2275
 
 [node name="FlyingBook2" parent="." instance=ExtResource("10_33ovb")]
 position = Vector2(1264, 368)
 curve = SubResource("Curve2D_33ovb")
-update = null
 start_percent = 1.0
 spawn_moving_backwards = true
 

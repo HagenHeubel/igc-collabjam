@@ -1403,7 +1403,7 @@ points = PackedVector2Array(0, 64, 0, -2432)
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/RightWall2"]
 z_index = 1
-points = PackedVector2Array(-768, -192, -768, 2288)
+points = PackedVector2Array(-2048, -192, -768, -192, -768, 2288)
 width = 32.0
 texture = ExtResource("15_smh8u")
 texture_mode = 2
@@ -1413,7 +1413,6 @@ script = ExtResource("15_xixwg")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="Lgihts" type="Node2D" parent="RoomContent"]
-visible = false
 
 [node name="Wisp" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
 position = Vector2(64, 2112)
@@ -1478,7 +1477,6 @@ curve = SubResource("Curve2D_7uxmw")
 book_scale = 0.614
 book_texture = ExtResource("20_2r2g8")
 book_gold = ExtResource("20_2r2g8")
-update = false
 speed = 120.0
 time = 18.9333
 
@@ -1488,7 +1486,9 @@ curve = SubResource("Curve2D_2r2g8")
 book_scale = 0.614
 book_texture = ExtResource("20_2r2g8")
 book_gold = ExtResource("20_2r2g8")
-update = false
 speed = 120.0
 time = 18.9333
 start_percent = 1.0
+
+[node name="TilingFloor" parent="." instance=ExtResource("3_l1on8")]
+points = PackedVector2Array(0, 0, 1280, 0)
