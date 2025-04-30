@@ -193,7 +193,7 @@ position = Vector2(4768, -2208)
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
 visibility_layer = 0
-color = Color(0.306116, 0.300138, 0.351793, 1)
+color = Color(0.628561, 0.561924, 0.790445, 1)
 
 [node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(546, 352)
@@ -269,7 +269,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(896, 64)
+position = Vector2(827, 75)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]

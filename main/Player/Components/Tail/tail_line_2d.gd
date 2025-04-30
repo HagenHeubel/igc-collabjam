@@ -8,7 +8,7 @@ extends Line2D
 @onready var tail_tip: Node2D = %TailTip
 @onready var tail: Node2D = $".."
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	rotation = -tail.rotation
 	var p0 : Vector2 = static_body_2d.global_position - tail.global_position
 	var p1 : Vector2 = tail_segment.global_position - tail.global_position

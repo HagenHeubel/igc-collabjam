@@ -6,10 +6,10 @@ extends AnimatableBody2D
 @export var has_collision : bool = false
 @export var slide_gradient : GradientTexture1D
 @export_group("Hitbox Reduction", "hitbox")
-@export_range(0, 20, 1.0) var hitbox_top : float = 0
-@export_range(0, 20, 1.0) var hitbox_bottom : float = 0
-@export_range(0, 20, 1.0) var hitbox_right : float = 0
-@export_range(0, 20, 1.0) var hitbox_left : float = 0
+@export_range(0, 40, 1.0) var hitbox_top : float = 0
+@export_range(0, 40, 1.0) var hitbox_bottom : float = 0
+@export_range(0, 40, 1.0) var hitbox_right : float = 0
+@export_range(0, 40, 1.0) var hitbox_left : float = 0
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D

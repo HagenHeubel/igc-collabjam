@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bafqfmwo5rtxw"]
+
+[ext_resource type="Texture2D" uid="uid://jgjx3n0hko8s" path="res://wip/wip-hagen/assets/IMG_item_001.png" id="1_d2fje"]
+[ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="2_84vcl"]
+[ext_resource type="Script" uid="uid://dy87svvmmaw8c" path="res://wip/wip-sqlpy/scenes/point_light_2d.gd" id="3_sbesk"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_84vcl"]
+cull_mode = 1
+polygon = PackedVector2Array(-33, 5, -37, 18, -31, 30, -20, 35, 0, 37, 20, 35, 31, 30, 35, 24, 37, 15, 33, 3, 28, 0, 29, -2, 29, -5, 27, -7, 26, -3, 27, 2, 31, 9, 32, 19, 28, 26, 19, 31, 0, 32, -18, 30, -29, 26, -31, 12, -26, -5, -26, -8, -30, -8, -30, 1)
+
+[node name="Cauldron" type="Node2D"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_84vcl")
+
+[node name="ImgItem001" type="Sprite2D" parent="."]
+scale = Vector2(0.241883, 0.241883)
+texture = ExtResource("1_d2fje")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 25)
+color = Color(0, 1, 0.4, 1)
+range_layer_max = 2
+shadow_enabled = true
+texture = ExtResource("2_84vcl")
+texture_scale = 4.0
+script = ExtResource("3_sbesk")

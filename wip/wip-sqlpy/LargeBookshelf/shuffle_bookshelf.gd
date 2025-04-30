@@ -1,11 +1,12 @@
 class_name ShuffleBookshelf
 extends Node2D
 
+@export var book_move_speed : float = 40.0
 @export var check_for_player_collision : bool = false
 @export_group("Shuffle Parameters", "shuffle")
 @export_range(0.0, 20.0, 0.1) var shuffle_wait_min : float = 0.0
 @export_range(0.0, 20.0, 0.1) var shuffle_wait_max : float = 0.0
-@export_enum("Random", "<-", "->") var shuffle_type : String = "Random"
+@export_enum("Random", "<-", "<- START", "<- END", "<- START END", "->", "-> ALL") var shuffle_type : String = "Random"
 var books_in_shelf : Array[ShuffleBook] = []
 var slot_positions : Array[float] = []
 var is_book_moving : bool = false
@@ -49,11 +50,24 @@ func get_shuffle_target() -> Vector2i:
 			# Random slot before chosen book
 			res.x = randi_range(1, books_in_shelf.size() - 1)
 			res.y = randi_range(0, res.x - 1)
+		"<- END":
+			res.x = randi_range(1, books_in_shelf.size() - 1)
+			res.y = 0
+		"<- START":
+			res.x = books_in_shelf.size() - 1
+			res.y = randi_range(0, books_in_shelf.size() - 2)
+		"<- START END":
+			res.x = books_in_shelf.size() - 1
+			res.y = 0
 		"->":
 			# Random book that's not last slot
 			# Random slot after chosen book
 			res.x = randi_range(0, books_in_shelf.size() - 2)
 			res.y = randi_range(res.x + 1, books_in_shelf.size() - 1)
+		"-> ALL":
+			# Random book that's not last slot
+			res.x = randi_range(0, books_in_shelf.size() - 2)
+			res.y = books_in_shelf.size() - 1
 		"_":
 			# Random book and random slot
 			res.x = randi_range(0, books_in_shelf.size() - 1)
@@ -75,7 +89,7 @@ func move_book_to_slot(book_nr : int, slot : int) -> void:
 		else:
 			book.slide_delay = (slot_positions.size() - abs(slot - i) + randf()) * 0.2
 		book.target_position = slot_positions[i]
-		book.slide_to_target_position(40.0)
+		book.slide_to_target_position(book_move_speed)
 	await move_book.arrived_at_target
 	move_book.reslot()
 	await move_book.reslotted

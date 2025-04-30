@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://dms40h77dtcrd"]
+[gd_scene load_steps=38 format=3 uid="uid://dms40h77dtcrd"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_jd4nu"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_kcw1m"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_l1on8"]
+[ext_resource type="Texture2D" uid="uid://c8uts1l3y73aq" path="res://assets/assets-visual/other/wood.jpg" id="3_r33ao"]
 [ext_resource type="Script" uid="uid://bv8nhoc7vtib3" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_bookshelf.gd" id="4_sbr66"]
 [ext_resource type="PackedScene" uid="uid://bfaq0p0fvuqe2" path="res://wip/wip-sqlpy/scenes/one_way_shelf.tscn" id="4_tn64n"]
 [ext_resource type="PackedScene" uid="uid://cyf37je1wgklf" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book.tscn" id="5_3wwwt"]
@@ -13,14 +14,12 @@
 [ext_resource type="PackedScene" uid="uid://c7iapunvbyeuu" path="res://wip/wip-sqlpy/scenes/wisp.tscn" id="11_qhxrj"]
 [ext_resource type="PackedScene" uid="uid://c0sis54fqek53" path="res://wip/wip-sqlpy/scenes/solid_book_case.tscn" id="11_w8gbr"]
 [ext_resource type="PackedScene" uid="uid://bjv6qqgag7f2w" path="res://wip/wip-sqlpy/scenes/large_bookshelf.tscn" id="12_se25q"]
+[ext_resource type="Texture2D" uid="uid://ba8uxscrrdltv" path="res://assets/assets-visual/mado/books/bigspine5.png" id="13_ysrho"]
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="14_r1gdb"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="15_smh8u"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="15_xixwg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_smh8u"]
-resource_local_to_scene = true
-shader = ExtResource("5_qhxrj")
-shader_parameter/desaturation = 0.5
-shader_parameter/modulate_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Shader" id="Shader_qhxrj"]
+[sub_resource type="Shader" id="Shader_ysrho"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -665,26 +664,13 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_se25q"]
 resource_local_to_scene = true
-shader = SubResource("Shader_qhxrj")
+shader = SubResource("Shader_ysrho")
 shader_parameter/desaturation = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhxrj"]
-resource_local_to_scene = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fsg88"]
 shader = ExtResource("5_qhxrj")
 shader_parameter/desaturation = 1.0
-shader_parameter/modulate_color = Color(0.27451, 0.203922, 0.188235, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysrho"]
-resource_local_to_scene = true
-shader = ExtResource("5_qhxrj")
-shader_parameter/desaturation = 1.0
-shader_parameter/modulate_color = Color(0.27451, 0.203922, 0.188235, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r33ao"]
-resource_local_to_scene = true
-shader = ExtResource("5_qhxrj")
-shader_parameter/desaturation = 1.0
-shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+shader_parameter/modulate_color = Color(0.2, 0.152941, 0.145098, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xtt4s"]
 size = Vector2(576, 32)
@@ -699,6 +685,42 @@ shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
 size = Vector2(512, 32)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xixwg"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smh8u"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r47vs"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhxrj"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.466667, 0.352941, 0.32549, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ysrho"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.403922, 0.313726, 0.301961, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r33ao"]
+resource_local_to_scene = true
+shader = ExtResource("5_qhxrj")
+shader_parameter/desaturation = 1.0
+shader_parameter/modulate_color = Color(0.733657, 0.431356, 0.301838, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2r2g8"]
 resource_local_to_scene = true
 shader = ExtResource("5_qhxrj")
 shader_parameter/desaturation = 1.0
@@ -733,50 +755,64 @@ offset_right = 1280.0
 offset_bottom = 2592.0
 metadata/_edit_lock_ = true
 
-[node name="SolidBookCase" parent="RoomContent" instance=ExtResource("11_w8gbr")]
-modulate = Color(0.603782, 0.57381, 0.686072, 1)
-material = SubResource("ShaderMaterial_smh8u")
-offset_left = 672.0
-offset_top = 432.0
-offset_right = 816.0
-offset_bottom = 2592.0
-in_background_layer = true
-
 [node name="SolidBookCase2" parent="RoomContent" instance=ExtResource("11_w8gbr")]
 material = SubResource("ShaderMaterial_se25q")
 offset_left = 816.0
-offset_top = 432.0
+offset_top = 384.0
 offset_right = 960.0
 offset_bottom = 2592.0
 
+[node name="OneWayShelf" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 496)
+width = 96.0
+
+[node name="OneWayShelf2" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 448)
+width = 96.0
+
+[node name="OneWayShelf3" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 400)
+width = 96.0
+
+[node name="OneWayShelf4" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 352)
+width = 96.0
+
+[node name="OneWayShelf5" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 304)
+width = 96.0
+
+[node name="OneWayShelf6" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 256)
+width = 96.0
+
+[node name="OneWayShelf7" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 208)
+width = 96.0
+
 [node name="GiantBookshelf1" type="Node2D" parent="RoomContent"]
-
-[node name="LargeBookshelf" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
-material = SubResource("ShaderMaterial_qhxrj")
-position = Vector2(112, 2576)
-points = PackedVector2Array(0, 16, 0, -2144)
-
-[node name="LargeBookshelf2" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
-material = SubResource("ShaderMaterial_ysrho")
-position = Vector2(656, 2576)
-points = PackedVector2Array(0, 16, 0, -2144)
 
 [node name="Floor1" type="Node2D" parent="RoomContent/GiantBookshelf1"]
 
+[node name="FloorBG" type="TextureRect" parent="RoomContent/GiantBookshelf1/Floor1"]
+material = SubResource("ShaderMaterial_fsg88")
+offset_left = 128.0
+offset_top = 2240.0
+offset_right = 640.0
+offset_bottom = 2560.0
+texture = ExtResource("3_r33ao")
+expand_mode = 3
+stretch_mode = 1
+
 [node name="BookshelfFloor" type="StaticBody2D" parent="RoomContent/GiantBookshelf1/Floor1"]
 position = Vector2(330, 2578)
-
-[node name="LargeBookshelf2" parent="RoomContent/GiantBookshelf1/Floor1/BookshelfFloor" instance=ExtResource("12_se25q")]
-material = SubResource("ShaderMaterial_r33ao")
-position = Vector2(-202, -2)
-points = PackedVector2Array(-32, 0, 544, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/GiantBookshelf1/Floor1/BookshelfFloor"]
 position = Vector2(54, -2)
 shape = SubResource("RectangleShape2D_xtt4s")
 
 [node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor1"]
-position = Vector2(128, 2560)
+position = Vector2(128, 2563)
 script = ExtResource("4_sbr66")
 check_for_player_collision = true
 shuffle_wait_min = 1.1
@@ -808,6 +844,53 @@ texture = ExtResource("8_tn64n")
 
 [node name="Floor2" type="Node2D" parent="RoomContent/GiantBookshelf1"]
 
+[node name="FloorBG2" type="TextureRect" parent="RoomContent/GiantBookshelf1/Floor2"]
+material = SubResource("ShaderMaterial_fsg88")
+offset_left = 128.0
+offset_top = 1888.0
+offset_right = 640.0
+offset_bottom = 2208.0
+texture = ExtResource("3_r33ao")
+expand_mode = 3
+stretch_mode = 1
+
+[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor2"]
+position = Vector2(128, 2212)
+script = ExtResource("4_sbr66")
+book_move_speed = 60.0
+shuffle_wait_min = 4.0
+shuffle_wait_max = 4.0
+shuffle_type = "<- START END"
+metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
+
+[node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook6" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook7" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook8" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook9" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook10" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(330, -6)
+texture = ExtResource("8_tn64n")
+
+[node name="ShuffleBook11" parent="RoomContent/GiantBookshelf1/Floor2" instance=ExtResource("5_3wwwt")]
+position = Vector2(560, 2212)
+texture = ExtResource("8_tn64n")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="RoomContent/GiantBookshelf1/Floor2"]
 position = Vector2(0, -352)
 
@@ -820,37 +903,38 @@ points = PackedVector2Array(0, 0, 512, 0)
 position = Vector2(384, 2576)
 shape = SubResource("RectangleShape2D_se25q")
 
-[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor2"]
-position = Vector2(128, 2209)
+[node name="Floor3" type="Node2D" parent="RoomContent/GiantBookshelf1"]
+position = Vector2(0, -352)
+
+[node name="FloorBG2" type="TextureRect" parent="RoomContent/GiantBookshelf1/Floor3"]
+material = SubResource("ShaderMaterial_fsg88")
+offset_left = 128.0
+offset_top = 1888.0
+offset_right = 640.0
+offset_bottom = 2208.0
+texture = ExtResource("3_r33ao")
+expand_mode = 3
+stretch_mode = 1
+
+[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor3"]
+position = Vector2(128, 2212)
 script = ExtResource("4_sbr66")
 shuffle_wait_min = 1.1
 shuffle_wait_max = 4.2
-shuffle_type = "<-"
+shuffle_type = "<- END"
 metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
 
-[node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(1, -3)
 
-[node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
-position = Vector2(112, -3)
-texture = ExtResource("6_w255u")
-hitbox_top = 18.0
+[node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(240, -4)
 
-[node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
-position = Vector2(220, -2)
-texture = ExtResource("7_6kch7")
-hitbox_top = 12.0
+[node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(352, -4)
 
-[node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
-position = Vector2(330, -6)
-texture = ExtResource("8_tn64n")
-
-[node name="ShuffleBook5" parent="RoomContent/GiantBookshelf1/Floor2/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
-position = Vector2(432, 0)
-texture = ExtResource("8_tn64n")
-
-[node name="Floor3" type="Node2D" parent="RoomContent/GiantBookshelf1"]
-position = Vector2(0, -336)
+[node name="ShuffleBook5" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(128, -4)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="RoomContent/GiantBookshelf1/Floor3"]
 position = Vector2(0, -352)
@@ -864,70 +948,240 @@ points = PackedVector2Array(0, 0, 512, 0)
 position = Vector2(384, 2576)
 shape = SubResource("RectangleShape2D_se25q")
 
-[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor3"]
+[node name="Floor4" type="Node2D" parent="RoomContent/GiantBookshelf1"]
+position = Vector2(0, -704)
+
+[node name="FloorBG2" type="TextureRect" parent="RoomContent/GiantBookshelf1/Floor4"]
+material = SubResource("ShaderMaterial_fsg88")
+offset_left = 128.0
+offset_top = 1888.0
+offset_right = 640.0
+offset_bottom = 2208.0
+texture = ExtResource("3_r33ao")
+expand_mode = 3
+stretch_mode = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomContent/GiantBookshelf1/Floor4"]
+position = Vector2(0, -352)
+
+[node name="LargeBookshelf" parent="RoomContent/GiantBookshelf1/Floor4/StaticBody2D" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_smh8u")
+position = Vector2(128, 2577)
+points = PackedVector2Array(0, 0, 512, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/GiantBookshelf1/Floor4/StaticBody2D"]
+position = Vector2(384, 2576)
+shape = SubResource("RectangleShape2D_se25q")
+
+[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor4"]
 position = Vector2(128, 2209)
 script = ExtResource("4_sbr66")
 shuffle_wait_min = 1.1
 shuffle_wait_max = 4.2
-shuffle_type = "<-"
+shuffle_type = "<- END"
 metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
 
-[node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor4/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(1, -3)
 
-[node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor4/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(112, -3)
 texture = ExtResource("6_w255u")
 hitbox_top = 18.0
 
-[node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor4/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(220, -2)
 texture = ExtResource("7_6kch7")
 hitbox_top = 12.0
 
-[node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook4" parent="RoomContent/GiantBookshelf1/Floor4/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(330, -6)
 texture = ExtResource("8_tn64n")
 
-[node name="ShuffleBook5" parent="RoomContent/GiantBookshelf1/Floor3/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+[node name="ShuffleBook5" parent="RoomContent/GiantBookshelf1/Floor4/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
 position = Vector2(432, 0)
 texture = ExtResource("8_tn64n")
 
-[node name="Wisp" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(64, 2112)
+[node name="Floor5" type="Node2D" parent="RoomContent/GiantBookshelf1"]
+position = Vector2(0, -1056)
 
-[node name="RigidBody2D" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(736, 2304)
+[node name="FloorBG2" type="TextureRect" parent="RoomContent/GiantBookshelf1/Floor5"]
+material = SubResource("ShaderMaterial_fsg88")
+offset_left = 128.0
+offset_top = 1520.0
+offset_right = 640.0
+offset_bottom = 2208.0
+texture = ExtResource("3_r33ao")
+expand_mode = 5
+stretch_mode = 1
 
-[node name="RigidBody2D2" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(560, 1888)
+[node name="OneWayShelf" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2016)
+width = 96.0
 
-[node name="RigidBody2D3" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(240, 1616)
+[node name="OneWayShelf2" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2064)
+width = 96.0
 
-[node name="RigidBody2D4" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(368, 2448)
+[node name="OneWayShelf3" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2112)
+width = 96.0
 
-[node name="RigidBody2D5" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(592, 1408)
+[node name="OneWayShelf4" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2160)
+width = 96.0
 
-[node name="RigidBody2D6" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(176, 1280)
+[node name="OneWayShelf7" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2304)
+width = 96.0
 
-[node name="RigidBody2D7" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(512, 1024)
+[node name="OneWayShelf8" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(48, 2352)
+width = 96.0
 
-[node name="RigidBody2D8" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(800, 1168)
+[node name="OneWayShelf9" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2496)
+width = 96.0
 
-[node name="RigidBody2D9" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(352, 1120)
+[node name="OneWayShelf10" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2448)
+width = 96.0
 
-[node name="RigidBody2D10" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(176, 800)
+[node name="OneWayShelf11" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2400)
+width = 96.0
 
-[node name="RigidBody2D11" parent="RoomContent/GiantBookshelf1" instance=ExtResource("11_qhxrj")]
-position = Vector2(512, 640)
+[node name="OneWayShelf12" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2352)
+width = 96.0
+
+[node name="OneWayShelf13" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2304)
+width = 96.0
+
+[node name="OneWayShelf14" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2256)
+width = 96.0
+
+[node name="OneWayShelf15" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2208)
+width = 96.0
+
+[node name="OneWayShelf16" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2160)
+width = 96.0
+
+[node name="OneWayShelf17" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2112)
+width = 96.0
+
+[node name="OneWayShelf18" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2064)
+width = 96.0
+
+[node name="OneWayShelf19" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 2016)
+width = 96.0
+
+[node name="OneWayShelf20" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1968)
+width = 96.0
+
+[node name="OneWayShelf21" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1920)
+width = 96.0
+
+[node name="OneWayShelf22" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1872)
+width = 96.0
+
+[node name="OneWayShelf23" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1824)
+width = 96.0
+
+[node name="OneWayShelf24" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1776)
+width = 96.0
+
+[node name="OneWayShelf25" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1728)
+width = 96.0
+
+[node name="OneWayShelf26" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1680)
+width = 96.0
+
+[node name="OneWayShelf27" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1632)
+width = 96.0
+
+[node name="OneWayShelf28" parent="RoomContent/GiantBookshelf1/Floor5" instance=ExtResource("4_tn64n")]
+position = Vector2(720, 1584)
+width = 96.0
+
+[node name="ShuffleBookshelf" type="Node2D" parent="RoomContent/GiantBookshelf1/Floor5"]
+position = Vector2(137, 2209)
+script = ExtResource("4_sbr66")
+shuffle_wait_min = 0.5
+shuffle_wait_max = 0.5
+shuffle_type = "<- START END"
+metadata/_custom_type_script = "uid://bv8nhoc7vtib3"
+
+[node name="ShuffleBook" parent="RoomContent/GiantBookshelf1/Floor5/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(1, -3)
+texture = ExtResource("13_ysrho")
+hitbox_top = 25.0
+hitbox_bottom = 20.0
+hitbox_right = 13.0
+hitbox_left = 21.0
+
+[node name="ShuffleBook2" parent="RoomContent/GiantBookshelf1/Floor5/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(352, -1)
+texture = ExtResource("13_ysrho")
+hitbox_top = 25.0
+hitbox_bottom = 20.0
+hitbox_right = 13.0
+hitbox_left = 21.0
+
+[node name="ShuffleBook3" parent="RoomContent/GiantBookshelf1/Floor5/ShuffleBookshelf" instance=ExtResource("5_3wwwt")]
+position = Vector2(176, -1)
+texture = ExtResource("13_ysrho")
+hitbox_top = 25.0
+hitbox_bottom = 20.0
+hitbox_right = 13.0
+hitbox_left = 21.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomContent/GiantBookshelf1/Floor5"]
+position = Vector2(0, -352)
+
+[node name="LargeBookshelf" parent="RoomContent/GiantBookshelf1/Floor5/StaticBody2D" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_r47vs")
+position = Vector2(128, 2577)
+points = PackedVector2Array(0, 0, 512, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/GiantBookshelf1/Floor5/StaticBody2D"]
+position = Vector2(384, 2576)
+shape = SubResource("RectangleShape2D_se25q")
+
+[node name="LargeBookshelf" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_qhxrj")
+position = Vector2(112, 2576)
+points = PackedVector2Array(0, 16, 0, -2144)
+
+[node name="LargeBookshelf2" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_ysrho")
+position = Vector2(656, 2576)
+points = PackedVector2Array(0, 16, 0, -2144)
+
+[node name="BookShelfBottom" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_r33ao")
+position = Vector2(128, 2576)
+points = PackedVector2Array(-32, 0, 544, 0)
+
+[node name="BookShelfBottom2" parent="RoomContent/GiantBookshelf1" instance=ExtResource("12_se25q")]
+material = SubResource("ShaderMaterial_2r2g8")
+position = Vector2(128, 448)
+points = PackedVector2Array(-32, 0, 544, 0)
 
 [node name="PlatformGroup" type="Node2D" parent="RoomContent"]
 position = Vector2(48, 2208)
@@ -960,7 +1214,7 @@ width = 96.0
 width = 96.0
 
 [node name="PlatformGroup2" type="Node2D" parent="RoomContent"]
-position = Vector2(736, 1840)
+position = Vector2(720, 1808)
 
 [node name="OneWayShelf2" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
 position = Vector2(0, 288)
@@ -970,27 +1224,8 @@ width = 96.0
 position = Vector2(0, 240)
 width = 96.0
 
-[node name="OneWayShelf5" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 192)
-width = 96.0
-
-[node name="OneWayShelf6" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 144)
-width = 96.0
-
-[node name="OneWayShelf7" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 96)
-width = 96.0
-
-[node name="OneWayShelf8" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 48)
-width = 96.0
-
-[node name="OneWayShelf9" parent="RoomContent/PlatformGroup2" instance=ExtResource("4_tn64n")]
-width = 96.0
-
 [node name="PlatformGroup3" type="Node2D" parent="RoomContent"]
-position = Vector2(736, 1504)
+position = Vector2(720, 1472)
 
 [node name="OneWayShelf2" parent="RoomContent/PlatformGroup3" instance=ExtResource("4_tn64n")]
 position = Vector2(0, 288)
@@ -1004,19 +1239,19 @@ width = 96.0
 position = Vector2(0, 192)
 width = 96.0
 
-[node name="OneWayShelf6" parent="RoomContent/PlatformGroup3" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 144)
+[node name="PlatformGroup5" type="Node2D" parent="RoomContent"]
+position = Vector2(48, 1664)
+
+[node name="OneWayShelf2" parent="RoomContent/PlatformGroup5" instance=ExtResource("4_tn64n")]
+position = Vector2(0, 288)
 width = 96.0
 
-[node name="OneWayShelf7" parent="RoomContent/PlatformGroup3" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 96)
+[node name="OneWayShelf3" parent="RoomContent/PlatformGroup5" instance=ExtResource("4_tn64n")]
+position = Vector2(0, 240)
 width = 96.0
 
-[node name="OneWayShelf8" parent="RoomContent/PlatformGroup3" instance=ExtResource("4_tn64n")]
-position = Vector2(0, 48)
-width = 96.0
-
-[node name="OneWayShelf9" parent="RoomContent/PlatformGroup3" instance=ExtResource("4_tn64n")]
+[node name="OneWayShelf5" parent="RoomContent/PlatformGroup5" instance=ExtResource("4_tn64n")]
+position = Vector2(0, 192)
 width = 96.0
 
 [node name="Walls" type="Node2D" parent="RoomContent"]
@@ -1046,6 +1281,21 @@ position = Vector2(0, 324)
 position = Vector2(0, 156)
 shape = SubResource("RectangleShape2D_v0jcj")
 
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall" instance=ExtResource("14_r1gdb")]
+position = Vector2(-16, 524)
+points = PackedVector2Array(16, 16, 16, -752)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/LeftWall"]
+z_index = 1
+points = PackedVector2Array(0, 524, 0, -212)
+width = 32.0
+texture = ExtResource("15_smh8u")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("15_xixwg")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
 [node name="LeftWall2" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 1088)
 
@@ -1053,12 +1303,44 @@ position = Vector2(0, 1088)
 position = Vector2(0, 192)
 shape = SubResource("RectangleShape2D_acjon")
 
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall2" instance=ExtResource("14_r1gdb")]
+position = Vector2(0, 496)
+points = PackedVector2Array(0, 16, 0, -624)
+
+[node name="TowerRoomSeparator2" type="Line2D" parent="RoomContent/Walls/LeftWall2"]
+z_index = 1
+position = Vector2(0, -1088)
+points = PackedVector2Array(0, 1584, 0, 976)
+width = 32.0
+texture = ExtResource("15_smh8u")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("15_xixwg")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
 [node name="LeftWall3" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(0, 1888)
+
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall3" instance=ExtResource("14_r1gdb")]
+position = Vector2(0, 608)
+points = PackedVector2Array(0, 0, 0, -800)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall3"]
 position = Vector2(0, 208)
 shape = SubResource("RectangleShape2D_d8pmh")
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/LeftWall3"]
+z_index = 1
+position = Vector2(0, -800)
+points = PackedVector2Array(0, 1392, 0, 624)
+width = 32.0
+texture = ExtResource("15_smh8u")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("15_xixwg")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="RightWall2" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(2048, 192)
@@ -1066,6 +1348,59 @@ position = Vector2(2048, 192)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall2"]
 position = Vector2(-768, 1056)
 shape = SubResource("RectangleShape2D_vl8m1")
+
+[node name="TilingWall2" parent="RoomContent/Walls/RightWall2" instance=ExtResource("14_r1gdb")]
+position = Vector2(-768, 2240)
+points = PackedVector2Array(0, 64, 0, -2432)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/RightWall2"]
+z_index = 1
+points = PackedVector2Array(-768, -192, -768, 2288)
+width = 32.0
+texture = ExtResource("15_smh8u")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("15_xixwg")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="Lgihts" type="Node2D" parent="RoomContent"]
+
+[node name="Wisp" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(64, 2112)
+
+[node name="RigidBody2D" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(736, 2304)
+
+[node name="RigidBody2D2" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(560, 1888)
+
+[node name="RigidBody2D3" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(240, 1616)
+
+[node name="RigidBody2D4" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(368, 2448)
+
+[node name="RigidBody2D5" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(592, 1408)
+
+[node name="RigidBody2D6" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(384, 1264)
+
+[node name="RigidBody2D7" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(512, 1024)
+
+[node name="RigidBody2D8" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(800, 1168)
+
+[node name="RigidBody2D9" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(352, 1120)
+
+[node name="RigidBody2D10" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(176, 800)
+
+[node name="RigidBody2D11" parent="RoomContent/Lgihts" instance=ExtResource("11_qhxrj")]
+position = Vector2(512, 640)
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)
