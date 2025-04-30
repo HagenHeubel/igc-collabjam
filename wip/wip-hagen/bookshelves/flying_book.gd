@@ -8,7 +8,9 @@ class_name FlyingBook
 @export var height :float=0.0
 @export var width :float=0.0
 
-@onready var ray_cast: RayCast2D = $RayCast2D
+@onready var ray_cast: RayCast2D = %RayCast2D
+@onready var sprite: Sprite2D = %ImgBook002
+
 
 var target_bookshelf :MagicBookshelf
 var target_location :Vector2=Vector2.ZERO
@@ -19,7 +21,11 @@ var has_been_flying_for:float=0.0
 var default_collision_layer:int=0
 var default_collision_mask:int=0
 
+var prev_position :Vector2
+var prev_rotation :float
 var can_continue:=true
+var entering_bookshelf:bool=false
+var lerp_delta:float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,6 +51,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if entering_bookshelf:
+		lerp_delta = minf(lerp_delta+delta*1.5,1.0)
+		sprite.global_position = prev_position.slerp(global_position,lerp_delta)
+		sprite.global_rotation = lerp_angle(prev_rotation, 0.0, lerp_delta)
+		if lerp_delta > 0.8:
+			print("tinting flying book")
+			sprite.modulate = sprite.modulate.lerp(Color.GRAY,(lerp_delta-0.8)*5.0)
+	
 	if target_bookshelf:
 		has_been_flying_for += delta
 		if has_been_flying_for >= target_bookshelf_after:
@@ -68,12 +83,17 @@ func _process(delta: float) -> void:
 
 
 func enter_bookshelf(shelf:MagicBookshelf):
+	sprite.top_level = true
+	prev_rotation = global_rotation
+	prev_position = global_position
 	collision_layer = 0
 	collision_mask = 0
 	reparent(shelf)
 	freeze = true
 	rotation = 0
 	target_bookshelf = null
+	entering_bookshelf = true
+	lerp_delta = 0.0
 
 
 func leave_bookshelf(shelf:MagicBookshelf):
@@ -83,6 +103,11 @@ func leave_bookshelf(shelf:MagicBookshelf):
 	freeze = false
 	previous_bookshelf = shelf
 	has_been_flying_for = 0.0
+	entering_bookshelf = false
+	sprite.top_level = false
+	lerp_delta = 0.0
+	
+	sprite.global_position = global_position
 	find_bookshelf()
 
 

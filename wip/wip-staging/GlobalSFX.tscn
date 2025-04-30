@@ -1,9 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvobypm85qt1e"]
+[gd_scene load_steps=7 format=3 uid="uid://dvobypm85qt1e"]
 
 [ext_resource type="Script" uid="uid://eij3ysj2esgf" path="res://wip/wip-staging/GlobalSFX.gd" id="1_kynwi"]
+[ext_resource type="AudioStream" uid="uid://bs60b112syxa1" path="res://wip/wip-hagen/audio/Cat_Landing2.wav" id="2_shyh4"]
+[ext_resource type="AudioStream" uid="uid://yq0jstcadrdb" path="res://wip/wip-hagen/audio/Book_Slide_In1.wav" id="3_shyh4"]
+[ext_resource type="AudioStream" uid="uid://qj5pt6dsstu1" path="res://wip/wip-hagen/audio/Cat_Landing1.wav" id="4_hn3qk"]
+[ext_resource type="AudioStream" uid="uid://b1d62b6ojkoc4" path="res://wip/wip-hagen/audio/Cat_Walking1.wav" id="5_0ar2h"]
+[ext_resource type="AudioStream" uid="uid://br8tso6jc32va" path="res://wip/wip-hagen/audio/Cat_Meow1.wav" id="6_shyh4"]
 
 [node name="SFXController" type="Node"]
 script = ExtResource("1_kynwi")
+cat_jump = ExtResource("2_shyh4")
+cat_pounce = ExtResource("3_shyh4")
+cat_fall = ExtResource("4_hn3qk")
+cat_walk = ExtResource("5_0ar2h")
+cat_meow = ExtResource("6_shyh4")
 
 [node name="PlayerSFX" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"

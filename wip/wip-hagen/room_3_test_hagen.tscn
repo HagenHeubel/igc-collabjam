@@ -3938,105 +3938,19 @@ position = Vector2(-384, 306)
 shape = SubResource("RectangleShape2D_pemih")
 
 [node name="BookshelfArea" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
-position = Vector2(176, 280)
+position = Vector2(237, 423)
 bookshelf_shape = SubResource("RectangleShape2D_ynueo")
 bookshelf_collision = NodePath("@CollisionShape2D@51144")
 
 [node name="@CollisionShape2D@51144" type="CollisionShape2D" parent="Room3/BookshelfArea"]
 shape = SubResource("RectangleShape2D_ynueo")
 
-[node name="BookshelfArea2" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
-position = Vector2(473, 88)
-bookshelf_shape = SubResource("RectangleShape2D_ynueo")
-bookshelf_collision = NodePath("_CollisionShape2D_51144")
-
-[node name="_CollisionShape2D_51144" type="CollisionShape2D" parent="Room3/BookshelfArea2"]
-shape = SubResource("RectangleShape2D_ynueo")
-
-[node name="BookshelfArea3" parent="Room3" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("3_pemih")]
-position = Vector2(624, 383)
-bookshelf_shape = SubResource("RectangleShape2D_ynueo")
-bookshelf_collision = NodePath("_CollisionShape2D_51144")
-
-[node name="_CollisionShape2D_51144" type="CollisionShape2D" parent="Room3/BookshelfArea3"]
-shape = SubResource("RectangleShape2D_ynueo")
-
 [node name="FlyingBook" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(405, 307)
+position = Vector2(245, 266)
 scale = Vector2(0.25, 0.25)
 collision_layer = 20
 mass = 10.0
-target_bookshelf_after = 8.0
-
-[node name="FlyingBook2" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(434, 195)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 8.0
-
-[node name="FlyingBook3" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(401, 372)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 8.0
-
-[node name="FlyingBook4" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(465, 308)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 8.0
-
-[node name="FlyingBook5" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(484, 244)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 8.0
-
-[node name="FlyingBook6" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(333, 209)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
-
-[node name="FlyingBook7" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(368, 263)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
-
-[node name="FlyingBook8" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(404, 240)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
-
-[node name="FlyingBook9" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(438, 267)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
-
-[node name="FlyingBook10" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(432, 336)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
-
-[node name="FlyingBook11" parent="Room3" instance=ExtResource("4_lx2gp")]
-position = Vector2(360, 339)
-scale = Vector2(0.25, 0.25)
-collision_layer = 20
-mass = 10.0
-target_bookshelf_after = 5.0
+target_bookshelf_after = 2.0
 
 [node name="LibraryLadder" parent="Room3" instance=ExtResource("4_pemih")]
 position = Vector2(252, 1146)
@@ -4046,7 +3960,7 @@ position = Vector2(-190, 0)
 shape = SubResource("RectangleShape2D_r8q6h")
 
 [node name="PouncingCat" parent="." instance=ExtResource("2_fcn28")]
-position = Vector2(603, 781)
+position = Vector2(285, 560)
 
 [node name="Camera2D" type="Camera2D" parent="PouncingCat"]
 position = Vector2(-157, -103)
