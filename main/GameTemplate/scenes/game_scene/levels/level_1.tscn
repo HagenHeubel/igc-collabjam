@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=22 format=3 uid="uid://dwonll6lvlecc"]
 
 [ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
 [ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+[ext_resource type="PackedScene" uid="uid://egs4icp30aba" path="res://main/Tower/4_Rooms/Library/Ending.tscn" id="15_5pd6h"]
 [ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://wip/wip-sqlpy/player_light.gd" id="16_odec8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odec8"]
@@ -188,16 +189,20 @@ green_room = NodePath("../Room8")
 [node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
 position = Vector2(4768, -2208)
 
+[node name="BroomCloset2" parent="GameSpace/Floor1" instance=ExtResource("15_5pd6h")]
+position = Vector2(6400, 288)
+
 [node name="Lighting" type="Node2D" parent="GameSpace"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
 visibility_layer = 0
-color = Color(0.628561, 0.561924, 0.790445, 1)
+color = Color(0.560718, 0.404206, 0.778245, 1)
 
 [node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(546, 352)
+position = Vector2(320, 191)
 color = Color(1, 0.903758, 0.856763, 1)
+texture_scale = 16.0
 
 [node name="Torch16" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1312, -316)
@@ -219,7 +224,7 @@ color = Color(1, 0.903758, 0.856763, 1)
 position = Vector2(203, 372)
 
 [node name="Torch3" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(924, 384)
+position = Vector2(976, 427)
 
 [node name="Torch4" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1120, -928)
@@ -231,6 +236,26 @@ texture_scale = 12.31
 
 [node name="Torch11" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1520, -656)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch11" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(3755, -1195)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch12" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(3991, -1195)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch13" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(4240, -1200)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch14" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(4488, -1200)
 range_item_cull_mask = 3
 texture_scale = 7.36
 
@@ -246,10 +271,6 @@ position = Vector2(2304, 448)
 [node name="Torch8" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(2273, -168)
 
-[node name="Torch17" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3472, -416)
-texture_scale = 2.0
-
 [node name="Torch19" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(3198, -599)
 
@@ -260,7 +281,7 @@ position = Vector2(3198, -108)
 position = Vector2(3203, 393)
 
 [node name="Torch18" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3568, -416)
+position = Vector2(3584, -474)
 texture_scale = 2.0
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
@@ -269,8 +290,10 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(827, 75)
+position = Vector2(5104, 520)
 gravity_scale = 4.0
+min_jump_charge = 0.1
+landing_boost_duration = 0.2
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")

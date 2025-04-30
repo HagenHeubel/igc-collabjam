@@ -41,7 +41,7 @@ func stop():
 	item.stop()
 	environment.stop()
 
-func play_cat_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0):
+func play_cat_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0, skip_ahead : float = 0.0):
 	if player.stream != sfx:
 		player.pitch_scale = 1
 		player.set_stream(sfx)
@@ -51,9 +51,9 @@ func play_cat_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1
 	elif player.pitch_scale < pitch_min:
 		player.pitch_scale = pitch_min
 	player.volume_db = volume_db
-	player.play()
+	player.play(skip_ahead)
 
-func play_item_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0):
+func play_item_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0, skip_ahead : float = 0.0):
 	if item.stream != sfx:
 		item.pitch_scale = 1
 		item.set_stream(sfx)
@@ -63,10 +63,10 @@ func play_item_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 
 	elif item.pitch_scale < pitch_min:
 		item.pitch_scale = pitch_min
 	item.volume_db = volume_db
-	item.play()
+	item.play(skip_ahead)
 
 
-func play_environmental_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0):
+func play_environmental_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max: float = 1.2, volume_db: float = 0.0, skip_ahead : float = 0.0):
 	if environment.stream != sfx:
 		environment.pitch_scale = 1
 		environment.set_stream(sfx)
@@ -76,4 +76,4 @@ func play_environmental_sfx(sfx: AudioStream, pitch_min: float = 0.8, pitch_max:
 	elif environment.pitch_scale < pitch_min:
 		environment.pitch_scale = pitch_min
 	environment.volume_db = volume_db
-	environment.play()
+	environment.play(skip_ahead)

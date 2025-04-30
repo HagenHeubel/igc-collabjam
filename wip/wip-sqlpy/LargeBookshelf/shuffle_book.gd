@@ -115,7 +115,6 @@ func unslot_progress(percent : float) -> void:
 
 func _process(_delta: float) -> void:
 	_engine_process()
-	pass
 
 func _engine_process() -> void:
 	if Engine.is_editor_hint():
