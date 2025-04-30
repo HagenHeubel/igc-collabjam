@@ -1,14 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://bafqfmwo5rtxw"]
+[gd_scene load_steps=10 format=3 uid="uid://bafqfmwo5rtxw"]
 
 [ext_resource type="Texture2D" uid="uid://jgjx3n0hko8s" path="res://wip/wip-hagen/assets/IMG_item_001.png" id="1_d2fje"]
 [ext_resource type="Texture2D" uid="uid://qjdej1vhimmu" path="res://wip/wip-sqlpy/assets/torch_tex.tres" id="2_84vcl"]
+[ext_resource type="PackedScene" uid="uid://coni47wtg6kh6" path="res://main/Objects/Prefabs/Spells/projectile.tscn" id="2_at7gq"]
 [ext_resource type="Script" uid="uid://dy87svvmmaw8c" path="res://wip/wip-sqlpy/scenes/point_light_2d.gd" id="3_sbesk"]
+[ext_resource type="Script" uid="uid://dcn8m0xy3tam3" path="res://wip/wip-sqlpy/scenes/area_2d.gd" id="4_itil8"]
+[ext_resource type="PackedScene" uid="uid://c2f1lykcduy7v" path="res://main/Objects/Prefabs/object_spawner.tscn" id="5_fkvm0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_84vcl"]
 cull_mode = 1
 polygon = PackedVector2Array(-33, 5, -37, 18, -31, 30, -20, 35, 0, 37, 20, 35, 31, 30, 35, 24, 37, 15, 33, 3, 28, 0, 29, -2, 29, -5, 27, -7, 26, -3, 27, 2, 31, 9, 32, 19, 28, 26, 19, 31, 0, 32, -18, 30, -29, 26, -31, 12, -26, -5, -26, -8, -30, -8, -30, 1)
 
-[node name="Cauldron" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_sbesk"]
+radius = 56.1427
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_at7gq"]
+radius = 21.0
+height = 64.0
+
+[node name="Cauldron" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 7
+
+[node name="ObjectSpawner" parent="." node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_fkvm0")]
+position = Vector2(0, 16)
+spawn_interval = 0.05
+object_to_spawn = ExtResource("2_at7gq")
+min_spawn_angle = -120.0
+max_spawn_angle = -60.0
+min_spawn_velocity = 200.0
+max_spawn_velocity = 500.0
+spawn_target = NodePath("..")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_84vcl")
@@ -25,3 +47,18 @@ shadow_enabled = true
 texture = ExtResource("2_84vcl")
 texture_scale = 4.0
 script = ExtResource("3_sbesk")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("4_itil8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sbesk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_at7gq")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

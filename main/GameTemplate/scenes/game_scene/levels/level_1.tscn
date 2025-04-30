@@ -192,6 +192,12 @@ position = Vector2(4768, -2208)
 [node name="BroomCloset2" parent="GameSpace/Floor1" instance=ExtResource("15_5pd6h")]
 position = Vector2(6400, 288)
 
+[node name="RoomDoor12" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(6400, 528)
+door_direction = 1
+orange_room = NodePath("../Room8")
+green_room = NodePath("../BroomCloset2")
+
 [node name="Lighting" type="Node2D" parent="GameSpace"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
@@ -290,7 +296,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(5104, 520)
+position = Vector2(5104, -338)
 gravity_scale = 4.0
 min_jump_charge = 0.1
 landing_boost_duration = 0.2

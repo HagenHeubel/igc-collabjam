@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c8fpwtp81s5ue" path="res://wip/wip-sqlpy/assets/Grainy 3 - 512x512.png" id="6_4m88e"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4m88e"]
+friction = 0.29
 rough = true
 
 [sub_resource type="Gradient" id="Gradient_l4cdb"]
