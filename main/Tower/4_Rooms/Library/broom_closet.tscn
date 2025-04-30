@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwn1heokik6x8"]
+[gd_scene load_steps=13 format=3 uid="uid://dwn1heokik6x8"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_lrrtd"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_rkl3o"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_s4tw8"]
-
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="4_8omev"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="5_1dhlh"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="5_yf8gi"]
+[ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="6_yf8gi"]
+[ext_resource type="PackedScene" uid="uid://c7iapunvbyeuu" path="res://wip/wip-sqlpy/scenes/wisp.tscn" id="7_2j7fq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0jcj"]
 size = Vector2(352, 8)
@@ -42,6 +46,10 @@ position = Vector2(160, 288)
 [node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_s4tw8")]
 points = PackedVector2Array(-160, 0, 192, 0)
 
+[node name="TilingFloor2" parent="RoomContent/Walls/Floor" instance=ExtResource("3_s4tw8")]
+position = Vector2(0, -288)
+points = PackedVector2Array(-160, 0, 192, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
 position = Vector2(16, 0)
 shape = SubResource("RectangleShape2D_v6htv")
@@ -78,3 +86,85 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 border_width = 2.0
+
+[node name="TilingWall" parent="." instance=ExtResource("4_8omev")]
+position = Vector2(0, 288)
+points = PackedVector2Array(0, 0, 0, -288)
+
+[node name="TilingWall2" parent="." instance=ExtResource("4_8omev")]
+position = Vector2(352, 192)
+points = PackedVector2Array(0, 0, 0, -192)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="."]
+z_index = 1
+points = PackedVector2Array(352, 288, 0, 288, 0, 0, 352, 0, 352, 176)
+width = 32.0
+texture = ExtResource("5_1dhlh")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("5_yf8gi")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="Drawer" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(80, 256)
+
+[node name="Drawer2" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(80, 208)
+
+[node name="Drawer3" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(80, 160)
+
+[node name="Drawer4" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(80, 112)
+
+[node name="Drawer5" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(80, 64)
+
+[node name="Drawer6" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(144, 64)
+
+[node name="Drawer7" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(144, 112)
+
+[node name="Drawer8" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(144, 160)
+
+[node name="Drawer9" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(144, 208)
+
+[node name="Drawer10" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(144, 256)
+
+[node name="Drawer11" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(208, 256)
+
+[node name="Drawer12" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(208, 208)
+
+[node name="Drawer13" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(208, 160)
+
+[node name="Drawer14" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(208, 112)
+
+[node name="Drawer15" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(208, 64)
+
+[node name="Drawer16" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(272, 64)
+
+[node name="Drawer17" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(272, 112)
+
+[node name="Drawer18" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(272, 160)
+
+[node name="Drawer19" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(272, 208)
+
+[node name="Drawer20" parent="." instance=ExtResource("6_yf8gi")]
+position = Vector2(272, 256)
+
+[node name="RigidBody2D" parent="." instance=ExtResource("7_2j7fq")]
+position = Vector2(176, 160)

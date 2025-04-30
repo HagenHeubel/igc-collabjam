@@ -758,7 +758,7 @@ metadata/_edit_lock_ = true
 [node name="SolidBookCase2" parent="RoomContent" instance=ExtResource("11_w8gbr")]
 material = SubResource("ShaderMaterial_se25q")
 offset_left = 816.0
-offset_top = 384.0
+offset_top = 288.0
 offset_right = 960.0
 offset_bottom = 2592.0
 
@@ -788,6 +788,18 @@ width = 96.0
 
 [node name="OneWayShelf7" parent="RoomContent" instance=ExtResource("4_tn64n")]
 position = Vector2(48, 208)
+width = 96.0
+
+[node name="OneWayShelf8" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(256, 208)
+width = 96.0
+
+[node name="OneWayShelf9" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(512, 208)
+width = 96.0
+
+[node name="OneWayShelf10" parent="RoomContent" instance=ExtResource("4_tn64n")]
+position = Vector2(768, 208)
 width = 96.0
 
 [node name="GiantBookshelf1" type="Node2D" parent="RoomContent"]
