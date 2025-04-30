@@ -292,6 +292,8 @@ metadata/_custom_type_script = "uid://craf068s6fswb"
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
 position = Vector2(5104, 520)
 gravity_scale = 4.0
+min_jump_charge = 0.1
+landing_boost_duration = 0.2
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
