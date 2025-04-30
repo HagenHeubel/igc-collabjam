@@ -269,7 +269,7 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(3072, -597)
+position = Vector2(827, 75)
 gravity_scale = 4.0
 
 [node name="RoomController" type="Node" parent="."]

@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://begat8ftpwgos"]
+[gd_scene load_steps=14 format=3 uid="uid://begat8ftpwgos"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_gc2lb"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_uxsu4"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_exvn4"]
 [ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://main/Objects/Components/modular-area-2d/anti_gravity_area_2d.tscn" id="3_jbaj6"]
 [ext_resource type="PackedScene" uid="uid://bfaq0p0fvuqe2" path="res://wip/wip-sqlpy/scenes/one_way_shelf.tscn" id="5_57xyr"]
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="5_w422v"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_png3p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57xyr"]
 size = Vector2(186, 994)
@@ -90,12 +92,30 @@ position = Vector2(0, 288)
 position = Vector2(0, 289.5)
 shape = SubResource("RectangleShape2D_nw6df")
 
+[node name="TilingWall" parent="RoomContent/Walls/LeftWall" instance=ExtResource("5_w422v")]
+position = Vector2(7, 861)
+points = PackedVector2Array(-7, 3, -7, -1149)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/LeftWall"]
+points = PackedVector2Array(0, -288, 0, 864)
+script = ExtResource("6_png3p")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
 [node name="RightWall2" type="StaticBody2D" parent="RoomContent/Walls"]
 position = Vector2(1146, -303)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall2"]
 position = Vector2(897, 877.5)
 shape = SubResource("RectangleShape2D_o6nlw")
+
+[node name="TilingWall2" parent="RoomContent/Walls/RightWall2" instance=ExtResource("5_w422v")]
+position = Vector2(902, 1455)
+points = PackedVector2Array(0, 0, 0, -1152)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/RightWall2"]
+points = PackedVector2Array(902, 303, 902, 1455)
+script = ExtResource("6_png3p")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)

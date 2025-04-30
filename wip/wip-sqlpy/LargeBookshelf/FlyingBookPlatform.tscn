@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs4cafl72i2sy"]
+[gd_scene load_steps=9 format=3 uid="uid://bs4cafl72i2sy"]
 
 [ext_resource type="Script" uid="uid://bwdl4naq3w1i0" path="res://wip/wip-sqlpy/LargeBookshelf/flying_book.gd" id="1_6dj41"]
-[ext_resource type="Texture2D" uid="uid://cvmog48unjd55" path="res://assets/assets-visual/mado/book/spines/bigspine5.png" id="2_6dj41"]
 [ext_resource type="Script" uid="uid://xufxypwvbtml" path="res://wip/wip-sqlpy/LargeBookshelf/animatable_body_2d.gd" id="2_xxge1"]
+[ext_resource type="Texture2D" uid="uid://8tlole7yi1ut" path="res://assets/assets-visual/mado/books/bigspine1gold.png" id="3_278l4"]
+[ext_resource type="Texture2D" uid="uid://c1rnuv16djmvg" path="res://assets/assets-visual/mado/books/bigspine1.png" id="4_278l4"]
 [ext_resource type="Script" uid="uid://cuc6o42jykwy7" path="res://wip/wip-sqlpy/scenes/rectangle_light_occluder.gd" id="4_bbxd2"]
 
 [sub_resource type="Curve2D" id="Curve2D_tm5um"]
@@ -15,14 +16,16 @@ point_count = 2
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bbxd2"]
 resource_local_to_scene = true
 cull_mode = 2
-polygon = PackedVector2Array(-112.5, -27, 112.5, -27, 112.5, 27, -112.5, 27)
+polygon = PackedVector2Array(-42.5, -344.5, 42.5, -344.5, 42.5, 344.5, -42.5, 344.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dj41"]
-size = Vector2(225, 54)
+size = Vector2(85, 689)
 
 [node name="FlyingBookPlatform" type="Path2D"]
 curve = SubResource("Curve2D_tm5um")
 script = ExtResource("1_6dj41")
+book_texture = ExtResource("4_278l4")
+book_gold = ExtResource("3_278l4")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 
@@ -31,19 +34,26 @@ collision_layer = 9
 script = ExtResource("2_xxge1")
 
 [node name="LightOccluderRect" type="LightOccluder2D" parent="Book" node_paths=PackedStringArray("rect_collision_shape")]
-position = Vector2(-0.5, 2)
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
 occluder = SubResource("OccluderPolygon2D_bbxd2")
 script = ExtResource("4_bbxd2")
 rect_collision_shape = NodePath("../CollisionShape2D")
 metadata/_custom_type_script = "uid://cuc6o42jykwy7"
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Book"]
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+shape = SubResource("RectangleShape2D_6dj41")
+
 [node name="Sprite2D" type="Sprite2D" parent="Book"]
 light_mask = 2
-position = Vector2(-4.54747e-13, 96)
 rotation = -1.5708
-scale = Vector2(0.355, 0.355)
-texture = ExtResource("2_6dj41")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_278l4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Book"]
-position = Vector2(-0.5, 2)
-shape = SubResource("RectangleShape2D_6dj41")
+[node name="Gold" type="Sprite2D" parent="Book"]
+light_mask = 2
+rotation = -1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_278l4")
