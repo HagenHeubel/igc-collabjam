@@ -1,12 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4bb0pm7buxbq"]
+[gd_scene load_steps=27 format=3 uid="uid://c4bb0pm7buxbq"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_loc2w"]
 [ext_resource type="Script" uid="uid://c6wx4pgde5jn0" path="res://main/GameTemplate/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_mjffy"]
 [ext_resource type="PackedScene" uid="uid://yglejwa3v3k0" path="res://main/GameTemplate/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_qv3n5"]
 [ext_resource type="PackedScene" uid="uid://dx08ac483r4xn" path="res://main/GameTemplate/scenes/credits/credits.tscn" id="4_rx3n8"]
+
 [ext_resource type="FontFile" uid="uid://btl6tnxwvd7i7" path="res://assets/assets-visual/Fonts/ProjectFonts/BecauseWeConnect.otf" id="5_mjffy"]
 [ext_resource type="Shader" uid="uid://0x48j2svther" path="res://assets/assets-scr/ShaderCode/CanvasItem/scrolling_line.gdshader" id="5_qv3n5"]
 [ext_resource type="FontFile" uid="uid://bha7ir1x4i3l" path="res://assets/assets-visual/Fonts/ProjectFonts/BecauseWeMentor.otf" id="7_rx3n8"]
+[ext_resource type="AudioStream" uid="uid://dii4uvcktcx7j" path="res://assets/assets-audio/music/001 - Nothing but a Shimmer.wav" id="5_rx3n8"]
+[ext_resource type="AudioStream" uid="uid://dqajxyrwtrd2i" path="res://assets/assets-audio/sfx/menu/Menu_Up1.wav" id="5_uoyab"]
+[ext_resource type="AudioStream" uid="uid://foawjyvptjx8" path="res://assets/assets-audio/sfx/menu/Menu_Down1.wav" id="6_jyiq6"]
+[ext_resource type="AudioStream" uid="uid://b6jvg5qlglxya" path="res://assets/assets-audio/sfx/menu/Menu_Confirm1.wav" id="7_fixyr"]
+[ext_resource type="AudioStream" uid="uid://d321dqlruvopd" path="res://assets/assets-audio/sfx/menu/Menu_Select1.wav" id="8_xqr12"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -368,6 +374,22 @@ game_scene_path = "uid://sc2spdwtbd82"
 options_packed_scene = ExtResource("3_qv3n5")
 credits_packed_scene = ExtResource("4_rx3n8")
 
+[node name="UISoundController" parent="." index="0"]
+button_hovered = ExtResource("5_uoyab")
+button_focused = ExtResource("6_jyiq6")
+button_pressed = ExtResource("7_fixyr")
+tab_hovered = ExtResource("5_uoyab")
+tab_changed = ExtResource("8_xqr12")
+tab_selected = ExtResource("7_fixyr")
+slider_hovered = ExtResource("5_uoyab")
+slider_focused = ExtResource("6_jyiq6")
+slider_drag_started = ExtResource("8_xqr12")
+slider_drag_ended = ExtResource("7_fixyr")
+line_hovered = ExtResource("5_uoyab")
+line_focused = ExtResource("6_jyiq6")
+line_text_submitted = ExtResource("7_fixyr")
+line_text_change_rejected = ExtResource("8_xqr12")
+
 [node name="MenuAnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_2kqig")
@@ -377,6 +399,9 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_vikuh")
 anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
+
+[node name="BackgroundMusicPlayer" parent="." index="3"]
+stream = ExtResource("5_rx3n8")
 
 [node name="ColorRect" type="ColorRect" parent="BackgroundTextureRect" index="0"]
 material = SubResource("ShaderMaterial_5kejw")

@@ -207,7 +207,7 @@ func _physics_process(delta: float) -> void:
 	#pounce input handling
 	if on_floor and Input.is_action_pressed("pounce"):
 		if animation_player.current_animation != &"pounce_charging":
-			animation_player.play(&"pounce_charging",1.0/charge_time,1.0)
+			animation_player.play(&"pounce_charging",0.2,charge_time*1.25)
 			skeleton_modification_stack.strength = 1.0
 			pounce_rotation = def_pounce_angle*-visual_component.scale.x
 		pounce_rotation = get_pounce_rotation_input.call(delta)
