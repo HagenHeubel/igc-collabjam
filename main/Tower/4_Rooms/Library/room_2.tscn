@@ -621,6 +621,7 @@ border_width = 2.0
 
 [node name="Rat" parent="." instance=ExtResource("17_d2i7j")]
 position = Vector2(752, 560)
+is_catchable = false
 
 [node name="RigidBody2D" parent="." instance=ExtResource("18_hjum1")]
 position = Vector2(512, 384)

@@ -10,7 +10,7 @@ var current_room : TowerRoom
 # Lighting
 var player_light : PointLight2D
 var line_of_sight_world : SubViewport
-
+var screen_hole_progress : float
 # In the player script, call `GlobalVars.set_global_player(self)`
 func set_global_player(actor: Node) -> void:
 	player = actor

@@ -1,11 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=25 format=3 uid="uid://dwonll6lvlecc"]
 
 [ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
 [ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://main/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
+[ext_resource type="Script" uid="uid://bt5fsio16x8jv" path="res://main/GameTemplate/scenes/game_scene/levels/color_rect.gd" id="2_kn54y"]
 [ext_resource type="Script" uid="uid://pve7jvtpwy2i" path="res://wip/wip-sqlpy/los_world.gd" id="2_odec8"]
 [ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://main/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
+[ext_resource type="Shader" uid="uid://ypbog2iumrwt" path="res://main/GameTemplate/scenes/game_scene/levels/screen_hole.gdshader" id="2_x70ca"]
 [ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://main/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
 [ext_resource type="PackedScene" uid="uid://lb1xgx5lsfmv" path="res://wip/wip-sqlpy/scenes/torch.tscn" id="4_spedq"]
 [ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="4_ycf0s"]
@@ -18,6 +20,12 @@
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
 [ext_resource type="PackedScene" uid="uid://egs4icp30aba" path="res://main/Tower/4_Rooms/Library/Ending.tscn" id="15_5pd6h"]
 [ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://wip/wip-sqlpy/player_light.gd" id="16_odec8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mqm3"]
+shader = ExtResource("2_x70ca")
+shader_parameter/progress = 0.0
+shader_parameter/softness = 0.01
+shader_parameter/texture_size = Vector2(500, 256)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odec8"]
 blend_mode = 3
@@ -41,6 +49,19 @@ script = ExtResource("1_iay74")
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 layer = 5
 follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing"]
+material = SubResource("ShaderMaterial_1mqm3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kn54y")
 
 [node name="LineOfSightOverlay" type="CanvasLayer" parent="."]
 layer = 2
@@ -203,7 +224,7 @@ green_room = NodePath("../BroomCloset2")
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
 visibility_layer = 0
-color = Color(0.560718, 0.404206, 0.778245, 1)
+color = Color(0.466314, 0.350549, 0.664536, 1)
 
 [node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(320, 191)
@@ -296,11 +317,12 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(5104, -338)
+position = Vector2(921, 86)
 gravity_scale = 4.0
 min_jump_charge = 0.1
 landing_boost_duration = 0.2
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
+enable_and_disable_rooms = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"

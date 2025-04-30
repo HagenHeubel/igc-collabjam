@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://drx4334urcsgb"]
+[gd_scene load_steps=6 format=3 uid="uid://drx4334urcsgb"]
 
 [ext_resource type="Script" uid="uid://bl8dilo6i555r" path="res://main/Objects/Components/modular-area-2d/src/anti_gravity_area.gd" id="1_1gjwo"]
-
+[ext_resource type="Script" uid="uid://dcv55qwdkbabv" path="res://main/Objects/Components/modular-area-2d/texture_rect.gd" id="2_igcb8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wj7k8"]
 size = Vector2(400, 824)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_igcb8"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xjqhh"]
+size = Vector2(50, 50)
 
 [node name="AntiGravityArea2D" type="Area2D"]
 modulate = Color(1, 0.180392, 0.847059, 1)
@@ -29,3 +34,11 @@ offset_top = -120.0
 offset_right = 41.0
 offset_bottom = -97.0
 text = "Anti Grav"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_igcb8")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_xjqhh")
+stretch_mode = 1
+script = ExtResource("2_igcb8")

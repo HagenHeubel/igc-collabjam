@@ -4439,7 +4439,6 @@ script = ExtResource("9_f8mab")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="Lights" type="Node2D" parent="RoomContent"]
-visible = false
 
 [node name="RigidBody2D" parent="RoomContent/Lights" instance=ExtResource("11_dup56")]
 position = Vector2(1888, 752)
