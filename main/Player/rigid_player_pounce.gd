@@ -34,7 +34,7 @@ signal died()
 @export_range(45,180.0,5.0) var pounce_aim_speed :float = 130.0 ##Aiming speed in Degrees per Second
 @export_range(5.0,40.0,0.5) var min_pounce_angle :float = 15.0
 @export_range(5.0,90.0,0.5) var def_pounce_angle :float = 45.0
-@export_range(50.0,90.0,0.5) var max_pounce_angle :float = 85.0
+@export_range(50.0,190.0,0.5) var max_pounce_angle :float = 85.0
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground_detect_left: RayCast2D = %GroundDetectLeft
@@ -63,6 +63,7 @@ var rotation_target :float=0.0
 var has_jumped :bool=false
 var skeleton_modification_stack : SkeletonModificationStack2D
 var default_friction:float = 0.4
+var is_charging_pounce:bool = false
 
 func _ready() -> void:
 	GlobalVars.player = self
@@ -145,6 +146,9 @@ func _physics_process(delta: float) -> void:
 		if jump_buffer_timer > jump_buffer_duration:
 			jump_buffer_active = false
 	
+	if Input.is_action_just_pressed(&"pounce"):
+		is_charging_pounce = true
+	
 	# Allows for Esc key to release cursor
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -182,7 +186,7 @@ func _physics_process(delta: float) -> void:
 	#changes movement and gravity depending on floor/ground detection
 	if !on_floor:
 		coyote_timer += delta
-		
+		physics_material_override.friction = 0.1
 		constant_force = neutral_force + neutral_force*-1
 		if linear_velocity.y > 0.0: #falling
 			force.x *= h_jump_control #reduce movement speed while airborne
@@ -205,19 +209,25 @@ func _physics_process(delta: float) -> void:
 		apply_torque(5010.1*rotation_stabilizer)
 	
 	#pounce input handling
-	if on_floor and Input.is_action_pressed("pounce"):
+	if on_floor and is_charging_pounce:
 		if animation_player.current_animation != &"pounce_charging":
 			animation_player.play(&"pounce_charging",0.2,charge_time*1.25)
 			skeleton_modification_stack.strength = 1.0
 			pounce_rotation = def_pounce_angle*-visual_component.scale.x
 		pounce_rotation = get_pounce_rotation_input.call(delta)
+		if abs(pounce_rotation) > 110:
+			visual_component.scale.x *= -1
 		force.x = 0.0
 		jump_charge = minf(jump_charge+charge_time*delta,1.0)
 		#visual_component.scale.y = 1.0-jump_charge*0.4
 		#update_visual_to_pounce_rotation()
 		look_at_container.rotation_degrees = pounce_rotation*visual_component.scale.x
 		skeleton.execute_modifications(delta,0)
-	if on_floor and Input.is_action_just_released("pounce"):
+		if (Input.is_action_just_pressed(&"left") and (visual_component.scale.x > 0.0)) or (Input.is_action_just_pressed(&"right") and (visual_component.scale.x < 0.0)):
+			skeleton_modification_stack.strength = 0.0
+			is_charging_pounce = false
+			jump_charge = min_jump_charge
+	if on_floor and Input.is_action_just_released("pounce") and is_charging_pounce:
 		skeleton_modification_stack.strength = 0.0
 		animation_player.play(&"pounce_leaping",0.0, 1.5)
 		GlobalSFX.play_cat_sfx(GlobalSFX.cat_jump,0.5,0.7,7.0)
@@ -228,11 +238,12 @@ func _physics_process(delta: float) -> void:
 			jump_charge = 1.0
 		apply_impulse(Vector2.UP.rotated((PI*0.5-abs(deg_to_rad(pounce_rotation)))*visual_component.scale.x)*jump_impulse_strength*jump_charge)
 		current_movement_boost = landing_boost*jump_charge
-		physics_material_override.friction = 0.1
 		jump_charge = min_jump_charge
 		update_visual_to_pounce_rotation()
 		pounce_rotation = deg_to_rad(pounce_rotation)
 		has_jumped = true
+	if Input.is_action_just_released(&"pounce"):
+		is_charging_pounce = false
 	
 	#visual_component.rotation *= 0.85
 	#if on_floor: visual_component.rotation *= 0.85
@@ -255,8 +266,10 @@ func _physics_process(delta: float) -> void:
 
 ##Performs jump if coyote timer is low enough and a jump input has been buffered, as long as player isn't currently charging a pounce
 func handle_jump_input():
-	if (coyote_timer < coyote_time) and jump_buffer_active and !Input.is_action_pressed("pounce"):
+	if (coyote_timer < coyote_time) and jump_buffer_active:
+		is_charging_pounce = false
 		animation_player.play(&"jumping",0.0,1.0)
+		skeleton_modification_stack.strength = 0.0
 		GlobalSFX.play_cat_sfx(GlobalSFX.cat_jump)
 		on_floor = false
 		coyote_timer += 100000.0
