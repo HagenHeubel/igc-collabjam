@@ -1,12 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgmax55ql5yve"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_22mef"]
-[ext_resource type="Script" path="res://main/GameTemplate/scenes/menus/main_menu/main_menu.gd" id="2_mrqwr"]
-[ext_resource type="PackedScene" path="res://main/GameTemplate/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_l53i5"]
-[ext_resource type="PackedScene" path="res://main/GameTemplate/scenes/credits/credits.tscn" id="4_565gh"]
+[ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_22mef"]
+[ext_resource type="Script" uid="uid://sekxyp0vjdys" path="res://main/GameTemplate/scenes/menus/main_menu/main_menu.gd" id="2_mrqwr"]
+[ext_resource type="PackedScene" uid="uid://yglejwa3v3k0" path="res://main/GameTemplate/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_l53i5"]
+[ext_resource type="PackedScene" uid="uid://dx08ac483r4xn" path="res://main/GameTemplate/scenes/credits/credits.tscn" id="4_565gh"]
 
 [node name="MainMenu" instance=ExtResource("1_22mef")]
 script = ExtResource("2_mrqwr")
 game_scene_path = "res://main/GameTemplate/scenes/game_scene/game_ui.tscn"
 options_packed_scene = ExtResource("3_l53i5")
 credits_packed_scene = ExtResource("4_565gh")
+
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+text = "Tower of Merrix"

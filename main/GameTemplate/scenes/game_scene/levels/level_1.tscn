@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=22 format=3 uid="uid://dwonll6lvlecc"]
 
 [ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
 [ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+[ext_resource type="PackedScene" uid="uid://egs4icp30aba" path="res://main/Tower/4_Rooms/Library/Ending.tscn" id="15_5pd6h"]
 [ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://wip/wip-sqlpy/player_light.gd" id="16_odec8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odec8"]
@@ -188,6 +189,9 @@ green_room = NodePath("../Room8")
 [node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
 position = Vector2(4768, -2208)
 
+[node name="BroomCloset2" parent="GameSpace/Floor1" instance=ExtResource("15_5pd6h")]
+position = Vector2(6400, 288)
+
 [node name="Lighting" type="Node2D" parent="GameSpace"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
@@ -267,10 +271,6 @@ position = Vector2(2304, 448)
 [node name="Torch8" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(2273, -168)
 
-[node name="Torch17" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3472, -416)
-texture_scale = 2.0
-
 [node name="Torch19" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(3198, -599)
 
@@ -281,7 +281,7 @@ position = Vector2(3198, -108)
 position = Vector2(3203, 393)
 
 [node name="Torch18" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3568, -416)
+position = Vector2(3584, -474)
 texture_scale = 2.0
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]

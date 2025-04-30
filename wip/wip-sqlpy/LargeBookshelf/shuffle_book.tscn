@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cyf37je1wgklf"]
+[gd_scene load_steps=24 format=3 uid="uid://cyf37je1wgklf"]
 
 [ext_resource type="Script" uid="uid://oy87tvs1rv8p" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book.gd" id="1_l4cdb"]
 [ext_resource type="Texture2D" uid="uid://c53dry1i7kwe6" path="res://assets/assets-visual/controverse/IMG_book_001.png" id="2_gtvb6"]
@@ -6,6 +6,9 @@
 [ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="4_ey5df"]
 [ext_resource type="Shader" uid="uid://cgbixsy2p4fkn" path="res://wip/wip-sqlpy/LargeBookshelf/book_dust.gdshader" id="5_4m88e"]
 [ext_resource type="Texture2D" uid="uid://c8fpwtp81s5ue" path="res://wip/wip-sqlpy/assets/Grainy 3 - 512x512.png" id="6_4m88e"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4m88e"]
+rough = true
 
 [sub_resource type="Gradient" id="Gradient_l4cdb"]
 colors = PackedColorArray(0.517288, 0.512523, 0.58582, 1, 1, 1, 1, 1)
@@ -87,6 +90,7 @@ alpha_curve = SubResource("CurveTexture_1olfy")
 modulate = Color(0.517288, 0.512523, 0.58582, 1)
 collision_layer = 9
 collision_mask = 4
+physics_material_override = SubResource("PhysicsMaterial_4m88e")
 script = ExtResource("1_l4cdb")
 texture = ExtResource("2_gtvb6")
 has_collision = true

@@ -44,7 +44,7 @@ shape = SubResource("RectangleShape2D_v0jcj")
 position = Vector2(160, 288)
 
 [node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_s4tw8")]
-points = PackedVector2Array(-160, 0, 192, 0)
+points = PackedVector2Array(-160, 0, 183.677, 0, 224, 0)
 
 [node name="TilingFloor2" parent="RoomContent/Walls/Floor" instance=ExtResource("3_s4tw8")]
 position = Vector2(0, -288)
@@ -107,64 +107,33 @@ script = ExtResource("5_yf8gi")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="Drawer" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(80, 256)
-
-[node name="Drawer2" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(80, 208)
-
-[node name="Drawer3" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(80, 160)
-
-[node name="Drawer4" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(80, 112)
-
-[node name="Drawer5" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(80, 64)
-
-[node name="Drawer6" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(144, 64)
-
-[node name="Drawer7" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(144, 112)
+position = Vector2(128, 224)
+rotation = 1.14319
 
 [node name="Drawer8" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(144, 160)
+position = Vector2(64, 176)
+rotation = 0.760964
 
 [node name="Drawer9" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(144, 208)
+position = Vector2(96, 80)
+rotation = 2.28464
 
 [node name="Drawer10" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(144, 256)
+position = Vector2(208, 192)
+rotation = -0.888373
 
 [node name="Drawer11" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(208, 256)
+position = Vector2(175, 112)
+rotation = -0.888373
 
 [node name="Drawer12" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(208, 208)
-
-[node name="Drawer13" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(208, 160)
-
-[node name="Drawer14" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(208, 112)
-
-[node name="Drawer15" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(208, 64)
-
-[node name="Drawer16" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(272, 64)
-
-[node name="Drawer17" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(272, 112)
-
-[node name="Drawer18" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(272, 160)
-
-[node name="Drawer19" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(272, 208)
+position = Vector2(239, 79)
+rotation = -2.28464
 
 [node name="Drawer20" parent="." instance=ExtResource("6_yf8gi")]
-position = Vector2(272, 256)
+position = Vector2(288, 144)
+rotation = 1.01578
 
 [node name="RigidBody2D" parent="." instance=ExtResource("7_2j7fq")]
-position = Vector2(176, 160)
+visible = false
+position = Vector2(177, 128)

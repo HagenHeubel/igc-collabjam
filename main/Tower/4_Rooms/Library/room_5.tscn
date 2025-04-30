@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://begat8ftpwgos"]
+[gd_scene load_steps=15 format=3 uid="uid://begat8ftpwgos"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_gc2lb"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_uxsu4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bfaq0p0fvuqe2" path="res://wip/wip-sqlpy/scenes/one_way_shelf.tscn" id="5_57xyr"]
 [ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="5_w422v"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_png3p"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="6_qu611"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57xyr"]
 size = Vector2(186, 994)
@@ -97,7 +98,13 @@ position = Vector2(7, 861)
 points = PackedVector2Array(-7, 3, -7, -1149)
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/LeftWall"]
+z_index = 1
 points = PackedVector2Array(0, -288, 0, 864)
+width = 32.0
+texture = ExtResource("6_qu611")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("6_png3p")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
@@ -113,7 +120,13 @@ position = Vector2(902, 1455)
 points = PackedVector2Array(0, 0, 0, -1152)
 
 [node name="TowerRoomSeparator" type="Line2D" parent="RoomContent/Walls/RightWall2"]
+z_index = 1
 points = PackedVector2Array(902, 303, 902, 1455)
+width = 32.0
+texture = ExtResource("6_qu611")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
 script = ExtResource("6_png3p")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 

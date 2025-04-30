@@ -5,7 +5,9 @@ extends Path2D
 @export_range(0.0, 3.0, .001) var book_scale : float = 0.3
 @export var book_texture : Texture2D
 @export var book_gold : Texture2D
-
+@export var update : bool = false:
+	set(val):
+		_ready()
 @export_range(0, 300, 0.01) var speed : float = 80:
 	set(val):
 		speed = val
