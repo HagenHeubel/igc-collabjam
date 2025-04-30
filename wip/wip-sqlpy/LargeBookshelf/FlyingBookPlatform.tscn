@@ -16,10 +16,11 @@ point_count = 2
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bbxd2"]
 resource_local_to_scene = true
 cull_mode = 2
-polygon = PackedVector2Array(-82, -330.5, 82, -330.5, 82, 330.5, -82, 330.5)
+polygon = PackedVector2Array(-42.5, -344.5, 42.5, -344.5, 42.5, 344.5, -42.5, 344.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dj41"]
-size = Vector2(164, 661)
+resource_local_to_scene = true
+size = Vector2(85, 689)
 
 [node name="FlyingBookPlatform" type="Path2D"]
 curve = SubResource("Curve2D_tm5um")
