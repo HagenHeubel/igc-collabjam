@@ -3439,24 +3439,12 @@ position = Vector2(205, 845)
 position = Vector2(-129.5, -134.5)
 shape = SubResource("RectangleShape2D_mbmwm")
 
-[node name="Label" parent="RoomContent/Environment/AntiGravityArea2D" index="1"]
-offset_left = -203.0
-offset_top = -143.0
-offset_right = -130.0
-offset_bottom = -120.0
-
 [node name="AntiGravityArea2D2" parent="RoomContent/Environment" instance=ExtResource("6_sy44v")]
 position = Vector2(957, 565)
 
 [node name="CollisionShape2D" parent="RoomContent/Environment/AntiGravityArea2D2" index="0"]
 position = Vector2(-437.5, -140.5)
 shape = SubResource("RectangleShape2D_y8q07")
-
-[node name="Label" parent="RoomContent/Environment/AntiGravityArea2D2" index="1"]
-offset_left = -203.0
-offset_top = -143.0
-offset_right = -130.0
-offset_bottom = -120.0
 
 [node name="AntiGravityArea2D3" parent="RoomContent/Environment" instance=ExtResource("6_sy44v")]
 position = Vector2(948, 127)
@@ -3465,24 +3453,12 @@ position = Vector2(948, 127)
 position = Vector2(-410, -29.5)
 shape = SubResource("RectangleShape2D_33ovb")
 
-[node name="Label" parent="RoomContent/Environment/AntiGravityArea2D3" index="1"]
-offset_left = -203.0
-offset_top = -143.0
-offset_right = -130.0
-offset_bottom = -120.0
-
 [node name="AntiGravityArea2D4" parent="RoomContent/Environment" instance=ExtResource("6_sy44v")]
 position = Vector2(955, 256)
 
 [node name="CollisionShape2D" parent="RoomContent/Environment/AntiGravityArea2D4" index="0"]
 position = Vector2(-195.5, -45.5)
 shape = SubResource("RectangleShape2D_7tm46")
-
-[node name="Label" parent="RoomContent/Environment/AntiGravityArea2D4" index="1"]
-offset_left = -203.0
-offset_top = -143.0
-offset_right = -130.0
-offset_bottom = -120.0
 
 [node name="WindArea" parent="RoomContent/Environment" instance=ExtResource("7_ooq5r")]
 position = Vector2(550, 145)
