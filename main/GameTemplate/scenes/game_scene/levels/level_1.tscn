@@ -200,7 +200,6 @@ green_room = NodePath("../Room8")
 [node name="Room8" parent="GameSpace/Floor1" instance=ExtResource("8_o6nlw")]
 position = Vector2(5120, -2016)
 camera_static = false
-start_room = true
 
 [node name="RoomDoor11" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
 position = Vector2(5120, -1968)
@@ -318,11 +317,12 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(5097, -352)
+position = Vector2(921, 86)
 gravity_scale = 4.0
 min_jump_charge = 0.1
 landing_boost_duration = 0.2
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
+enable_and_disable_rooms = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"
