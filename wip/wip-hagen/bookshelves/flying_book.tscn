@@ -10,8 +10,9 @@ friction = 0.3
 size = Vector2(99, 186)
 
 [node name="FlyingBook" type="RigidBody2D"]
-collision_layer = 16
-collision_mask = 21
+collision_layer = 16777232
+collision_mask = 16777237
+mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_3f3gw")
 gravity_scale = 0.0
 linear_damp = 0.5
@@ -29,5 +30,5 @@ shape = SubResource("RectangleShape2D_3f3gw")
 unique_name_in_owner = true
 top_level = true
 target_position = Vector2(-8.07, 39.12)
-collision_mask = 7
+collision_mask = 16777223
 collide_with_areas = true

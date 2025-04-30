@@ -1,22 +1,799 @@
-[gd_scene load_steps=15 format=3 uid="uid://begat8ftpwgos"]
+
+[gd_scene load_steps=49 format=3 uid="uid://begat8ftpwgos"]
+
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_gc2lb"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_uxsu4"]
+[ext_resource type="Texture2D" uid="uid://xwvpoffmfjqo" path="res://assets/assets-visual/controverse/stone_bg.png" id="3_7u3y7"]
+[ext_resource type="PackedScene" uid="uid://c0sis54fqek53" path="res://wip/wip-sqlpy/scenes/solid_book_case.tscn" id="3_d327w"]
 [ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_exvn4"]
 [ext_resource type="PackedScene" uid="uid://drx4334urcsgb" path="res://main/Objects/Components/modular-area-2d/anti_gravity_area_2d.tscn" id="3_jbaj6"]
+[ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="4_p7e3x"]
 [ext_resource type="PackedScene" uid="uid://bfaq0p0fvuqe2" path="res://wip/wip-sqlpy/scenes/one_way_shelf.tscn" id="5_57xyr"]
 [ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="5_w422v"]
+[ext_resource type="PackedScene" uid="uid://defhrfrxgslml" path="res://wip/wip-hagen/static_ladder.tscn" id="6_4nrj1"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_png3p"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="6_qu611"]
 
+[ext_resource type="Texture2D" uid="uid://vjyt7bqvdca1" path="res://wip/wip-hagen/assets/cat_game_ladder.png" id="7_7u3y7"]
+[ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="14_v2mab"]
+[ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="15_yrxp3"]
+[ext_resource type="Texture2D" uid="uid://cvjhsybn82nwy" path="res://wip/wip-sqlpy/assets/drawer.png" id="17_4urh2"]
+
+[sub_resource type="Shader" id="Shader_yrxp3"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float desaturation : hint_range(0.0, 1.0, 0.001) = 0.0;
+
+const float M_PI = 3.1415926535897932384626433832795;
+
+float cbrt( float x )
+{
+    return sign(x)*pow(abs(x),1.0f/3.0f);
+}
+
+float srgb_transfer_function(float a)
+{
+	return .0031308f >= a ? 12.92f * a : 1.055f * pow(a, .4166666666666667f) - .055f;
+}
+
+float srgb_transfer_function_inv(float a)
+{
+	return .04045f < a ? pow((a + .055f) / 1.055f, 2.4f) : a / 12.92f;
+}
+
+vec3 linear_srgb_to_oklab(vec3 c)
+{
+	float l = 0.4122214708f * c.r + 0.5363325363f * c.g + 0.0514459929f * c.b;
+	float m = 0.2119034982f * c.r + 0.6806995451f * c.g + 0.1073969566f * c.b;
+	float s = 0.0883024619f * c.r + 0.2817188376f * c.g + 0.6299787005f * c.b;
+
+	float l_ = cbrt(l);
+	float m_ = cbrt(m);
+	float s_ = cbrt(s);
+
+	return vec3(
+		0.2104542553f * l_ + 0.7936177850f * m_ - 0.0040720468f * s_,
+		1.9779984951f * l_ - 2.4285922050f * m_ + 0.4505937099f * s_,
+		0.0259040371f * l_ + 0.7827717662f * m_ - 0.8086757660f * s_
+	);
+}
+
+vec3 oklab_to_linear_srgb(vec3 c)
+{
+	float l_ = c.x + 0.3963377774f * c.y + 0.2158037573f * c.z;
+	float m_ = c.x - 0.1055613458f * c.y - 0.0638541728f * c.z;
+	float s_ = c.x - 0.0894841775f * c.y - 1.2914855480f * c.z;
+
+	float l = l_ * l_ * l_;
+	float m = m_ * m_ * m_;
+	float s = s_ * s_ * s_;
+
+	return vec3(
+		+4.0767416621f * l - 3.3077115913f * m + 0.2309699292f * s,
+		-1.2684380046f * l + 2.6097574011f * m - 0.3413193965f * s,
+		-0.0041960863f * l - 0.7034186147f * m + 1.7076147010f * s
+	);
+}
+
+// Finds the maximum saturation possible for a given hue that fits in sRGB
+// Saturation here is defined as S = C/L
+// a and b must be normalized so a^2 + b^2 == 1
+float compute_max_saturation(float a, float b)
+{
+	// Max saturation will be when one of r, g or b goes below zero.
+
+	// Select different coefficients depending on which component goes below zero first
+	float k0, k1, k2, k3, k4, wl, wm, ws;
+
+	if (-1.88170328f * a - 0.80936493f * b > 1.f)
+	{
+		// Red component
+		k0 = +1.19086277f; k1 = +1.76576728f; k2 = +0.59662641f; k3 = +0.75515197f; k4 = +0.56771245f;
+		wl = +4.0767416621f; wm = -3.3077115913f; ws = +0.2309699292f;
+	}
+	else if (1.81444104f * a - 1.19445276f * b > 1.f)
+	{
+		// Green component
+		k0 = +0.73956515f; k1 = -0.45954404f; k2 = +0.08285427f; k3 = +0.12541070f; k4 = +0.14503204f;
+		wl = -1.2684380046f; wm = +2.6097574011f; ws = -0.3413193965f;
+	}
+	else
+	{
+		// Blue component
+		k0 = +1.35733652f; k1 = -0.00915799f; k2 = -1.15130210f; k3 = -0.50559606f; k4 = +0.00692167f;
+		wl = -0.0041960863f; wm = -0.7034186147f; ws = +1.7076147010f;
+	}
+
+	// Approximate max saturation using a polynomial:
+	float S = k0 + k1 * a + k2 * b + k3 * a * a + k4 * a * b;
+
+	// Do one step Halley's method to get closer
+	// this gives an error less than 10e6, except for some blue hues where the dS/dh is close to infinite
+	// this should be sufficient for most applications, otherwise do two/three steps
+
+	float k_l = +0.3963377774f * a + 0.2158037573f * b;
+	float k_m = -0.1055613458f * a - 0.0638541728f * b;
+	float k_s = -0.0894841775f * a - 1.2914855480f * b;
+
+	{
+		float l_ = 1.f + S * k_l;
+		float m_ = 1.f + S * k_m;
+		float s_ = 1.f + S * k_s;
+
+		float l = l_ * l_ * l_;
+		float m = m_ * m_ * m_;
+		float s = s_ * s_ * s_;
+
+		float l_dS = 3.f * k_l * l_ * l_;
+		float m_dS = 3.f * k_m * m_ * m_;
+		float s_dS = 3.f * k_s * s_ * s_;
+
+		float l_dS2 = 6.f * k_l * k_l * l_;
+		float m_dS2 = 6.f * k_m * k_m * m_;
+		float s_dS2 = 6.f * k_s * k_s * s_;
+
+		float f = wl * l + wm * m + ws * s;
+		float f1 = wl * l_dS + wm * m_dS + ws * s_dS;
+		float f2 = wl * l_dS2 + wm * m_dS2 + ws * s_dS2;
+
+		S = S - f * f1 / (f1 * f1 - 0.5f * f * f2);
+	}
+
+	return S;
+}
+
+// finds L_cusp and C_cusp for a given hue
+// a and b must be normalized so a^2 + b^2 == 1
+vec2 find_cusp(float a, float b)
+{
+	// First, find the maximum saturation (saturation S = C/L)
+	float S_cusp = compute_max_saturation(a, b);
+
+	// Convert to linear sRGB to find the first point where at least one of r,g or b >= 1:
+	vec3 rgb_at_max = oklab_to_linear_srgb(vec3( 1, S_cusp * a, S_cusp * b ));
+	float L_cusp = cbrt(1.f / max(max(rgb_at_max.r, rgb_at_max.g), rgb_at_max.b));
+	float C_cusp = L_cusp * S_cusp;
+
+	return vec2( L_cusp , C_cusp );
+}
+float find_gamut_intersection(float a, float b, float L1, float C1, float L0, vec2 cusp)
+{
+	// Find the intersection for upper and lower half seprately
+	float t;
+	if (((L1 - L0) * cusp.y - (cusp.x - L0) * C1) <= 0.f)
+	{
+		// Lower half
+
+		t = cusp.y * L0 / (C1 * cusp.x + cusp.y * (L0 - L1));
+	}
+	else
+	{
+		// Upper half
+
+		// First intersect with triangle
+		t = cusp.y * (L0 - 1.f) / (C1 * (cusp.x - 1.f) + cusp.y * (L0 - L1));
+
+		// Then one step Halley's method
+		{
+			float dL = L1 - L0;
+			float dC = C1;
+
+			float k_l = +0.3963377774f * a + 0.2158037573f * b;
+			float k_m = -0.1055613458f * a - 0.0638541728f * b;
+			float k_s = -0.0894841775f * a - 1.2914855480f * b;
+
+			float l_dt = dL + dC * k_l;
+			float m_dt = dL + dC * k_m;
+			float s_dt = dL + dC * k_s;
+
+
+			// If higher accuracy is required, 2 or 3 iterations of the following block can be used:
+			{
+				float L = L0 * (1.f - t) + t * L1;
+				float C = t * C1;
+
+				float l_ = L + C * k_l;
+				float m_ = L + C * k_m;
+				float s_ = L + C * k_s;
+
+				float l = l_ * l_ * l_;
+				float m = m_ * m_ * m_;
+				float s = s_ * s_ * s_;
+
+				float ldt = 3.f * l_dt * l_ * l_;
+				float mdt = 3.f * m_dt * m_ * m_;
+				float sdt = 3.f * s_dt * s_ * s_;
+
+				float ldt2 = 6.f * l_dt * l_dt * l_;
+				float mdt2 = 6.f * m_dt * m_dt * m_;
+				float sdt2 = 6.f * s_dt * s_dt * s_;
+
+				float r = 4.0767416621f * l - 3.3077115913f * m + 0.2309699292f * s - 1.f;
+				float r1 = 4.0767416621f * ldt - 3.3077115913f * mdt + 0.2309699292f * sdt;
+				float r2 = 4.0767416621f * ldt2 - 3.3077115913f * mdt2 + 0.2309699292f * sdt2;
+
+				float u_r = r1 / (r1 * r1 - 0.5f * r * r2);
+				float t_r = -r * u_r;
+
+				float g = -1.2684380046f * l + 2.6097574011f * m - 0.3413193965f * s - 1.f;
+				float g1 = -1.2684380046f * ldt + 2.6097574011f * mdt - 0.3413193965f * sdt;
+				float g2 = -1.2684380046f * ldt2 + 2.6097574011f * mdt2 - 0.3413193965f * sdt2;
+
+				float u_g = g1 / (g1 * g1 - 0.5f * g * g2);
+				float t_g = -g * u_g;
+
+				float b = -0.0041960863f * l - 0.7034186147f * m + 1.7076147010f * s - 1.f;
+				float b1 = -0.0041960863f * ldt - 0.7034186147f * mdt + 1.7076147010f * sdt;
+				float b2 = -0.0041960863f * ldt2 - 0.7034186147f * mdt2 + 1.7076147010f * sdt2;
+
+				float u_b = b1 / (b1 * b1 - 0.5f * b * b2);
+				float t_b = -b * u_b;
+
+				t_r = u_r >= 0.f ? t_r : 10000.f;
+				t_g = u_g >= 0.f ? t_g : 10000.f;
+				t_b = u_b >= 0.f ? t_b : 10000.f;
+
+				t += min(t_r, min(t_g, t_b));
+			}
+		}
+	}
+
+	return t;
+}
+
+float find_gamut_intersection_5(float a, float b, float L1, float C1, float L0)
+{
+	// Find the cusp of the gamut triangle
+	vec2 cusp = find_cusp(a, b);
+
+	return find_gamut_intersection(a, b, L1, C1, L0, cusp);
+}
+
+vec3 gamut_clip_preserve_chroma(vec3 rgb)
+{
+	if (rgb.r < 1.f && rgb.g < 1.f && rgb.b < 1.f && rgb.r > 0.f && rgb.g > 0.f && rgb.b > 0.f)
+		return rgb;
+
+	vec3 lab = linear_srgb_to_oklab(rgb);
+
+	float L = lab.x;
+	float eps = 0.00001f;
+	float C = max(eps, sqrt(lab.y * lab.y + lab.z * lab.z));
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	float L0 = clamp(L, 0.f, 1.f);
+
+	float t = find_gamut_intersection_5(a_, b_, L, C, L0);
+	float L_clipped = L0 * (1.f - t) + t * L;
+	float C_clipped = t * C;
+
+	return oklab_to_linear_srgb(vec3( L_clipped, C_clipped * a_, C_clipped * b_ ));
+}
+
+vec3 gamut_clip_project_to_0_5(vec3 rgb)
+{
+	if (rgb.r < 1.f && rgb.g < 1.f && rgb.b < 1.f && rgb.r > 0.f && rgb.g > 0.f && rgb.b > 0.f)
+		return rgb;
+
+	vec3 lab = linear_srgb_to_oklab(rgb);
+
+	float L = lab.x;
+	float eps = 0.00001f;
+	float C = max(eps, sqrt(lab.y * lab.y + lab.z * lab.z));
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	float L0 = 0.5;
+
+	float t = find_gamut_intersection_5(a_, b_, L, C, L0);
+	float L_clipped = L0 * (1.f - t) + t * L;
+	float C_clipped = t * C;
+
+	return oklab_to_linear_srgb(vec3( L_clipped, C_clipped * a_, C_clipped * b_ ));
+}
+
+vec3 gamut_clip_project_to_L_cusp(vec3 rgb)
+{
+	if (rgb.r < 1.f && rgb.g < 1.f && rgb.b < 1.f && rgb.r > 0.f && rgb.g > 0.f && rgb.b > 0.f)
+		return rgb;
+
+	vec3 lab = linear_srgb_to_oklab(rgb);
+
+	float L = lab.x;
+	float eps = 0.00001f;
+	float C = max(eps, sqrt(lab.y * lab.y + lab.z * lab.z));
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	// The cusp is computed here and in find_gamut_intersection, an optimized solution would only compute it once.
+	vec2 cusp = find_cusp(a_, b_);
+
+	float L0 = cusp.x;
+
+	float t = find_gamut_intersection_5(a_, b_, L, C, L0);
+
+	float L_clipped = L0 * (1.f - t) + t * L;
+	float C_clipped = t * C;
+
+	return oklab_to_linear_srgb(vec3( L_clipped, C_clipped * a_, C_clipped * b_ ));
+}
+
+vec3 gamut_clip_adaptive_L0_0_5(vec3 rgb, float alpha)
+{
+	if (rgb.r < 1.f && rgb.g < 1.f && rgb.b < 1.f && rgb.r > 0.f && rgb.g > 0.f && rgb.b > 0.f)
+		return rgb;
+
+	vec3 lab = linear_srgb_to_oklab(rgb);
+
+	float L = lab.x;
+	float eps = 0.00001f;
+	float C = max(eps, sqrt(lab.y * lab.y + lab.z * lab.z));
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	float Ld = L - 0.5f;
+	float e1 = 0.5f + abs(Ld) + alpha * C;
+	float L0 = 0.5f * (1.f + sign(Ld) * (e1 - sqrt(e1 * e1 - 2.f * abs(Ld))));
+
+	float t = find_gamut_intersection_5(a_, b_, L, C, L0);
+	float L_clipped = L0 * (1.f - t) + t * L;
+	float C_clipped = t * C;
+
+	return oklab_to_linear_srgb(vec3( L_clipped, C_clipped * a_, C_clipped * b_ ));
+}
+
+vec3 gamut_clip_adaptive_L0_L_cusp(vec3 rgb, float alpha)
+{
+	if (rgb.r < 1.f && rgb.g < 1.f && rgb.b < 1.f && rgb.r > 0.f && rgb.g > 0.f && rgb.b > 0.f)
+		return rgb;
+
+	vec3 lab = linear_srgb_to_oklab(rgb);
+
+	float L = lab.x;
+	float eps = 0.00001f;
+	float C = max(eps, sqrt(lab.y * lab.y + lab.z * lab.z));
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	// The cusp is computed here and in find_gamut_intersection, an optimized solution would only compute it once.
+	vec2 cusp = find_cusp(a_, b_);
+
+	float Ld = L - cusp.x;
+	float k = 2.f * (Ld > 0.f ? 1.f - cusp.x : cusp.x);
+
+	float e1 = 0.5f * k + abs(Ld) + alpha * C / k;
+	float L0 = cusp.x + 0.5f * (sign(Ld) * (e1 - sqrt(e1 * e1 - 2.f * k * abs(Ld))));
+
+	float t = find_gamut_intersection_5(a_, b_, L, C, L0);
+	float L_clipped = L0 * (1.f - t) + t * L;
+	float C_clipped = t * C;
+
+	return oklab_to_linear_srgb(vec3( L_clipped, C_clipped * a_, C_clipped * b_ ));
+}
+
+float toe(float x)
+{
+	float k_1 = 0.206f;
+	float k_2 = 0.03f;
+	float k_3 = (1.f + k_1) / (1.f + k_2);
+	return 0.5f * (k_3 * x - k_1 + sqrt((k_3 * x - k_1) * (k_3 * x - k_1) + 4.f * k_2 * k_3 * x));
+}
+
+float toe_inv(float x)
+{
+	float k_1 = 0.206f;
+	float k_2 = 0.03f;
+	float k_3 = (1.f + k_1) / (1.f + k_2);
+	return (x * x + k_1 * x) / (k_3 * (x + k_2));
+}
+
+vec2 to_ST(vec2 cusp)
+{
+	float L = cusp.x;
+	float C = cusp.y;
+	return vec2( C / L, C / (1.f - L) );
+}
+
+// Returns a smooth approximation of the location of the cusp
+// This polynomial was created by an optimization process
+// It has been designed so that S_mid < S_max and T_mid < T_max
+vec2 get_ST_mid(float a_, float b_)
+{
+	float S = 0.11516993f + 1.f / (
+		+7.44778970f + 4.15901240f * b_
+		+ a_ * (-2.19557347f + 1.75198401f * b_
+			+ a_ * (-2.13704948f - 10.02301043f * b_
+				+ a_ * (-4.24894561f + 5.38770819f * b_ + 4.69891013f * a_
+					)))
+		);
+
+	float T = 0.11239642f + 1.f / (
+		+1.61320320f - 0.68124379f * b_
+		+ a_ * (+0.40370612f + 0.90148123f * b_
+			+ a_ * (-0.27087943f + 0.61223990f * b_
+				+ a_ * (+0.00299215f - 0.45399568f * b_ - 0.14661872f * a_
+					)))
+		);
+
+	return vec2( S, T );
+}
+
+vec3 get_Cs(float L, float a_, float b_)
+{
+	vec2 cusp = find_cusp(a_, b_);
+
+	float C_max = find_gamut_intersection(a_, b_, L, 1.f, L, cusp);
+	vec2 ST_max = to_ST(cusp);
+
+	// Scale factor to compensate for the curved part of gamut shape:
+	float k = C_max / min((L * ST_max.x), (1.f - L) * ST_max.y);
+
+	float C_mid;
+	{
+		vec2 ST_mid = get_ST_mid(a_, b_);
+
+		// Use a soft minimum function, instead of a sharp triangle shape to get a smooth value for chroma.
+		float C_a = L * ST_mid.x;
+		float C_b = (1.f - L) * ST_mid.y;
+		C_mid = 0.9f * k * sqrt(sqrt(1.f / (1.f / (C_a * C_a * C_a * C_a) + 1.f / (C_b * C_b * C_b * C_b))));
+	}
+
+	float C_0;
+	{
+		// for C_0, the shape is independent of hue, so vec2 are constant. Values picked to roughly be the average values of vec2.
+		float C_a = L * 0.4f;
+		float C_b = (1.f - L) * 0.8f;
+
+		// Use a soft minimum function, instead of a sharp triangle shape to get a smooth value for chroma.
+		C_0 = sqrt(1.f / (1.f / (C_a * C_a) + 1.f / (C_b * C_b)));
+	}
+
+	return vec3( C_0, C_mid, C_max );
+}
+
+vec3 okhsl_to_srgb(vec3 hsl)
+{
+	float h = hsl.x;
+	float s = hsl.y;
+	float l = hsl.z;
+
+	if (l == 1.0f)
+	{
+		return vec3( 1.f, 1.f, 1.f );
+	}
+
+	else if (l == 0.f)
+	{
+		return vec3( 0.f, 0.f, 0.f );
+	}
+
+	float a_ = cos(2.f * M_PI * h);
+	float b_ = sin(2.f * M_PI * h);
+	float L = toe_inv(l);
+
+	vec3 cs = get_Cs(L, a_, b_);
+	float C_0 = cs.x;
+	float C_mid = cs.y;
+	float C_max = cs.z;
+
+	float mid = 0.8f;
+	float mid_inv = 1.25f;
+
+	float C, t, k_0, k_1, k_2;
+
+	if (s < mid)
+	{
+		t = mid_inv * s;
+
+		k_1 = mid * C_0;
+		k_2 = (1.f - k_1 / C_mid);
+
+		C = t * k_1 / (1.f - k_2 * t);
+	}
+	else
+	{
+		t = (s - mid)/ (1.f - mid);
+
+		k_0 = C_mid;
+		k_1 = (1.f - mid) * C_mid * C_mid * mid_inv * mid_inv / C_0;
+		k_2 = (1.f - (k_1) / (C_max - C_mid));
+
+		C = k_0 + t * k_1 / (1.f - k_2 * t);
+	}
+
+	vec3 rgb = oklab_to_linear_srgb(vec3( L, C * a_, C * b_ ));
+	return vec3(
+		srgb_transfer_function(rgb.r),
+		srgb_transfer_function(rgb.g),
+		srgb_transfer_function(rgb.b)
+	);
+}
+
+vec3 srgb_to_okhsl(vec3 rgb)
+{
+	vec3 lab = linear_srgb_to_oklab(vec3(
+		srgb_transfer_function_inv(rgb.r),
+		srgb_transfer_function_inv(rgb.g),
+		srgb_transfer_function_inv(rgb.b)
+		));
+
+	float C = sqrt(lab.y * lab.y + lab.z * lab.z);
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	float L = lab.x;
+	float h = 0.5f + 0.5f * atan(-lab.z, -lab.y) / M_PI;
+
+	vec3 cs = get_Cs(L, a_, b_);
+	float C_0 = cs.x;
+	float C_mid = cs.y;
+	float C_max = cs.z;
+
+	// Inverse of the interpolation in okhsl_to_srgb:
+
+	float mid = 0.8f;
+	float mid_inv = 1.25f;
+
+	float s;
+	if (C < C_mid)
+	{
+		float k_1 = mid * C_0;
+		float k_2 = (1.f - k_1 / C_mid);
+
+		float t = C / (k_1 + k_2 * C);
+		s = t * mid;
+	}
+	else
+	{
+		float k_0 = C_mid;
+		float k_1 = (1.f - mid) * C_mid * C_mid * mid_inv * mid_inv / C_0;
+		float k_2 = (1.f - (k_1) / (C_max - C_mid));
+
+		float t = (C - k_0) / (k_1 + k_2 * (C - k_0));
+		s = mid + (1.f - mid) * t;
+	}
+
+	float l = toe(L);
+	return vec3( h, s, l );
+}
+
+
+vec3 okhsv_to_srgb(vec3 hsv)
+{
+	float h = hsv.x;
+	float s = hsv.y;
+	float v = hsv.z;
+
+	float a_ = cos(2.f * M_PI * h);
+	float b_ = sin(2.f * M_PI * h);
+
+	vec2 cusp = find_cusp(a_, b_);
+	vec2 ST_max = to_ST(cusp);
+	float S_max = ST_max.x;
+	float T_max = ST_max.y;
+	float S_0 = 0.5f;
+	float k = 1.f- S_0 / S_max;
+
+	// first we compute L and V as if the gamut is a perfect triangle:
+
+	// L, C when v==1:
+	float L_v = 1.f   - s * S_0 / (S_0 + T_max - T_max * k * s);
+	float C_v = s * T_max * S_0 / (S_0 + T_max - T_max * k * s);
+
+	float L = v * L_v;
+	float C = v * C_v;
+
+	// then we compensate for both toe and the curved top part of the triangle:
+	float L_vt = toe_inv(L_v);
+	float C_vt = C_v * L_vt / L_v;
+
+	float L_new = toe_inv(L);
+	C = C * L_new / L;
+	L = L_new;
+
+	vec3 rgb_scale = oklab_to_linear_srgb(vec3( L_vt, a_ * C_vt, b_ * C_vt ));
+	float scale_L = cbrt(1.f / max(max(rgb_scale.r, rgb_scale.g), max(rgb_scale.b, 0.f)));
+
+	L = L * scale_L;
+	C = C * scale_L;
+
+	vec3 rgb = oklab_to_linear_srgb(vec3( L, C * a_, C * b_ ));
+	return vec3(
+		srgb_transfer_function(rgb.r),
+		srgb_transfer_function(rgb.g),
+		srgb_transfer_function(rgb.b)
+	);
+}
+
+vec3 srgb_to_okhsv(vec3 rgb)
+{
+	vec3 lab = linear_srgb_to_oklab(vec3(
+		srgb_transfer_function_inv(rgb.r),
+		srgb_transfer_function_inv(rgb.g),
+		srgb_transfer_function_inv(rgb.b)
+		));
+
+	float C = sqrt(lab.y * lab.y + lab.z * lab.z);
+	float a_ = lab.y / C;
+	float b_ = lab.z / C;
+
+	float L = lab.x;
+	float h = 0.5f + 0.5f * atan(-lab.z, -lab.y) / M_PI;
+
+	vec2 cusp = find_cusp(a_, b_);
+	vec2 ST_max = to_ST(cusp);
+	float S_max = ST_max.x;
+	float T_max = ST_max.y;
+	float S_0 = 0.5f;
+	float k = 1.f - S_0 / S_max;
+
+	// first we find L_v, C_v, L_vt and C_vt
+
+	float t = T_max / (C + L * T_max);
+	float L_v = t * L;
+	float C_v = t * C;
+
+	float L_vt = toe_inv(L_v);
+	float C_vt = C_v * L_vt / L_v;
+
+	// we can then use these to invert the step that compensates for the toe and the curved top part of the triangle:
+	vec3 rgb_scale = oklab_to_linear_srgb(vec3( L_vt, a_ * C_vt, b_ * C_vt ));
+	float scale_L = cbrt(1.f / max(max(rgb_scale.r, rgb_scale.g), max(rgb_scale.b, 0.f)));
+
+	L = L / scale_L;
+	C = C / scale_L;
+
+	C = C * toe(L) / L;
+	L = toe(L);
+
+	// we can now compute v and s:
+
+	float v = L / L_v;
+	float s = (S_0 + T_max) * C_v / ((T_max * S_0) + T_max * k * C_v);
+
+	return vec3 (h, s, v );
+}
+
+void fragment() {
+	vec3 OK_col = srgb_to_okhsv(COLOR.rgb);
+	OK_col.g = OK_col.g * (1.0 - desaturation);
+	COLOR.rgb = okhsv_to_srgb(OK_col);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7u3y7"]
+resource_local_to_scene = true
+shader = SubResource("Shader_yrxp3")
+shader_parameter/desaturation = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pc4ec"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.4
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v2mab"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yrxp3"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_08mgm"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hein"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jorrd"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqv5a"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vyj7"]
+size = Vector2(173.12, 13.28)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvh8e"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvs5x"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bv3ou"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ek1f"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y46ro"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1fc5"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paefr"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dm4p3"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbwph"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d327w"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7e3x"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4urh2"]
+resource_local_to_scene = true
+shader = ExtResource("4_p7e3x")
+shader_parameter/desaturation = 0.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57xyr"]
-size = Vector2(186, 994)
+size = Vector2(186, 1151)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3b14"]
-size = Vector2(726, 8)
+size = Vector2(710, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwr2d"]
-size = Vector2(911, 8)
+size = Vector2(893, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wwx8"]
 size = Vector2(2057, 8)
@@ -26,6 +803,18 @@ size = Vector2(8, 1155)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o6nlw"]
 size = Vector2(10, 1155)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dm4p3"]
+size = Vector2(52.8846, 581.733)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q71t"]
+size = Vector2(112, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8apy"]
+size = Vector2(55.835, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujpk8"]
+size = Vector2(56, 46)
 
 [node name="Room5" type="Node2D"]
 script = ExtResource("1_gc2lb")
@@ -37,6 +826,622 @@ camera_static = false
 offset_left = 0.0
 offset_right = 2048.0
 offset_bottom = 1154.0
+metadata/_edit_lock_ = true
+
+[node name="StoneBg" type="Sprite2D" parent="RoomContent"]
+position = Vector2(1148, 856)
+scale = Vector2(0.137882, 0.140393)
+texture = ExtResource("3_7u3y7")
+
+[node name="StoneBg4" type="Sprite2D" parent="RoomContent"]
+position = Vector2(1104, 1088)
+scale = Vector2(0.137882, 0.140393)
+texture = ExtResource("3_7u3y7")
+
+[node name="StoneBg3" type="Sprite2D" parent="RoomContent"]
+modulate = Color(0.914063, 0.914063, 0.914063, 1)
+position = Vector2(1016, 886)
+scale = Vector2(0.137882, 0.140393)
+texture = ExtResource("3_7u3y7")
+
+[node name="StoneBg2" type="Sprite2D" parent="RoomContent"]
+position = Vector2(936, 808)
+rotation = 3.14159
+scale = Vector2(0.13818, -0.140697)
+texture = ExtResource("3_7u3y7")
+
+[node name="StoneBg5" type="Sprite2D" parent="RoomContent"]
+position = Vector2(912, 964)
+rotation = 3.14159
+scale = Vector2(0.13818, -0.140697)
+texture = ExtResource("3_7u3y7")
+
+[node name="OneWayShelf76" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(928, 1025)
+rotation = -0.000636779
+
+[node name="OneWayShelf79" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1120, 1025)
+rotation = -0.000636779
+
+[node name="OneWayShelf78" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(928, 888)
+rotation = -0.000636779
+
+[node name="OneWayShelf77" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1120, 889)
+
+[node name="SolidBookCase2" parent="RoomContent" instance=ExtResource("3_d327w")]
+modulate = Color(0.603782, 0.57381, 0.686072, 1)
+material = SubResource("ShaderMaterial_7u3y7")
+offset_left = 192.0
+offset_top = 128.0
+offset_right = 898.0
+offset_bottom = 1158.0
+background_desaturate = 0.4
+in_background_layer = true
+
+[node name="SolidBookCase" parent="RoomContent" instance=ExtResource("3_d327w")]
+modulate = Color(0.603782, 0.57381, 0.686072, 1)
+material = SubResource("ShaderMaterial_pc4ec")
+offset_left = 1152.0
+offset_top = 128.0
+offset_right = 2044.0
+offset_bottom = 1157.0
+background_desaturate = 0.4
+in_background_layer = true
+
+[node name="SolidBookCase6" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_v2mab")
+offset_left = 384.0
+offset_top = 448.0
+offset_right = 891.0
+offset_bottom = 656.0
+
+[node name="SolidBookCase3" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_yrxp3")
+offset_left = 191.0
+offset_top = 128.0
+offset_right = 320.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase10" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_08mgm")
+offset_left = 192.0
+offset_top = 448.0
+offset_right = 321.0
+offset_bottom = 656.0
+
+[node name="SolidBookCase11" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_4hein")
+offset_left = 191.0
+offset_top = 768.0
+offset_right = 320.0
+offset_bottom = 976.0
+
+[node name="SolidBookCase7" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_jorrd")
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 513.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase8" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_rqv5a")
+offset_left = 576.0
+offset_top = 128.0
+offset_right = 705.0
+offset_bottom = 336.0
+
+[node name="Ladder" parent="RoomContent" node_paths=PackedStringArray("rungs", "ladder_mid_parts") instance=ExtResource("6_4nrj1")]
+modulate = Color(0.449219, 0.449219, 0.449219, 1)
+position = Vector2(368, 1112)
+rotation = 1.309
+rungs = [NodePath("LadderBody/LadderRung"), NodePath("LadderBody/LadderRung2"), NodePath("LadderBody/LadderRung3"), NodePath("LadderBody/LadderRung4"), NodePath("LadderBody/LadderRung5"), NodePath("LadderBody/LadderRung6"), NodePath("LadderBody/LadderRung7"), NodePath("LadderBody/LadderRung8")]
+ladder_mid_parts = [NodePath("LadderSides/LadderMiddle"), NodePath("LadderSides/LadderMiddle2"), NodePath("LadderSides/LadderMiddle3"), NodePath("LadderSides/LadderMiddle4"), NodePath("LadderSides/LadderMiddle5")]
+height_factor = 5.324
+top_margin = 108.49
+bottom_margin = 136.905
+
+[node name="LadderBody" parent="RoomContent/Ladder" index="0"]
+process_mode = 4
+collision_layer = 0
+
+[node name="LadderRung" parent="RoomContent/Ladder/LadderBody" index="0"]
+position = Vector2(0, -136.905)
+disabled = true
+
+[node name="LadderRung2" parent="RoomContent/Ladder/LadderBody" index="1"]
+position = Vector2(0, -232.905)
+disabled = true
+
+[node name="LadderRung3" parent="RoomContent/Ladder/LadderBody" index="2"]
+position = Vector2(0, -328.905)
+disabled = true
+
+[node name="LadderRung4" parent="RoomContent/Ladder/LadderBody" index="3"]
+position = Vector2(0, -424.905)
+shape = SubResource("RectangleShape2D_4vyj7")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" parent="RoomContent/Ladder/LadderBody/LadderRung4" index="0"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("7_7u3y7")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung5" parent="RoomContent/Ladder/LadderBody" index="4"]
+position = Vector2(0, -520.905)
+shape = SubResource("RectangleShape2D_4vyj7")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" parent="RoomContent/Ladder/LadderBody/LadderRung5" index="0"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("7_7u3y7")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung6" parent="RoomContent/Ladder/LadderBody" index="5"]
+position = Vector2(0, -616.905)
+shape = SubResource("RectangleShape2D_4vyj7")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" parent="RoomContent/Ladder/LadderBody/LadderRung6" index="0"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("7_7u3y7")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung7" parent="RoomContent/Ladder/LadderBody" index="6"]
+position = Vector2(0, -712.905)
+shape = SubResource("RectangleShape2D_4vyj7")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" parent="RoomContent/Ladder/LadderBody/LadderRung7" index="0"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("7_7u3y7")
+hframes = 2
+vframes = 4
+
+[node name="LadderRung8" parent="RoomContent/Ladder/LadderBody" index="7"]
+position = Vector2(0, -808.905)
+shape = SubResource("RectangleShape2D_4vyj7")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 128.0
+
+[node name="LadderRungSprite" parent="RoomContent/Ladder/LadderBody/LadderRung8" index="0"]
+show_behind_parent = true
+texture_filter = 6
+texture_repeat = 2
+texture = ExtResource("7_7u3y7")
+hframes = 2
+vframes = 4
+
+[node name="LadderTop" parent="RoomContent/Ladder/LadderSides" index="0"]
+position = Vector2(0, -873.472)
+
+[node name="LadderMiddle" parent="RoomContent/Ladder/LadderSides" index="1"]
+position = Vector2(0, -196.147)
+scale = Vector2(1, 1.0648)
+
+[node name="LadderMiddle2" parent="RoomContent/Ladder/LadderSides" index="3"]
+position = Vector2(0, -332.442)
+scale = Vector2(1, 1.0648)
+
+[node name="LadderMiddle3" parent="RoomContent/Ladder/LadderSides" index="4"]
+texture_filter = 6
+position = Vector2(0, -468.736)
+scale = Vector2(1, 1.0648)
+texture = ExtResource("7_7u3y7")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="LadderMiddle4" parent="RoomContent/Ladder/LadderSides" index="5"]
+texture_filter = 6
+position = Vector2(0, -605.03)
+scale = Vector2(1, 1.0648)
+texture = ExtResource("7_7u3y7")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="LadderMiddle5" parent="RoomContent/Ladder/LadderSides" index="6"]
+texture_filter = 6
+position = Vector2(0, -741.325)
+scale = Vector2(1, 1.0648)
+texture = ExtResource("7_7u3y7")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 128)
+region_filter_clip_enabled = true
+
+[node name="SolidBookCase9" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_wvh8e")
+offset_left = 768.0
+offset_top = 128.0
+offset_right = 897.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase16" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_tvs5x")
+offset_left = 1154.0
+offset_top = 128.0
+offset_right = 1283.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase17" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_bv3ou")
+offset_left = 1347.0
+offset_top = 128.0
+offset_right = 1476.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase18" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_7ek1f")
+offset_left = 1539.0
+offset_top = 128.0
+offset_right = 1668.0
+offset_bottom = 336.0
+
+[node name="SolidBookCase19" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_y46ro")
+offset_left = 1731.0
+offset_top = 128.0
+offset_right = 1860.0
+offset_bottom = 336.0
+
+[node name="OneWayShelf26" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1827, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf27" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1251, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf28" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1187, 328)
+
+[node name="OneWayShelf29" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1443, 327)
+rotation = -0.000636779
+
+[node name="OneWayShelf30" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1379, 327)
+
+[node name="OneWayShelf31" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1635, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf32" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1571, 328)
+
+[node name="OneWayShelf33" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1763, 328)
+
+[node name="SolidBookCase20" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_a1fc5")
+offset_left = 1920.0
+offset_top = 128.0
+offset_right = 2049.0
+offset_bottom = 336.0
+
+[node name="OneWayShelf34" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(2016, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf35" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 328)
+
+[node name="OneWayShelf10" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(864, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf24" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(864, 648)
+rotation = -0.000636779
+
+[node name="SolidBookCase13" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_paefr")
+offset_left = 1472.0
+offset_top = 896.0
+offset_right = 1601.0
+offset_bottom = 1104.0
+
+[node name="SolidBookCase5" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_dm4p3")
+offset_left = 641.0
+offset_top = 896.0
+offset_right = 898.0
+offset_bottom = 1154.0
+
+[node name="SolidBookCase12" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_sbwph")
+offset_left = 1152.0
+offset_top = 896.0
+offset_right = 1401.0
+offset_bottom = 1154.0
+
+[node name="OneWayShelf" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(104, 1144)
+width = 189.0
+
+[node name="SolidBookCase14" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_d327w")
+offset_left = 1664.0
+offset_top = 960.0
+offset_right = 1792.0
+offset_bottom = 1104.0
+
+[node name="SolidBookCase15" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_p7e3x")
+offset_left = 1856.0
+offset_top = 1025.0
+offset_right = 1984.0
+offset_bottom = 1105.0
+
+[node name="OneWayShelf2" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1504, 1096)
+rotation = -0.000636779
+
+[node name="OneWayShelf3" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1568, 1096)
+
+[node name="OneWayShelf11" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1440, 1096)
+
+[node name="OneWayShelf5" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(288, 648)
+rotation = -0.000636779
+
+[node name="OneWayShelf12" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(224, 648)
+
+[node name="OneWayShelf18" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(480, 648)
+rotation = -0.000636779
+
+[node name="OneWayShelf19" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(416, 648)
+
+[node name="OneWayShelf20" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(608, 648)
+rotation = -0.000636779
+
+[node name="OneWayShelf21" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(544, 648)
+
+[node name="OneWayShelf22" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(736, 648)
+rotation = -0.000636779
+
+[node name="OneWayShelf23" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(672, 648)
+
+[node name="OneWayShelf25" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(800, 648)
+
+[node name="OneWayShelf37" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(480, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf38" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(416, 768)
+
+[node name="OneWayShelf39" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(608, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf40" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(544, 768)
+
+[node name="OneWayShelf69" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(480, 896)
+rotation = -0.000636779
+
+[node name="OneWayShelf70" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(544, 896)
+
+[node name="OneWayShelf73" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(480, 968)
+rotation = -0.000636779
+
+[node name="OneWayShelf74" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(544, 968)
+
+[node name="OneWayShelf41" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(736, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf42" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(672, 768)
+
+[node name="OneWayShelf43" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(800, 768)
+
+[node name="OneWayShelf49" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1248, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf50" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1440, 767)
+rotation = -0.000636779
+
+[node name="OneWayShelf51" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1504, 767)
+rotation = -0.000636779
+
+[node name="OneWayShelf52" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1760, 767)
+rotation = -0.000636779
+
+[node name="OneWayShelf53" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1696, 767)
+rotation = -0.000636779
+
+[node name="OneWayShelf55" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 767)
+rotation = -0.000636779
+
+[node name="OneWayShelf71" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 928)
+rotation = -0.000636779
+
+[node name="OneWayShelf54" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1184, 609)
+rotation = -0.000636779
+
+[node name="OneWayShelf56" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1248, 609)
+rotation = -0.000636779
+
+[node name="OneWayShelf57" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1440, 608)
+rotation = -0.000636779
+
+[node name="OneWayShelf58" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1504, 608)
+rotation = -0.000636779
+
+[node name="OneWayShelf59" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1760, 608)
+rotation = -0.000636779
+
+[node name="OneWayShelf60" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1696, 608)
+rotation = -0.000636779
+
+[node name="OneWayShelf61" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 608)
+rotation = -0.000636779
+
+[node name="OneWayShelf62" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1187, 449)
+rotation = -0.000636779
+
+[node name="OneWayShelf63" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1251, 449)
+rotation = -0.000636779
+
+[node name="OneWayShelf64" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1443, 448)
+rotation = -0.000636779
+
+[node name="OneWayShelf65" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1507, 448)
+rotation = -0.000636779
+
+[node name="OneWayShelf66" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1763, 448)
+rotation = -0.000636779
+
+[node name="OneWayShelf67" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1699, 448)
+rotation = -0.000636779
+
+[node name="OneWayShelf68" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 448)
+rotation = -0.000636779
+
+[node name="OneWayShelf7" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(288, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf14" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(224, 328)
+
+[node name="OneWayShelf8" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(480, 327)
+rotation = -0.000636779
+
+[node name="OneWayShelf15" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(416, 327)
+
+[node name="OneWayShelf9" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(672, 328)
+rotation = -0.000636779
+
+[node name="OneWayShelf16" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(608, 328)
+
+[node name="OneWayShelf17" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(800, 328)
+
+[node name="OneWayShelf6" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(288, 968)
+rotation = -0.000636779
+
+[node name="OneWayShelf13" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(224, 968)
+
+[node name="SolidBookCase4" parent="RoomContent" instance=ExtResource("3_d327w")]
+material = SubResource("ShaderMaterial_4urh2")
+offset_left = 891.0
+offset_right = 1160.0
+offset_bottom = 776.0
+
+[node name="OneWayShelf36" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(864, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf48" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1184, 768)
+rotation = -0.00208505
+
+[node name="OneWayShelf44" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1120, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf45" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(992, 768)
+rotation = -0.000636779
+
+[node name="OneWayShelf46" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(928, 768)
+
+[node name="OneWayShelf47" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1056, 768)
+
+[node name="OneWayShelf72" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(992, 960)
+rotation = -0.000636779
+
+[node name="OneWayShelf75" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1056, 960)
+
+[node name="OneWayShelf4" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1696, 1096)
+
+[node name="OneWayShelf80" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1632, 1096)
+
+[node name="OneWayShelf81" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1760, 1096)
+
+[node name="OneWayShelf82" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1888, 1096)
+
+[node name="OneWayShelf83" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1824, 1096)
+
+[node name="OneWayShelf84" parent="RoomContent" instance=ExtResource("5_57xyr")]
+position = Vector2(1952, 1096)
 
 [node name="Environment" type="Node2D" parent="RoomContent"]
 
@@ -44,7 +1449,7 @@ offset_bottom = 1154.0
 position = Vector2(205, 845)
 
 [node name="CollisionShape2D" parent="RoomContent/Environment/AntiGravityArea2D" index="0"]
-position = Vector2(-107, -192)
+position = Vector2(-107, -270.5)
 shape = SubResource("RectangleShape2D_57xyr")
 
 [node name="Label" parent="RoomContent/Environment/AntiGravityArea2D" index="1"]
@@ -65,7 +1470,7 @@ position = Vector2(0, 1223)
 points = PackedVector2Array(-382, -1223, 322, -1223)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor2"]
-position = Vector2(-25, 3)
+position = Vector2(-33, -0.5)
 shape = SubResource("RectangleShape2D_r3b14")
 
 [node name="Floor3" type="StaticBody2D" parent="RoomContent/Walls"]
@@ -75,8 +1480,12 @@ position = Vector2(1709, 1152)
 position = Vector2(-171, 1217)
 points = PackedVector2Array(-384, -1216, 512, -1216)
 
+[node name="TilingFloor3" parent="RoomContent/Walls/Floor3" instance=ExtResource("3_exvn4")]
+position = Vector2(-148, 62)
+points = PackedVector2Array(-1580, -1217, 512, -1217)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor3"]
-position = Vector2(-117.5, 3)
+position = Vector2(-108.5, 0)
 shape = SubResource("RectangleShape2D_qwr2d")
 
 [node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
@@ -130,6 +1539,249 @@ sharp_limit = 200.0
 script = ExtResource("6_png3p")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
 
+[node name="FlyingBook2" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1401, 680)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook7" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1824, 704)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook8" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1848, 590)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook9" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1401, 512)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook10" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1656, 512)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook11" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1768, 384)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook14" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1533, 512)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook15" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1731, 680)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook16" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1594, 792)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook17" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1936, 519)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1304, 575)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook3" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1640, 712)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook4" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1880, 488)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook5" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1768, 504)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook18" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1456, 497)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook6" parent="RoomContent" instance=ExtResource("14_v2mab")]
+position = Vector2(1824, 400)
+scale = Vector2(0.151272, 0.151272)
+height = 93.0
+width = 49.5
+
+[node name="FlyingBook26" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1605, 480)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook28" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1952, 575)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook32" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1640, 400)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook29" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1568, 652)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook30" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1840, 840)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook31" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1360, 772)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="FlyingBook13" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1248, 503)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="RoomContent"]
+position = Vector2(1146, 832)
+scale = Vector2(0.302544, 0.302544)
+collision_layer = 16777216
+collision_mask = 16777216
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/StaticBody2D"]
+position = Vector2(-6.61108, -26.4426)
+shape = SubResource("RectangleShape2D_dm4p3")
+
+[node name="FlyingBook27" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(0.944, 1.058, 0.715, 1)
+position = Vector2(1336, 504)
+scale = Vector2(0.302544, 0.302544)
+height = 186.0
+width = 99.0
+
+[node name="BookshelfArea" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1216, 736)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("@CollisionShape2D@202112")
+
+[node name="@CollisionShape2D@202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea"]
+shape = SubResource("RectangleShape2D_2q71t")
+
+[node name="BookshelfArea2" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1472, 576)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea2"]
+shape = SubResource("RectangleShape2D_2q71t")
+
+[node name="FlyingBook12" parent="RoomContent" instance=ExtResource("14_v2mab")]
+modulate = Color(1, 0.894043, 0.78125, 1)
+position = Vector2(1354, 392)
+scale = Vector2(0.226908, 0.226908)
+height = 186.0
+width = 99.0
+
+[node name="BookshelfArea3" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1728, 736)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea3"]
+shape = SubResource("RectangleShape2D_2q71t")
+
+[node name="BookshelfArea4" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1728, 578)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea4"]
+shape = SubResource("RectangleShape2D_2q71t")
+
+[node name="BookshelfArea5" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1216, 416)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea5"]
+shape = SubResource("RectangleShape2D_2q71t")
+
+[node name="BookshelfArea6" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1952, 416)
+bookshelf_shape = SubResource("RectangleShape2D_e8apy")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea6"]
+shape = SubResource("RectangleShape2D_e8apy")
+
+[node name="BookshelfArea8" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1952, 736)
+bookshelf_shape = SubResource("RectangleShape2D_e8apy")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea8"]
+shape = SubResource("RectangleShape2D_e8apy")
+
+[node name="BookshelfArea7" parent="RoomContent" node_paths=PackedStringArray("bookshelf_collision") instance=ExtResource("15_yrxp3")]
+position = Vector2(1472, 416)
+bookshelf_shape = SubResource("RectangleShape2D_2q71t")
+bookshelf_collision = NodePath("_CollisionShape2D_202112")
+
+[node name="_CollisionShape2D_202112" type="CollisionShape2D" parent="RoomContent/BookshelfArea7"]
+shape = SubResource("RectangleShape2D_2q71t")
+
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(512, 288)
 
@@ -149,9 +1801,49 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 border_width = 2.0
+metadata/_edit_lock_ = true
 
-[node name="OneWayShelf" parent="." instance=ExtResource("5_57xyr")]
-position = Vector2(96, 1152)
-width = 189.0
+[node name="Drawer" type="RigidBody2D" parent="."]
+position = Vector2(257, 87)
+collision_layer = 17
+collision_mask = 23
+metadata/_edit_group_ = true
 
+[node name="Drawer" type="Sprite2D" parent="Drawer"]
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("17_4urh2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drawer"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ujpk8")
+
+[node name="Drawer2" type="RigidBody2D" parent="."]
+position = Vector2(543, 408)
+collision_layer = 17
+collision_mask = 23
+metadata/_edit_group_ = true
+
+[node name="Drawer" type="Sprite2D" parent="Drawer2"]
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("17_4urh2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drawer2"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ujpk8")
+
+[node name="Drawer3" type="RigidBody2D" parent="."]
+position = Vector2(648, 736)
+collision_layer = 17
+collision_mask = 23
+metadata/_edit_group_ = true
+
+[node name="Drawer" type="Sprite2D" parent="Drawer3"]
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("17_4urh2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drawer3"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ujpk8")
+
+[editable path="RoomContent/Ladder"]
 [editable path="RoomContent/Environment/AntiGravityArea2D"]

@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc37235kj4384"]
+[gd_scene load_steps=6 format=3 uid="uid://cc37235kj4384"]
 
 [ext_resource type="Script" uid="uid://b5oej1q4h7jvh" path="res://addons/maaacks_game_template/base/scripts/ui_sound_controller.gd" id="1_dmagn"]
+[ext_resource type="AudioStream" uid="uid://dqajxyrwtrd2i" path="res://assets/assets-audio/sfx/menu/Menu_Up1.wav" id="2_7f8wo"]
+[ext_resource type="AudioStream" uid="uid://foawjyvptjx8" path="res://assets/assets-audio/sfx/menu/Menu_Down1.wav" id="3_nvwb3"]
+[ext_resource type="AudioStream" uid="uid://b6jvg5qlglxya" path="res://assets/assets-audio/sfx/menu/Menu_Confirm1.wav" id="4_e13bv"]
+[ext_resource type="AudioStream" uid="uid://d321dqlruvopd" path="res://assets/assets-audio/sfx/menu/Menu_Select1.wav" id="5_42wer"]
 
 [node name="ProjectUISoundController" type="Node"]
 script = ExtResource("1_dmagn")
+button_hovered = ExtResource("2_7f8wo")
+button_focused = ExtResource("3_nvwb3")
+button_pressed = ExtResource("4_e13bv")
+tab_hovered = ExtResource("2_7f8wo")
+tab_changed = ExtResource("5_42wer")
+tab_selected = ExtResource("4_e13bv")
+slider_hovered = ExtResource("2_7f8wo")
+slider_focused = ExtResource("3_nvwb3")
+slider_drag_started = ExtResource("5_42wer")
+slider_drag_ended = ExtResource("4_e13bv")
+line_hovered = ExtResource("2_7f8wo")
+line_focused = ExtResource("3_nvwb3")
+line_text_changed = ExtResource("5_42wer")
+line_text_submitted = ExtResource("4_e13bv")
+line_text_change_rejected = ExtResource("5_42wer")

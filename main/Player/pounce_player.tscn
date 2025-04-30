@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bo1xeylmqo7xt"]
+[gd_scene load_steps=17 format=3 uid="uid://bo1xeylmqo7xt"]
 
 [ext_resource type="Script" uid="uid://od700kj08fhl" path="res://main/Player/rigid_player_pounce.gd" id="1_m77i1"]
 [ext_resource type="Script" uid="uid://cxdgknfrd5ist" path="res://main/Player/Components/interaction_detector.gd" id="2_n8e0i"]
@@ -35,14 +35,18 @@ modifications/0 = SubResource("SkeletonModification2DLookAt_75erd")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhn4v"]
 custom_solver_bias = 1.0
-size = Vector2(8.375, 9.5)
+size = Vector2(8, 9.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhn4v"]
+radius = 0.5
+height = 9.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hcsg"]
 radius = 35.65
 
 [node name="PouncingCat" type="RigidBody2D" node_paths=PackedStringArray("interaction_detect", "animation_player", "visual_component") groups=["Player"]]
 collision_layer = 12
-collision_mask = 15
+collision_mask = 31
 mass = 3.25
 physics_material_override = SubResource("PhysicsMaterial_nywrp")
 gravity_scale = 4.5
@@ -66,8 +70,9 @@ pounce_control_type = 2
 min_jump_charge = 0.05
 h_jump_control = 0.8
 landing_boost = 1.1
+min_pounce_angle = 20.0
 def_pounce_angle = 50.0
-max_pounce_angle = 80.0
+max_pounce_angle = 190.0
 
 [node name="PlayerLight" type="PointLight2D" parent="."]
 position = Vector2(0, -15)
@@ -324,10 +329,16 @@ unique_name_in_owner = true
 position = Vector2(160, 0)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(1, -17)
+position = Vector2(1, -18)
 rotation = -1.57079
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_lhn4v")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
+rotation = -1.57079
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_lhn4v")
 
 [node name="DetectionAreas" type="Node2D" parent="."]
 

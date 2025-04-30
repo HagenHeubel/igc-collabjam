@@ -57,7 +57,6 @@ func _process(delta: float) -> void:
 		sprite.global_position = prev_position.slerp(global_position,lerp_delta)
 		sprite.global_rotation = lerp_angle(prev_rotation, 0.0, lerp_delta)
 		if lerp_delta > 0.8:
-			print("tinting flying book")
 			sprite.modulate = sprite.modulate.lerp(Color.GRAY,(lerp_delta-0.8)*5.0)
 	
 	if target_bookshelf:

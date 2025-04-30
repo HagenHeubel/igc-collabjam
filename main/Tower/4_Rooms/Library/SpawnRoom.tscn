@@ -261,10 +261,10 @@ scale = Vector2(1.25, 1.25)
 position = Vector2(207.2, 73.6)
 
 [node name="BottlePurple2" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
-position = Vector2(136.8, 263.2)
+position = Vector2(606.4, 249.6)
 
 [node name="BottleBlue" parent="RoomContent/Objects/Bottles" instance=ExtResource("5_k8k36")]
-position = Vector2(162.4, 263.2)
+position = Vector2(639.2, 252.8)
 
 [node name="BottlePurple3" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
 position = Vector2(559.2, 178.4)
@@ -273,7 +273,7 @@ position = Vector2(559.2, 178.4)
 position = Vector2(231.2, 412.8)
 
 [node name="BottlePurple4" parent="RoomContent/Objects/Bottles" instance=ExtResource("8_3gpp8")]
-position = Vector2(184.8, 261.6)
+position = Vector2(443.2, 172)
 
 [node name="BottleOrange" parent="RoomContent/Objects/Bottles" instance=ExtResource("7_o4v2q")]
 position = Vector2(307.2, 249.6)
