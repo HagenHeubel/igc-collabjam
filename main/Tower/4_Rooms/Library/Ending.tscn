@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://egs4icp30aba"]
+[gd_scene load_steps=12 format=3 uid="uid://egs4icp30aba"]
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_qklpi"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_73uh1"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="4_ii8du"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="5_fqj3p"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_xitgc"]
-[ext_resource type="PackedScene" uid="uid://1b7tnjnxyiiy" path="res://main/Objects/Prefabs/Furniture/Drawer.tscn" id="7_3ucp3"]
 [ext_resource type="PackedScene" uid="uid://c7iapunvbyeuu" path="res://wip/wip-sqlpy/scenes/wisp.tscn" id="8_brpv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0jcj"]
@@ -69,7 +68,7 @@ position = Vector2(-352, 0)
 shape = SubResource("RectangleShape2D_vl8m1")
 
 [node name="CameraTarget" type="Marker2D" parent="."]
-position = Vector2(192, 160)
+position = Vector2(176, 144)
 
 [node name="CameraBounds" type="ReferenceRect" parent="."]
 anchors_preset = 8
@@ -106,34 +105,6 @@ joint_mode = 2
 sharp_limit = 200.0
 script = ExtResource("6_xitgc")
 metadata/_custom_type_script = "uid://dv77o5682uey2"
-
-[node name="Drawer" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(128, 224)
-rotation = 1.14319
-
-[node name="Drawer8" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(64, 176)
-rotation = 0.760964
-
-[node name="Drawer9" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(96, 80)
-rotation = 2.28464
-
-[node name="Drawer10" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(208, 192)
-rotation = -0.888373
-
-[node name="Drawer11" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(175, 112)
-rotation = -0.888373
-
-[node name="Drawer12" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(239, 79)
-rotation = -2.28464
-
-[node name="Drawer20" parent="." instance=ExtResource("7_3ucp3")]
-position = Vector2(288, 144)
-rotation = 1.01578
 
 [node name="RigidBody2D" parent="." instance=ExtResource("8_brpv4")]
 visible = false
