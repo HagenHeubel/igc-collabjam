@@ -354,3 +354,6 @@ target_position = Vector2(0, 25)
 
 [node name="PlayerArea" parent="." instance=ExtResource("5_p1gsp")]
 position = Vector2(0, -30)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
