@@ -380,6 +380,7 @@ metadata/_custom_type_script = "uid://dv77o5682uey2"
 
 [node name="Rat2" parent="RoomContent" instance=ExtResource("22_0dwts")]
 position = Vector2(400, 560)
+is_catchable = false
 
 [node name="CameraTarget" type="Marker2D" parent="."]
 position = Vector2(491, 334)

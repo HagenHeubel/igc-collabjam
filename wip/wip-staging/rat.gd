@@ -6,12 +6,14 @@ extends Node2D
 @onready var screen_exit_despawner: ScreenExitDespawner = $ScreenExitDespawner
 
 @export var is_catchable: bool = true
+@export var can_escape : bool = true
 @export var WANDER_SPEED: float = 50.0
 @export var RUN_SPEED: float = 500.0
 @export var WANDER_DISTANCE: float = 400.0 # in pixels
 @export var MAX_LEFT: float
 @export var MAX_RIGHT: float
 @export_enum("Left", "Right") var DIRECTION_TO_EXIT: int = 1 ## 0 for left, 1 for right
+@onready var rat_sprite: Sprite2D = $RatSprite
 
 var just_alerted : bool = false
 var is_alert: bool = false
@@ -29,7 +31,10 @@ func _ready() -> void:
 
 func _on_screen_exited() -> void:
 	if is_alert:
-		queue_free()
+		if can_escape:
+			queue_free()
+		else:
+			is_alert = false
 
 func _on_alerted(body: Node2D):
 	if body.is_in_group("Player"):
@@ -55,23 +60,37 @@ func _on_unalerted(body: Node2D):
 		if is_alert:
 			return
 		else:
-			print("Rat Escaped!!")
-			self.queue_free()
+			if can_escape:
+				print("Rat Escaped!!")
+				self.queue_free()
 
 func _on_capture(body: Node2D):
 	if body.is_in_group("Player"):
 		if is_catchable:
-			##TODO Add winning stuff
-			print("YOU CAUGHT THE RAT GOOD JORB!!")
-			self.queue_free()
+			is_catchable = false
+			Engine.time_scale = 0.3
+			var tween : Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_method(set_transition, 0.0, 0.93, 0.8)
+			tween.tween_interval(0.1)
+			tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_method(set_transition, 0.93, 1.1, 0.2)
+			tween.tween_interval(0.2)
+			tween.tween_callback(change_scene)
 		else:
 			print("Why is the rat so slippery??")
-
+func set_transition(amount : float) -> void:
+	GlobalVars.screen_hole_progress = amount
+func change_scene() -> void:
+	get_tree().change_scene_to_file("res://main/GameTemplate/scenes/end_credits/end_credits.tscn")
 func _physics_process(delta: float) -> void:
 	if is_alert:
 		run_away(delta)
 	else:
 		wander(delta)
+	if target_pos.x > global_position.x:
+		rat_sprite.flip_h = false
+	else:
+		rat_sprite.flip_h = true
 
 func wander(delta: float):
 	var arrived: bool = (move_dir > 0 and global_position.x >= target_pos.x) or (move_dir < 0 and global_position.x <= target_pos.x)
