@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dal58gejkw8dh"]
+[gd_scene load_steps=14 format=3 uid="uid://dal58gejkw8dh"]
 
 [ext_resource type="PackedScene" uid="uid://sikc02ddepyt" path="res://addons/maaacks_game_template/base/scenes/opening/opening.tscn" id="1_4rk7a"]
 [ext_resource type="Script" uid="uid://kern6hj4126h" path="res://main/GameTemplate/scenes/opening/opening.gd" id="2_vwpx5"]
@@ -12,13 +12,17 @@
 [ext_resource type="Texture2D" uid="uid://cph3a8010tn77" path="res://main/GameTemplate/scenes/opening/images/slide7.png" id="10_i5m8q"]
 [ext_resource type="Texture2D" uid="uid://dhek32hk472yb" path="res://main/GameTemplate/scenes/opening/images/slide8.png" id="11_jh55i"]
 [ext_resource type="Texture2D" uid="uid://cxcrjd22otj1i" path="res://main/GameTemplate/scenes/opening/images/slide10.png" id="12_gkjky"]
+[ext_resource type="AudioStream" uid="uid://bgjiy2hkyec6p" path="res://assets/assets-audio/music/004 - Disassembly (And Disorder).wav" id="13_f8owb"]
 
 [node name="Opening" instance=ExtResource("1_4rk7a")]
 script = ExtResource("2_vwpx5")
 next_scene = "uid://c4bb0pm7buxbq"
 images = Array[Texture2D]([ExtResource("3_f8owb"), ExtResource("4_ojxtk"), ExtResource("5_illbw"), ExtResource("6_ao6g7"), ExtResource("7_dutba"), ExtResource("8_c7yya"), ExtResource("9_f3ea1"), ExtResource("10_i5m8q"), ExtResource("11_jh55i"), ExtResource("3_f8owb"), ExtResource("12_gkjky")])
 fade_out_time = 0.0
-visible_time = 3.5
+visible_time = 10.0
+
+[node name="BackgroundMusicPlayer" parent="." index="0"]
+stream = ExtResource("13_f8owb")
 
 [node name="ColorRect" type="ColorRect" parent="." index="1"]
 z_index = -1
