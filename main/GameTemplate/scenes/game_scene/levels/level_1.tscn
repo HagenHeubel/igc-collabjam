@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwonll6lvlecc"]
+[gd_scene load_steps=25 format=3 uid="uid://dwonll6lvlecc"]
 
 [ext_resource type="PackedScene" uid="uid://cyardrbnaeudv" path="res://main/Tower/4_Rooms/Library/SpawnRoom.tscn" id="1_8ehof"]
 [ext_resource type="Script" uid="uid://yhu1uww6ya1g" path="res://main/GameTemplate/scenes/game_scene/levels/tower_f1.gd" id="1_iay74"]
 [ext_resource type="Script" uid="uid://fi5jmhmr360j" path="res://main/Tower/1_TowerComponents/room_controller.gd" id="1_v0jcj"]
 [ext_resource type="PackedScene" uid="uid://c0c3xikghws43" path="res://main/Tower/4_Rooms/Library/room_2.tscn" id="2_afea3"]
+[ext_resource type="Script" uid="uid://bt5fsio16x8jv" path="res://main/GameTemplate/scenes/game_scene/levels/color_rect.gd" id="2_kn54y"]
 [ext_resource type="Script" uid="uid://pve7jvtpwy2i" path="res://wip/wip-sqlpy/los_world.gd" id="2_odec8"]
 [ext_resource type="PackedScene" uid="uid://dwn1heokik6x8" path="res://main/Tower/4_Rooms/Library/broom_closet.tscn" id="2_ugcyd"]
+[ext_resource type="Shader" uid="uid://ypbog2iumrwt" path="res://main/GameTemplate/scenes/game_scene/levels/screen_hole.gdshader" id="2_x70ca"]
 [ext_resource type="PackedScene" uid="uid://cnhkeei12hppk" path="res://main/Tower/4_Rooms/Library/room_6.tscn" id="3_68jfx"]
 [ext_resource type="PackedScene" uid="uid://lb1xgx5lsfmv" path="res://wip/wip-sqlpy/scenes/torch.tscn" id="4_spedq"]
 [ext_resource type="PackedScene" uid="uid://cgm5smelon8b1" path="res://main/Tower/4_Rooms/Library/room_3.tscn" id="4_ycf0s"]
@@ -16,7 +18,14 @@
 [ext_resource type="PackedScene" uid="uid://cjy2xxtnnooch" path="res://main/Tower/1_TowerComponents/room_door.tscn" id="10_e8j3a"]
 [ext_resource type="PackedScene" uid="uid://bo1xeylmqo7xt" path="res://main/Player/pounce_player.tscn" id="12_bweyl"]
 [ext_resource type="Script" uid="uid://craf068s6fswb" path="res://main/Tower/1_TowerComponents/room_camera.gd" id="12_vl8m1"]
+[ext_resource type="PackedScene" uid="uid://egs4icp30aba" path="res://main/Tower/4_Rooms/Library/Ending.tscn" id="15_5pd6h"]
 [ext_resource type="Script" uid="uid://dcnqf4ae55u3a" path="res://wip/wip-sqlpy/player_light.gd" id="16_odec8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mqm3"]
+shader = ExtResource("2_x70ca")
+shader_parameter/progress = 0.0
+shader_parameter/softness = 0.01
+shader_parameter/texture_size = Vector2(500, 256)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_odec8"]
 blend_mode = 3
@@ -40,6 +49,19 @@ script = ExtResource("1_iay74")
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 layer = 5
 follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing"]
+material = SubResource("ShaderMaterial_1mqm3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kn54y")
 
 [node name="LineOfSightOverlay" type="CanvasLayer" parent="."]
 layer = 2
@@ -188,16 +210,26 @@ green_room = NodePath("../Room8")
 [node name="BroomCloset" parent="GameSpace/Floor1" instance=ExtResource("2_ugcyd")]
 position = Vector2(4768, -2208)
 
+[node name="BroomCloset2" parent="GameSpace/Floor1" instance=ExtResource("15_5pd6h")]
+position = Vector2(6400, 288)
+
+[node name="RoomDoor12" parent="GameSpace/Floor1" node_paths=PackedStringArray("orange_room", "green_room") instance=ExtResource("10_e8j3a")]
+position = Vector2(6400, 528)
+door_direction = 1
+orange_room = NodePath("../Room8")
+green_room = NodePath("../BroomCloset2")
+
 [node name="Lighting" type="Node2D" parent="GameSpace"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameSpace/Lighting"]
 light_mask = 0
 visibility_layer = 0
-color = Color(0.628561, 0.561924, 0.790445, 1)
+color = Color(0.466314, 0.350549, 0.664536, 1)
 
 [node name="Torch" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(546, 352)
+position = Vector2(320, 191)
 color = Color(1, 0.903758, 0.856763, 1)
+texture_scale = 16.0
 
 [node name="Torch16" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1312, -316)
@@ -219,7 +251,7 @@ color = Color(1, 0.903758, 0.856763, 1)
 position = Vector2(203, 372)
 
 [node name="Torch3" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(924, 384)
+position = Vector2(976, 427)
 
 [node name="Torch4" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1120, -928)
@@ -231,6 +263,26 @@ texture_scale = 12.31
 
 [node name="Torch11" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(1520, -656)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch11" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(3755, -1195)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch12" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(3991, -1195)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch13" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(4240, -1200)
+range_item_cull_mask = 3
+texture_scale = 7.36
+
+[node name="Torch14" parent="GameSpace/Lighting/Torch11" instance=ExtResource("4_spedq")]
+position = Vector2(4488, -1200)
 range_item_cull_mask = 3
 texture_scale = 7.36
 
@@ -246,10 +298,6 @@ position = Vector2(2304, 448)
 [node name="Torch8" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(2273, -168)
 
-[node name="Torch17" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3472, -416)
-texture_scale = 2.0
-
 [node name="Torch19" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
 position = Vector2(3198, -599)
 
@@ -260,7 +308,7 @@ position = Vector2(3198, -108)
 position = Vector2(3203, 393)
 
 [node name="Torch18" parent="GameSpace/Lighting" instance=ExtResource("4_spedq")]
-position = Vector2(3568, -416)
+position = Vector2(3584, -474)
 texture_scale = 2.0
 
 [node name="RoomCamera2D" type="Camera2D" parent="GameSpace"]
@@ -269,9 +317,12 @@ script = ExtResource("12_vl8m1")
 metadata/_custom_type_script = "uid://craf068s6fswb"
 
 [node name="PouncingCat" parent="GameSpace" instance=ExtResource("12_bweyl")]
-position = Vector2(827, 75)
+position = Vector2(921, 86)
 gravity_scale = 4.0
+min_jump_charge = 0.1
+landing_boost_duration = 0.2
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource("1_v0jcj")
+enable_and_disable_rooms = true
 metadata/_custom_type_script = "uid://fi5jmhmr360j"

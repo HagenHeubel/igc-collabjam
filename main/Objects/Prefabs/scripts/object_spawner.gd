@@ -1,14 +1,14 @@
 @tool
 extends Node2D
 
-@export_range(0.1, 20.0, 0.1) var spawn_interval : float
+@export_range(0.01, 10.0, 0.01) var spawn_interval : float
 @export var object_to_spawn : PackedScene
 @export_range(-360, 360, 1.0) var min_spawn_angle : float
 @export_range(-360, 360, 1.0) var max_spawn_angle : float
 @export_range(0, 3000, 10) var min_spawn_velocity : float = 10.0
 @export_range(0, 3000, 10) var max_spawn_velocity : float = 10.0
-
-
+@export var spawn_target : Node2D
+var spawning : bool = false
 @onready var hint_line_2d: Line2D = $Line2D
 @onready var spawn_timer: Timer = $SpawnTimer
 
@@ -29,7 +29,8 @@ func _process(delta: float) -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	var spawn_vector : Vector2 = _generate_spawn_vector()
-	_spawn_object(spawn_vector)
+	if spawning:
+		_spawn_object(spawn_vector)
 
 func _generate_spawn_vector() -> Vector2:
 	var spawn_velocity : float = randf_range(min_spawn_velocity, max_spawn_velocity)
@@ -38,6 +39,6 @@ func _generate_spawn_vector() -> Vector2:
 
 func _spawn_object(velocity_vector : Vector2) -> void:
 	var object : RigidBody2D = object_to_spawn.instantiate()
+	spawn_target.add_child(object)
 	object.linear_velocity = velocity_vector
 	object.global_position = global_position
-	%Objects.add_child(object)

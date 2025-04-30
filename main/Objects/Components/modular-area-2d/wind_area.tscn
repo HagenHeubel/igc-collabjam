@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b1v1x67pyfytf" path="res://main/Objects/Components/modular-area-2d/src/wind_area.gd" id="1_ujebn"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15gfy"]
 size = Vector2(608, 240)
 
@@ -20,10 +19,3 @@ script = ExtResource("1_ujebn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-232, 0)
 shape = SubResource("RectangleShape2D_15gfy")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -256.0
-offset_top = -16.0
-offset_right = -180.0
-offset_bottom = 7.0
-text = "WindArea"

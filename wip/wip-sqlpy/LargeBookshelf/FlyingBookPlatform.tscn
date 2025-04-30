@@ -19,6 +19,7 @@ cull_mode = 2
 polygon = PackedVector2Array(-42.5, -344.5, 42.5, -344.5, 42.5, 344.5, -42.5, 344.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dj41"]
+resource_local_to_scene = true
 size = Vector2(85, 689)
 
 [node name="FlyingBookPlatform" type="Path2D"]

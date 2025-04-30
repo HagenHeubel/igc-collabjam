@@ -1,10 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://drx4334urcsgb"]
+[gd_scene load_steps=9 format=3 uid="uid://drx4334urcsgb"]
 
 [ext_resource type="Script" uid="uid://bl8dilo6i555r" path="res://main/Objects/Components/modular-area-2d/src/anti_gravity_area.gd" id="1_1gjwo"]
-
+[ext_resource type="Script" uid="uid://dcv55qwdkbabv" path="res://main/Objects/Components/modular-area-2d/texture_rect.gd" id="2_igcb8"]
+[ext_resource type="Shader" uid="uid://672r3x3ro5v1" path="res://main/Objects/Components/modular-area-2d/anti_gravity_area_2d.gdshader" id="2_xjqhh"]
+[ext_resource type="Texture2D" uid="uid://c8fpwtp81s5ue" path="res://wip/wip-sqlpy/assets/Grainy 3 - 512x512.png" id="3_g3sdr"]
+[ext_resource type="Texture2D" uid="uid://bog7brhvy438q" path="res://wip/wip-sqlpy/assets/Craters 13 - 512x512.png" id="4_tv7c1"]
+[ext_resource type="Texture2D" uid="uid://b8mqpxn1h7drt" path="res://wip/wip-sqlpy/assets/Milky 9 - 512x512.png" id="5_kfgci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wj7k8"]
 size = Vector2(400, 824)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_igcb8"]
+shader = ExtResource("2_xjqhh")
+shader_parameter/noise1 = ExtResource("3_g3sdr")
+shader_parameter/noise2 = ExtResource("4_tv7c1")
+shader_parameter/noise3 = ExtResource("5_kfgci")
+shader_parameter/rotation = -1.571
+shader_parameter/speed1 = 0.1
+shader_parameter/speed2 = 0.1
+shader_parameter/speed3 = 0.2
+shader_parameter/speed4 = 0.2
 
 [node name="AntiGravityArea2D" type="Area2D"]
 modulate = Color(1, 0.180392, 0.847059, 1)
@@ -23,9 +38,12 @@ script = ExtResource("1_1gjwo")
 position = Vector2(0, -108)
 shape = SubResource("RectangleShape2D_wj7k8")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -32.0
-offset_top = -120.0
-offset_right = 41.0
-offset_bottom = -97.0
-text = "Anti Grav"
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_igcb8")
+offset_left = 368.0
+offset_right = 608.0
+offset_bottom = 384.0
+texture = ExtResource("3_g3sdr")
+expand_mode = 1
+stretch_mode = 1
+script = ExtResource("2_igcb8")

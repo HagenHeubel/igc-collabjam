@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=49 format=3 uid="uid://begat8ftpwgos"]
+
 
 [ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_gc2lb"]
 [ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_uxsu4"]
@@ -12,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://defhrfrxgslml" path="res://wip/wip-hagen/static_ladder.tscn" id="6_4nrj1"]
 [ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_png3p"]
 [ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="6_qu611"]
+
 [ext_resource type="Texture2D" uid="uid://vjyt7bqvdca1" path="res://wip/wip-hagen/assets/cat_game_ladder.png" id="7_7u3y7"]
 [ext_resource type="PackedScene" uid="uid://buwkpi3qxfqgv" path="res://wip/wip-hagen/bookshelves/flying_book.tscn" id="14_v2mab"]
 [ext_resource type="PackedScene" uid="uid://cv228dvi1x0vo" path="res://wip/wip-hagen/bookshelves/magic_bookshelf.tscn" id="15_yrxp3"]
@@ -781,6 +784,7 @@ resource_local_to_scene = true
 shader = ExtResource("4_p7e3x")
 shader_parameter/desaturation = 0.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57xyr"]
 size = Vector2(186, 1151)

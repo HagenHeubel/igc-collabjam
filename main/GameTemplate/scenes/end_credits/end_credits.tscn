@@ -1,17 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://caabo5gstjb3y"]
+[gd_scene load_steps=6 format=3 uid="uid://caabo5gstjb3y"]
 
-[ext_resource type="PackedScene" path="res://main/GameTemplate/scenes/credits/credits.tscn" id="1_jvlev"]
-[ext_resource type="Script" path="res://main/GameTemplate/scenes/end_credits/end_credits.gd" id="2_2p5w1"]
-[ext_resource type="PackedScene" path="res://addons/maaacks_game_template/base/scenes/music_players/background_music_player.tscn" id="3_0apwf"]
-[ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/capture_focus.gd" id="4_gfs8t"]
+[ext_resource type="PackedScene" uid="uid://dx08ac483r4xn" path="res://main/GameTemplate/scenes/credits/credits.tscn" id="1_jvlev"]
+[ext_resource type="Script" uid="uid://dee2dctki1jo6" path="res://main/GameTemplate/scenes/end_credits/end_credits.gd" id="2_2p5w1"]
+[ext_resource type="PackedScene" uid="uid://bkcsjsk2ciff" path="res://addons/maaacks_game_template/base/scenes/music_players/background_music_player.tscn" id="3_0apwf"]
+[ext_resource type="AudioStream" uid="uid://pno35tkcnlhl" path="res://assets/assets-audio/music/005 - A Gentle Push.wav" id="4_2p5w1"]
+[ext_resource type="Script" uid="uid://1nf36h0gms3q" path="res://addons/maaacks_game_template/base/scripts/capture_focus.gd" id="4_gfs8t"]
 
 [node name="EndCredits" instance=ExtResource("1_jvlev")]
 script = ExtResource("2_2p5w1")
 main_menu_scene = "res://main/GameTemplate/scenes/menus/main_menu/main_menu_with_animations.tscn"
 
 [node name="BackgroundMusicPlayer" parent="." index="0" instance=ExtResource("3_0apwf")]
+stream = ExtResource("4_2p5w1")
 
-[node name="BackgroundColor" type="ColorRect" parent="." index="1"]
+[node name="BackgroundColor2" type="ColorRect" parent="." index="1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,9 +31,6 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
-
-[node name="ScrollContainer" parent="." index="3"]
-scroll_vertical = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="." index="4"]
 layout_mode = 0
@@ -85,6 +84,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Menu"
+
+[node name="ScrollContainer" parent="." index="5"]
+scroll_vertical = 0
 
 [connection signal="pressed" from="CenterContainer/EndMessagePanel/VBoxContainer/CenterContainer/HBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="CenterContainer/EndMessagePanel/VBoxContainer/CenterContainer/HBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]

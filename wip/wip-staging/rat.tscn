@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://fpshnwrqhnrp"]
 
 [ext_resource type="Script" uid="uid://frl3wmew3xfs" path="res://wip/wip-staging/rat.gd" id="1_bebyo"]
-[ext_resource type="Texture2D" uid="uid://dbpaljknvmnmu" path="res://assets/assets-visual/Icons/node/icon_skull.png" id="1_tawli"]
 [ext_resource type="Texture2D" uid="uid://b5wg81fmqiaoj" path="res://assets/assets-visual/Icons/node/icon_event.png" id="2_bebyo"]
+[ext_resource type="Texture2D" uid="uid://bf86dlutq0dny" path="res://assets/assets-visual/mado/books/raaat.png" id="2_w5oki"]
 [ext_resource type="Script" uid="uid://cymusi1v1ua4i" path="res://assets/assets-scr/Components/Spawner/ScreenExitDespawner/screen_exit_despawner.gd" id="4_01np7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf63r"]
@@ -41,7 +41,8 @@ debug_color = Color(0.383941, 0.155324, 0.202733, 0.211765)
 
 [node name="RatSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -9)
-texture = ExtResource("1_tawli")
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_w5oki")
 
 [node name="AlertIcon" type="Sprite2D" parent="."]
 visible = false
@@ -50,6 +51,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_bebyo")
 
 [node name="ScreenExitDespawner" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -16)
 scale = Vector2(11.3, 7.6)
 script = ExtResource("4_01np7")
 metadata/_custom_type_script = "uid://cymusi1v1ua4i"

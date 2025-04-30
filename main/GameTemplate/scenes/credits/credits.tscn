@@ -1,46 +1,90 @@
 [gd_scene load_steps=3 format=3 uid="uid://dx08ac483r4xn"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_game_template/base/scenes/credits/credits.tscn" id="1_w1ul3"]
-[ext_resource type="Script" path="res://main/GameTemplate/scenes/credits/credits.gd" id="2_hc6mf"]
+[ext_resource type="PackedScene" uid="uid://t2dui8ppm3a4" path="res://addons/maaacks_game_template/base/scenes/credits/credits.tscn" id="1_w1ul3"]
+[ext_resource type="Script" uid="uid://q7einiox1jjf" path="res://main/GameTemplate/scenes/credits/credits.gd" id="2_hc6mf"]
 
 [node name="Credits" instance=ExtResource("1_w1ul3")]
 script = ExtResource("2_hc6mf")
 attribution_file_path = "res://main/GameTemplate/ATTRIBUTION.md"
+current_speed = 1.1
+
+[node name="BackgroundColor" type="ColorRect" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HeaderSpace" parent="ScrollContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(0, 648)
 
 [node name="CreditsLabel" parent="ScrollContainer/VBoxContainer" index="1"]
-text = "[center][font_size=48]Collaborators[/font_size]
+custom_minimum_size = Vector2(1152, 0)
+text = "[center]
+[font_size=48]This Game was made in less than 30 Days[/font_size]
+[font_size=48]For the 2025 IndieGameClinic Collab Jam[/font_size]
+[font_size=48]By an International Team of Total Strangers[/font_size]
 
-[font_size=32]Role[/font_size]
-Person 1  
-Person 2  
-[url=]Person w/ Link[/url]  
+
+[font_size=48]Lead of Programming & Design // Technical Artist // Level Designer[/font_size]
+[url=https://squarebit.itch.io/]SQLPY[/url]  
 
 
-[font_size=48]Sourced / Unaffiliated[/font_size]
-[font_size=32]Asset Type[/font_size]
-[font_size=24]Use Case[/font_size]
-Author: [url=]Name[/url]  
-Source: [url=]Domain : webpage.html[/url]  
-License: [url=]License[/url]
+[font_size=48]2D Animator // Gameplay Programming & Design[/font_size]
+[url=https://hagenheubel.itch.io/]Hagen Heubel[/url] 
+
+
+[font_size=48]Systems Programming // UI & Narrative Design // Production [/font_size]
+[url=https://vr00d.itch.io/]Vrood[/url]
+
+
+[font_size=48]Environmental Artist // Character Design[/font_size]
+[url=https://controverse.itch.io/]Controverse[/url]  
+
+
+[font_size=48]Environmental Artist // Character Design[/font_size]
+[url=https://imgflip.com/i/9sh159]Mado[/url]
+
+
+[font_size=48]Sounds & Music by[/font_size]
+[url=https://joehc.itch.io/]JoeHateClub[/url]
+[url=https://x.com/impactfontjoe]@ImpactFontJoe[/url]
+
+
+[font_size=48]Good Vibes[/font_size]
+[url=https://burger-lad.itch.io/]BurgerLad[/url]
+
+
+[font_size=48]Special Thanks To[/font_size]
+
+[font_size=48]Our Host[/font_size]
+[url=https://www.patreon.com/indiegameclinic/about]Dr. Joe \"Indie Game Clinic\" Baxter-Webb[/url]
+
+
 
 [font_size=24]Godot Engine Logo[/font_size]
 Author: Andrea Calabró  
 Source: [url=https://godotengine.org/press/]godotengine.org : press[/url]  
 License: [url=https://github.com/godotengine/godot/blob/master/LOGO_LICENSE.txt]CC BY 4.0 International[/url] 
 
-[font_size=48]Tools[/font_size]
-[font_size=24]Godot[/font_size]
+[font_size=48]Tools & Code Include[/font_size]
+**GODOT**
 Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
 Source: [url=https://godotengine.org/]godotengine.org[/url]  
 License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
 
-[font_size=24]Git[/font_size]
+**GIT**
 Author: [url=https://github.com/torvalds]Linus Torvalds[/url]  
 Source: [url=https://git-scm.com/downloads]git-scm.com[/url]  
 License: [url=https://opensource.org/licenses/GPL-2.0]GNU General Public License version 2[/url]
 
-[font_size=24]Godot Game Template[/font_size]
+**PLUGINS**
 Author: [url=https://github.com/Maaack/Godot-Game-Template/graphs/contributors]Marek Belski and contributors[/url]  
 Source: [url=https://github.com/Maaack/Godot-Game-Template]github: Godot-Game-Template[/url]  
-License: [url=LICENSE.txt]MIT License[/url]  
+License: [url=https://opensource.org/license/mit]MIT License[/url] 
 [/center]"
+
+[node name="FooterSpace" parent="ScrollContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(0, 648)

@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://egs4icp30aba"]
+
+[ext_resource type="Script" uid="uid://cl3fw06tcr1qn" path="res://main/Tower/1_TowerComponents/tower_room.gd" id="1_qklpi"]
+[ext_resource type="PackedScene" uid="uid://bigol8thv3wrl" path="res://main/Tower/2_RoomComponents/basic_room_bg.tscn" id="2_73uh1"]
+[ext_resource type="PackedScene" uid="uid://dnk5s2qvl6r5g" path="res://main/Tower/2_RoomComponents/tiling_floor.tscn" id="3_ctkqt"]
+[ext_resource type="PackedScene" uid="uid://bm5i7h0mwndb8" path="res://main/Tower/2_RoomComponents/tiling_wall.tscn" id="4_ii8du"]
+[ext_resource type="Texture2D" uid="uid://dhgob38j0shnp" path="res://wip/wip-sqlpy/assets/tower_room_separator_texture.tres" id="5_fqj3p"]
+[ext_resource type="Script" uid="uid://dv77o5682uey2" path="res://wip/wip-sqlpy/room_separator_line.gd" id="6_xitgc"]
+[ext_resource type="PackedScene" uid="uid://c7iapunvbyeuu" path="res://wip/wip-sqlpy/scenes/wisp.tscn" id="8_brpv4"]
+[ext_resource type="PackedScene" uid="uid://fpshnwrqhnrp" path="res://wip/wip-staging/rat.tscn" id="8_qklpi"]
+[ext_resource type="PackedScene" uid="uid://lb1xgx5lsfmv" path="res://wip/wip-sqlpy/scenes/torch.tscn" id="9_73uh1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0jcj"]
+size = Vector2(352, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6htv"]
+size = Vector2(352, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0kg"]
+size = Vector2(8, 288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vl8m1"]
+size = Vector2(8, 192)
+
+[node name="Ending" type="Node2D"]
+script = ExtResource("1_qklpi")
+
+[node name="RoomContent" type="Node2D" parent="."]
+
+[node name="BasicRoomBG" parent="RoomContent" instance=ExtResource("2_73uh1")]
+offset_left = 0.0
+offset_right = 352.0
+offset_bottom = 288.0
+
+[node name="Walls" type="Node2D" parent="RoomContent"]
+
+[node name="Roof" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(160, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Roof"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_v0jcj")
+
+[node name="Floor" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(160, 288)
+
+[node name="TilingFloor" parent="RoomContent/Walls/Floor" instance=ExtResource("3_ctkqt")]
+points = PackedVector2Array(-160, 0, 192, 0)
+
+[node name="TilingFloor2" parent="RoomContent/Walls/Floor" instance=ExtResource("3_ctkqt")]
+position = Vector2(0, -288)
+points = PackedVector2Array(-160, 0, 192, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/Floor"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_v6htv")
+
+[node name="LeftWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(0, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/LeftWall"]
+position = Vector2(352, 16)
+shape = SubResource("RectangleShape2D_dj0kg")
+
+[node name="RightWall" type="StaticBody2D" parent="RoomContent/Walls"]
+position = Vector2(352, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContent/Walls/RightWall"]
+position = Vector2(-352, 0)
+shape = SubResource("RectangleShape2D_vl8m1")
+
+[node name="CameraTarget" type="Marker2D" parent="."]
+position = Vector2(176, 144)
+
+[node name="CameraBounds" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = 96.0
+offset_right = 288.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+border_width = 2.0
+
+[node name="TilingWall" parent="." instance=ExtResource("4_ii8du")]
+position = Vector2(352, 384)
+points = PackedVector2Array(0, -96, 0, -384)
+
+[node name="TilingWall2" parent="." instance=ExtResource("4_ii8du")]
+position = Vector2(0, 192)
+points = PackedVector2Array(0, 0, 0, -192)
+
+[node name="TowerRoomSeparator" type="Line2D" parent="."]
+z_index = 1
+points = PackedVector2Array(0, 176, 0, 0, 352, 0, 352, 288, 0, 288)
+width = 32.0
+texture = ExtResource("5_fqj3p")
+texture_mode = 2
+joint_mode = 2
+sharp_limit = 200.0
+script = ExtResource("6_xitgc")
+metadata/_custom_type_script = "uid://dv77o5682uey2"
+
+[node name="RigidBody2D" parent="." instance=ExtResource("8_brpv4")]
+visible = false
+position = Vector2(177, 128)
+
+[node name="Torch" parent="." instance=ExtResource("9_73uh1")]
+position = Vector2(176, 128)
+
+[node name="Rat" parent="." instance=ExtResource("8_qklpi")]
+position = Vector2(256, 272)
+can_escape = false
+WANDER_SPEED = 30.0
+RUN_SPEED = 200.0
+MAX_LEFT = -100.0
+MAX_RIGHT = 20.0
+DIRECTION_TO_EXIT = 0

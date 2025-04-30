@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cyf37je1wgklf"]
+[gd_scene load_steps=24 format=3 uid="uid://cyf37je1wgklf"]
 
 [ext_resource type="Script" uid="uid://oy87tvs1rv8p" path="res://wip/wip-sqlpy/LargeBookshelf/shuffle_book.gd" id="1_l4cdb"]
 [ext_resource type="Texture2D" uid="uid://c53dry1i7kwe6" path="res://assets/assets-visual/controverse/IMG_book_001.png" id="2_gtvb6"]
@@ -6,6 +6,10 @@
 [ext_resource type="Shader" uid="uid://1ns4ubheedsj" path="res://wip/wip-sqlpy/LargeBookshelf/Desaturate.gdshader" id="4_ey5df"]
 [ext_resource type="Shader" uid="uid://cgbixsy2p4fkn" path="res://wip/wip-sqlpy/LargeBookshelf/book_dust.gdshader" id="5_4m88e"]
 [ext_resource type="Texture2D" uid="uid://c8fpwtp81s5ue" path="res://wip/wip-sqlpy/assets/Grainy 3 - 512x512.png" id="6_4m88e"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4m88e"]
+friction = 0.29
+rough = true
 
 [sub_resource type="Gradient" id="Gradient_l4cdb"]
 colors = PackedColorArray(0.517288, 0.512523, 0.58582, 1, 1, 1, 1, 1)
@@ -59,6 +63,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0342466, 0.575758), -3.17638, 
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_1olfy"]
+resource_local_to_scene = true
 curve = SubResource("Curve_4m88e")
 
 [sub_resource type="Curve" id="Curve_wpfjl"]
@@ -69,10 +74,11 @@ point_count = 3
 curve = SubResource("Curve_wpfjl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ey5df"]
+resource_local_to_scene = true
 lifetime_randomness = 0.56
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(1, 323, 1)
+emission_box_extents = Vector3(1, 128.5, 1)
 angle_min = 1.07288e-05
 angle_max = 360.0
 gravity = Vector3(0, 0, 0)
@@ -83,7 +89,9 @@ alpha_curve = SubResource("CurveTexture_1olfy")
 
 [node name="ShuffleBook" type="AnimatableBody2D"]
 modulate = Color(0.517288, 0.512523, 0.58582, 1)
+collision_layer = 9
 collision_mask = 4
+physics_material_override = SubResource("PhysicsMaterial_4m88e")
 script = ExtResource("1_l4cdb")
 texture = ExtResource("2_gtvb6")
 has_collision = true

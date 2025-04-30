@@ -1,19 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://dal58gejkw8dh"]
+[gd_scene load_steps=14 format=3 uid="uid://dal58gejkw8dh"]
 
 [ext_resource type="PackedScene" uid="uid://sikc02ddepyt" path="res://addons/maaacks_game_template/base/scenes/opening/opening.tscn" id="1_4rk7a"]
 [ext_resource type="Script" uid="uid://kern6hj4126h" path="res://main/GameTemplate/scenes/opening/opening.gd" id="2_vwpx5"]
-[ext_resource type="Texture2D" uid="uid://bkv8h8be7bhtl" path="res://wip/wip-vrood/scene_1.png" id="3_vwpx5"]
-[ext_resource type="Texture2D" uid="uid://4vtjxuamgmem" path="res://wip/wip-vrood/scene_2.png" id="4_kmlm8"]
+[ext_resource type="Texture2D" uid="uid://bcrlfvooxbp2o" path="res://main/GameTemplate/scenes/opening/images/slide9.png" id="3_f8owb"]
+[ext_resource type="Texture2D" uid="uid://txbtc82otn8t" path="res://main/GameTemplate/scenes/opening/images/slide1.png" id="4_ojxtk"]
+[ext_resource type="Texture2D" uid="uid://b0a3m18x5caea" path="res://main/GameTemplate/scenes/opening/images/slide2.png" id="5_illbw"]
+[ext_resource type="Texture2D" uid="uid://c4ert4fp57qx6" path="res://main/GameTemplate/scenes/opening/images/slide3.png" id="6_ao6g7"]
+[ext_resource type="Texture2D" uid="uid://73rrghugdxe3" path="res://main/GameTemplate/scenes/opening/images/slide4.png" id="7_dutba"]
+[ext_resource type="Texture2D" uid="uid://dwngj8euma0se" path="res://main/GameTemplate/scenes/opening/images/slide5.png" id="8_c7yya"]
+[ext_resource type="Texture2D" uid="uid://c8c5hbn6hh47w" path="res://main/GameTemplate/scenes/opening/images/slide6.png" id="9_f3ea1"]
+[ext_resource type="Texture2D" uid="uid://cph3a8010tn77" path="res://main/GameTemplate/scenes/opening/images/slide7.png" id="10_i5m8q"]
+[ext_resource type="Texture2D" uid="uid://dhek32hk472yb" path="res://main/GameTemplate/scenes/opening/images/slide8.png" id="11_jh55i"]
+[ext_resource type="Texture2D" uid="uid://cxcrjd22otj1i" path="res://main/GameTemplate/scenes/opening/images/slide10.png" id="12_gkjky"]
+[ext_resource type="AudioStream" uid="uid://bgjiy2hkyec6p" path="res://assets/assets-audio/music/004 - Disassembly (And Disorder).wav" id="13_f8owb"]
 
 [node name="Opening" instance=ExtResource("1_4rk7a")]
 script = ExtResource("2_vwpx5")
 next_scene = "uid://c4bb0pm7buxbq"
-images = Array[Texture2D]([ExtResource("3_vwpx5"), ExtResource("4_kmlm8")])
-fade_in_time = 0.5
-fade_out_time = 0.5
-visible_time = 4.2
-start_delay = 0.75
-end_delay = 0.75
+images = Array[Texture2D]([ExtResource("3_f8owb"), ExtResource("4_ojxtk"), ExtResource("5_illbw"), ExtResource("6_ao6g7"), ExtResource("7_dutba"), ExtResource("8_c7yya"), ExtResource("9_f3ea1"), ExtResource("10_i5m8q"), ExtResource("11_jh55i"), ExtResource("3_f8owb"), ExtResource("12_gkjky")])
+fade_out_time = 0.0
+visible_time = 10.0
+
+[node name="BackgroundMusicPlayer" parent="." index="0"]
+stream = ExtResource("13_f8owb")
 
 [node name="ColorRect" type="ColorRect" parent="." index="1"]
 z_index = -1
@@ -23,4 +32,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.67451)
+color = Color(0, 0, 0, 1)

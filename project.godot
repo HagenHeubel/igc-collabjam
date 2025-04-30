@@ -44,9 +44,7 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/
 folder_colors={
 "res://assets/": "red",
 "res://main/": "yellow",
-"res://main/GameTemplate/": "green",
 "res://main/GameTemplate/scenes/game_scene/": "red",
-"res://main/GameTemplate/scenes/menus/main_menu/": "green",
 "res://main/Objects/Components/modular-area-2d/": "blue",
 "res://main/Player/": "blue",
 "res://main/Tower/": "yellow",
@@ -62,7 +60,7 @@ folder_colors={
 
 [gui]
 
-theme/custom_font="uid://bwd76offfwyvc"
+theme/custom_font="uid://bfmogcx24a8xs"
 
 [input]
 
